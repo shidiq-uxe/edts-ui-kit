@@ -10,8 +10,10 @@ To include this library in your project, add the following dependency to your `b
 dependencies {
     implementation 'com.edts:uikits:0.1.0'
 }
+```
 
-Overview
+## Overview
+
 General / Global Components
 Typography
 
@@ -46,11 +48,12 @@ Bottom Tray / Bottom Sheet
 A customizable bottom sheet component that can be used for displaying additional content or actions. Further adjustments are needed.
 Usage
     
-Roadmap
+## Roadmap
 
 Complete the Shape / Radius utilities.
 Finalize the Dialog component.
 Continue development on the Coach Mark View.
 Further refine the Bottom Tray / Bottom Sheet component.
-Contributing
+
+## Contributing
 Contributions are welcome! If you'd like to contribute, please fork the repository and submit a pull request.
