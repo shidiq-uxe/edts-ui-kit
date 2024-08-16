@@ -14,46 +14,45 @@ dependencies {
 
 ## Overview
 
-General / Global Components
-Typography
+- **Typography**
+    - A set of predefined text styles for consistent typography across your application.
 
-A set of predefined text styles for consistent typography across your application.
-Buttons
+- **Buttons**
+    - Customizable buttons with various styles, including primary, secondary, and tertiary options.
 
-Customizable buttons with various styles, including primary, secondary, and tertiary options.
-Shape / Radius (On Progress)
+- **Shape / Radius** (On Progress)
+    - Tools to apply consistent corner radius and shapes to UI components. Currently in development.
 
-Tools to apply consistent corner radius and shapes to UI components. Currently in development.
-Dialog (On Progress)
+- **Dialog** (On Progress)
+    - Standardized dialog styles for use across your application. Currently in development.
 
-Standardized dialog styles for use across your application. Currently in development.
-Alert
+- **Alert**
+    - Predefined alert styles to notify users with consistent visual feedback.
 
-Predefined alert styles to notify users with consistent visual feedback.
-Textfields
+- **Textfields**
+    - Custom text input fields with integrated error handling, hints, and labels.
 
-Custom text input fields with integrated error handling, hints, and labels.
-Components
-Indicator View
+## Components
 
-A view component designed for indicating progress or steps in a process, customizable for various use cases.
-Boarding View (Animations Included)
+- **Indicator View**
+    - A view component designed for indicating progress or steps in a process, customizable for various use cases.
 
-A customizable onboarding view with built-in animations to guide users through initial app setup or features.
-Coach Mark View (On Progress)
+- **Boarding View** (Animations Included)
+    - A customizable onboarding view with built-in animations to guide users through initial app setup or features.
 
-A feature to highlight and guide users through key UI elements. Currently in development.
-Bottom Tray / Bottom Sheet
+- **Coach Mark View** (On Progress)
+    - A feature to highlight and guide users through key UI elements. Currently in development.
 
-A customizable bottom sheet component that can be used for displaying additional content or actions. Further adjustments are needed.
-Usage
+- **Bottom Tray / Bottom Sheet**
+    - A customizable bottom sheet component that can be used for displaying additional content or actions. Further adjustments are needed.
+
     
 ## Roadmap
 
-Complete the Shape / Radius utilities.
-Finalize the Dialog component.
-Continue development on the Coach Mark View.
-Further refine the Bottom Tray / Bottom Sheet component.
+- **Complete the Shape / Radius utilities.** -
+- **Finalize the Dialog component.** -
+- **Continue development on the Coach Mark View.** -
+- **Further refine the Bottom Tray / Bottom Sheet component.** -
 
 ## Contributing
 Contributions are welcome! If you'd like to contribute, please fork the repository and submit a pull request.
