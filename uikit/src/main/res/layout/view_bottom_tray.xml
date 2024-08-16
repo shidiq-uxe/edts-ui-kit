@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/flRoot"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <!--Could Use BottomSheetDragHandleView Component from Material Design-->
+    <com.google.android.material.bottomsheet.BottomSheetDragHandleView
+        android:id="@+id/ivPullBar"
+        android:layout_width="@dimen/xl"
+        android:layout_height="@dimen/xxxs"
+        android:layout_marginTop="@dimen/xxs"
+        app:srcCompat="@color/black_30"
+        app:shapeAppearance="@style/ShapeAppearance.EDTS.UIKit.SmallComponent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <FrameLayout
+        android:id="@+id/flTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/m1"
+        app:layout_constraintTop_toBottomOf="@id/ivPullBar">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/ivBack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="@dimen/s"
+                android:src="@drawable/ic_arrow_left"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvTitle"
+                android:layout_width="@dimen/dimen_0"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/s"
+                android:textColor="@color/black_70"
+                android:textAppearance="@style/TextAppearance.Inter.Semibold.H1"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toEndOf="@id/ivBack"
+                app:layout_constraintEnd_toStartOf="@id/ivClose"
+                app:layout_constraintBottom_toBottomOf="parent"
+                tools:text="This Would Be A Title"/>
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/ivClose"
+                android:layout_marginEnd="@dimen/s"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:foreground="?attr/selectableItemBackgroundBorderless"
+                android:adjustViewBounds="true"
+                app:srcCompat="@drawable/ic_cancel"
+                app:shapeAppearanceOverlay="@style/ShapeAppearance.EDTS.UIKit.MediumComponent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </FrameLayout>
+
+    <com.google.android.material.divider.MaterialDivider
+        android:id="@+id/ctaDivider"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_1"
+        android:layout_marginTop="@dimen/m1"
+        app:dividerColor="@color/black_30"
+        app:layout_constraintTop_toBottomOf="@id/flTitle"/>
+
+    <FrameLayout
+        android:id="@+id/flContent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/ctaDivider"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

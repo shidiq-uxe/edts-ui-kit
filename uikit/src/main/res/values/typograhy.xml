@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--Display-->
+    <style name="TextAppearance.Inter.Semibold.D1" parent="Base.TextAppearance.AppCompat">
+        <item name="fontFamily">@font/inter_semibold</item>
+        <item name="android:fontFamily">@font/inter_semibold</item>
+        <item name="android:textSize">@dimen/d1_text_size</item>
+        <item name="lineHeight">@dimen/dimen_30</item>
+    </style>
+
+    <style name="TextAppearance.Inter.Semibold.D2" parent="Base.TextAppearance.AppCompat">
+        <item name="fontFamily">@font/inter_semibold</item>
+        <item name="android:fontFamily">@font/inter_semibold</item>
+        <item name="android:textSize">@dimen/d2_text_size</item>
+        <item name="lineHeight">@dimen/dimen_26</item>
+    </style>
+
+    <!--Heading-->
+    <style name="TextAppearance.Inter.Semibold.H1" parent="Base.TextAppearance.AppCompat">
+        <item name="fontFamily">@font/inter_semibold</item>
+        <item name="android:fontFamily">@font/inter_semibold</item>
+        <item name="android:textSize">@dimen/h1_text_size</item>
+        <item name="lineHeight">@dimen/dimen_18</item>
+    </style>
+
+    <style name="TextAppearance.Inter.Semibold.H2" parent="Base.TextAppearance.AppCompat">
+        <item name="fontFamily">@font/inter_semibold</item>
+        <item name="android:fontFamily">@font/inter_semibold</item>
+        <item name="android:textSize">@dimen/h2_text_size</item>
+        <item name="lineHeight">@dimen/dimen_16</item>
+    </style>
+
+    <style name="TextAppearance.Inter.Semibold.H3" parent="Base.TextAppearance.AppCompat">
+        <item name="fontFamily">@font/inter_semibold</item>
+        <item name="android:fontFamily">@font/inter_semibold</item>
+        <item name="android:textSize">@dimen/h3_text_size</item>
+        <item name="lineHeight">@dimen/dimen_14</item>
+    </style>
+
+    <style name="TextAppearance.Inter.Semibold.H4" parent="Base.TextAppearance.AppCompat">
+        <item name="fontFamily">@font/inter_semibold</item>
+        <item name="android:fontFamily">@font/inter_semibold</item>
+        <item name="android:textSize">@dimen/h4_text_size</item>
+        <item name="lineHeight">@dimen/dimen_14</item>
+    </style>
+
+    <!--Body-->
+    <style name="TextAppearance.Inter.Regular.B1" parent="Base.TextAppearance.AppCompat">
+        <item name="fontFamily">@font/inter</item>
+        <item name="android:fontFamily">@font/inter</item>
+        <item name="android:textSize">@dimen/b1_text_size</item>
+        <item name="lineHeight">@dimen/dimen_18</item>
+    </style>
+
+    <style name="TextAppearance.Inter.Regular.B2" parent="Base.TextAppearance.AppCompat">
+        <item name="fontFamily">@font/inter</item>
+        <item name="android:fontFamily">@font/inter</item>
+        <item name="android:textSize">@dimen/b2_text_size</item>
+        <item name="lineHeight">@dimen/dimen_16</item>
+    </style>
+
+    <style name="TextAppearance.Inter.Regular.B3" parent="Base.TextAppearance.AppCompat">
+        <item name="fontFamily">@font/inter</item>
+        <item name="android:fontFamily">@font/inter</item>
+        <item name="android:textSize">@dimen/b3_text_size</item>
+        <item name="lineHeight">@dimen/dimen_16</item>
+    </style>
+
+    <style name="TextAppearance.Inter.Regular.B4" parent="Base.TextAppearance.AppCompat">
+        <item name="fontFamily">@font/inter</item>
+        <item name="android:fontFamily">@font/inter</item>
+        <item name="android:textSize">@dimen/b3_text_size</item>
+        <item name="lineHeight">@dimen/dimen_14</item>
+    </style>
+
+    <!--Paragraph-->
+    <style name="TextAppearance.Inter.Regular.Paragraph" parent="Base.TextAppearance.AppCompat">
+        <item name="fontFamily">@font/inter</item>
+        <item name="android:fontFamily">@font/inter</item>
+        <item name="android:textSize">@dimen/b3_text_size</item>
+        <item name="lineHeight">@dimen/dimen_21</item>
+    </style>
+
+    <!--Other-->
+    <style name="TextAppearance.Inter.Regular.Error" parent="Base.TextAppearance.AppCompat">
+        <item name="fontFamily">@font/inter</item>
+        <item name="android:fontFamily">@font/inter</item>
+        <item name="android:textSize">@dimen/b3_text_size</item>
+        <item name="lineHeight">@dimen/dimen_18</item>
+    </style>
+
+</resources>

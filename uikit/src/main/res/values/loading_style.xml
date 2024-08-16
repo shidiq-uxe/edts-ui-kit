@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Widget.EDTS.UIKit.CircularProgressIndicator.Small" parent="Widget.Material3.CircularProgressIndicator.Small">
+        <item name="indicatorSize">@dimen/s</item>
+        <item name="trackThickness">@dimen/dimen_2</item>
+    </style>
+
+    <style name="Widget.EDTS.UIKit.CircularProgressIndicator.Large" parent="Widget.Material3.CircularProgressIndicator.Medium">
+        <item name="indicatorSize">@dimen/m2</item>
+        <item name="trackThickness">@dimen/dimen_2</item>
+    </style>
+</resources>

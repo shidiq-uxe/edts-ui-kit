@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--Dialog-->
+    <style name="ThemeOverlay.EDTS.UIKit.MaterialAlertDialog" parent="ThemeOverlay.Material3.MaterialAlertDialog">
+        <item name="alertDialogStyle">@style/MaterialAlertDialog.EDTS.UIKit</item>
+    </style>
+
+    <style name="ThemeOverlay.EDTS.UIKit.MaterialAlertDialog.Centered" parent="ThemeOverlay.Material3.MaterialAlertDialog.Centered">
+        <item name="alertDialogStyle">@style/MaterialAlertDialog.EDTS.UIKit</item>
+    </style>
+
+    <style name="MaterialAlertDialog.EDTS.UIKit" parent="MaterialAlertDialog.Material3">
+        <item name="shapeAppearance">@style/ShapeAppearance.EDTS.UIKit.Dialog</item>
+        <item name="shapeAppearanceOverlay">@null</item>
+    </style>
+</resources>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--Primary Color Attrs-->
+    <attr name="colorPrimaryDisabled" format="color" />
+    <attr name="colorPrimaryBackground" format="color" />
+    <!--Error Color Attrs-->
+    <attr name="colorErrorBackground" format="color" />
+    <!--Others Attrs-->
+    <attr name="colorWarning" format="color"/>
+    <attr name="colorWarningBackground" format="color"/>
+    <attr name="colorSuccess" format="color"/>
+    <attr name="colorSuccessBackground" format="color"/>
+    <attr name="colorInfo" format="color"/>
+    <attr name="colorInfoBackground" format="color"/>
+    <attr name="colorHub" format="color"/>
+    <attr name="colorService" format="color"/>
+    <attr name="colorSnackbar" format="color"/>
+    <attr name="colorText" format="color"/>
+    <attr name="colorTextDesc" format="color"/>
+    <attr name="colorMutedText" format="color"/>
+    <attr name="colorPlaceholder" format="color"/>
+    <attr name="colorDisableBorder" format="color"/>
+    <attr name="colorInputBorder" format="color"/>
+    <attr name="colorDisableFill" format="color"/>
+    <attr name="colorFocusBorder" format="color"/>
+</resources>

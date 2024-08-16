@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--Text Field-->
+    <style name="Widget.EDTS.UIKit.TextInputLayout.LabelInside" parent="Widget.Material3.TextInputLayout.FilledBox">
+        <item name="materialThemeOverlay">
+            @style/ThemeOverlay.EDTS.UIKit.TextInputLayout.LabelInside
+        </item>
+        <item name="boxBackgroundColor">@color/transparent</item>
+        <item name="boxStrokeWidth">@dimen/dimen_0</item>
+        <item name="boxStrokeWidthFocused">@dimen/dimen_0</item>
+        <item name="counterOverflowTextAppearance">@style/TextAppearance.Inter.Regular.B3</item>
+        <item name="counterOverflowTextColor">?attr/colorError</item>
+        <item name="counterTextAppearance">@style/TextAppearance.Inter.Regular.B3</item>
+        <item name="counterTextColor">?attr/colorMutedText</item>
+        <item name="endIconTint">@color/slr_icon_tint</item>
+        <item name="errorIconDrawable">@null</item>
+        <item name="errorTextAppearance">@style/TextAppearance.Inter.Regular.Error</item>
+        <item name="errorTextColor">?attr/colorError</item>
+        <item name="expandedHintEnabled">true</item>
+        <item name="helperTextTextAppearance">@style/TextAppearance.Inter.Regular.B3</item>
+        <item name="hintTextAppearance">@style/TextAppearance.Inter.Semibold.H3</item>
+        <item name="hintTextColor">?attr/colorMutedText</item>
+        <!--Could Add Password Toggle Drawable For Password Field
+        <item name="passwordToggleDrawable">@drawable/slr_password_toggle</item>-->
+        <item name="placeholderTextAppearance">@style/TextAppearance.Inter.Regular.B1</item>
+        <item name="placeholderTextColor">?attr/colorPlaceholder</item>
+        <item name="prefixTextAppearance">@style/TextAppearance.Inter.Regular.B1</item>
+        <item name="prefixTextColor">?attr/colorMutedText</item>
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearance.EDTS.UIKit.TextInputLayout</item>
+        <item name="startIconTint">@color/slr_icon_tint</item>
+        <item name="suffixTextAppearance">@style/TextAppearance.Inter.Regular.B1</item>
+        <item name="suffixTextColor">?attr/colorMutedText</item>
+    </style>
+
+    <style name="Widget.EDTS.UIKit.TextInputLayout.LabelInside.Flat.Start" parent="Widget.Material3.TextInputLayout.FilledBox">
+        <item name="materialThemeOverlay">
+            @style/ThemeOverlay.EDTS.UIKit.TextInputLayout.LabelInside.Flat.Start
+        </item>
+        <item name="boxBackgroundColor">@color/transparent</item>
+        <item name="boxStrokeWidth">@dimen/dimen_0</item>
+        <item name="boxStrokeWidthFocused">@dimen/dimen_0</item>
+        <item name="counterOverflowTextAppearance">@style/TextAppearance.Inter.Regular.B3</item>
+        <item name="counterOverflowTextColor">?attr/colorError</item>
+        <item name="counterTextAppearance">@style/TextAppearance.Inter.Regular.B3</item>
+        <item name="counterTextColor">?attr/colorMutedText</item>
+        <item name="endIconTint">@color/slr_icon_tint</item>
+        <item name="errorIconDrawable">@null</item>
+        <item name="errorTextAppearance">@style/TextAppearance.Inter.Regular.Error</item>
+        <item name="errorTextColor">?attr/colorError</item>
+        <item name="expandedHintEnabled">true</item>
+        <item name="helperTextTextAppearance">@style/TextAppearance.Inter.Regular.B3</item>
+        <item name="hintTextAppearance">@style/TextAppearance.Inter.Semibold.H3</item>
+        <item name="hintTextColor">?attr/colorMutedText</item>
+        <!--Could Add Password Toggle Drawable For Password Field
+        <item name="passwordToggleDrawable">@drawable/slr_password_toggle</item>-->
+        <item name="placeholderTextAppearance">@style/TextAppearance.Inter.Regular.B1</item>
+        <item name="placeholderTextColor">?attr/colorPlaceholder</item>
+        <item name="prefixTextAppearance">@style/TextAppearance.Inter.Regular.B1</item>
+        <item name="prefixTextColor">?attr/colorMutedText</item>
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearance.EDTS.UIKit.Flat.Corner.Start</item>
+        <item name="startIconTint">@color/slr_icon_tint</item>
+        <item name="suffixTextAppearance">@style/TextAppearance.Inter.Regular.B1</item>
+        <item name="suffixTextColor">?attr/colorMutedText</item>
+    </style>
+
+    <style name="Widget.EDTS.UIKit.TextInputLayout.LabelInside.Flat.End" parent="Widget.Material3.TextInputLayout.FilledBox">
+        <item name="materialThemeOverlay">
+            @style/ThemeOverlay.EDTS.UIKit.TextInputLayout.LabelInside.Flat.End
+        </item>
+        <item name="boxBackgroundColor">@color/transparent</item>
+        <item name="boxStrokeWidth">@dimen/dimen_0</item>
+        <item name="boxStrokeWidthFocused">@dimen/dimen_0</item>
+        <item name="counterOverflowTextAppearance">@style/TextAppearance.Inter.Regular.B3</item>
+        <item name="counterOverflowTextColor">?attr/colorError</item>
+        <item name="counterTextAppearance">@style/TextAppearance.Inter.Regular.B3</item>
+        <item name="counterTextColor">?attr/colorMutedText</item>
+        <item name="endIconTint">@color/slr_icon_tint</item>
+        <item name="errorIconDrawable">@null</item>
+        <item name="errorTextAppearance">@style/TextAppearance.Inter.Regular.Error</item>
+        <item name="errorTextColor">?attr/colorError</item>
+        <item name="expandedHintEnabled">true</item>
+        <item name="helperTextTextAppearance">@style/TextAppearance.Inter.Regular.B3</item>
+        <item name="hintTextAppearance">@style/TextAppearance.Inter.Semibold.H3</item>
+        <item name="hintTextColor">?attr/colorMutedText</item>
+        <!--Could Add Password Toggle Drawable For Password Field
+        <item name="passwordToggleDrawable">@drawable/slr_password_toggle</item>-->
+        <item name="placeholderTextAppearance">@style/TextAppearance.Inter.Regular.B1</item>
+        <item name="placeholderTextColor">?attr/colorPlaceholder</item>
+        <item name="prefixTextAppearance">@style/TextAppearance.Inter.Regular.B1</item>
+        <item name="prefixTextColor">?attr/colorMutedText</item>
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearance.EDTS.UIKit.Flat.Corner.Start</item>
+        <item name="startIconTint">@color/slr_icon_tint</item>
+        <item name="suffixTextAppearance">@style/TextAppearance.Inter.Regular.B1</item>
+        <item name="suffixTextColor">?attr/colorMutedText</item>
+    </style>
+
+    <style name="ThemeOverlay.EDTS.UIKit.TextInputLayout.LabelInside" parent="">
+        <item name="editTextStyle">
+            @style/Widget.EDTS.UIKit.TextInputEditText.LabelInside
+        </item>
+    </style>
+
+    <style name="Widget.EDTS.UIKit.TextInputEditText.LabelInside" parent="Widget.Material3.TextInputEditText.FilledBox">
+        <item name="android:background">@drawable/slr_text_field_background</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textAppearance">@style/TextAppearance.Inter.Regular.B1</item>
+    </style>
+
+    <style name="ThemeOverlay.EDTS.UIKit.TextInputLayout.LabelInside.Flat.Start" parent="">
+        <item name="editTextStyle">
+            @style/Widget.EDTS.UIKit.TextInputEditText.LabelInside.Flat.Start
+        </item>
+    </style>
+
+    <style name="Widget.EDTS.UIKit.TextInputEditText.LabelInside.Flat.Start" parent="Widget.Material3.TextInputEditText.FilledBox">
+        <item name="android:background">@drawable/slr_text_field_round_end_background</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:textAppearance">@style/TextAppearance.Inter.Regular.B1</item>
+    </style>
+
+    <style name="ThemeOverlay.EDTS.UIKit.TextInputLayout.LabelInside.Flat.End" parent="">
+        <item name="editTextStyle">
+            @style/Widget.EDTS.UIKit.TextInputEditText.LabelInside.Flat.End
+        </item>
+    </style>
+
+    <style name="Widget.EDTS.UIKit.TextInputEditText.LabelInside.Flat.End" parent="Widget.Material3.TextInputEditText.FilledBox">
+        <item name="android:background">@drawable/slr_text_field_round_start_background</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:textAppearance">@style/TextAppearance.Inter.Regular.B1</item>
+    </style>
+
+    <style name="Widget.EDTS.UIKit.TextInputLayout.WithoutLabel" parent="Widget.Material3.TextInputLayout.OutlinedBox">
+        <item name="materialThemeOverlay">
+            @style/ThemeOverlay.EDTS.UIKit.TextInputLayout.WithoutLabel
+        </item>
+        <item name="boxStrokeWidth">@dimen/dimen_0</item>
+        <item name="boxStrokeWidthFocused">@dimen/dimen_0</item>
+        <item name="counterOverflowTextAppearance">@style/TextAppearance.Inter.Regular.B3</item>
+        <item name="counterOverflowTextColor">?attr/colorError</item>
+        <item name="counterTextAppearance">@style/TextAppearance.Inter.Regular.B3</item>
+        <item name="counterTextColor">?attr/colorMutedText</item>
+        <item name="endIconTint">@color/slr_icon_tint</item>
+        <item name="errorIconDrawable">@null</item>
+        <item name="errorTextAppearance">@style/TextAppearance.Inter.Regular.Error</item>
+        <item name="errorTextColor">?attr/colorError</item>
+        <item name="expandedHintEnabled">false</item>
+        <item name="helperTextTextAppearance">@style/TextAppearance.Inter.Regular.B3</item>
+        <item name="hintEnabled">false</item>
+        <!--Could Add Password Toggle Drawable For Password Field
+        <item name="passwordToggleDrawable">@drawable/slr_password_toggle</item>-->
+        <item name="placeholderTextAppearance">@style/TextAppearance.Inter.Regular.B1</item>
+        <item name="placeholderTextColor">?attr/colorMutedText</item>
+        <item name="prefixTextAppearance">@style/TextAppearance.Inter.Regular.B1</item>
+        <item name="prefixTextColor">?attr/colorMutedText</item>
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearance.EDTS.UIKit.TextInputLayout</item>
+        <item name="startIconTint">@color/slr_icon_tint</item>
+        <item name="suffixTextAppearance">@style/TextAppearance.Inter.Regular.B1</item>
+        <item name="suffixTextColor">?attr/colorMutedText</item>
+    </style>
+
+    <style name="ThemeOverlay.EDTS.UIKit.TextInputLayout.WithoutLabel" parent="">
+        <item name="editTextStyle">
+            @style/Widget.EDTS.UIKit.TextInputEditText.WithoutLabel
+        </item>
+    </style>
+
+    <style name="Widget.EDTS.UIKit.TextInputEditText.WithoutLabel" parent="Widget.Material3.TextInputEditText.OutlinedBox">
+        <item name="android:background">@drawable/slr_text_field_background</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textAppearance">@style/TextAppearance.Inter.Regular.B1</item>
+    </style>
+
+    <style name="Widget.EDTS.UIKit.TextInputLayout.Otp" parent="Widget.EDTS.UIKit.TextInputLayout.WithoutLabel">
+        <item name="materialThemeOverlay">
+            @style/ThemeOverlay.EDTS.UIKit.TextInputLayout.Otp
+        </item>
+        <item name="layout_constraintDimensionRatio">1:1</item>
+    </style>
+
+    <style name="ThemeOverlay.EDTS.UIKit.TextInputLayout.Otp" parent="">
+        <item name="editTextStyle">
+            @style/Widget.EDTS.UIKit.TextInputEditText.Otp
+        </item>
+    </style>
+
+    <style name="Widget.EDTS.UIKit.TextInputEditText.Otp" parent="Widget.EDTS.UIKit.TextInputEditText.WithoutLabel">
+        <item name="android:background">@drawable/slr_text_field_otp_background</item>
+        <item name="android:gravity">center</item>
+        <item name="android:inputType">number</item>
+        <item name="android:minHeight">@dimen/box_height</item>
+        <item name="android:padding">@dimen/dimen_0</item>
+        <item name="android:textAppearance">@style/TextAppearance.Inter.Regular.B1</item>
+    </style>
+</resources>

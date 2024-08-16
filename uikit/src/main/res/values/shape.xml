@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="ShapeAppearance.EDTS.UIKit.ExtraSmallComponent" parent="ShapeAppearance.Material3.SmallComponent">
+        <item name="cornerSize">@dimen/dimen_2</item>
+    </style>
+
+    <style name="ShapeAppearance.EDTS.UIKit.SmallComponent" parent="ShapeAppearance.Material3.SmallComponent">
+        <item name="cornerSize">@dimen/xxxs</item>
+    </style>
+
+    <style name="ShapeAppearance.EDTS.UIKit.MediumComponent" parent="ShapeAppearance.Material3.MediumComponent">
+        <item name="cornerSize">@dimen/xxs</item>
+    </style>
+
+    <style name="ShapeAppearance.EDTS.UIKit.LargeComponent" parent="ShapeAppearance.Material3.MediumComponent">
+        <item name="cornerSize">@dimen/xs</item>
+    </style>
+
+    <style name="ShapeAppearance.EDTS.UIKit.ExtraLargeComponent" parent="ShapeAppearance.Material3.MediumComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/s</item>
+    </style>
+
+    <style name="ShapeAppearance.EDTS.UIKit.Flat.Corner.Start" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopLeft">@dimen/dimen_0</item>
+        <item name="cornerSizeBottomLeft">@dimen/dimen_0</item>
+    </style>
+
+    <style name="ShapeAppearance.EDTS.UIKit.Flat.Corner.End" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/dimen_6</item>
+        <item name="boxCornerRadiusTopStart">@dimen/dimen_0</item>
+        <item name="boxCornerRadiusBottomStart">@dimen/dimen_0</item>
+    </style>
+
+    <style name="ShapeAppearance.EDTS.UIKit.Flat.Corner.Bottom" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeBottomRight">@dimen/dimen_0</item>
+        <item name="cornerSizeBottomLeft">@dimen/dimen_0</item>
+        <item name="cornerSizeTopRight">@dimen/xxxs</item>
+        <item name="cornerSizeTopLeft">@dimen/xxxs</item>
+    </style>
+
+    <style name="ShapeAppearance.EDTS.UIKit.Button" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/xxxs</item>
+    </style>
+
+    <style name="ShapeAppearance.EDTS.UIKit.TextInputLayout" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/dimen_6</item>
+    </style>
+
+    <style name="ShapeAppearance.EDTS.UIKit.Tooltip.Slider" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/xxxs</item>
+    </style>
+
+    <style name="ShapeAppearance.EDTS.UIKit.Dialog" parent="ShapeAppearance.Material3.MediumComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/dimen_10</item>
+    </style>
+
+    <style name="ShapeAppearance.EDTS.UIKit.Chip" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
+</resources>

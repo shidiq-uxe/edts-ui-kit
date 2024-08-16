@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/iv_boarding_ill"
+        android:layout_width="@dimen/dimen_0"
+        android:layout_height="@dimen/dimen_0"
+        android:contentDescription="@string/cd_boarding_illustration"
+        app:layout_constraintBottom_toTopOf="@+id/tv_boarding_title"
+        app:layout_constraintDimensionRatio="H,1:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed"
+        app:layout_constraintWidth_percent="0.7"
+        tools:src="@drawable/ill_onboard_example" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_boarding_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/s"
+        android:layout_marginTop="@dimen/xl"
+        android:textAppearance="@style/TextAppearance.Inter.Semibold.D2"
+        app:layout_constraintBottom_toTopOf="@+id/tv_boarding_description"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_boarding_ill"
+        tools:text="Boarding Title" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_boarding_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/s"
+        android:layout_marginTop="@dimen/xxs"
+        android:textAppearance="@style/TextAppearance.Inter.Regular.Paragraph"
+        android:maxLines="3"
+        android:ellipsize="end"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_boarding_title"
+        app:layout_constraintVertical_bias="0.0"
+        tools:maxLines="3"
+        tools:text="@tools:sample/lorem/random" />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

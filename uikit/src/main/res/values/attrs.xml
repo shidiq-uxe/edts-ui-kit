@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--Primary Color Attrs-->
+    <attr name="colorPrimaryDisabled" format="color" />
+    <attr name="colorPrimaryBackground" format="color" />
+    <!--Error Color Attrs-->
+    <attr name="colorErrorBackground" format="color" />
+    <!--Others Attrs-->
+    <attr name="colorWarning" format="color"/>
+    <attr name="colorWarningBackground" format="color"/>
+    <attr name="colorSuccess" format="color"/>
+    <attr name="colorSuccessBackground" format="color"/>
+    <attr name="colorInfo" format="color"/>
+    <attr name="colorInfoBackground" format="color"/>
+    <attr name="colorHub" format="color"/>
+    <attr name="colorService" format="color"/>
+    <attr name="colorSnackbar" format="color"/>
+    <attr name="colorText" format="color"/>
+    <attr name="colorTextDesc" format="color"/>
+    <attr name="colorMutedText" format="color"/>
+    <attr name="colorPlaceholder" format="color"/>
+    <attr name="colorDisableBorder" format="color"/>
+    <attr name="colorInputBorder" format="color"/>
+    <attr name="colorDisableFill" format="color"/>
+    <attr name="colorFocusBorder" format="color"/>
+
+    <declare-styleable name="IndicatorView">
+
+        <attr name="indicator_checked_color" format="color" />
+        <attr name="indicator_default_color" format="color" />
+        <attr name="indicator_default_width" format="dimension" />
+        <attr name="indicator_selected_width" format="dimension" />
+        <attr name="indicator_slider_height" format="dimension" />
+        <attr name="indicator_gap" format="dimension" />
+        <attr name="rtl" format="boolean" />
+
+        <attr name="indicator_orientation" format="enum">
+            <enum name="horizontal" value="0" />
+            <enum name="vertical" value="1" />
+            <enum name="rtl" value="3"/>
+        </attr>
+
+        <attr name="indicator_slide_mode" format="enum">
+            <enum name="normal" value="0" />
+            <enum name="smooth" value="2" />
+            <enum name="worm" value="3" />
+            <enum name="scale" value="4" />
+            <enum name="color" value="5" />
+        </attr>
+
+        <attr name="indicator_style" format="enum">
+            <enum name="circle" value="0" />
+            <enum name="dash" value="2" />
+            <enum name="round_rect" value="4" />
+        </attr>
+
+    </declare-styleable>
+
+    <declare-styleable name="BoardingView">
+
+        <attr name="indicator_style" />
+        <attr name="indicator_radius" />
+        <!--<attr name="shapeSelectedWidth" />
+        <attr name="shapeSelectedHeight" />-->
+        <attr name="indicator_slide_mode" />
+        <attr name="indicator_orientation" />
+        <attr name="indicator_default_color" />
+        <attr name="indicator_checked_color" />
+        <attr name="indicator_gap" />
+        <attr name="rtl" />
+
+        <attr name="autoScrollInterval" format="integer" />
+        <attr name="circular" format="boolean" />
+        <attr name="canBackOnFirstPosition" format="boolean" />
+
+        <attr name="indicator_alignment" format="enum">
+            <enum name="Left" value="0" />
+            <enum name="Center" value="1" />
+            <enum name="Right" value="2" />
+        </attr>
+
+        <attr name="content_vertical_offset_percentage" format="float"/>
+        <attr name="content_horizontal_offset_percentage" format="float"/>
+
+    </declare-styleable>
+
+    <declare-styleable name="TextField">
+        <attr name="textInputStyleEnum" format="enum">
+            <enum name="labelInside" value="0" />
+            <enum name="flatStart" value="1" />
+            <enum name="flatEnd" value="2" />
+            <enum name="withoutLabel" value="3" />
+            <enum name="otp" value="4" />
+        </attr>
+        <attr name="enableErrorState" format="boolean" />
+        <attr name="enableHelperText" format="boolean" />
+        <attr name="customHintTextColor" format="color" />
+    </declare-styleable>
+
+</resources>

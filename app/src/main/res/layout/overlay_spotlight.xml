@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:background="@color/spotlightBackground">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvOverlayDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/s"
+        android:layout_marginBottom="@dimen/s"
+        android:text="@string/lorem"
+        android:textColor="@color/white"
+        android:maxLines="3"
+        android:ellipsize="end"
+        android:textAppearance="@style/TextAppearance.Inter.Regular.Paragraph"
+        app:layout_constraintBottom_toTopOf="@id/ctaDivider"/>
+
+
+    <com.google.android.material.divider.MaterialDivider
+        android:id="@+id/ctaDivider"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_1"
+        android:layout_marginBottom="@dimen/s"
+        android:layout_marginHorizontal="@dimen/s"
+        app:dividerColor="@color/black_30"
+        app:layout_constraintBottom_toTopOf="@id/btnNext"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnNext"
+        style="@style/Widget.EDTS.UIKit.Button.Filled.Medium"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/s"
+        android:layout_marginBottom="@dimen/xs"
+        android:text="Next Overlay"
+        app:layout_constraintBottom_toTopOf="@id/btnPrevious"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnPrevious"
+        style="@style/Widget.EDTS.UIKit.Button.Filled.Medium"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/s"
+        android:layout_marginBottom="@dimen/l"
+        android:text="Previous Overlay"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

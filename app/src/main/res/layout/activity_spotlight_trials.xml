@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SpotlightTrialsActivity">
+
+    <LinearLayout
+        android:id="@+id/llContainer"
+        android:layout_width="@dimen/dimen_0"
+        android:layout_height="@dimen/dimen_0"
+        android:layout_marginTop="@dimen/xxxl"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:padding="16dp"
+        app:layout_constraintWidth_percent="0.4"
+        app:layout_constraintDimensionRatio="16:9"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/ivTarget1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:shapeAppearance="@style/ShapeAppearance.EDTS.UIKit.MediumComponent"
+            app:cardBackgroundColor="@color/success_primary"/>
+
+    </LinearLayout>
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/ivTarget2"
+        android:layout_width="@dimen/dimen_0"
+        android:layout_height="@dimen/dimen_0"
+        android:layout_marginTop="@dimen/s"
+        android:background="@color/primary_40"
+        app:shapeAppearance="@style/ShapeAppearance.EDTS.UIKit.MediumComponent"
+        app:layout_constraintWidth_percent="0.6"
+        app:layout_constraintDimensionRatio="10:3"
+        app:layout_constraintTop_toBottomOf="@id/llContainer"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/ivTarget3"
+        android:layout_width="@dimen/dimen_0"
+        android:layout_height="@dimen/dimen_0"
+        android:layout_marginTop="@dimen/s"
+        android:background="@color/warning_border"
+        app:shapeAppearance="@style/ShapeAppearance.EDTS.UIKit.MediumComponent"
+        app:layout_constraintWidth_percent="0.5"
+        app:layout_constraintDimensionRatio="10:2"
+        app:layout_constraintTop_toBottomOf="@id/ivTarget2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <!--<id.co.edtslib.uikit.textfield.TextField
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_16"
+        app:textInputStyleEnum="labelInside"
+        android:layout_marginHorizontal="@dimen/dimen_16"
+        app:layout_constraintTop_toBottomOf="@id/ivTarget3"/>-->
+
+    <id.co.edtslib.uikit.textinputlayout.TextInputLayout
+        android:id="@+id/tilTest"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/Widget.EDTS.UIKit.TextInputLayout.LabelInside"
+        app:expandedHintEnabled="true"
+        app:hintTextAppearance="@style/TextAppearance.Inter.Semibold.H3"
+        android:hint="Nomor Handphone atau Email"
+        app:placeholderText="Placeholder"
+        android:layout_marginTop="@dimen/dimen_16"
+        android:layout_marginHorizontal="@dimen/dimen_16"
+        app:layout_constraintTop_toBottomOf="@id/ivTarget3">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </id.co.edtslib.uikit.textinputlayout.TextInputLayout>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/xs"
+        android:text="Only H3 Bold Test"
+        android:textColor="@color/black_50"
+        android:textAppearance="@style/TextAppearance.Inter.Semibold.H3"
+        app:layout_constraintTop_toBottomOf="@id/tilTest"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

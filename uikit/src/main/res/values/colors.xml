@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--Application Colors-->
+    <!--Primary-->
+    <color name="primary_50">#044B95</color>
+    <color name="primary_40">#0958AA</color>
+    <color name="primary_30">#1178D4</color>
+    <color name="primary_20">#368BE2</color>
+    <color name="primary_10">#6CA5E0</color>
+
+    <!--Secondary-->
+    <color name="secondary_50">#CC8000</color>
+    <color name="secondary_40">#DA8D0B</color>
+    <color name="secondary_30">#F29D0D</color>
+    <color name="secondary_20">#F0AF42</color>
+    <color name="secondary_10">#EEC787</color>
+
+    <color name="red">#BB0000</color>
+    <color name="red_40">#DC1013</color>
+    <color name="red_30">#EE2B2E</color>
+    <color name="red_20">#FD474A</color>
+    <color name="red_10">#FFEDEE</color>
+
+    <!--Neutral-->
+    <color name="black_70">#151823</color>
+    <color name="black_60">#434755</color>
+    <color name="black_50">#70727D</color>
+    <color name="black_40">#9C9DA6</color>
+    <color name="black_30">#DCDEE3</color>
+    <color name="black_20">#EFF3F6</color>
+    <color name="black_10">#F8FBFC</color>
+    <color name="white">#FFFFFF</color>
+
+    <!--Support - Alert-->
+    <color name="alert_primary">@color/red_30</color>
+    <color name="alert_background">@color/red_10</color>
+    <color name="alert_border">@color/red_30</color>
+
+    <!--Support - Warning-->
+    <color name="warning_primary">#FF7D1D</color>
+    <color name="warning_background">#FFF0E6</color>
+    <color name="warning_border">#FF7D1D</color>
+
+    <!--Support - Success-->
+    <color name="success_primary">#8FC742</color>
+    <color name="success_background">#EBFFD0</color>
+    <color name="success_border">#8FC742</color>
+
+    <!--Support - Info-->
+    <color name="info_primary">@color/primary_30</color>
+    <color name="info_background">#F2F9FF</color>
+    <color name="info_border">@color/primary_30</color>
+
+    <!--Support - Light - Alert-->
+    <color name="light_primary">@color/black_50</color>
+    <color name="light_background">@color/black_10</color>
+    <color name="light_border">@color/black_30</color>
+
+    <!--Support Others-->
+    <color name="support_others">#FAAD24</color>
+    <color name="support_extra">#439E25</color>
+    <color name="support_fab">#F9CA24</color>
+    <color name="support_selected">#E7F2FB</color>
+    <color name="transparent">#00000000</color>
+
+    <color name="spotlightBackground">#BF000000</color>
+
+</resources>
