@@ -5,23 +5,30 @@ plugins {
 
 android {
     namespace = "id.co.edtslib.edtsuikit"
-    compileSdk = 34
+    compileSdk = 33
 
     defaultConfig {
         applicationId = "id.co.edtslib.edtsuikit"
         minSdk = 21
-        targetSdk = 34
+        targetSdk = 33
         versionCode = 1
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    configurations.all {
+        resolutionStrategy {
+            force( "org.jetbrains.kotlin:kotlin-stdlib:1.7.10")
+            force ("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.7.10")
+        }
+    }
+
     buildFeatures.viewBinding = true
 
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled =   false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"

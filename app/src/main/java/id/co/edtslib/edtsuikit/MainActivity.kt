@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.View
 import android.view.animation.DecelerateInterpolator
 import android.widget.FrameLayout
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -37,7 +36,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
 
         setContentView(R.layout.activity_main)
         ViewCompat.setOnApplyWindowInsetsListener(binding.main) { v, insets ->
@@ -68,7 +66,7 @@ class MainActivity : AppCompatActivity() {
         )
     }
 
-    private val alertType = AlertType.entries.toList()
+    private val alertType = AlertType.values().toList()
 
     private fun bindOnClickListener() {
         binding.btnTest.setOnClickListener(onClickCallback)

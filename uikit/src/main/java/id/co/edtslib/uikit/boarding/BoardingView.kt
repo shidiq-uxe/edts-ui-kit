@@ -174,7 +174,7 @@ class BoardingView: FrameLayout {
             canBackOnFirstPosition = a.getBoolean(R.styleable.BoardingView_canBackOnFirstPosition, false)
 
             val iAlignment = a.getInt(R.styleable.BoardingView_indicator_alignment, 1)
-            indicatorAlignment = IndicatorAlignment.entries[iAlignment]
+            indicatorAlignment = IndicatorAlignment.values()[iAlignment]
 
             val verticalOffsetPercentage = a.getFloat(R.styleable.BoardingView_content_vertical_offset_percentage, 0f)
             val horizontalOffsetPercentage = a.getFloat(R.styleable.BoardingView_content_horizontal_offset_percentage, 0f)

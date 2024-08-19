@@ -11,7 +11,7 @@ plugins {
 }
 
 group = "id.co.edtslib.uikit"
-version = "0.1.0"
+version = "0.1.1"
 
 afterEvaluate {
 
@@ -21,7 +21,7 @@ afterEvaluate {
                 from(components["release"])
                 groupId = "id.co.edtslib.uikit"
                 artifactId = "uikit"
-                version = "0.1.0"
+                version = "0.1.1"
 
                 pom {
                     name.set("EDTS UI Kit")
@@ -51,7 +51,7 @@ afterEvaluate {
 
 android {
     namespace = "id.co.edtslib.uikit"
-    compileSdk = 34
+    compileSdk = 33
 
     defaultConfig {
         minSdk = 21
@@ -69,6 +69,13 @@ android {
             )
         }
     }
+    configurations.all {
+        resolutionStrategy {
+            force( "org.jetbrains.kotlin:kotlin-stdlib:1.7.10")
+            force ("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.7.10")
+        }
+    }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
