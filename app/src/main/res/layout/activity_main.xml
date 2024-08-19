@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <id.co.edtslib.uikit.boarding.BoardingView
+    <id.co.edtslib.uikit.boarding.BoardingPagerView
         android:id="@+id/boardingView"
         android:layout_width="@dimen/dimen_0"
         android:layout_height="@dimen/dimen_0"

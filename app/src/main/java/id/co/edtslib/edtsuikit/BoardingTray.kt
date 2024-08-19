@@ -8,14 +8,11 @@ import id.co.edtslib.edtsuikit.databinding.BoardingTrayBinding
 import id.co.edtslib.uikit.boarding.Boarding
 import id.co.edtslib.uikit.boarding.BoardingItemAlignment
 import id.co.edtslib.uikit.boarding.IndicatorAlignment
-import id.co.edtslib.uikit.indicator.IndicatorSlideMode
-import id.co.edtslib.uikit.indicator.IndicatorStyle
 import id.co.edtslib.uikit.tray.BottomSheetTray
 import id.co.edtslib.uikit.utils.color
 import id.co.edtslib.uikit.utils.dimen
 import id.co.edtslib.uikit.utils.drawable
 import id.co.edtslib.uikit.utils.marginStart
-import java.util.Date
 import id.co.edtslib.uikit.R as UIKitR
 
 class BoardingTray(
@@ -42,8 +39,9 @@ class BoardingTray(
             )
         }
 
-        boardingView.indicatorAlignment = IndicatorAlignment.Start
-        boardingView.indicatorView.marginStart(boardingView.root, context.dimen(id.co.edtslib.uikit.R.dimen.dimen_16))
+        boardingView.indicatorAlignment = IndicatorAlignment.Start(
+            horizontalMargin = context.dimen(id.co.edtslib.uikit.R.dimen.dimen_16)
+        )
 
         boardingView.contentAlignment = BoardingItemAlignment(
             horizontalAlignmentPercent = 0.5f,

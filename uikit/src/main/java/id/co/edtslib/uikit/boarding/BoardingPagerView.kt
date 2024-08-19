@@ -2,32 +2,25 @@ package id.co.edtslib.uikit.boarding
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.res.Resources
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.FrameLayout
-import android.widget.Toast
 import androidx.core.view.doOnLayout
 import androidx.core.view.isVisible
 import androidx.viewpager2.widget.ViewPager2
-import com.takusemba.spotlight.Spotlight
 import id.co.edtslib.uikit.R
 import id.co.edtslib.uikit.boarding.adapter.BoardingAdapter
-import id.co.edtslib.uikit.databinding.ViewBoardingBinding
-import id.co.edtslib.uikit.utils.color
-import id.co.edtslib.uikit.utils.disconnectEnd
-import id.co.edtslib.uikit.utils.disconnectStart
-import id.co.edtslib.uikit.utils.endToEndOf
+import id.co.edtslib.uikit.databinding.ViewBoardingPagerBinding
 import id.co.edtslib.uikit.utils.horizontalBias
+import id.co.edtslib.uikit.utils.marginEnd
 import id.co.edtslib.uikit.utils.marginHorizontal
 import id.co.edtslib.uikit.utils.marginStart
 import id.co.edtslib.uikit.utils.seconds
-import id.co.edtslib.uikit.utils.startToStartOf
 import id.co.edtslib.uikit.utils.transformer.ScalePageTransformer
 
-class BoardingView: FrameLayout {
+class BoardingPagerView: FrameLayout {
     private val adapter = BoardingAdapter.boardingAdapter()
-    var delegate: BoardingDelegate? = null
+    var delegate: BoardingPageListener? = null
 
     constructor(context: Context) : super(context) {
         init(null)
@@ -45,8 +38,8 @@ class BoardingView: FrameLayout {
         init(attrs)
     }
 
-    private val binding: ViewBoardingBinding =
-        ViewBoardingBinding.inflate(LayoutInflater.from(context), this, true)
+    private val binding: ViewBoardingPagerBinding =
+        ViewBoardingPagerBinding.inflate(LayoutInflater.from(context), this, true)
 
     // Per Second Integer
     var autoScrollInterval = 0
@@ -69,27 +62,30 @@ class BoardingView: FrameLayout {
             BoardingAdapter.contentAlignment = value
         }
 
-    var indicatorAlignment = IndicatorAlignment.Center
+    var indicatorAlignment: IndicatorAlignment = IndicatorAlignment.Center()
         set(value) {
             val parent = binding.root
 
             field = value
             when (value) {
-                IndicatorAlignment.Center -> {
+                is IndicatorAlignment.Center -> {
                     binding.indicatorView.horizontalBias(0.5f)
 
-                    if (value.horizontalMargin > 0) {
-                        binding.indicatorView.marginHorizontal(parent, value.horizontalMargin)
+                    if (value.endMargin > 0) {
+                        binding.indicatorView.marginStart(parent, value.endMargin)
+                    }
+                    if (value.startMargin > 0) {
+                        binding.indicatorView.marginEnd(parent, value.startMargin)
                     }
                 }
-                IndicatorAlignment.End -> {
+                is IndicatorAlignment.End -> {
                     binding.indicatorView.horizontalBias(1f)
 
                     if (value.horizontalMargin > 0) {
                         binding.indicatorView.marginHorizontal(parent, value.horizontalMargin)
                     }
                 }
-                IndicatorAlignment.Start -> {
+                is IndicatorAlignment.Start -> {
                     binding.indicatorView.horizontalBias(0f)
 
                     if (value.horizontalMargin > 0) {
@@ -174,7 +170,7 @@ class BoardingView: FrameLayout {
             canBackOnFirstPosition = a.getBoolean(R.styleable.BoardingView_canBackOnFirstPosition, false)
 
             val iAlignment = a.getInt(R.styleable.BoardingView_indicator_alignment, 1)
-            indicatorAlignment = IndicatorAlignment.values()[iAlignment]
+            indicatorAlignment = IndicatorAlignment.entries[iAlignment]
 
             val verticalOffsetPercentage = a.getFloat(R.styleable.BoardingView_content_vertical_offset_percentage, 0f)
             val horizontalOffsetPercentage = a.getFloat(R.styleable.BoardingView_content_horizontal_offset_percentage, 0f)
@@ -211,7 +207,7 @@ class BoardingView: FrameLayout {
         binding.vpContent.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
-                delegate?.onSelected(position)
+                delegate?.onPageSelected(position)
                 if (binding.indicatorView.getCurrentPosition() != position) {
                     binding.indicatorView.setCurrentPosition(BoardingAdapter.getRealPosition(position))
                 }
@@ -223,10 +219,13 @@ class BoardingView: FrameLayout {
                 positionOffsetPixels: Int
             ) {
                 super.onPageScrolled(position, positionOffset, positionOffsetPixels)
+                delegate?.onPageScrolled(position, positionOffset, positionOffsetPixels)
                 if (autoScrollInterval > 0) {
                     startAutoScroll()
                 }
             }
+
+
         })
     }
 }
