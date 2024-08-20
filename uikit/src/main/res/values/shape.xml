@@ -45,7 +45,7 @@
 
     <style name="ShapeAppearance.EDTS.UIKit.Button" parent="">
         <item name="cornerFamily">rounded</item>
-        <item name="cornerSize">@dimen/xxxs</item>
+        <item name="cornerSize">@dimen/button_shape_radius</item>
     </style>
 
     <style name="ShapeAppearance.EDTS.UIKit.TextInputLayout" parent="">

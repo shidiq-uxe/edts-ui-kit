@@ -1,6 +1,7 @@
 package id.co.edtslib.uikit.boarding.adapter
 
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.fragment.app.FragmentActivity
 import com.bumptech.glide.Glide
 import id.co.edtslib.uikit.adapter.BaseAdapter
 import id.co.edtslib.uikit.boarding.Boarding
@@ -62,6 +63,23 @@ object BoardingAdapter {
 
     private fun ItemBoardingContentBinding.bindViewWithData(item: Boarding, position: Int) {
         val context = root.context
+
+        val image = item.image as? String
+        if (image != null) {
+            if (image.startsWith("http")) {
+                Glide.with(root).load(image).into(ivBoardingIll)
+            }
+            else {
+                if (root.context is FragmentActivity) {
+                    val fragmentActivity = root.context as FragmentActivity
+                    val resourceId = fragmentActivity.resources.getIdentifier(
+                        image, "drawable",
+                        fragmentActivity.packageName
+                    )
+                    Glide.with(fragmentActivity).load(resourceId).into(ivBoardingIll)
+                }
+            }
+        }
 
         Glide.with(context).load(item.image).into(ivBoardingIll)
 

@@ -96,6 +96,10 @@ class MainActivity : AppCompatActivity() {
                     alertType = alertType.random(),
                     isAnchored = true
                 )
+
+                Intent(this, BoardingPlaygroundActivity::class.java).let {
+                    startActivity(it)
+                }
             }
         }
     }

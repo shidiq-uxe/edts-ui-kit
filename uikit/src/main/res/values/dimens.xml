@@ -43,6 +43,9 @@
     <!--Alert Text-->
     <dimen name="at_text_size">@dimen/b3_text_size</dimen>
 
+    <!--Button-->
+    <dimen name="button_shape_radius">@dimen/dimen_6</dimen>
+
     <!--OTP Box-->
     <dimen name="box_height">50dp</dimen>
 

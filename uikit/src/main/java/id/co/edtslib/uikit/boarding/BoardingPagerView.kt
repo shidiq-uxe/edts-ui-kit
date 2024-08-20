@@ -11,6 +11,7 @@ import androidx.viewpager2.widget.ViewPager2
 import id.co.edtslib.uikit.R
 import id.co.edtslib.uikit.boarding.adapter.BoardingAdapter
 import id.co.edtslib.uikit.databinding.ViewBoardingPagerBinding
+import id.co.edtslib.uikit.utils.dimen
 import id.co.edtslib.uikit.utils.horizontalBias
 import id.co.edtslib.uikit.utils.marginEnd
 import id.co.edtslib.uikit.utils.marginHorizontal
@@ -148,15 +149,14 @@ class BoardingPagerView: FrameLayout {
         if (attrs != null) {
             val a = context.theme.obtainStyledAttributes(
                 attrs,
-                R.styleable.BoardingView,
+                R.styleable.BoardingPagerView,
                 0, 0
             )
 
-            // Todo : Change function into variable
             binding.indicatorView.apply {
                 setIndicatorGap(
                     a.getDimension(
-                        R.styleable.BoardingView_indicator_gap,
+                        R.styleable.BoardingPagerView_indicator_gap,
                         resources.getDimensionPixelSize(R.dimen.xxxs).toFloat())
                 )
 
@@ -165,15 +165,23 @@ class BoardingPagerView: FrameLayout {
                 }
             }
 
-            autoScrollInterval = a.getInt(R.styleable.BoardingView_autoScrollInterval, 0)
-            circular = a.getBoolean(R.styleable.BoardingView_circular, false)
-            canBackOnFirstPosition = a.getBoolean(R.styleable.BoardingView_canBackOnFirstPosition, false)
+            val defaultWidth = a.getDimension(R.styleable.BoardingPagerView_indicator_default_width, context.dimen(R.dimen.xxs))
+            val selectedWidth = a.getDimension(R.styleable.BoardingPagerView_indicator_default_width, context.dimen(R.dimen.m1))
 
-            val iAlignment = a.getInt(R.styleable.BoardingView_indicator_alignment, 1)
+            val selectedHeight = a.getDimension(R.styleable.BoardingPagerView_indicator_slider_height, context.dimen(R.dimen.xxs))
+
+            indicatorView.setSliderWidth(defaultWidth, selectedWidth)
+            indicatorView.setSliderHeight(selectedHeight)
+
+            autoScrollInterval = a.getInt(R.styleable.BoardingPagerView_autoScrollInterval, 0)
+            circular = a.getBoolean(R.styleable.BoardingPagerView_circular, false)
+            canBackOnFirstPosition = a.getBoolean(R.styleable.BoardingPagerView_canBackOnFirstPosition, false)
+
+            val iAlignment = a.getInt(R.styleable.BoardingPagerView_indicator_alignment, 1)
             indicatorAlignment = IndicatorAlignment.entries[iAlignment]
 
-            val verticalOffsetPercentage = a.getFloat(R.styleable.BoardingView_content_vertical_offset_percentage, 0f)
-            val horizontalOffsetPercentage = a.getFloat(R.styleable.BoardingView_content_horizontal_offset_percentage, 0f)
+            val verticalOffsetPercentage = a.getFloat(R.styleable.BoardingPagerView_content_vertical_offset_percentage, 0f)
+            val horizontalOffsetPercentage = a.getFloat(R.styleable.BoardingPagerView_content_horizontal_offset_percentage, 0f)
             contentAlignment = BoardingItemAlignment(
                 horizontalAlignmentPercent = horizontalOffsetPercentage,
                 verticalAlignmentPercent = verticalOffsetPercentage
