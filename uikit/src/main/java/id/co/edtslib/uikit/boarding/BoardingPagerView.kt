@@ -17,6 +17,7 @@ import id.co.edtslib.uikit.utils.marginEnd
 import id.co.edtslib.uikit.utils.marginHorizontal
 import id.co.edtslib.uikit.utils.marginStart
 import id.co.edtslib.uikit.utils.seconds
+import id.co.edtslib.uikit.utils.setCurrentItem
 import id.co.edtslib.uikit.utils.transformer.ScalePageTransformer
 
 class BoardingPagerView: FrameLayout {
@@ -93,6 +94,7 @@ class BoardingPagerView: FrameLayout {
                         binding.indicatorView.marginHorizontal(parent, value.horizontalMargin)
                     }
                 }
+                else -> return
             }
         }
 
@@ -132,9 +134,15 @@ class BoardingPagerView: FrameLayout {
             runnable = Runnable {
                 val currentItem = binding.vpContent.currentItem
                 if (currentItem == items.size - 1) {
-                    binding.vpContent.currentItem = BoardingAdapter.getInitialPosition(canBackOnFirstPosition)
+                    binding.vpContent.setCurrentItem(
+                        item = BoardingAdapter.getInitialPosition(canBackOnFirstPosition),
+                        duration = 300L,
+                    )
                 } else {
-                    binding.vpContent.currentItem = currentItem + 1
+                    binding.vpContent.setCurrentItem(
+                        item = currentItem + 1,
+                        duration = 500L,
+                    )
                 }
 
                 startAutoScroll()

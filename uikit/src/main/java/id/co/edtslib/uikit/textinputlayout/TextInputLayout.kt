@@ -9,6 +9,7 @@ import android.text.TextUtils
 import android.text.style.StyleSpan
 import android.util.AttributeSet
 import androidx.core.view.doOnLayout
+import androidx.core.view.doOnPreDraw
 import com.google.android.material.textfield.TextInputLayout
 import id.co.edtslib.uikit.R
 import id.co.edtslib.uikit.utils.colorAttr

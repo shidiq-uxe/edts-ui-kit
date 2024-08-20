@@ -73,7 +73,7 @@ class BaseAdapter<T : Any, B : ViewBinding>(
 
     inner class BaseViewHolder(private val viewBinding: B) : RecyclerView.ViewHolder(viewBinding.root) {
         fun bind(item: T) {
-            register.onBindHolder(adapterPosition, item, viewBinding)
+            register.onBindHolder(adapterPosition, item, viewBinding, diffUtil)
 
             viewBinding.root.setOnClickListener {
                 onItemClickCallback.invoke(viewBinding, item, adapterPosition)
@@ -88,7 +88,7 @@ class BaseAdapter<T : Any, B : ViewBinding>(
     }
 
     data class Register<T, B: ViewBinding>(
-        var onBindHolder: (position: Int, item: T, binding: B) -> Unit,
+        var onBindHolder: (position: Int, item: T, binding: B, diffUtil: AsyncListDiffer<T>) -> Unit,
         var asyncLayout: Boolean = false,
         var itemCount: (items: List<T>) -> Int = { it.size }
     )
@@ -125,7 +125,7 @@ class BaseAdapter<T : Any, B : ViewBinding>(
         }
 
         inline fun <reified B: ViewBinding> shimmerAdapter(
-            register: Register<Int, B> = Register({ _, _, _ -> }),
+            register: Register<Int, B> = Register({ _, _, _, _ -> }),
             size: Int,
             params: Params = Params(),
         ): BaseAdapter<Int, B> {

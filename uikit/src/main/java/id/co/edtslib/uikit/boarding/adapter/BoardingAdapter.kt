@@ -1,5 +1,7 @@
 package id.co.edtslib.uikit.boarding.adapter
 
+import android.graphics.drawable.Drawable
+import android.util.Log
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.FragmentActivity
 import com.bumptech.glide.Glide
@@ -17,9 +19,21 @@ object BoardingAdapter {
 
     fun boardingAdapter(): BaseAdapter<Boarding, ItemBoardingContentBinding> = BaseAdapter.adapterOf(
         register = BaseAdapter.Register(
-            onBindHolder = { position, item, binding ->
-                binding.bindViewWithData(item, position)
+            onBindHolder = { position, item, binding, diffUtil ->
+                val items = diffUtil.currentList
+
+                val newPosition = if (circular && items.size > 1) {
+                    position % items.size
+                } else {
+                    position
+                }
+
+                binding.bindViewWithData(items[newPosition], newPosition)
                 binding.adjustIndicatorAlignment()
+
+                if (circular && items.size > 1) {
+                    // Todo : Overrides Click Impl
+                }
             },
             itemCount = { items ->
                 if (circular && items.size > 1) Int.MAX_VALUE else items.size
@@ -64,24 +78,22 @@ object BoardingAdapter {
     private fun ItemBoardingContentBinding.bindViewWithData(item: Boarding, position: Int) {
         val context = root.context
 
-        val image = item.image as? String
-        if (image != null) {
-            if (image.startsWith("http")) {
-                Glide.with(root).load(image).into(ivBoardingIll)
-            }
-            else {
-                if (root.context is FragmentActivity) {
-                    val fragmentActivity = root.context as FragmentActivity
-                    val resourceId = fragmentActivity.resources.getIdentifier(
+        val image  = item.image?.let { image ->
+            when(image) {
+                is Int -> context.getDrawable(image)
+                is String -> if (image.startsWith("http")) {
+                    image
+                } else {
+                    context.resources.getIdentifier(
                         image, "drawable",
-                        fragmentActivity.packageName
+                        context.packageName
                     )
-                    Glide.with(fragmentActivity).load(resourceId).into(ivBoardingIll)
                 }
+                else -> image
             }
         }
 
-        Glide.with(context).load(item.image).into(ivBoardingIll)
+        Glide.with(context).load(image).into(ivBoardingIll)
 
         tvBoardingTitle.text = item.title
         tvBoardingDescription.text = item.description

@@ -10,6 +10,7 @@
     <!--Medium Spacing-->
     <dimen name="m1">20dp</dimen>
     <dimen name="m2">24dp</dimen>
+    <dimen name="m3">28dp</dimen>
 
     <!--Large Spacing-->
     <dimen name="l">32dp</dimen>

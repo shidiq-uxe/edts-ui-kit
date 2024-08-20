@@ -20,6 +20,7 @@
         <item name="helperTextTextAppearance">@style/TextAppearance.Inter.Regular.B3</item>
         <item name="hintTextAppearance">@style/TextAppearance.Inter.Semibold.H3</item>
         <item name="hintTextColor">?attr/colorMutedText</item>
+        <item name="android:textColorHint">?attr/colorMutedText</item>
         <!--Could Add Password Toggle Drawable For Password Field
         <item name="passwordToggleDrawable">@drawable/slr_password_toggle</item>-->
         <item name="placeholderTextAppearance">@style/TextAppearance.Inter.Regular.B1</item>
@@ -105,6 +106,8 @@
         <item name="android:maxLines">1</item>
         <item name="android:singleLine">true</item>
         <item name="android:textAppearance">@style/TextAppearance.Inter.Regular.B1</item>
+        <item name="android:paddingTop">@dimen/m3</item>
+        <item name="android:paddingBottom">@dimen/xs</item>
     </style>
 
     <style name="ThemeOverlay.EDTS.UIKit.TextInputLayout.LabelInside.Flat.Start" parent="">
