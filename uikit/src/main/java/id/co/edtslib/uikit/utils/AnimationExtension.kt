@@ -1,5 +1,6 @@
 package id.co.edtslib.uikit.utils
 
+import android.animation.ObjectAnimator
 import android.view.View
 import android.view.animation.ScaleAnimation
 
@@ -40,4 +41,10 @@ fun View.resetScale(duration: Long = 300) {
         fillAfter = true
     }
     startAnimation(scaleAnimation)
+}
+
+fun View.vibrateAnimation(duration: Long = 300) {
+    val shake = ObjectAnimator.ofFloat(this, "translationX", 0f, 10f, -10f, 10f, -10f, 5f, -5f, 0f)
+    shake.duration = duration
+    shake.start()
 }

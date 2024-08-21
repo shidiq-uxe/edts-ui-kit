@@ -64,26 +64,32 @@
         android:layout_marginHorizontal="@dimen/dimen_16"
         app:layout_constraintTop_toBottomOf="@id/ivTarget3"/>-->
 
-    <id.co.edtslib.uikit.textinputlayout.TextInputLayout
+    <id.co.edtslib.uikit.textfield.TextField
         android:id="@+id/tilTest"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         style="@style/Widget.EDTS.UIKit.TextInputLayout.LabelInside"
+        app:errorTextColor="@color/black_50"
         app:expandedHintEnabled="false"
         android:hint="Nomor Handphone atau Email"
-
         app:placeholderText="Placeholder"
         android:layout_marginTop="@dimen/dimen_16"
         android:layout_marginHorizontal="@dimen/dimen_16"
         app:boxCollapsedPaddingTop="@dimen/xs"
-        app:layout_constraintTop_toBottomOf="@id/ivTarget3">
+        app:layout_constraintTop_toBottomOf="@id/ivTarget3"/>
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColorHint="@color/primary_40"/>
-
-    </id.co.edtslib.uikit.textinputlayout.TextInputLayout>
+    <id.co.edtslib.uikit.textfield.TextField
+        android:id="@+id/tilTestPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/Widget.EDTS.UIKit.TextInputLayout.LabelInside"
+        app:expandedHintEnabled="false"
+        android:hint="Isi Password Woiii"
+        app:placeholderText="Placeholder"
+        android:layout_marginTop="@dimen/dimen_16"
+        android:layout_marginHorizontal="@dimen/dimen_16"
+        app:boxCollapsedPaddingTop="@dimen/xs"
+        app:layout_constraintTop_toBottomOf="@id/tilTest"/>
 
     <com.google.android.material.textview.MaterialTextView
         android:layout_width="wrap_content"
@@ -92,7 +98,7 @@
         android:text="Only H3 Bold Test"
         android:textColor="@color/black_50"
         android:textAppearance="@style/TextAppearance.Inter.Semibold.H3"
-        app:layout_constraintTop_toBottomOf="@id/tilTest"
+        app:layout_constraintTop_toBottomOf="@id/tilTestPassword"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 

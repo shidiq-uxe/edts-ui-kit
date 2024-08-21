@@ -1,29 +1,43 @@
 package id.co.edtslib.edtsuikit
 
 import android.os.Bundle
+import android.text.InputType
+import android.util.Log
 import android.view.View
+import android.view.ViewGroup
 import android.view.animation.DecelerateInterpolator
 import android.widget.FrameLayout
+import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.doOnLayout
 import androidx.core.view.doOnPreDraw
+import androidx.core.view.setPadding
+import androidx.core.widget.doAfterTextChanged
 import com.google.android.material.shape.CornerFamily
 import com.google.android.material.shape.MarkerEdgeTreatment
 import com.google.android.material.shape.MaterialShapeDrawable
 import com.google.android.material.shape.OffsetEdgeTreatment
 import com.google.android.material.shape.ShapeAppearanceModel
+import com.google.android.material.textfield.TextInputLayout
+import com.google.android.material.textfield.TextInputLayout.END_ICON_PASSWORD_TOGGLE
 import com.takusemba.spotlight.OnSpotlightListener
 import com.takusemba.spotlight.OnTargetListener
 import com.takusemba.spotlight.Spotlight
 import com.takusemba.spotlight.Target
 import com.takusemba.spotlight.shape.RoundedRectangle
 import id.co.edtslib.edtsuikit.databinding.ActivitySpotlightTrialsBinding
+import id.co.edtslib.uikit.textinputlayout.helper.AsteriskPasswordTransformationMethod
 import id.co.edtslib.uikit.utils.colorStateList
 import id.co.edtslib.uikit.utils.dimen
+import id.co.edtslib.uikit.utils.dimenPixelSize
+import id.co.edtslib.uikit.utils.dp
 import id.co.edtslib.uikit.utils.setLightStatusBar
 import java.nio.file.Files.size
+import kotlin.math.roundToInt
+import id.co.edtslib.uikit.R as UIKitR
 
 
 class SpotlightTrialsActivity : AppCompatActivity() {
@@ -63,7 +77,16 @@ class SpotlightTrialsActivity : AppCompatActivity() {
         binding.ivTarget2.setOnClickListener {
 
         }
+
+        binding.tilTest.isError = true
+
+        binding.tilTest.error = "This was an Error Text"
+
+        binding.tilTestPassword.endIconMode = END_ICON_PASSWORD_TOGGLE
+        binding.tilTestPassword.editText?.inputType = android.text.InputType.TYPE_CLASS_TEXT or
+                android.text.InputType.TYPE_TEXT_VARIATION_PASSWORD
     }
+
 
     private fun spotlightTrials() {
         val targets = mutableListOf<Target>()

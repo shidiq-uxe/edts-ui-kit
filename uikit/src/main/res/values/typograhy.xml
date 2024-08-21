@@ -90,4 +90,11 @@
         <item name="lineHeight">@dimen/dimen_18</item>
     </style>
 
+    <style name="TextAppearance.Inter.Regular.Error.Black" parent="Base.TextAppearance.AppCompat">
+        <item name="fontFamily">@font/inter</item>
+        <item name="android:fontFamily">@font/inter</item>
+        <item name="android:textSize">@dimen/b3_text_size</item>
+        <item name="lineHeight">@dimen/dimen_18</item>
+    </style>
+
 </resources>

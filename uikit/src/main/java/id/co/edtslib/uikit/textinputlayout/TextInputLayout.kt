@@ -16,6 +16,7 @@ import id.co.edtslib.uikit.utils.colorAttr
 import id.co.edtslib.uikit.utils.colorStateList
 import id.co.edtslib.uikit.utils.drawable
 import id.co.edtslib.uikit.utils.getProgressIndicatorDrawable
+import id.co.edtslib.uikit.utils.vibrateAnimation
 
 /**
  * A custom [TextInputLayout] that provides additional functionality for displaying
@@ -26,7 +27,7 @@ import id.co.edtslib.uikit.utils.getProgressIndicatorDrawable
  * @param defStyleAttr An attribute in the current theme that contains a reference to a style resource
  * that supplies default values for the view. Can be 0 to not look for defaults.
  */
-class TextInputLayout @JvmOverloads constructor(
+open class TextInputLayout @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0,
@@ -74,6 +75,10 @@ class TextInputLayout @JvmOverloads constructor(
         set(value) {
             field = value
             setState(if (value) State.ERROR_BG_ONLY else State.DEFAULT)
+
+            if (this@TextInputLayout.isErrorEnabled) {
+                this@TextInputLayout.vibrateAnimation()
+            }
         }
 
     init {
@@ -87,7 +92,7 @@ class TextInputLayout @JvmOverloads constructor(
      * Sets the state of the [TextInputLayout] and updates its appearance accordingly.
      *
      * @param state The new state to set.
-     * @param helperText The helper text to display, if applicable.
+     * @param helperText#EE2B2E The helper text to display, if applicable.
      */
     private fun setState(state: State, helperText: CharSequence? = null) {
         this.state = state
