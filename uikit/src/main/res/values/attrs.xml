@@ -92,9 +92,18 @@
             <enum name="withoutLabel" value="3" />
             <enum name="otp" value="4" />
         </attr>
-        <attr name="enableErrorState" format="boolean" />
-        <attr name="enableHelperText" format="boolean" />
-        <attr name="customHintTextColor" format="color" />
+        <attr name="imeOptions" format="enum">
+            <enum name="next" value="0" />
+            <enum name="send" value="1" />
+            <enum name="search" value="2" />
+            <enum name="done" value="3" />
+        </attr>
+        <attr name="inputType" format="enum">
+            <enum name="text" value="0" />
+            <enum name="password" value="1" />
+        </attr>
+        <attr name="maxLength" format="integer" />
     </declare-styleable>
+
 
 </resources>

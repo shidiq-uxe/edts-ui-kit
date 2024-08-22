@@ -18,7 +18,7 @@
         <item name="colorOnSurface">@color/black_70</item>
 
         <!--Background Color-->
-        <item name="android:colorBackground">@color/black_10</item>
+        <item name="android:colorBackground">@color/white</item>
         <item name="colorOnBackground">@color/black_70</item>
 
         <!--Error Color-->
@@ -47,9 +47,69 @@
         <item name="colorText">@color/black_70</item>
         <item name="colorTextDesc">@color/black_50</item>
         <item name="colorMutedText">@color/black_50</item>
-        <item name="colorPlaceholder">@color/black_30</item>
+        <item name="colorPlaceholder">@color/black_40</item>
         <item name="colorDisableBorder">@color/black_30</item>
-        <item name="colorInputBorder">@color/black_40</item>
+        <item name="colorInputBorder">@color/black_30</item>
+        <item name="colorDisableFill">@color/black_20</item>
+        <item name="colorFocusBorder">@color/primary_30</item>
+
+        <!--Status Bar Color-->
+        <item name="android:statusBarColor">@color/primary_50</item>
+
+        <!--Tray/BottomSheet Theme-->
+        <!--<item name="bottomSheetDialogTheme">@style/Widget.EDTS.UIKit.BottomSheet.Modal</item>-->
+    </style>
+
+    <style name="Theme.EDTS.UIKit.ActionBar" parent="Theme.Material3.Light">
+        <!--Primary Color-->
+        <item name="colorPrimary">@color/primary_30</item>
+        <item name="colorPrimaryDisabled">@color/primary_50</item>
+        <item name="colorPrimaryBackground">@color/primary_10</item>
+        <item name="colorPrimaryVariant">@color/primary_40</item>
+        <item name="colorOnPrimary">@color/white</item>
+
+        <!--Secondary Color-->
+        <item name="colorSecondary">@color/secondary_30</item>
+        <item name="colorSecondaryVariant">@color/secondary_40</item>
+        <item name="colorOnSecondary">@color/white</item>
+
+        <!--Surface Color-->
+        <item name="colorSurface">@color/white</item>
+        <item name="colorOnSurface">@color/black_70</item>
+
+        <!--Background Color-->
+        <item name="android:colorBackground">@color/white</item>
+        <item name="colorOnBackground">@color/black_70</item>
+
+        <!--Error Color-->
+        <item name="colorError">@color/red_30</item>
+        <item name="colorOnError">@color/white</item>
+        <item name="colorErrorBackground">@color/red_10</item>
+
+        <!--Misc Color-->
+        <item name="colorControlActivated">@color/primary_30</item>
+        <item name="android:textColorPrimary">@color/black_70</item>
+        <item name="android:textColorSecondary">@color/black_50</item>
+
+        <!--Surface Container Color-->
+        <item name="elevationOverlayColor">@color/white</item>
+
+        <!--Custom Color-->
+        <item name="colorWarning">@color/warning_primary</item>
+        <item name="colorWarningBackground">@color/warning_background</item>
+        <item name="colorSuccess">@color/success_primary</item>
+        <item name="colorSuccessBackground">@color/success_background</item>
+        <item name="colorInfo">@color/support_others</item>
+        <item name="colorInfoBackground">@color/support_selected</item>
+        <item name="colorHub">@color/secondary_50</item>
+        <item name="colorService">@color/support_extra</item>
+        <item name="colorSnackbar">@color/black_70</item>
+        <item name="colorText">@color/black_70</item>
+        <item name="colorTextDesc">@color/black_50</item>
+        <item name="colorMutedText">@color/black_50</item>
+        <item name="colorPlaceholder">@color/black_40</item>
+        <item name="colorDisableBorder">@color/black_30</item>
+        <item name="colorInputBorder">@color/black_30</item>
         <item name="colorDisableFill">@color/black_20</item>
         <item name="colorFocusBorder">@color/primary_30</item>
 

@@ -19,7 +19,8 @@
             android:exported="false" />
         <activity
             android:name=".SpotlightTrialsActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.EDTS.UIKit.ActionBar"/>
         <activity
             android:name=".MainActivity"
             android:exported="true">

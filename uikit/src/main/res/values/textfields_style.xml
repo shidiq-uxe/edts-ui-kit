@@ -15,7 +15,6 @@
         <item name="endIconTint">@color/slr_icon_tint</item>
         <item name="errorIconDrawable">@null</item>
         <item name="errorTextAppearance">@style/TextAppearance.Inter.Regular.Error</item>
-        <item name="errorTextColor">?attr/colorError</item>
         <item name="expandedHintEnabled">true</item>
         <item name="helperTextTextAppearance">@style/TextAppearance.Inter.Regular.B3</item>
         <item name="hintTextAppearance">@style/TextAppearance.Inter.Semibold.H3</item>
@@ -31,6 +30,7 @@
         <item name="startIconTint">@color/slr_icon_tint</item>
         <item name="suffixTextAppearance">@style/TextAppearance.Inter.Regular.B1</item>
         <item name="suffixTextColor">?attr/colorMutedText</item>
+        <item name="boxCollapsedPaddingTop">@dimen/xs</item>
     </style>
 
     <style name="Widget.EDTS.UIKit.TextInputLayout.LabelInside.Flat.Start" parent="Widget.Material3.TextInputLayout.FilledBox">
@@ -106,7 +106,7 @@
         <item name="android:maxLines">1</item>
         <item name="android:singleLine">true</item>
         <item name="android:textAppearance">@style/TextAppearance.Inter.Regular.B1</item>
-        <item name="android:paddingTop">@dimen/m3</item>
+        <item name="android:paddingTop">@dimen/l</item>
         <item name="android:paddingBottom">@dimen/xs</item>
 
         <item name="android:paddingStart" ns2:ignore="NewApi">12dp</item>

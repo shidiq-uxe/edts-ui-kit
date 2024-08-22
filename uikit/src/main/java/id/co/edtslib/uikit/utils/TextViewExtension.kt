@@ -16,3 +16,9 @@ fun TextView.setDrawable(
         drawableLeft, drawableTop, drawableRight, drawableBottom
     )
 }
+
+fun TextView.lineHeight(lineHeight: Int) {
+    val fontHeight = paint.getFontMetricsInt(null)
+    setLineSpacing(lineHeight.dp - fontHeight, 1f)
+
+}

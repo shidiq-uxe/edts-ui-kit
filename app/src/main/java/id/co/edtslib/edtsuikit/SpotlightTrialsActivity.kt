@@ -1,5 +1,6 @@
 package id.co.edtslib.edtsuikit
 
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.text.InputType
 import android.util.Log
@@ -10,6 +11,7 @@ import android.widget.FrameLayout
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.doOnLayout
@@ -47,12 +49,13 @@ class SpotlightTrialsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        val actionBar = supportActionBar
+        val colorDrawable = ColorDrawable(ContextCompat.getColor(this, R.color.white))
+        actionBar?.setBackgroundDrawable(colorDrawable)
+
         setContentView(R.layout.activity_spotlight_trials)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
 
         setLightStatusBar()
 
@@ -75,16 +78,11 @@ class SpotlightTrialsActivity : AppCompatActivity() {
         }
 
         binding.ivTarget2.setOnClickListener {
-
+            binding.tilTest.isError = !binding.tilTest.isError
+            binding.tilTest.error = "Email tidak ditemukan. Silakan masukkan nomor Handphone untuk melakukan pendaftaran"
         }
 
         binding.tilTest.isError = true
-
-        binding.tilTest.error = "This was an Error Text"
-
-        binding.tilTestPassword.endIconMode = END_ICON_PASSWORD_TOGGLE
-        binding.tilTestPassword.editText?.inputType = android.text.InputType.TYPE_CLASS_TEXT or
-                android.text.InputType.TYPE_TEXT_VARIATION_PASSWORD
     }
 
 
