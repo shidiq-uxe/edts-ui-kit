@@ -85,7 +85,7 @@
         app:expandedHintEnabled="false"
         android:hint="Isi Password Woiii"
         app:placeholderText="Placeholder"
-        app:inputType="password"
+        app:fieldInputType="password"
         android:layout_marginTop="@dimen/dimen_16"
         android:layout_marginHorizontal="@dimen/dimen_16"
         app:layout_constraintTop_toBottomOf="@id/tilTest"/>

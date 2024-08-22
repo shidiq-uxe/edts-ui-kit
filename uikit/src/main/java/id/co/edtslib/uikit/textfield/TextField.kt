@@ -40,9 +40,9 @@ class TextField @JvmOverloads constructor(
     private fun init(attrs: AttributeSet?) {
         if (attrs != null) {
             context.theme.obtainStyledAttributes(attrs, R.styleable.TextField, 0, 0).apply {
-                inputType = InputType.values()[getInt(R.styleable.TextField_inputType, 0)]
-                maxLength = getInt(R.styleable.TextField_maxLength, 0)
-                imeOption = ImeOption.values()[getInt(R.styleable.TextField_imeOptions, 0)]
+                inputType = InputType.values()[getInt(R.styleable.TextField_fieldInputType, 0)]
+                maxLength = getInt(R.styleable.TextField_fieldMaxLength, 0)
+                imeOption = ImeOption.values()[getInt(R.styleable.TextField_fieldMaxLength, 0)]
 
                 recycle()
             }

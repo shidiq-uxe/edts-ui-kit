@@ -92,17 +92,17 @@
             <enum name="withoutLabel" value="3" />
             <enum name="otp" value="4" />
         </attr>
-        <attr name="imeOptions" format="enum">
+        <attr name="fieldImeOptions" format="enum">
             <enum name="next" value="0" />
             <enum name="send" value="1" />
             <enum name="search" value="2" />
             <enum name="done" value="3" />
         </attr>
-        <attr name="inputType" format="enum">
+        <attr name="fieldInputType" format="enum">
             <enum name="text" value="0" />
             <enum name="password" value="1" />
         </attr>
-        <attr name="maxLength" format="integer" />
+        <attr name="fieldMaxLength" format="integer" />
     </declare-styleable>
 
 
