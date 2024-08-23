@@ -114,7 +114,10 @@
         <item name="colorFocusBorder">@color/primary_30</item>
 
         <!--Status Bar Color-->
-        <item name="android:statusBarColor">@color/primary_50</item>
+        <item name="android:statusBarColor">@color/white</item>
+
+        <!--Action Bar-->
+        <item name="actionBarStyle">@style/Widget.EDTS.UIKit.ActionBar</item>
 
         <!--Tray/BottomSheet Theme-->
         <!--<item name="bottomSheetDialogTheme">@style/Widget.EDTS.UIKit.BottomSheet.Modal</item>-->

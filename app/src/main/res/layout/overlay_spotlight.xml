@@ -17,7 +17,7 @@
         android:textColor="@color/white"
         android:maxLines="3"
         android:ellipsize="end"
-        android:textAppearance="@style/TextAppearance.Inter.Regular.Paragraph"
+        android:textAppearance="@style/TextAppearance.Inter.Regular.P1"
         app:layout_constraintBottom_toTopOf="@id/ctaDivider"/>
 
 

@@ -17,6 +17,13 @@
     </style>
 
     <!--Heading-->
+    <style name="TextAppearance.Inter.Bold.H1" parent="Base.TextAppearance.AppCompat">
+        <item name="fontFamily">@font/inter_bold</item>
+        <item name="android:fontFamily">@font/inter_bold</item>
+        <item name="android:textSize">@dimen/h1_text_size</item>
+        <item name="lineHeight">@dimen/dimen_18</item>
+    </style>
+
     <style name="TextAppearance.Inter.Semibold.H1" parent="Base.TextAppearance.AppCompat">
         <item name="fontFamily">@font/inter_semibold</item>
         <item name="android:fontFamily">@font/inter_semibold</item>
@@ -75,10 +82,10 @@
     </style>
 
     <!--Paragraph-->
-    <style name="TextAppearance.Inter.Regular.Paragraph" parent="Base.TextAppearance.AppCompat">
+    <style name="TextAppearance.Inter.Regular.P1" parent="Base.TextAppearance.AppCompat">
         <item name="fontFamily">@font/inter</item>
         <item name="android:fontFamily">@font/inter</item>
-        <item name="android:textSize">@dimen/b3_text_size</item>
+        <item name="android:textSize">@dimen/b2_text_size</item>
         <item name="lineHeight">@dimen/dimen_21</item>
     </style>
 

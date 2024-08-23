@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Widget.EDTS.UIKit.ActionBar" parent="Widget.Material3.ActionBar.Solid">
+        <item name="titleTextStyle">@style/TextAppearance.Inter.Bold.H1</item>
+        <item name="elevation">@dimen/dimen_1</item>
+        <item name="android:elevation">@dimen/dimen_1</item>
+    </style>
+
+    <style name="Widget.EDTS.UIKit.ActionBar.NoElevation" parent="Widget.Material3.ActionBar.Solid">
+        <item name="titleTextStyle">@style/TextAppearance.Inter.Bold.H1</item>
+        <item name="elevation">@dimen/dimen_0</item>
+        <item name="android:elevation">@dimen/dimen_0</item>
+    </style>
+</resources>

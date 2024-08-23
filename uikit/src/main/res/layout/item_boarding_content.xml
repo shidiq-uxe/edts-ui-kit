@@ -42,7 +42,7 @@
         android:layout_marginHorizontal="@dimen/s"
         android:layout_marginTop="@dimen/xxs"
         android:textColor="@color/black_50"
-        android:textAppearance="@style/TextAppearance.Inter.Regular.Paragraph"
+        android:textAppearance="@style/TextAppearance.Inter.Regular.P1"
         android:maxLines="3"
         android:ellipsize="end"
         app:layout_constraintBottom_toBottomOf="parent"
