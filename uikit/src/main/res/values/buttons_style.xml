@@ -23,6 +23,14 @@
         <item name="iconSize">@dimen/s</item>
     </style>
 
+    <style name="Widget.EDTS.UIKit.Button.Filled.Variant" parent="Widget.EDTS.UIKit.Button.Filled">
+        <item name="backgroundTint">@color/slr_button_alternative_filled_bg</item>
+    </style>
+
+    <style name="Widget.EDTS.UIKit.Button.Filled.Variant.Medium" parent="Widget.EDTS.UIKit.Button.Filled.Medium">
+        <item name="backgroundTint">@color/slr_button_alternative_filled_bg</item>
+    </style>
+
     <style name="Widget.EDTS.UIKit.Button.Outlined" parent="Widget.Material3.Button.OutlinedButton">
         <item name="android:insetTop">@dimen/dimen_0</item>
         <item name="android:insetBottom">@dimen/dimen_0</item>
@@ -44,6 +52,14 @@
         <item name="android:padding">@dimen/xs</item>
         <item name="android:textAppearance">@style/TextAppearance.Inter.Semibold.H2</item>
         <item name="iconSize">@dimen/s</item>
+    </style>
+
+    <style name="Widget.EDTS.UIKit.Button.Outlined.Secondary" parent="Widget.EDTS.UIKit.Button.Outlined">
+        <item name="backgroundTint">@color/slr_button_secondary_outlined_bg</item>
+    </style>
+
+    <style name="Widget.EDTS.UIKit.Button.Outlined.Secondary.Medium" parent="Widget.EDTS.UIKit.Button.Outlined.Medium">
+        <item name="backgroundTint">@color/slr_button_secondary_outlined_bg</item>
     </style>
 
     <style name="Widget.EDTS.UIKit.Button.TextButton" parent="Widget.Material3.Button.TextButton">
@@ -79,4 +95,6 @@
         <item name="iconTint">@color/slr_button_outlined_text</item>
         <item name="rippleColor">@color/slr_button_outlined_ripple</item>
     </style>
+
+
 </resources>

@@ -9,6 +9,8 @@ import android.widget.TextView
 import androidx.core.widget.addTextChangedListener
 import com.google.android.material.textfield.TextInputEditText
 import id.co.edtslib.uikit.R
+import id.co.edtslib.uikit.utils.animateErrorIn
+import id.co.edtslib.uikit.utils.animateErrorOut
 import id.co.edtslib.uikit.utils.dimenPixelSize
 import id.co.edtslib.uikit.utils.lineHeight
 import id.co.edtslib.uikit.utils.vibrateAnimation
@@ -52,14 +54,19 @@ class TextField @JvmOverloads constructor(
         }
     }
 
-
+    // Ensure to call this view only when the errorText is not null
+    val textInputError: TextView? get() = this.findViewById(com.google.android.material.R.id.textinput_error)
 
     override fun setError(errorText: CharSequence?) {
         super.setError(errorText)
-        // Set Spacing because Normal TextAppearance Styling won't work
+
+        // Break the function when the errorText is null to ensure all logic works fine
+        errorText ?: return
+
+        // Since normal TextAppearance won't work, programmatically approach is used
         val lineSpacingHeight = context.dimenPixelSize(R.dimen.dimen_18) ?: 0
 
-        this.findViewById<TextView>(com.google.android.material.R.id.textinput_error).apply {
+        textInputError?.apply {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
                 this.lineHeight = lineSpacingHeight
             } else {

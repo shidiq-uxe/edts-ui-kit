@@ -54,6 +54,7 @@ class SpotlightTrialsActivity : AppCompatActivity() {
         val actionBar = supportActionBar
         val colorDrawable = ColorDrawable(ContextCompat.getColor(this, R.color.white))
         actionBar?.setBackgroundDrawable(colorDrawable)
+        actionBar?.elevation = 0f
 
         setContentView(R.layout.activity_spotlight_trials)
 
@@ -78,11 +79,11 @@ class SpotlightTrialsActivity : AppCompatActivity() {
         }
 
         binding.ivTarget2.setOnClickListener {
-            binding.tilTest.isError = !binding.tilTest.isError
-            binding.tilTest.error = "Email tidak ditemukan. Silakan masukkan nomor Handphone untuk melakukan pendaftaran"
+            binding.tilTest.error = null
         }
 
         binding.tilTest.isError = true
+        binding.tilTest.error = "Email tidak ditemukan. Silakan masukkan nomor Handphone untuk melakukan pendaftaran"
     }
 
 

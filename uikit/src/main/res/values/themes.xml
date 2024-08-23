@@ -110,7 +110,7 @@
         <item name="colorPlaceholder">@color/black_40</item>
         <item name="colorDisableBorder">@color/black_30</item>
         <item name="colorInputBorder">@color/black_30</item>
-        <item name="colorDisableFill">@color/black_20</item>
+        <item name="colorDisableFill">@color/black_30</item>
         <item name="colorFocusBorder">@color/primary_30</item>
 
         <!--Status Bar Color-->

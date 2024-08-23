@@ -48,3 +48,36 @@ fun View.vibrateAnimation(duration: Long = 300) {
     shake.duration = duration
     shake.start()
 }
+
+// Extension function to animate the error text fade-in and upward translation
+fun View.animateErrorIn(
+    duration: Long = 300,
+    translationYStart: Float = 20f,
+    alphaStart: Float = 0f,
+    alphaEnd: Float = 1f
+) {
+    alpha = alphaStart
+    translationY = translationYStart
+    animate()
+        .alpha(alphaEnd)
+        .translationY(0f)
+        .setDuration(duration)
+        .start()
+}
+
+// Extension function to animate the error text fade-out and downward translation
+fun View.animateErrorOut(
+    duration: Long = 300,
+    translationYEnd: Float = 20f,
+    alphaEnd: Float = 0f,
+    onAnimationEnd: (() -> Unit)? = null
+) {
+    animate()
+        .alpha(alphaEnd)
+        .translationY(translationYEnd)
+        .setDuration(duration)
+        .withEndAction {
+            onAnimationEnd?.invoke()
+        }
+        .start()
+}
