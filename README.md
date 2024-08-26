@@ -6,6 +6,8 @@ This library provides a set of UI Kits and Components designed for production us
 
 To include this library in your project, add the following dependency to your `build.gradle` file:
 
+[![](https://jitpack.io/v/shidiq-uxe/edts-ui-kit.svg)](https://jitpack.io/#shidiq-uxe/edts-ui-kit)
+
 ```groovy
 dependencies {
     implementation 'com.edts:uikits:$latestVersion'
@@ -27,7 +29,7 @@ dependencies {
 
 ## Basic setup and initialization :
 
-You could replace PopUpTheme under module manifest file with themes down bellow to ensure all component used the same Theme :
+You could replace PopUpTheme under module manifest file for Activity Tag with themes down bellow to ensure all component used the same Theme :
 
 ```xml
   <activity
