@@ -4,10 +4,14 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.view.animation.DecelerateInterpolator
+import android.widget.Button
 import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.doOnLayout
 import com.takusemba.spotlight.OnSpotlightListener
 import com.takusemba.spotlight.OnTargetListener
 import com.takusemba.spotlight.Spotlight
@@ -21,13 +25,22 @@ import id.co.edtslib.uikit.boarding.IndicatorAlignment
 import id.co.edtslib.uikit.databinding.ViewDialogBinding
 import id.co.edtslib.uikit.indicator.IndicatorSlideMode
 import id.co.edtslib.uikit.indicator.IndicatorStyle
+import id.co.edtslib.uikit.popup.PopUp
 import id.co.edtslib.uikit.utils.AlertType
 import id.co.edtslib.uikit.utils.alertDialog
 import id.co.edtslib.uikit.utils.alertSnack
+import id.co.edtslib.uikit.utils.bottomToBottomOf
 import id.co.edtslib.uikit.utils.color
 import id.co.edtslib.uikit.utils.dimen
+import id.co.edtslib.uikit.utils.dimenPixelSize
+import id.co.edtslib.uikit.utils.dp
 import id.co.edtslib.uikit.utils.drawable
+import id.co.edtslib.uikit.utils.endToEndOf
+import id.co.edtslib.uikit.utils.endToStartOf
 import id.co.edtslib.uikit.utils.setLightStatusBar
+import id.co.edtslib.uikit.utils.startToEndOf
+import id.co.edtslib.uikit.utils.startToStartOf
+import kotlin.math.roundToInt
 import id.co.edtslib.uikit.R as UIKitR
 
 class MainActivity : AppCompatActivity() {
@@ -73,19 +86,70 @@ class MainActivity : AppCompatActivity() {
         binding.btnTest2.setOnClickListener(onClickCallback)
     }
 
+    private val dialogBinding get() = ViewDialogBinding.inflate(layoutInflater).apply {
+        /*val parent = this.root
+        val parentId = parent.id
+        val positiveId = btnPositive.id
+        val negativeId = btnNegative.id
+        val messageId = tvMessage.id
+
+        ConstraintSet().apply {
+            clone(parent)
+
+            // Clear previous constraints for buttons
+            clear(id.co.edtslib.uikit.R.id.btnNegative)
+            clear(id.co.edtslib.uikit.R.id.btnPositive)
+
+            // Align buttons horizontally with respect to the parent
+            connect(id.co.edtslib.uikit.R.id.btnNegative, ConstraintSet.START, ConstraintSet.PARENT_ID, ConstraintSet.START, 16.dp.roundToInt())
+            connect(id.co.edtslib.uikit.R.id.btnPositive, ConstraintSet.END, ConstraintSet.PARENT_ID, ConstraintSet.END, 16.dp.roundToInt())
+
+            // Set vertical constraints to align the buttons below the message
+            connect(id.co.edtslib.uikit.R.id.btnNegative, ConstraintSet.TOP, id.co.edtslib.uikit.R.id.tvMessage, ConstraintSet.BOTTOM, 16.dp.roundToInt())
+            connect(id.co.edtslib.uikit.R.id.btnNegative, ConstraintSet.BOTTOM, ConstraintSet.PARENT_ID, ConstraintSet.BOTTOM, 16.dp.roundToInt())
+            connect(id.co.edtslib.uikit.R.id.btnPositive, ConstraintSet.TOP, id.co.edtslib.uikit.R.id.tvMessage, ConstraintSet.BOTTOM, 16.dp.roundToInt())
+            connect(id.co.edtslib.uikit.R.id.btnPositive, ConstraintSet.BOTTOM, ConstraintSet.PARENT_ID, ConstraintSet.BOTTOM, 16.dp.roundToInt())
+
+            // Create a horizontal chain between the buttons
+            createHorizontalChain(
+                id.co.edtslib.uikit.R.id.btnNegative, ConstraintSet.LEFT,
+                id.co.edtslib.uikit.R.id.btnPositive, ConstraintSet.RIGHT,
+                intArrayOf(id.co.edtslib.uikit.R.id.btnNegative, id.co.edtslib.uikit.R.id.btnPositive),
+                null, // You can specify weights here if needed
+                ConstraintSet.CHAIN_PACKED // Chain style: CHAIN_SPREAD, CHAIN_SPREAD_INSIDE, CHAIN_PACKED
+            )
+
+            // Set wrap content for width and height of the buttons
+            constrainWidth(id.co.edtslib.uikit.R.id.btnNegative, ConstraintSet.WRAP_CONTENT)
+            constrainWidth(id.co.edtslib.uikit.R.id.btnPositive, ConstraintSet.WRAP_CONTENT)
+            constrainHeight(id.co.edtslib.uikit.R.id.btnNegative, ConstraintSet.WRAP_CONTENT)
+            constrainHeight(id.co.edtslib.uikit.R.id.btnPositive, ConstraintSet.WRAP_CONTENT)
+
+            // Apply the constraints to the ConstraintLayout
+            applyTo(parent)
+        }*/
+    }
+
+
+
     private val onClickCallback = View.OnClickListener { view ->
         when(view) {
             binding.btnTest -> {
                 BoardingTray(this, supportFragmentManager).show {
-                    this.alertDialog(
-                        view = ViewDialogBinding.inflate(layoutInflater, null, false).apply { ->
-                            this.btnPositive.setOnClickListener {
-                                Intent(this@MainActivity, SpotlightTrialsActivity::class.java).let {
-                                    startActivity(it)
-                                }
-                            }
-                        }.root,
-                    ).show()
+                    PopUp.show(
+                        context = this,
+                        isCentered = true,
+                        title = "Title",
+                        message = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc condimentum orci sodales eros?",
+                        positiveButton = "Positive CTA",
+                        negativeButton = "Negative CTA",
+                        onPositiveButtonClick = {
+                            startActivity(Intent(this, SpotlightTrialsActivity::class.java))
+                        },
+                        onNegativeButtonClick = {
+                            startActivity(Intent(this, ButtonActivity::class.java))
+                        }
+                    )
                 }
             }
 

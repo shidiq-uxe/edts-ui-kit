@@ -108,7 +108,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/s"
-        android:enabled="false"
         android:layout_marginHorizontal="@dimen/s"
         android:text="@string/test_button_text"
         app:layout_constraintTop_toBottomOf="@id/tvTextTest"/>

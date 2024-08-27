@@ -15,12 +15,18 @@
         android:theme="@style/Theme.EDTS.UIKit"
         tools:targetApi="31">
         <activity
+            android:name=".IndicatorViewActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ButtonActivity"
+            android:exported="false" />
+        <activity
             android:name=".BoardingPlaygroundActivity"
             android:exported="false" />
         <activity
             android:name=".SpotlightTrialsActivity"
             android:exported="false"
-            android:theme="@style/Theme.EDTS.UIKit.ActionBar"/>
+            android:theme="@style/Theme.EDTS.UIKit.ActionBar" />
         <activity
             android:name=".MainActivity"
             android:exported="true">

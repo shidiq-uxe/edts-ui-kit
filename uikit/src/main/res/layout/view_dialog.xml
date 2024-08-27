@@ -11,11 +11,12 @@
         android:layout_width="@dimen/dimen_0"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/s"
-        android:text="Title"
         android:textColor="@color/black_70"
         android:textAppearance="@style/TextAppearance.Inter.Semibold.H1"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:text="Title"/>
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tvMessage"
@@ -24,38 +25,40 @@
         android:layout_marginTop="@dimen/xxs"
         android:layout_marginStart="@dimen/s"
         android:layout_marginEnd="@dimen/s"
-        android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc condimentum orci sodales eros?"
-        android:textColor="@color/black_70"
+        android:textColor="@color/black_50"
         android:textAppearance="@style/TextAppearance.Inter.Regular.P1"
         app:layout_constraintTop_toBottomOf="@id/tvTitle"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc condimentum orci sodales eros?"/>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnPositive"
         style="@style/Widget.EDTS.UIKit.Button.Filled.Medium"
-        android:layout_width="match_parent"
+        android:layout_width="@dimen/dimen_0"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dimen_36"
-        android:layout_marginHorizontal="@dimen/s"
-        android:text="Positive CTA"
+        android:layout_marginStart="@dimen/xxxs"
+        android:layout_marginEnd="@dimen/s"
+        android:layout_marginBottom="@dimen/s"
         app:layout_constraintTop_toBottomOf="@id/tvMessage"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintStart_toEndOf="@id/btnNegative"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:text="Positive CTA"/>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnNegative"
-        style="@style/Widget.EDTS.UIKit.Button.Outlined.Medium"
+        style="@style/Widget.EDTS.UIKit.Button.Outlined.Secondary.Medium"
         android:layout_width="@dimen/dimen_0"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/xxs"
-        android:layout_marginHorizontal="@dimen/s"
+        android:layout_marginStart="@dimen/s"
+        android:layout_marginEnd="@dimen/xxxs"
         android:layout_marginBottom="@dimen/s"
-        android:text="Negative CTA"
-        app:layout_constraintVertical_bias="0.0"
-        app:layout_constraintTop_toBottomOf="@id/btnPositive"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintEnd_toStartOf="@id/btnPositive"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:text="Negative CTA"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
