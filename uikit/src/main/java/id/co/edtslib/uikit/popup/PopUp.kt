@@ -23,7 +23,7 @@ class PopUp {
             message: String
         ) {
             tvTitle.text = title.htmlToString()
-            tvMessage.text = message
+            tvMessage.text = message.htmlToString()
         }
 
         fun show(
