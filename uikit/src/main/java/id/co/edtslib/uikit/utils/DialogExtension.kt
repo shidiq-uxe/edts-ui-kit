@@ -79,19 +79,27 @@ fun Context.alertDialog(
     view: View,
     isCancelable: Boolean = true,
     fullScreen: Boolean = true,
+    configureView: (view: View, dialog: AlertDialog) -> Unit
 ): AlertDialog {
-    return dialogBuilder(view = { view }, isCancelable = isCancelable).create().apply {
+    val alertDialog = dialogBuilder(view = { view }, isCancelable = isCancelable).create()
+
+    alertDialog.apply {
         if (fullScreen) {
             val params = WindowManager.LayoutParams().apply {
                 copyFrom(window?.attributes)
                 width = WindowManager.LayoutParams.MATCH_PARENT
                 height = WindowManager.LayoutParams.WRAP_CONTENT
             }
-
             window?.attributes = params
         }
+
+        // Configure the view with the AlertDialog instance
+        configureView(view, this)
     }
+
+    return alertDialog
 }
+
 
 enum class AlertDialogType {
     SUCCESS,

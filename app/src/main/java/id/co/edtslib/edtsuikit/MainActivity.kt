@@ -2,44 +2,29 @@ package id.co.edtslib.edtsuikit
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.style.AbsoluteSizeSpan
+import android.text.style.ForegroundColorSpan
+import android.text.style.StyleSpan
 import android.view.View
-import android.view.animation.DecelerateInterpolator
-import android.widget.Button
-import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.constraintlayout.widget.ConstraintSet
+import androidx.core.text.buildSpannedString
+import androidx.core.text.inSpans
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.doOnLayout
-import com.takusemba.spotlight.OnSpotlightListener
-import com.takusemba.spotlight.OnTargetListener
-import com.takusemba.spotlight.Spotlight
-import com.takusemba.spotlight.Target
-import com.takusemba.spotlight.shape.Circle
-import com.takusemba.spotlight.shape.RoundedRectangle
 import id.co.edtslib.edtsuikit.databinding.ActivityMainBinding
 import id.co.edtslib.uikit.boarding.Boarding
 import id.co.edtslib.uikit.boarding.BoardingItemAlignment
-import id.co.edtslib.uikit.boarding.IndicatorAlignment
 import id.co.edtslib.uikit.databinding.ViewDialogBinding
-import id.co.edtslib.uikit.indicator.IndicatorSlideMode
-import id.co.edtslib.uikit.indicator.IndicatorStyle
 import id.co.edtslib.uikit.popup.PopUp
 import id.co.edtslib.uikit.utils.AlertType
-import id.co.edtslib.uikit.utils.alertDialog
 import id.co.edtslib.uikit.utils.alertSnack
-import id.co.edtslib.uikit.utils.bottomToBottomOf
+import id.co.edtslib.uikit.utils.applyH2TextAppearanceSpan
 import id.co.edtslib.uikit.utils.color
-import id.co.edtslib.uikit.utils.dimen
 import id.co.edtslib.uikit.utils.dimenPixelSize
 import id.co.edtslib.uikit.utils.dp
 import id.co.edtslib.uikit.utils.drawable
-import id.co.edtslib.uikit.utils.endToEndOf
-import id.co.edtslib.uikit.utils.endToStartOf
+import id.co.edtslib.uikit.utils.font
 import id.co.edtslib.uikit.utils.setLightStatusBar
-import id.co.edtslib.uikit.utils.startToEndOf
-import id.co.edtslib.uikit.utils.startToStartOf
 import kotlin.math.roundToInt
 import id.co.edtslib.uikit.R as UIKitR
 
@@ -131,6 +116,16 @@ class MainActivity : AppCompatActivity() {
     }
 
 
+    private fun dialogMessage() = buildSpannedString {
+        append("Nomor ")
+
+        applyH2TextAppearanceSpan(this@MainActivity) {
+            append("08112233445")
+        }
+
+        append(" belum terdaftar di Klik indomaret. Apa kamu ingin menggunakan nomor ini untuk membuat akun?")
+
+    }
 
     private val onClickCallback = View.OnClickListener { view ->
         when(view) {
@@ -140,14 +135,14 @@ class MainActivity : AppCompatActivity() {
                         context = this,
                         isCentered = true,
                         title = "Title",
-                        message = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc condimentum orci sodales eros?",
+                        message = dialogMessage(),
                         positiveButton = "Positive CTA",
                         negativeButton = "Negative CTA",
-                        onPositiveButtonClick = {
+                        onPositiveButtonClick = { view, dialog ->
                             startActivity(Intent(this, SpotlightTrialsActivity::class.java))
                         },
-                        onNegativeButtonClick = {
-                            startActivity(Intent(this, ButtonActivity::class.java))
+                        onNegativeButtonClick = { view, dialog ->
+                            dialog.dismiss()
                         }
                     )
                 }
