@@ -54,6 +54,12 @@ class TextField @JvmOverloads constructor(
         }
     }
 
+    override fun setHelperText(helperText: CharSequence?) {
+        super.setHelperText(helperText)
+
+        setContainerPadding()
+    }
+
     // Ensure to call this view only when the errorText is not null
     val textInputError: TextView? get() = this.findViewById(com.google.android.material.R.id.textinput_error)
 

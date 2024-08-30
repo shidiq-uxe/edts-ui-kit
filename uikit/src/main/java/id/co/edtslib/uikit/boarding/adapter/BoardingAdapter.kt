@@ -97,8 +97,6 @@ object BoardingAdapter {
 
         tvBoardingTitle.text = item.title
         tvBoardingDescription.text = item.description
-
-
     }
 
     private fun ItemBoardingContentBinding.adjustIndicatorAlignment() {

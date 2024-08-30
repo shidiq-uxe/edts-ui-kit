@@ -78,4 +78,17 @@
         android:enabled="false"
         app:layout_constraintTop_toBottomOf="@id/btnSecondaryOutlinedMedium"/>
 
+    <id.co.edtslib.uikit.alert.AlertBox
+        android:id="@+id/abTest"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/s"
+        android:layout_marginTop="@dimen/s"
+        app:alertType="info"
+        app:text="Lorem Ipsum dolor sir ametis gon a mutual fir canten a sarukan forwa no comunalial kotono "
+        app:textAppearance="@style/TextAppearance.Inter.Regular.B1"
+        app:layout_constraintTop_toBottomOf="@id/btnDisabled"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

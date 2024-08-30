@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clickable="false"
+    app:shapeAppearance="@style/ShapeAppearance.EDTS.UIKit.SmallComponent"
+    app:strokeWidth="@dimen/dimen_1"
+    app:strokeColor="@color/light_border"
+    app:cardBackgroundColor="@color/light_background"
+    app:cardElevation="@dimen/dimen_0"
+    android:elevation="@dimen/dimen_0">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/ivAlertIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/s"
+            app:srcCompat="@drawable/ic_alert_light"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvAlertMessage"
+            android:layout_width="@dimen/dimen_0"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/xs"
+            android:layout_marginHorizontal="@dimen/xxs"
+            android:layout_marginBottom="@dimen/s"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/ivAlertIcon"
+            app:layout_constraintEnd_toStartOf="@id/ivAlertClose"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            android:textAppearance="@style/TextAppearance.Inter.Regular.B2"
+            tools:text="@tools:sample/lorem/random"
+            tools:maxLines="3"/>
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/ivAlertClose"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/s"
+            app:srcCompat="@drawable/ic_close_16"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:foreground="?selectableItemBackgroundBorderless"
+            tools:targetApi="m" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

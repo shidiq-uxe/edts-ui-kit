@@ -105,5 +105,18 @@
         <attr name="fieldMaxLength" format="integer" />
     </declare-styleable>
 
+    <!--Todo : Add Several Customization -->
+    <declare-styleable name="AlertBox">
+        <attr name="alertType" format="enum">
+            <enum name="success" value="0" />
+            <enum name="error" value="1" />
+            <enum name="warning" value="2" />
+            <enum name="info" value="3" />
+            <enum name="light" value="4" />
+        </attr>
+
+        <attr name="text" format="string" />
+        <attr name="textAppearance" format="reference" />
+    </declare-styleable>
 
 </resources>

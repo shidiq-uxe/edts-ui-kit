@@ -143,6 +143,8 @@ class MainActivity : AppCompatActivity() {
                         },
                         onNegativeButtonClick = { view, dialog ->
                             dialog.dismiss()
+
+                            startActivity(Intent(this, ButtonActivity::class.java))
                         }
                     )
                 }
