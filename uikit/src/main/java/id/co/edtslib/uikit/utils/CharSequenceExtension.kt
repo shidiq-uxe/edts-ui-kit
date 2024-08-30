@@ -27,6 +27,21 @@ fun SpannableStringBuilder.applyH2TextAppearanceSpan(
     }
 }
 
+// Extension function to apply a TextAppearanceSpan since TextAppearanceSpan itself doesn't supported
+fun SpannableStringBuilder.applyH3TextAppearanceSpan(
+    context: Context,
+    color: Int = context.color(R.color.primary_30),
+    action: SpannableStringBuilder.() -> Unit
+) {
+    val primaryColorSpan = ForegroundColorSpan(color)
+    val textSizeSpan = AbsoluteSizeSpan(context.dimenPixelSize(R.dimen.h3_text_size) ?: 12.dp.roundToInt())
+    val semiBoldStyleSpan = StyleSpan(context.font(R.font.inter_semibold)!!.style)
+
+    inSpans(primaryColorSpan, textSizeSpan, semiBoldStyleSpan) {
+        action()
+    }
+}
+
 private fun SpannableStringBuilder.setLineHeight(lineHeightPx: Int) {
     val span = LineHeightSpan { text, start, end, spanstartv, v, fm ->
         fm.descent += lineHeightPx - (fm.descent - fm.ascent)

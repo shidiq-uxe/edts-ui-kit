@@ -30,7 +30,7 @@
             android:id="@+id/tvAlertMessage"
             android:layout_width="@dimen/dimen_0"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/xs"
+            android:layout_marginTop="@dimen/dimen_14"
             android:layout_marginHorizontal="@dimen/xxs"
             android:layout_marginBottom="@dimen/s"
             app:layout_constraintTop_toTopOf="parent"

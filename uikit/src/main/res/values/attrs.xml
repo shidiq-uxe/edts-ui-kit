@@ -101,6 +101,9 @@
         <attr name="fieldInputType" format="enum">
             <enum name="text" value="0" />
             <enum name="password" value="1" />
+            <enum name="pin" value="2" />
+            <enum name="phone" value="3" />
+            <enum name="email" value="4" />
         </attr>
         <attr name="fieldMaxLength" format="integer" />
     </declare-styleable>

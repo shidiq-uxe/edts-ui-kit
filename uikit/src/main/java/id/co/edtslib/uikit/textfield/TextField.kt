@@ -128,7 +128,7 @@ class TextField @JvmOverloads constructor(
 
 
     enum class InputType {
-        Text, Password
+        Text, Password, Pin, Phone, Email
     }
 
     var inputType = InputType.Text
@@ -142,17 +142,35 @@ class TextField @JvmOverloads constructor(
                         END_ICON_PASSWORD_TOGGLE
                     )
                 }
+                InputType.Pin -> {
+                    Pair(
+                        AndroidTextInputType.TYPE_CLASS_NUMBER or AndroidTextInputType.TYPE_NUMBER_VARIATION_PASSWORD,
+                        END_ICON_PASSWORD_TOGGLE
+                    )
+                }
+                InputType.Phone -> {
+                    Pair(
+                        android.text.InputType.TYPE_CLASS_PHONE or android.text.InputType.TYPE_TEXT_VARIATION_PHONETIC,
+                        END_ICON_NONE
+                    )
+                }
+                InputType.Email -> {
+                    Pair(
+                        android.text.InputType.TYPE_CLASS_TEXT or android.text.InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS,
+                        END_ICON_NONE
+                    )
+                }
                 else -> {
                     Pair(
                         AndroidTextInputType.TYPE_CLASS_TEXT or AndroidTextInputType.TYPE_TEXT_VARIATION_NORMAL,
-                        null
+                        END_ICON_NONE
                     )
                 }
             }
 
             editText?.apply {
                 this.inputType = inputType
-                endIconMode?.let { this@TextField.endIconMode = it }
+                this@TextField.endIconMode = endIconMode
 
                 addTextChangedListener {
                     delegate?.onValueChange(it?.toString())
