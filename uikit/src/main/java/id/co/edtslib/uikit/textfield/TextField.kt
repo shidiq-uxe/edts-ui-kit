@@ -37,6 +37,8 @@ class TextField @JvmOverloads constructor(
         addView(textInputEditText)
 
         init(attrs)
+
+        setContainerPadding()
     }
 
     private fun init(attrs: AttributeSet?) {
@@ -44,7 +46,7 @@ class TextField @JvmOverloads constructor(
             context.theme.obtainStyledAttributes(attrs, R.styleable.TextField, 0, 0).apply {
                 inputType = InputType.values()[getInt(R.styleable.TextField_fieldInputType, 0)]
                 maxLength = getInt(R.styleable.TextField_fieldMaxLength, 0)
-                imeOption = ImeOption.values()[getInt(R.styleable.TextField_fieldMaxLength, 0)]
+                imeOption = ImeOption.values()[getInt(R.styleable.TextField_fieldImeOptions, 0)]
 
                 recycle()
             }
@@ -54,10 +56,10 @@ class TextField @JvmOverloads constructor(
         }
     }
 
-    override fun setHelperText(helperText: CharSequence?) {
-        super.setHelperText(helperText)
-
+    override fun isHelperTextEnabled(): Boolean {
         setContainerPadding()
+
+        return super.isHelperTextEnabled()
     }
 
     // Ensure to call this view only when the errorText is not null

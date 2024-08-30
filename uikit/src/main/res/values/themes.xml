@@ -56,6 +56,12 @@
         <!--Status Bar Color-->
         <item name="android:statusBarColor">@color/primary_50</item>
 
+        <!--Selector-->
+        <item name="android:checkboxStyle">@style/Widget.EDTS.UIKit.CheckBox</item>
+        <item name="android:radioButtonStyle">@style/Widget.EDTS.UIKit.RadioButton</item>
+        <item name="checkboxStyle">@style/Widget.EDTS.UIKit.CheckBox</item>
+        <item name="radioButtonStyle">@style/Widget.EDTS.UIKit.RadioButton</item>
+
         <!--Tray/BottomSheet Theme-->
         <!--<item name="bottomSheetDialogTheme">@style/Widget.EDTS.UIKit.BottomSheet.Modal</item>-->
     </style>
@@ -118,6 +124,10 @@
 
         <!--Action Bar-->
         <item name="actionBarStyle">@style/Widget.EDTS.UIKit.ActionBar</item>
+
+        <!--Selector-->
+        <item name="checkboxStyle">@style/Widget.EDTS.UIKit.CheckBox</item>
+        <item name="radioButtonStyle">@style/Widget.EDTS.UIKit.RadioButton</item>
 
         <!--Tray/BottomSheet Theme-->
         <!--<item name="bottomSheetDialogTheme">@style/Widget.EDTS.UIKit.BottomSheet.Modal</item>-->

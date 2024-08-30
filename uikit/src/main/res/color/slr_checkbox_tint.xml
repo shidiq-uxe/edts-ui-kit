@@ -3,5 +3,5 @@
     <item android:color="?attr/colorDisableBorder" android:state_enabled="false" />
     <item android:color="?attr/colorPrimary" app:state_indeterminate="true" />
     <item android:color="?attr/colorPrimary" android:state_checked="true" />
-    <item android:color="?attr/colorInputBorder" android:state_checked="false" />
+    <item android:color="@color/black_40" android:state_checked="false" />
 </selector>

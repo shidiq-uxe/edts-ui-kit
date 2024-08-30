@@ -11,7 +11,7 @@
         android:id="@+id/llContainer"
         android:layout_width="@dimen/dimen_0"
         android:layout_height="@dimen/dimen_0"
-        android:layout_marginTop="@dimen/xxxl"
+        android:layout_marginTop="@dimen/s"
         android:clipChildren="false"
         android:clipToPadding="false"
         android:padding="16dp"
@@ -86,18 +86,23 @@
         android:hint="Isi Password Woiii"
         app:placeholderText="Placeholder"
         app:fieldInputType="password"
+        app:helperText="This pretty much the helper text"
+        app:fieldMaxLength="100"
+        app:fieldImeOptions="done"
+        app:passwordToggleEnabled="false"
         android:layout_marginTop="@dimen/dimen_16"
         android:layout_marginHorizontal="@dimen/dimen_16"
         app:layout_constraintTop_toBottomOf="@id/tilTest"/>
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tvTextTest"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/s"
         android:layout_marginTop="@dimen/xs"
-        android:text="Only H3 Bold Test"
+        android:text="Dengan mendaftar, saya menyetujui syarat &amp; ketentuan dari Klik Indomaret"
         android:textColor="@color/black_50"
-        android:textAppearance="@style/TextAppearance.Inter.Semibold.H3"
+        android:textAppearance="@style/TextAppearance.Inter.Regular.B3"
         app:layout_constraintTop_toBottomOf="@id/tilTestPassword"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
@@ -111,5 +116,16 @@
         android:layout_marginHorizontal="@dimen/s"
         android:text="@string/test_button_text"
         app:layout_constraintTop_toBottomOf="@id/tvTextTest"/>
+
+    <com.google.android.material.checkbox.MaterialCheckBox
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/s"
+        android:layout_marginHorizontal="@dimen/s"
+        android:checked="true"
+        android:enabled="false"
+        android:paddingStart="@dimen/xxs"
+        android:text="Dengan mendaftar, saya menyetujui syarat &amp; ketentuan dari Klik Indomaret"
+        app:layout_constraintTop_toBottomOf="@id/btnTestDisable"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

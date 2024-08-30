@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--Checkbox-->
+    <!--Todo : Change Checklist Icon Color when Disabled-->
+    <style name="Widget.EDTS.UIKit.CheckBox" parent="Widget.Material3.CompoundButton.CheckBox">
+        <item name="android:minHeight">@dimen/dimen_0</item>
+        <item name="android:minWidth">@dimen/dimen_0</item>
+        <item name="android:textAppearance">@style/TextAppearance.Inter.Regular.B2</item>
+        <item name="buttonTint">@color/slr_checkbox_tint</item>
+    </style>
+
+    <!--Radio Button-->
+    <style name="Widget.EDTS.UIKit.RadioButton" parent="Widget.Material3.CompoundButton.RadioButton">
+        <item name="android:minHeight">@dimen/dimen_0</item>
+        <item name="android:minWidth">@dimen/dimen_0</item>
+        <item name="android:textAppearance">@style/TextAppearance.Inter.Regular.B2</item>
+        <item name="buttonTint">@color/slr_selection_tint</item>
+    </style>
+
+</resources>

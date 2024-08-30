@@ -22,7 +22,7 @@ class AlertBox @JvmOverloads constructor(
     defStyleAttr: Int = 0
 ) : FrameLayout(context, attrs, defStyleAttr)  {
 
-    val delegate: AlertBoxDelegate? = null
+    var delegate: AlertBoxDelegate? = null
 
     private val binding = ViewAlertBinding.inflate(context.inflater, this, true)
 
