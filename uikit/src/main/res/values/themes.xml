@@ -125,6 +125,8 @@
         <!--Action Bar-->
         <item name="actionBarStyle">@style/Widget.EDTS.UIKit.ActionBar</item>
 
+        <item name="textInputStyle">@style/Widget.EDTS.UIKit.TextInputLayout.LabelInside</item>
+
         <!--Selector-->
         <item name="checkboxStyle">@style/Widget.EDTS.UIKit.CheckBox</item>
         <item name="radioButtonStyle">@style/Widget.EDTS.UIKit.RadioButton</item>

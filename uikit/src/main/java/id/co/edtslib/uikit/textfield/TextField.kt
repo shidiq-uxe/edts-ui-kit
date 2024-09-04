@@ -11,6 +11,7 @@ import com.google.android.material.textfield.TextInputEditText
 import id.co.edtslib.uikit.R
 import id.co.edtslib.uikit.utils.animateErrorIn
 import id.co.edtslib.uikit.utils.animateErrorOut
+import id.co.edtslib.uikit.utils.color
 import id.co.edtslib.uikit.utils.dimenPixelSize
 import id.co.edtslib.uikit.utils.lineHeight
 import id.co.edtslib.uikit.utils.vibrateAnimation
@@ -36,14 +37,14 @@ class TextField @JvmOverloads constructor(
 
         addView(textInputEditText)
 
-        init(attrs)
+        init(attrs, defStyleAttr)
 
         setContainerPadding()
     }
 
-    private fun init(attrs: AttributeSet?) {
+    private fun init(attrs: AttributeSet?, defStyleAttr: Int) {
         if (attrs != null) {
-            context.theme.obtainStyledAttributes(attrs, R.styleable.TextField, 0, 0).apply {
+            context.theme.obtainStyledAttributes(attrs, R.styleable.TextField, defStyleAttr, 0).apply {
                 inputType = InputType.values()[getInt(R.styleable.TextField_fieldInputType, 0)]
                 maxLength = getInt(R.styleable.TextField_fieldMaxLength, 0)
                 imeOption = ImeOption.values()[getInt(R.styleable.TextField_fieldImeOptions, 0)]
@@ -67,6 +68,10 @@ class TextField @JvmOverloads constructor(
 
     override fun setError(errorText: CharSequence?) {
         super.setError(errorText)
+
+        if (inputType == InputType.OTP) {
+            this.editText?.setTextColor(context.color(R.color.red_30))
+        }
 
         // Break the function when the errorText is null to ensure all logic works fine
         errorText ?: return
@@ -128,7 +133,7 @@ class TextField @JvmOverloads constructor(
 
 
     enum class InputType {
-        Text, Password, Pin, Phone, Email
+        Text, Password, Pin, Phone, Email, OTP
     }
 
     var inputType = InputType.Text
@@ -160,6 +165,12 @@ class TextField @JvmOverloads constructor(
                         END_ICON_NONE
                     )
                 }
+                InputType.OTP -> {
+                    Pair(
+                        android.text.InputType.TYPE_CLASS_NUMBER,
+                        END_ICON_NONE
+                    )
+                }
                 else -> {
                     Pair(
                         AndroidTextInputType.TYPE_CLASS_TEXT or AndroidTextInputType.TYPE_TEXT_VARIATION_NORMAL,
@@ -171,6 +182,14 @@ class TextField @JvmOverloads constructor(
             editText?.apply {
                 this.inputType = inputType
                 this@TextField.endIconMode = endIconMode
+
+                if (value == InputType.OTP) {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        this.setTextAppearance(R.style.TextAppearance_Inter_Semibold_D1)
+                    } else {
+                        this.setTextAppearance(context, R.style.TextAppearance_Inter_Semibold_D1)
+                    }
+                }
 
                 addTextChangedListener {
                     delegate?.onValueChange(it?.toString())

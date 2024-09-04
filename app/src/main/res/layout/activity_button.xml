@@ -91,4 +91,33 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
+    <id.co.edtslib.uikit.otp.OtpGroup
+        android:id="@+id/otpGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/s"
+        android:layout_marginHorizontal="@dimen/s"
+        app:marginBetween="@dimen/xxs"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/abTest"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tfOtp"
+        style="@style/Widget.EDTS.UIKit.TextInputLayout.Otp"
+        android:layout_width="@dimen/dimen_0"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/s"
+        android:layout_marginHorizontal="@dimen/s"
+        app:layout_constraintDimensionRatio="4:5"
+        app:layout_constraintTop_toBottomOf="@id/otpGroup"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="2"
+            android:maxLength="1"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

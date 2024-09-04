@@ -185,7 +185,6 @@
         <item name="materialThemeOverlay">
             @style/ThemeOverlay.EDTS.UIKit.TextInputLayout.Otp
         </item>
-        <item name="layout_constraintDimensionRatio">1:1</item>
     </style>
 
     <style name="ThemeOverlay.EDTS.UIKit.TextInputLayout.Otp" parent="">
@@ -200,6 +199,11 @@
         <item name="android:inputType">number</item>
         <item name="android:minHeight">@dimen/box_height</item>
         <item name="android:padding">@dimen/dimen_0</item>
-        <item name="android:textAppearance">@style/TextAppearance.Inter.Regular.B1</item>
+        <item name="android:textAppearance">@style/TextAppearance.Inter.Semibold.D1</item>
+
+        <item name="android:paddingStart" ns2:ignore="NewApi">2dp</item>
+        <item name="android:paddingEnd" ns2:ignore="NewApi">2dp</item>
+        <item name="android:paddingLeft">2dp</item>
+        <item name="android:paddingRight">2dp</item>"
     </style>
 </resources>

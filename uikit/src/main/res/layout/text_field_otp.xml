@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<id.co.edtslib.uikit.textfield.TextField
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/Widget.EDTS.UIKit.TextInputLayout.Otp"
+    android:layout_width="@dimen/dimen_0"
+    android:layout_height="wrap_content"
+    app:fieldMaxLength="1"
+    tools:layout_width="40dp"
+    tools:layout_height="50dp"/>

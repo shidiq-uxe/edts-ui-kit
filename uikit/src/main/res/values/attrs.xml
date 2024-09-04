@@ -104,6 +104,7 @@
             <enum name="pin" value="2" />
             <enum name="phone" value="3" />
             <enum name="email" value="4" />
+            <enum name="otp" value="5" />
         </attr>
         <attr name="fieldMaxLength" format="integer" />
     </declare-styleable>
@@ -120,6 +121,12 @@
 
         <attr name="text" format="string" />
         <attr name="textAppearance" format="reference" />
+    </declare-styleable>
+
+    <declare-styleable name="OtpGroup">
+        <attr name="otpCount" format="integer"/>
+        <attr name="marginBetween" format="dimension"/>
+        <attr name="isError" format="boolean"/>
     </declare-styleable>
 
 </resources>

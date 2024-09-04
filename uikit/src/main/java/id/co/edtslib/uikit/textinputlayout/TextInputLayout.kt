@@ -12,6 +12,7 @@ import androidx.core.view.doOnLayout
 import androidx.core.view.doOnPreDraw
 import com.google.android.material.textfield.TextInputLayout
 import id.co.edtslib.uikit.R
+import id.co.edtslib.uikit.utils.color
 import id.co.edtslib.uikit.utils.colorAttr
 import id.co.edtslib.uikit.utils.colorStateList
 import id.co.edtslib.uikit.utils.drawable
@@ -30,7 +31,7 @@ import id.co.edtslib.uikit.utils.vibrateAnimation
 open class TextInputLayout @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
-    defStyleAttr: Int = 0,
+    defStyleAttr: Int = com.google.android.material.R.attr.textInputStyle,
 ) : TextInputLayout(context, attrs, defStyleAttr) {
 
     private val originalEndIconDrawable = endIconDrawable
@@ -70,11 +71,21 @@ open class TextInputLayout @JvmOverloads constructor(
             setState(if (value) State.SUCCESS else State.DEFAULT)
         }
 
+    var shouldChangeTextColor = false
+
     var isError: Boolean = false
-        get() = state == State.ERROR_BG_ONLY
+        get() = state == State.ERROR_BG_ONLY && error != null
         set(value) {
             field = value
             setState(if (value) State.ERROR_BG_ONLY else State.DEFAULT)
+
+            val textColor = context.color(
+                if (value) R.color.red_30 else R.color.black_70
+            )
+
+            if (shouldChangeTextColor) {
+                editText?.setTextColor(textColor)
+            }
 
             if (this@TextInputLayout.isErrorEnabled) {
                 this@TextInputLayout.vibrateAnimation()
