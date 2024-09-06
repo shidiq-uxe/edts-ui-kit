@@ -2,4 +2,6 @@
     <string name="app_name">EDTS UI Kit</string>
     <string name="lorem">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>
     <string name="test_button_text">Only For Test Purpose</string>
+    <string name="snk_hg_test">Dengan mendaftar, saya menyetujui syarat &amp; %1$s dari %2$s</string>
+    <string name="countdown_test">This is test View where countdown : %s</string>
 </resources>

@@ -1,45 +1,30 @@
 package id.co.edtslib.edtsuikit
 
+import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.text.InputType
-import android.util.Log
+import android.text.method.LinkMovementMethod
 import android.view.View
-import android.view.ViewGroup
 import android.view.animation.DecelerateInterpolator
 import android.widget.FrameLayout
-import android.widget.LinearLayout
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.doOnLayout
 import androidx.core.view.doOnPreDraw
-import androidx.core.view.setPadding
-import androidx.core.widget.doAfterTextChanged
-import com.google.android.material.shape.CornerFamily
 import com.google.android.material.shape.MarkerEdgeTreatment
-import com.google.android.material.shape.MaterialShapeDrawable
 import com.google.android.material.shape.OffsetEdgeTreatment
-import com.google.android.material.shape.ShapeAppearanceModel
-import com.google.android.material.textfield.TextInputLayout
-import com.google.android.material.textfield.TextInputLayout.END_ICON_PASSWORD_TOGGLE
 import com.takusemba.spotlight.OnSpotlightListener
 import com.takusemba.spotlight.OnTargetListener
 import com.takusemba.spotlight.Spotlight
 import com.takusemba.spotlight.Target
 import com.takusemba.spotlight.shape.RoundedRectangle
 import id.co.edtslib.edtsuikit.databinding.ActivitySpotlightTrialsBinding
-import id.co.edtslib.uikit.textinputlayout.helper.AsteriskPasswordTransformationMethod
-import id.co.edtslib.uikit.utils.colorStateList
+import id.co.edtslib.uikit.utils.TextStyle
+import id.co.edtslib.uikit.utils.buildHighlightedMessage
 import id.co.edtslib.uikit.utils.dimen
-import id.co.edtslib.uikit.utils.dimenPixelSize
-import id.co.edtslib.uikit.utils.dp
+import id.co.edtslib.uikit.utils.minutes
 import id.co.edtslib.uikit.utils.setLightStatusBar
-import java.nio.file.Files.size
-import kotlin.math.roundToInt
-import id.co.edtslib.uikit.R as UIKitR
+import id.co.edtslib.uikit.utils.snack
 
 
 class SpotlightTrialsActivity : AppCompatActivity() {
@@ -84,8 +69,29 @@ class SpotlightTrialsActivity : AppCompatActivity() {
 
         binding.tilTest.isError = true
         binding.tilTest.error = "Email tidak ditemukan. Silakan masukkan nomor Handphone untuk melakukan pendaftaran"
+
+        val test1 = "Test Only"
+        val test2 = "For Test Purpose"
+
+        val message = getString(R.string.snk_hg_test, test1, test2)
+
+        binding.tvTextTest.text = buildHighlightedMessage(
+            context = this@SpotlightTrialsActivity,
+            message = message,
+            highlightedTextAppearance = listOf(TextStyle.ERROR, TextStyle.H2),
+            highlightedMessages = listOf(test1, test2),
+            highlightClickAction = listOf(onHighlightClick(1), onHighlightClick(2))
+        )
+
+        binding.tvTextTest.movementMethod = LinkMovementMethod.getInstance()
+        binding.tvTextTest.highlightColor = Color.TRANSPARENT
+
+        binding.cdtv.displayAsHtml = true
+        binding.cdtv.intervalInMillis = 3.minutes
+        binding.cdtv.start()
     }
 
+    private fun onHighlightClick(index: Int): () -> Unit = { binding.root.snack("Test $index") }
 
     private fun spotlightTrials() {
         val targets = mutableListOf<Target>()
@@ -210,4 +216,6 @@ class SpotlightTrialsActivity : AppCompatActivity() {
 
         spotlight.start()
     }
+
+
 }

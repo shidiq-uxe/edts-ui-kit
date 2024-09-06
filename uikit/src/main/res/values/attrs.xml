@@ -129,4 +129,16 @@
         <attr name="isError" format="boolean"/>
     </declare-styleable>
 
+    <declare-styleable name="CountdownTextView">
+        <attr name="interval" />
+        <attr name="remainingText" format="string" />
+        <attr name="format" format="enum">
+            <enum name="clock" value="0" />
+            <enum name="text" value="1" />
+        </attr>
+        <attr name="hourText" format="string" />
+        <attr name="minuteText" format="string" />
+        <attr name="secondText" format="string" />
+    </declare-styleable>
+
 </resources>

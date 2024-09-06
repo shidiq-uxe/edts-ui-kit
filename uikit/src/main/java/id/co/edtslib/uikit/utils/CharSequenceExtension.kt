@@ -7,10 +7,11 @@ import android.text.style.AbsoluteSizeSpan
 import android.text.style.ForegroundColorSpan
 import android.text.style.LineHeightSpan
 import android.text.style.StyleSpan
+import androidx.annotation.ColorInt
+import androidx.annotation.ColorRes
 import androidx.core.text.inSpans
 import id.co.edtslib.uikit.R
 import kotlin.math.roundToInt
-
 
 // Extension function to apply a TextAppearanceSpan since TextAppearanceSpan itself doesn't supported
 fun SpannableStringBuilder.applyH2TextAppearanceSpan(
@@ -109,7 +110,7 @@ fun SpannableStringBuilder.applyP1TextAppearance(
 
 fun SpannableStringBuilder.applyErrorTextAppearance(
     context: Context,
-    color: Int = context.color(R.color.black_70),
+    color: Int = context.color(R.color.red_30),
     action: SpannableStringBuilder.() -> Unit
 ) {
     val textSize = context.resources.getDimensionPixelSize(R.dimen.b3_text_size)
@@ -124,6 +125,10 @@ fun SpannableStringBuilder.applyErrorTextAppearance(
     }
 
     setLineHeight(lineHeight)
+}
+
+enum class TextStyle {
+    H2, H1, B1, P1, ERROR;
 }
 
 

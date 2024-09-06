@@ -100,24 +100,15 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/s"
         android:layout_marginTop="@dimen/xs"
-        android:text="Dengan mendaftar, saya menyetujui syarat &amp; ketentuan dari Klik Indomaret"
+        android:text="@string/snk_hg_test"
         android:textColor="@color/black_50"
         android:textAppearance="@style/TextAppearance.Inter.Regular.B3"
         app:layout_constraintTop_toBottomOf="@id/tilTestPassword"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnTestDisable"
-        style="@style/Widget.EDTS.UIKit.Button.Outlined.Secondary.Medium"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/s"
-        android:layout_marginHorizontal="@dimen/s"
-        android:text="@string/test_button_text"
-        app:layout_constraintTop_toBottomOf="@id/tvTextTest"/>
-
     <com.google.android.material.checkbox.MaterialCheckBox
+        android:id="@+id/mcb"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/s"
@@ -126,6 +117,15 @@
         android:enabled="false"
         android:paddingStart="@dimen/xxs"
         android:text="Dengan mendaftar, saya menyetujui syarat &amp; ketentuan dari Klik Indomaret"
-        app:layout_constraintTop_toBottomOf="@id/btnTestDisable"/>
+        app:layout_constraintTop_toBottomOf="@id/tvTextTest"/>
+
+    <id.co.edtslib.uikit.textview.CountdownTextView
+        android:id="@+id/cdtv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/s"
+        android:layout_marginHorizontal="@dimen/s"
+        app:remainingText="@string/countdown_test"
+        app:layout_constraintTop_toBottomOf="@id/mcb"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
