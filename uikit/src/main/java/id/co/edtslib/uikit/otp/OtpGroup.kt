@@ -126,15 +126,14 @@ class OtpGroup @JvmOverloads constructor(
         }
     }
 
-    fun getOTP(): String {
-        val otpBuilder = StringBuilder()
-        for (i in 0 until otpCount) {
-            val textInputLayout = findViewById<TextInputLayout>(generateViewId())
-            val otpInput = textInputLayout.editText?.text.toString()
-            otpBuilder.append(otpInput)
+    fun clear() {
+        otpInputLayouts.mapNotNull { it.editText }.forEach { editText ->
+            editText.setText("")
+            otpInputLayouts[0].requestFocus()
         }
-        return otpBuilder.toString()
     }
+
+    val otp: String get() = otpInputLayouts.mapNotNull { it.editText }.joinToString { it.text.toString() }
 
     companion object {
         private const val OTP_DELAY_MILLIS = 100L
