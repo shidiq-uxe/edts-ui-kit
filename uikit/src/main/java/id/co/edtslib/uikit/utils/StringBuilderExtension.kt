@@ -55,29 +55,3 @@ fun buildHighlightedMessage(
         append(remainingMessage)
     }
 }
-
-// Helper function to apply a specific TextAppearanceSpan
-fun SpannableStringBuilder.applyTextAppearanceSpan(
-    context: Context,
-    textStyle: TextStyle? = null,
-    builderAction: SpannableStringBuilder.() -> Unit
-) {
-    when(textStyle) {
-        TextStyle.H2 -> applyH2TextAppearanceSpan(context) {
-            builderAction.invoke(this)
-        }
-        TextStyle.H1 -> applyH1TextAppearance(context) {
-            builderAction.invoke(this)
-        }
-        TextStyle.B1 -> applyB1TextAppearance(context) {
-            builderAction.invoke(this)
-        }
-        TextStyle.P1 -> applyP1TextAppearance(context) {
-            builderAction.invoke(this)
-        }
-        TextStyle.ERROR -> applyErrorTextAppearance(context) {
-            builderAction.invoke(this)
-        }
-        null -> {}
-    }
-}

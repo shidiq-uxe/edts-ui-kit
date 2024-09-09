@@ -95,7 +95,7 @@
         <item name="android:fontFamily">@font/inter</item>
         <item name="android:textSize">@dimen/b3_text_size</item>
         <item name="lineHeight">@dimen/dimen_18</item>
-        <item name="android:textColor">@color/primary_20</item>
+        <item name="android:textColor">@color/red_30</item>
     </style>
 
     <style name="TextAppearance.Inter.Regular.Error.Black" parent="Base.TextAppearance.AppCompat">

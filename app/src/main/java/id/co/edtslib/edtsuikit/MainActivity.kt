@@ -17,8 +17,9 @@ import id.co.edtslib.uikit.boarding.BoardingItemAlignment
 import id.co.edtslib.uikit.databinding.ViewDialogBinding
 import id.co.edtslib.uikit.popup.PopUp
 import id.co.edtslib.uikit.utils.AlertType
+import id.co.edtslib.uikit.utils.TextStyle
 import id.co.edtslib.uikit.utils.alertSnack
-import id.co.edtslib.uikit.utils.applyH2TextAppearanceSpan
+import id.co.edtslib.uikit.utils.applyTextAppearanceSpan
 import id.co.edtslib.uikit.utils.color
 import id.co.edtslib.uikit.utils.dimenPixelSize
 import id.co.edtslib.uikit.utils.dp
@@ -119,7 +120,7 @@ class MainActivity : AppCompatActivity() {
     private fun dialogMessage() = buildSpannedString {
         append("Nomor ")
 
-        applyH2TextAppearanceSpan(this@MainActivity) {
+        applyTextAppearanceSpan(this@MainActivity, TextStyle.h2Style(this@MainActivity)) {
             append("08112233445")
         }
 

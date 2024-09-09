@@ -78,7 +78,7 @@ class SpotlightTrialsActivity : AppCompatActivity() {
         binding.tvTextTest.text = buildHighlightedMessage(
             context = this@SpotlightTrialsActivity,
             message = message,
-            highlightedTextAppearance = listOf(TextStyle.ERROR, TextStyle.H2),
+            highlightedTextAppearance = listOf(TextStyle.h2Style(this), TextStyle.errorStyle(this)),
             highlightedMessages = listOf(test1, test2),
             highlightClickAction = listOf(onHighlightClick(1), onHighlightClick(2))
         )
