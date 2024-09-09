@@ -127,6 +127,7 @@
         <attr name="otpCount" format="integer"/>
         <attr name="marginBetween" format="dimension"/>
         <attr name="isError" format="boolean"/>
+        <attr name="animateError" format="boolean"/>
     </declare-styleable>
 
     <declare-styleable name="CountdownTextView">

@@ -14,6 +14,7 @@ import id.co.edtslib.uikit.databinding.TextFieldOtpBinding
 import id.co.edtslib.uikit.textfield.TextField
 import id.co.edtslib.uikit.textinputlayout.TextInputLayout
 import id.co.edtslib.uikit.utils.inflater
+import id.co.edtslib.uikit.utils.vibrateAnimation
 
 class OtpGroup @JvmOverloads constructor(
     context: Context,
@@ -30,13 +31,22 @@ class OtpGroup @JvmOverloads constructor(
 
     var isError: Boolean
         get() = otpInputLayouts.all { it.isError }
-        set(value) = otpInputLayouts.forEach { it.isError = value }
+        set(value) = otpInputLayouts.forEach {
+            it.isError = value
+
+            if (value && shouldAnimateError) {
+                it.vibrateAnimation()
+            }
+        }
+
+    var shouldAnimateError: Boolean = true
 
     init {
         context.withStyledAttributes(attrs, R.styleable.OtpGroup, defStyleAttr, 0) {
             otpCount = getInt(R.styleable.OtpGroup_otpCount, otpCount)
             marginBetween = getDimensionPixelSize(R.styleable.OtpGroup_marginBetween, marginBetween)
             isError = getBoolean(R.styleable.OtpGroup_isError, isError)
+            shouldAnimateError = getBoolean(R.styleable.OtpGroup_animateError, shouldAnimateError)
         }
 
         setupView()
@@ -64,6 +74,7 @@ class OtpGroup @JvmOverloads constructor(
 
             this@OtpGroup.doOnLayout {
                 textField.layoutParams = (textField.layoutParams as LayoutParams).apply {
+                    // Set each OTP ratio to 4:5
                     width = this@OtpGroup.height * 4 / 5
 
                     val margin = marginBetween.div(2)
@@ -103,6 +114,8 @@ class OtpGroup @JvmOverloads constructor(
                     if (otpString.length == otpInputLayouts.size) {
                         delegate?.setOnOtpCompleteListener(otpString)
                     }
+
+                    delegate?.setOnTextChangeListener(otpString)
                 }
 
                 editText.setOnKeyListener { v, keyCode, event ->
@@ -133,7 +146,7 @@ class OtpGroup @JvmOverloads constructor(
         }
     }
 
-    val otp: String get() = otpInputLayouts.mapNotNull { it.editText }.joinToString { it.text.toString() }
+    val otp: String get() = otpInputLayouts.mapNotNull { it.editText }.joinToString("") { it.text.toString() }
 
     companion object {
         private const val OTP_DELAY_MILLIS = 100L

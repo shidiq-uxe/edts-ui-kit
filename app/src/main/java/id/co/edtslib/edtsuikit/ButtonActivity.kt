@@ -27,6 +27,10 @@ class ButtonActivity : AppCompatActivity() {
 
                 otpGroup.snack("Snack : $otp")
             }
+
+            override fun setOnTextChangeListener(otp: String) {
+                otpGroup.snack("OTP : $otp")
+            }
         }
     }
 }
