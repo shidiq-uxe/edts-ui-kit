@@ -2,15 +2,25 @@ package id.co.edtslib.uikit.tray
 
 import android.app.Dialog
 import android.content.DialogInterface
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.ColorRes
+import androidx.annotation.DrawableRes
+import androidx.annotation.IntegerRes
+import androidx.annotation.StringRes
+import androidx.annotation.StyleRes
 import androidx.core.view.isVisible
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import id.co.edtslib.uikit.R
 import id.co.edtslib.uikit.databinding.ViewBottomTrayBinding
+import id.co.edtslib.uikit.utils.color
+import id.co.edtslib.uikit.utils.colorStateList
+import id.co.edtslib.uikit.utils.drawable
 import id.co.edtslib.uikit.utils.viewBinding
 
 
@@ -33,6 +43,22 @@ class BottomSheetTray : BottomSheetDialogFragment() {
     var titleDividerVisibility: Boolean = false
     var shouldShowNavigation: Boolean = false
     var shouldShowClose: Boolean = false
+
+    // Title View Override
+    @StyleRes
+    var titleTextAppearance: Int? = R.style.TextAppearance_Inter_Semibold_H1
+    @ColorRes
+    var titleTextColor: Int? = R.color.black_70
+    @DrawableRes
+    var endIcon: Int? = R.drawable.ic_cancel_24
+    @ColorRes
+    var endIconTint: Int? = R.color.black_50
+    @StringRes
+    var endIconText: Int? = null
+    @DrawableRes
+    var navigationIcon: Int? = R.drawable.ic_arrow_left
+    @ColorRes
+    var navigationIconTint: Int? = R.color.black_50
 
     private var bottomSheetBehavior: BottomSheetBehavior<View>? = null
 
@@ -67,14 +93,16 @@ class BottomSheetTray : BottomSheetDialogFragment() {
             binding.flContent.addView(it)
         }
 
-        binding.ivClose.setOnClickListener {
+        binding.btnClose.setOnClickListener {
             dismiss()
         }
 
         binding.ivPullBar.isVisible = dragHandleVisibility
         binding.ctaDivider.isVisible = titleDividerVisibility
-        binding.ivBack.isVisible = shouldShowNavigation
-        binding.ivClose.isVisible = shouldShowClose
+        binding.btnNavigation.isVisible = shouldShowNavigation
+        binding.btnClose.isVisible = shouldShowClose
+
+        bindTitleView()
 
         customBackgroundColor?.let {
             binding.root.setBackgroundColor(it)
@@ -134,6 +162,23 @@ class BottomSheetTray : BottomSheetDialogFragment() {
     override fun onDismiss(dialog: DialogInterface) {
         super.onDismiss(dialog)
         // Implement any custom logic on dismiss if needed
+    }
+
+    private fun bindTitleView() {
+        titleTextAppearance?.let { if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            binding.tvTitle.setTextAppearance(it)
+        } else {
+            binding.tvTitle.setTextAppearance(requireContext(), it)
+        }}
+        titleTextColor?.let { binding.tvTitle.setTextColor(context.color(it)) }
+
+        binding.btnNavigation.icon = navigationIcon?.let { context?.drawable(it) }
+        binding.btnNavigation.iconTint = navigationIconTint?.let { context?.colorStateList(it) }
+
+        binding.btnClose.icon = endIcon?.let { context?.drawable(it) }
+        binding.btnClose.iconTint = endIconTint?.let { context?.colorStateList(it) }
+
+        binding.btnClose.text = endIconText?.let { context?.getString(it) }
     }
 
     companion object {

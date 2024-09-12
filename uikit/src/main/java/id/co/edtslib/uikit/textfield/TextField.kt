@@ -17,7 +17,7 @@ import id.co.edtslib.uikit.utils.lineHeight
 import id.co.edtslib.uikit.utils.vibrateAnimation
 import android.text.InputType as AndroidTextInputType
 
-class TextField @JvmOverloads constructor(
+open class TextField @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = com.google.android.material.R.attr.textInputStyle

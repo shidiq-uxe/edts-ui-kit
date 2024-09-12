@@ -24,6 +24,9 @@
     <attr name="colorDisableFill" format="color"/>
     <attr name="colorFocusBorder" format="color"/>
 
+    <attr name="searchBarStyle" format="reference"/>
+    <attr name="inputSearchBarStyle" format="reference"/>
+
     <declare-styleable name="IndicatorView">
 
         <attr name="indicator_checked_color" format="color" />
@@ -128,10 +131,11 @@
         <attr name="marginBetween" format="dimension"/>
         <attr name="isError" format="boolean"/>
         <attr name="animateError" format="boolean"/>
+        <attr name="vibrateOnError" format="boolean"/>
     </declare-styleable>
 
     <declare-styleable name="CountdownTextView">
-        <attr name="interval" />
+        <attr name="interval" format="integer" />
         <attr name="remainingText" format="string" />
         <attr name="format" format="enum">
             <enum name="clock" value="0" />
@@ -140,6 +144,10 @@
         <attr name="hourText" format="string" />
         <attr name="minuteText" format="string" />
         <attr name="secondText" format="string" />
+    </declare-styleable>
+
+    <declare-styleable name="SearchBar">
+        <attr name="closeIconVisible" format="boolean"/>
     </declare-styleable>
 
 </resources>

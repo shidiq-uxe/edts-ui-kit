@@ -1,6 +1,10 @@
 package id.co.edtslib.uikit.otp
 
 import android.content.Context
+import android.os.Build
+import android.os.VibrationEffect
+import android.os.Vibrator
+import android.os.VibratorManager
 import android.text.InputFilter
 import android.util.AttributeSet
 import android.view.Gravity
@@ -15,6 +19,7 @@ import id.co.edtslib.uikit.textfield.TextField
 import id.co.edtslib.uikit.textinputlayout.TextInputLayout
 import id.co.edtslib.uikit.utils.inflater
 import id.co.edtslib.uikit.utils.vibrateAnimation
+import id.co.edtslib.uikit.utils.vibratePhone
 
 class OtpGroup @JvmOverloads constructor(
     context: Context,
@@ -36,10 +41,13 @@ class OtpGroup @JvmOverloads constructor(
 
             if (value && shouldAnimateError) {
                 it.vibrateAnimation()
+
+                if (shouldVibrate) context.vibratePhone()
             }
         }
 
     var shouldAnimateError: Boolean = true
+    var shouldVibrate: Boolean = true
 
     init {
         context.withStyledAttributes(attrs, R.styleable.OtpGroup, defStyleAttr, 0) {
@@ -47,6 +55,7 @@ class OtpGroup @JvmOverloads constructor(
             marginBetween = getDimensionPixelSize(R.styleable.OtpGroup_marginBetween, marginBetween)
             isError = getBoolean(R.styleable.OtpGroup_isError, isError)
             shouldAnimateError = getBoolean(R.styleable.OtpGroup_animateError, shouldAnimateError)
+            shouldVibrate = getBoolean(R.styleable.OtpGroup_vibrateOnError, shouldVibrate)
         }
 
         setupView()

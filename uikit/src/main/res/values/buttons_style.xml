@@ -92,8 +92,6 @@
         <item name="android:minHeight">@dimen/dimen_0</item>
         <item name="android:minWidth">@dimen/dimen_0</item>
         <item name="android:tag">@string/button_icon_button_tag</item>
-        <item name="iconTint">@color/slr_button_outlined_text</item>
-        <item name="rippleColor">@color/slr_button_outlined_ripple</item>
     </style>
 
 

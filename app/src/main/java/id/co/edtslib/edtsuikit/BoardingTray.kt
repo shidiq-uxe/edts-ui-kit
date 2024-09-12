@@ -56,8 +56,11 @@ class BoardingTray(
             isCancelableOnTouchOutside = true
             customBackgroundColor = context.color(UIKitR.color.white)
 
+            shouldShowNavigation = false
             titleDividerVisibility = true
             shouldShowClose = true
+
+            endIconText = R.string.test_button_text
         }
 
         binding.btnTest.setOnClickListener {

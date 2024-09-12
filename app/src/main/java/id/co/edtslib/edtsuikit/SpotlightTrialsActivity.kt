@@ -78,7 +78,10 @@ class SpotlightTrialsActivity : AppCompatActivity() {
         binding.tvTextTest.text = buildHighlightedMessage(
             context = this@SpotlightTrialsActivity,
             message = message,
-            highlightedTextAppearance = listOf(TextStyle.h2Style(this), TextStyle.errorStyle(this)),
+            defaultTextAppearance = TextStyle.p1Style(this),
+            highlightedTextAppearance = listOf(TextStyle.h2Style(this).copy(
+                font = id.co.edtslib.uikit.R.font.inter_black
+            ), TextStyle.errorStyle(this)),
             highlightedMessages = listOf(test1, test2),
             highlightClickAction = listOf(onHighlightClick(1), onHighlightClick(2))
         )
@@ -89,9 +92,15 @@ class SpotlightTrialsActivity : AppCompatActivity() {
         binding.cdtv.displayAsHtml = true
         binding.cdtv.intervalInMillis = 3.minutes
         binding.cdtv.start()
+
+        binding.tilTestPassword.setOnCancelClickListener {
+            binding.tilTestPassword.editText?.text = null
+
+            it.snack("Cancel Clicked")
+        }
     }
 
-    private fun onHighlightClick(index: Int): () -> Unit = { binding.root.snack("Test $index") }
+    private fun onHighlightClick(index: Int): (View) -> Unit = { binding.root.snack("Test $index") }
 
     private fun spotlightTrials() {
         val targets = mutableListOf<Target>()

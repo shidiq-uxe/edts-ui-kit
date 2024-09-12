@@ -76,7 +76,8 @@ object BoardingAdapter {
     }
 
     private fun ItemBoardingContentBinding.bindViewWithData(item: Boarding, position: Int) {
-        val context = root.context
+        val context =
+            if (root.context is FragmentActivity) root.context as FragmentActivity else root.context
 
         val image  = item.image?.let { image ->
             when(image) {

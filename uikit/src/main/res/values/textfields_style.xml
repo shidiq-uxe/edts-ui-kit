@@ -206,4 +206,30 @@
         <item name="android:paddingLeft">2dp</item>
         <item name="android:paddingRight">2dp</item>"
     </style>
+
+    <style name="Widget.EDTS.UIKit.TextInputLayout.SearchBar" parent="Widget.EDTS.UIKit.TextInputLayout.WithoutLabel">
+        <item name="materialThemeOverlay">
+            @style/ThemeOverlay.EDTS.UIKit.TextInputLayout.SearchBar
+        </item>
+        <item name="placeholderTextAppearance">@style/TextAppearance.Inter.Regular.B2</item>
+        <item name="placeholderTextColor">@color/black_40</item>
+        <item name="startIconTint">@null</item>
+        <item name="endIconTint">@null</item>
+    </style>
+
+    <style name="ThemeOverlay.EDTS.UIKit.TextInputLayout.SearchBar" parent="">
+        <item name="editTextStyle">
+            @style/Widget.EDTS.UIKit.TextInputEditText.SearchBar
+        </item>
+    </style>
+
+    <style name="Widget.EDTS.UIKit.TextInputEditText.SearchBar" parent="Widget.EDTS.UIKit.TextInputEditText.WithoutLabel">
+        <item name="android:background">@drawable/slr_search_bar_background</item>
+        <item name="android:paddingTop">@dimen/dimen_0</item>
+        <item name="android:paddingBottom">@dimen/dimen_0</item>
+        <item name="android:textAppearance">@style/TextAppearance.Inter.Regular.B2</item>
+        <item name="android:textColor">@color/black_70</item>
+        <item name="android:height">32dp</item>
+    </style>
+
 </resources>

@@ -5,4 +5,9 @@
         <item name="backgroundTint">?colorSurface</item>
         <item name="shapeAppearance">@style/ShapeAppearance.EDTS.UIKit.ExtraLargeComponent</item>
     </style>
+
+    <!--Bottom Sheet Theme-->
+    <style name="ThemeOverlay.EDTS.UIKit.BottomSheetDialog" parent="ThemeOverlay.Material3.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/Widget.EDTS.UIKit.BottomSheet.Modal</item>
+    </style>
 </resources>

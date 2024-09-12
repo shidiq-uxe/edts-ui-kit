@@ -77,22 +77,31 @@
         android:layout_marginHorizontal="@dimen/dimen_16"
         app:layout_constraintTop_toBottomOf="@id/ivTarget3"/>
 
-    <id.co.edtslib.uikit.textfield.TextField
+    <id.co.edtslib.uikit.searchbar.SearchBar
         android:id="@+id/tilTestPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="@style/Widget.EDTS.UIKit.TextInputLayout.LabelInside"
-        app:expandedHintEnabled="false"
-        android:hint="Isi Password Woiii"
         app:placeholderText="Placeholder"
-        app:fieldInputType="password"
-        app:helperText="This pretty much the helper text"
-        app:fieldMaxLength="100"
-        app:fieldImeOptions="done"
-        app:passwordToggleEnabled="false"
+        app:startIconDrawable="@drawable/ic_search"
         android:layout_marginTop="@dimen/dimen_16"
         android:layout_marginHorizontal="@dimen/dimen_16"
         app:layout_constraintTop_toBottomOf="@id/tilTest"/>
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/tietTest"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_32dp"
+        android:layout_marginTop="@dimen/s"
+        android:layout_marginHorizontal="@dimen/s"
+        android:hint="Placeholder"
+        android:drawablePadding="@dimen/xxs"
+        android:drawableStart="@drawable/ic_cancel"
+        android:drawableEnd="@drawable/ic_cancel"
+        android:textAppearance="@style/TextAppearance.Inter.Regular.B2"
+        android:paddingTop="0dp"
+        android:paddingBottom="0dp"
+        style="@style/Widget.EDTS.UIKit.TextInputEditText.WithoutLabel"
+        app:layout_constraintTop_toBottomOf="@id/tilTestPassword"/>
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tvTextTest"
@@ -102,8 +111,7 @@
         android:layout_marginTop="@dimen/xs"
         android:text="@string/snk_hg_test"
         android:textColor="@color/black_50"
-        android:textAppearance="@style/TextAppearance.Inter.Regular.B3"
-        app:layout_constraintTop_toBottomOf="@id/tilTestPassword"
+        app:layout_constraintTop_toBottomOf="@id/tietTest"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
