@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clickable="false"
+    android:elevation="@dimen/dimen_0"
+    app:cardCornerRadius="@dimen/xxxs"
+    app:strokeColor="@color/black_20"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/ivColor"
+            android:layout_width="@dimen/dimen_0"
+            android:layout_height="@dimen/dimen_0"
+            app:layout_constraintTop_toTopOf="parent"
+            app:shapeAppearanceOverlay="@style/ShapeAppearance.EDTS.UIKit.Flat.Corner.End"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintWidth_percent="0.33"
+            app:layout_constraintDimensionRatio="4:3"
+            tools:background="@color/primary_50"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvColorName"
+            android:layout_width="@dimen/dimen_0"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/s"
+            android:layout_marginEnd="@dimen/s"
+            android:textColor="@color/black_70"
+            android:textAppearance="@style/TextAppearance.Inter.Semibold.H2"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/ivColor"
+            tools:text="Color Name"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvColorCode"
+            android:layout_width="@dimen/dimen_0"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_6"
+            android:layout_marginStart="@dimen/s"
+            android:textColor="@color/black_50"
+            android:textAppearance="@style/TextAppearance.Inter.Regular.B2"
+            app:layout_constraintTop_toBottomOf="@id/tvColorName"
+            app:layout_constraintStart_toEndOf="@id/ivColor"
+            tools:text="Color Code"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

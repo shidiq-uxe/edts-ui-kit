@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".GuidelinesListItemActivity">
+
+    <id.co.edtslib.uikit.list.ListItem
+        android:id="@+id/liSingleLine"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/s"
+        app:titleText="This is Title"
+        app:startIconVisible="false"
+        app:endIconVisible="false"
+        app:subtitleVisible="false"
+        app:strokeColor="@color/black_30"
+        app:strokeWidth="@dimen/dimen_1"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <id.co.edtslib.uikit.list.ListItem
+        android:id="@+id/liMultiline"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/s"
+        app:titleText="This is Title"
+        app:subTitleText="This is subtitle"
+        app:startIconVisible="false"
+        app:endIconVisible="false"
+        app:strokeColor="@color/black_30"
+        app:strokeWidth="@dimen/dimen_1"
+        app:layout_constraintTop_toBottomOf="@id/liSingleLine"/>
+
+    <id.co.edtslib.uikit.list.ListItem
+        android:id="@+id/liSingleLineWithStartIcon"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/s"
+        app:titleText="This is Title with Start Icon"
+        app:subtitleVisible="false"
+        app:startIcon="@drawable/ic_placeholder_medium_24"
+        app:strokeColor="@color/black_30"
+        app:strokeWidth="@dimen/dimen_1"
+        app:layout_constraintTop_toBottomOf="@id/liMultiline"/>
+
+    <id.co.edtslib.uikit.list.ListItem
+        android:id="@+id/liSingleLineWithEndIcon"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/s"
+        app:startIconVisible="false"
+        app:titleText="This is Title with End Icon"
+        app:subtitleVisible="false"
+        app:endIcon="@drawable/ic_placeholder_medium_24"
+        app:strokeColor="@color/black_30"
+        app:strokeWidth="@dimen/dimen_1"
+        app:layout_constraintTop_toBottomOf="@id/liSingleLineWithStartIcon"/>
+
+    <id.co.edtslib.uikit.list.ListItem
+        android:id="@+id/liSingleLineWithStartAndEndIcon"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/s"
+        app:titleText="This is Title with Start and End Icon"
+        app:subtitleVisible="false"
+        app:startIcon="@drawable/ic_placeholder_medium_24"
+        app:endIcon="@drawable/ic_placeholder_medium_24"
+        app:strokeColor="@color/black_30"
+        app:strokeWidth="@dimen/dimen_1"
+        app:layout_constraintTop_toBottomOf="@id/liSingleLineWithEndIcon"/>
+
+    <id.co.edtslib.uikit.list.ListItem
+        android:id="@+id/liMultilineWithStartIcon"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/s"
+        app:titleText="This is Title with Start Icon"
+        app:subTitleText="This is subtitle with Start Icon"
+        app:startIcon="@drawable/ic_placeholder_medium_24"
+        app:strokeColor="@color/black_30"
+        app:strokeWidth="@dimen/dimen_1"
+        app:layout_constraintTop_toBottomOf="@+id/liSingleLineWithStartAndEndIcon"/>
+
+    <id.co.edtslib.uikit.list.ListItem
+        android:id="@+id/liMultilineWithEndIcon"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/s"
+        app:titleText="This is Title with Start Icon"
+        app:subTitleText="This is subtitle with Start Icon"
+        app:endIcon="@drawable/ic_placeholder_medium_24"
+        app:startIconVisible="false"
+        app:strokeColor="@color/black_30"
+        app:strokeWidth="@dimen/dimen_1"
+        app:layout_constraintTop_toBottomOf="@+id/liMultilineWithStartIcon"/>
+
+    <id.co.edtslib.uikit.list.ListItem
+        android:id="@+id/liMultilineWithStartAndEndIcon"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/s"
+        app:titleText="This is Title with Start Icon"
+        app:subTitleText="This is subtitle with Start Icon"
+        app:startIcon="@drawable/ic_placeholder_medium_24"
+        app:endIcon="@drawable/ic_placeholder_medium_24"
+        app:strokeColor="@color/black_30"
+        app:strokeWidth="@dimen/dimen_1"
+        android:clickable="true"
+        app:layout_constraintTop_toBottomOf="@+id/liMultilineWithEndIcon"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

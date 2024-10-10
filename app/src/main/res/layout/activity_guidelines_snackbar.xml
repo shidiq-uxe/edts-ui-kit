@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".GuidelinesSnackbarActivity">
+
+    <RadioGroup
+        android:id="@+id/rgAnimation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/s"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/rbFade"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Fade Animation"
+            android:checked="true"/>
+
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/rbSlide"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Slide Animation"/>
+
+    </RadioGroup>
+
+    <com.google.android.material.divider.MaterialDivider
+        android:id="@+id/firstDivider"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_1"
+        app:dividerColor="@color/black_30"
+        app:layout_constraintTop_toBottomOf="@id/rgAnimation"/>
+
+    <RadioGroup
+        android:id="@+id/rgType"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/s"
+        app:layout_constraintTop_toBottomOf="@id/firstDivider">
+
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/rbDefault"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Default"
+            android:checked="true"/>
+
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/rbError"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Error"/>
+
+    </RadioGroup>
+
+    <com.google.android.material.divider.MaterialDivider
+        android:id="@+id/secondDivider"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_1"
+        app:dividerColor="@color/black_30"
+        app:layout_constraintTop_toBottomOf="@id/rgType"/>
+
+    <RadioGroup
+        android:id="@+id/rgLines"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/s"
+        app:layout_constraintTop_toBottomOf="@id/secondDivider">
+
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/rbSingleLine"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Single Line"
+            android:checked="true"/>
+
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/rbMultiline"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Multiline"/>
+
+    </RadioGroup>
+
+    <com.google.android.material.divider.MaterialDivider
+        android:id="@+id/thirdDivider"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_1"
+        app:dividerColor="@color/black_30"
+        app:layout_constraintTop_toBottomOf="@id/rgLines"/>
+    
+    <com.google.android.material.checkbox.MaterialCheckBox
+        android:id="@+id/cbIncludeAction"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/s"
+        android:text="Include Action &amp; Start Icon"
+        app:layout_constraintTop_toBottomOf="@id/thirdDivider"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"/>
+
+    <Button
+        android:id="@+id/btnShowSnackbar"
+        style="@style/Widget.EDTS.UIKit.Button.Outlined.Secondary.Medium"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/s"
+        android:text="Show Snackbar"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

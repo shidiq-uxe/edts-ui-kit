@@ -20,25 +20,13 @@ import id.co.edtslib.uikit.utils.seconds
 import id.co.edtslib.uikit.utils.setCurrentItem
 import id.co.edtslib.uikit.utils.transformer.ScalePageTransformer
 
-class BoardingPagerView: FrameLayout {
+class BoardingPagerView @JvmOverloads constructor(
+    context: Context,
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = 0
+) : FrameLayout(context, attrs, defStyleAttr) {
     private val adapter = BoardingAdapter.boardingAdapter()
     var delegate: BoardingPageListener? = null
-
-    constructor(context: Context) : super(context) {
-        init(null)
-    }
-
-    constructor(context: Context, attrs: AttributeSet?) : super(context, attrs) {
-        init(attrs)
-    }
-
-    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(
-        context,
-        attrs,
-        defStyleAttr
-    ) {
-        init(attrs)
-    }
 
     private val binding: ViewBoardingPagerBinding =
         ViewBoardingPagerBinding.inflate(LayoutInflater.from(context), this, true)
@@ -120,6 +108,10 @@ class BoardingPagerView: FrameLayout {
                 isVisible = false
             }
         }
+
+    init {
+        init(attrs)
+    }
 
     private fun removeAutoScroll() {
         if (runnable != null) {

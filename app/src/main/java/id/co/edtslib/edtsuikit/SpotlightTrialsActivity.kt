@@ -7,6 +7,7 @@ import android.text.method.LinkMovementMethod
 import android.view.View
 import android.view.animation.DecelerateInterpolator
 import android.widget.FrameLayout
+import android.widget.TextSwitcher
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.doOnLayout
@@ -64,11 +65,10 @@ class SpotlightTrialsActivity : AppCompatActivity() {
         }
 
         binding.ivTarget2.setOnClickListener {
-            binding.tilTest.error = null
+            binding.tilTest.isError = true
+            binding.tilTest.error = "Email tidak ditemukan. Silakan masukkan nomor Handphone untuk melakukan pendaftaran"
         }
 
-        binding.tilTest.isError = true
-        binding.tilTest.error = "Email tidak ditemukan. Silakan masukkan nomor Handphone untuk melakukan pendaftaran"
 
         val test1 = "Test Only"
         val test2 = "For Test Purpose"
@@ -92,12 +92,6 @@ class SpotlightTrialsActivity : AppCompatActivity() {
         binding.cdtv.displayAsHtml = true
         binding.cdtv.intervalInMillis = 3.minutes
         binding.cdtv.start()
-
-        binding.tilTestPassword.setOnCancelClickListener {
-            binding.tilTestPassword.editText?.text = null
-
-            it.snack("Cancel Clicked")
-        }
     }
 
     private fun onHighlightClick(index: Int): (View) -> Unit = { binding.root.snack("Test $index") }

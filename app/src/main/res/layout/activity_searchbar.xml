@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <id.co.edtslib.uikit.searchbar.SearchBar
+        android:id="@+id/sbDefault"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/s"
+        android:layout_marginHorizontal="@dimen/s"
+        app:startIcon="@drawable/ic_search"
+        app:placeholderTextList="@array/placeholder"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <id.co.edtslib.uikit.searchbar.SearchBar
+        android:id="@+id/sbSlideUp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/s"
+        android:layout_marginHorizontal="@dimen/s"
+        app:placeholderTextList="@array/placeholder"
+        app:layout_constraintTop_toBottomOf="@id/sbDefault"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <id.co.edtslib.uikit.searchbar.SearchBar
+        android:id="@+id/sbTypeWriter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/s"
+        android:layout_marginHorizontal="@dimen/s"
+        app:placeholderTextList="@array/placeholder"
+        app:layout_constraintTop_toBottomOf="@id/sbSlideUp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <id.co.edtslib.uikit.searchbar.SearchBar
+        android:id="@+id/sbPrefixTypeWriter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/s"
+        android:layout_marginHorizontal="@dimen/s"
+        app:prefixText="Search"
+        app:placeholderTextList="@array/categories"
+        android:transitionName="shared_searchbar"
+        app:layout_constraintTop_toBottomOf="@id/sbTypeWriter"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextSwitcher
+        android:id="@+id/tsSlideUp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/s"
+        android:layout_marginHorizontal="@dimen/s"
+        android:text="@string/app_name"
+        app:layout_constraintTop_toBottomOf="@id/sbPrefixTypeWriter" />
+
+    <TextSwitcher
+        android:id="@+id/tsTypeWriter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/s"
+        android:layout_marginHorizontal="@dimen/s"
+        android:text="@string/app_name"
+        app:layout_constraintTop_toBottomOf="@id/tsSlideUp" />
+
+    <Button
+        android:id="@+id/btnImpl"
+        style="@style/Widget.EDTS.UIKit.Button.Filled.Medium"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/s"
+        android:layout_marginHorizontal="@dimen/s"
+        android:text="Dummy Implementation"
+        app:layout_constraintTop_toBottomOf="@id/tsTypeWriter"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

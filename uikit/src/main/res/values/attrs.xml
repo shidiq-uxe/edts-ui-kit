@@ -27,8 +27,64 @@
     <attr name="searchBarStyle" format="reference"/>
     <attr name="inputSearchBarStyle" format="reference"/>
 
-    <declare-styleable name="IndicatorView">
+    <attr name="startIconGravity" format="enum">
+        <enum name="top" value="0" />
+        <enum name="center" value="1" />
+        <enum name="bottom" value="1" />
+    </attr>
 
+    <attr name="endIconGravity" format="enum">
+        <enum name="top" value="0" />
+        <enum name="center" value="1" />
+        <enum name="bottom" value="1" />
+    </attr>
+
+    <attr name="titleText" format="string"/>
+    <attr name="titleTextAppearance" format="reference"/>
+    <attr name="titleTextColor" format="color"/>
+    <attr name="titleVisible" format="boolean"/>
+    <attr name="subTitleText" format="string"/>
+    <attr name="subtitleTextAppearance" format="reference"/>
+    <attr name="subtitleTextColor" format="color"/>
+    <attr name="subtitleVisible" format="boolean"/>
+    <attr name="startIcon" format="reference"/>"
+    <attr name="startIconTint" format="color"/>"
+    <attr name="startIconVisible" format="boolean"/>
+    <attr name="endIcon" format="reference"/>
+    <attr name="endIconTint" format="color"/>
+    <attr name="endIconVisible" format="boolean"/>
+    <attr name="icon" format="reference"/>
+    <attr name="strokeWidth"/>
+
+    <attr name="cornerRadius" format="dimension"/>
+    <attr name="topRightCornerRadius" format="dimension"/>
+    <attr name="topLeftCornerRadius" format="dimension"/>
+    <attr name="bottomLeftCornerRadius" format="dimension"/>
+    <attr name="bottomRightCornerRadius" format="dimension"/>
+
+    <attr name="startIconSize" format="dimension"/>
+    <attr name="endIconSize" format="dimension"/>
+    <attr name="strokeColor" format="color"/>
+
+    <attr name="fieldInputType" format="enum">
+        <enum name="text" value="0" />
+        <enum name="password" value="1" />
+        <enum name="pin" value="2" />
+        <enum name="phone" value="3" />
+        <enum name="email" value="4" />
+        <enum name="otp" value="5" />
+    </attr>
+
+    <attr name="fieldMaxLength" format="integer" />
+
+    <declare-styleable name="LiquidRefreshLayout">
+        <attr name="AniBackColor" format="color" />
+        <attr name="AniForeColor" format="color" />
+        <attr name="CircleSmaller" format="integer" />
+        <attr name="icon" />
+    </declare-styleable>
+
+    <declare-styleable name="IndicatorView">
         <attr name="indicator_checked_color" format="color" />
         <attr name="indicator_default_color" format="color" />
         <attr name="indicator_default_width" format="dimension" />
@@ -101,15 +157,19 @@
             <enum name="search" value="2" />
             <enum name="done" value="3" />
         </attr>
-        <attr name="fieldInputType" format="enum">
-            <enum name="text" value="0" />
-            <enum name="password" value="1" />
-            <enum name="pin" value="2" />
-            <enum name="phone" value="3" />
-            <enum name="email" value="4" />
-            <enum name="otp" value="5" />
-        </attr>
-        <attr name="fieldMaxLength" format="integer" />
+        <attr name="fieldInputType"/>
+        <attr name="fieldMaxLength"/>
+    </declare-styleable>
+
+    <declare-styleable name="SearchBar">
+        <attr name="closeIconVisible" format="boolean"/>
+
+        <attr name="fieldInputType"/>
+        <attr name="fieldMaxLength"/>
+        <attr name="startIcon"/>
+        <attr name="prefixText" format="string"/>
+        <attr name="placeholderTextList" format="reference"/>
+        <attr name="placeholderTextAppearance" format="reference"/>
     </declare-styleable>
 
     <!--Todo : Add Several Customization -->
@@ -146,8 +206,34 @@
         <attr name="secondText" format="string" />
     </declare-styleable>
 
-    <declare-styleable name="SearchBar">
-        <attr name="closeIconVisible" format="boolean"/>
+    <declare-styleable name="ListItem">
+        <attr name="titleText"/>
+        <attr name="titleTextAppearance"/>
+        <attr name="titleTextColor"/>
+        <attr name="titleVisible"/>
+        <attr name="subTitleText"/>
+        <attr name="subtitleTextAppearance"/>
+        <attr name="subtitleTextColor"/>
+        <attr name="subtitleVisible"/>
+        <attr name="startIcon"/>"
+        <attr name="startIconTint"/>"
+        <attr name="startIconVisible"/>
+        <attr name="endIcon"/>
+        <attr name="endIconTint"/>
+        <attr name="endIconVisible"/>
+        <attr name="strokeWidth"/>
+        <attr name="strokeColor"/>
+        <attr name="cornerRadius"/>
+        <attr name="topLeftCornerRadius"/>
+        <attr name="topRightCornerRadius"/>
+        <attr name="bottomLeftCornerRadius"/>
+        <attr name="bottomRightCornerRadius"/>
+        <attr name="startIconSize"/>
+        <attr name="endIconSize"/>
+        <attr name="backgroundColor"/>
+        <attr name="cardElevation"/>
+        <attr name="startIconGravity"/>
+        <attr name="endIconGravity"/>
     </declare-styleable>
 
 </resources>

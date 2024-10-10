@@ -9,6 +9,7 @@ import android.os.VibratorManager
 import android.view.View
 import android.view.WindowInsetsController
 import id.co.edtslib.uikit.R
+import id.co.edtslib.uikit.utils.hapticfeedback.HapticFeedback
 
 fun Activity.setLightStatusBar() {
     window?.statusBarColor = color(R.color.white)
@@ -42,9 +43,9 @@ private val Context?.vibrator get() = if (Build.VERSION.SDK_INT >= Build.VERSION
     this?.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
 }
 
-fun Context?.vibratePhone() {
+fun Context?.vibratePhone(rule: HapticFeedback) {
     if (Build.VERSION.SDK_INT >= 26) {
-        vibrator.vibrate(VibrationEffect.createOneShot(200, VibrationEffect.DEFAULT_AMPLITUDE))
+        vibrator.vibrate(VibrationEffect.createOneShot(rule.duration, VibrationEffect.DEFAULT_AMPLITUDE))
     } else {
         vibrator.vibrate(200)
     }

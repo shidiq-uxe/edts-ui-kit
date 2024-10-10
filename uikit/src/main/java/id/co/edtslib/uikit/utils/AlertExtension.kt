@@ -8,7 +8,9 @@ import android.view.Gravity
 import android.view.View
 import android.widget.TextView
 import androidx.annotation.ColorInt
+import androidx.annotation.DrawableRes
 import androidx.annotation.StyleRes
+import androidx.core.graphics.drawable.DrawableCompat
 import androidx.core.view.isVisible
 import com.google.android.material.snackbar.Snackbar
 import id.co.edtslib.uikit.R
@@ -26,20 +28,19 @@ fun View?.snack(
     message: CharSequence,
     actionText: CharSequence? = null,
     displayLength: Int = Snackbar.LENGTH_SHORT,
-    @ColorInt backgroundColor: Int = Color.BLACK,
+    @ColorInt backgroundColor: Int = this?.context.color(R.color.black_60),
     @StyleRes resTextAppearance: Int = -1,
     @ColorInt textColor: Int = Color.WHITE,
     isAnchored: Boolean = false,
     anchoredView: View? = this,
+    animationMode: Int = Snackbar.ANIMATION_MODE_FADE,
     onViewCreated: (Snackbar) -> Unit = {},
     action: ((View) -> Unit)? = null
 ) {
     this?.let {
         Snackbar.make(it, message, displayLength).apply {
-            this.setBackgroundTint(
-                if (backgroundColor != Color.BLACK) backgroundColor
-                else context.color(R.color.black_70)
-            )
+            this.setBackgroundTint(backgroundColor)
+            this.animationMode = animationMode
 
             with(this.view) {
                 onViewCreated(this@apply)
@@ -56,7 +57,7 @@ fun View?.snack(
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                         setTextAppearance(
                             if (resTextAppearance != -1) resTextAppearance
-                            else R.style.TextAppearance_Inter_Regular_B2
+                            else R.style.TextAppearance_Inter_Regular_B3
                         )
                     }
 
@@ -79,68 +80,56 @@ fun View?.snack(
 }
 
 enum class AlertType {
-    SUCCESS, ERROR, WARNING, INFO, LIGHT
+    DEFAULT, ERROR
 }
 
 fun View?.alertSnack(
     message: CharSequence,
     alertType: AlertType,
+    actionText: CharSequence? = null,
+    @DrawableRes startIconRes: Int? = null,
     isAnchored: Boolean = false,
     anchoredView: View? = this,
+    animationMode: Int = Snackbar.ANIMATION_MODE_FADE,
     action: ((View) -> Unit)? = null,
 ) {
    val backgroundColor = this?.context.color(
        when(alertType) {
-           AlertType.SUCCESS -> R.color.success_background
-           AlertType.ERROR -> R.color.alert_background
-           AlertType.WARNING -> R.color.warning_background
-           AlertType.INFO -> R.color.info_background
-           AlertType.LIGHT -> R.color.light_background
+           AlertType.DEFAULT -> R.color.black_60
+           AlertType.ERROR -> R.color.alert_primary
        }
    )
 
     val textColor = this?.context.color(
         when(alertType) {
-            AlertType.SUCCESS -> R.color.success_primary
-            AlertType.ERROR -> R.color.alert_primary
-            AlertType.WARNING -> R.color.warning_primary
-            AlertType.INFO -> R.color.info_primary
-            AlertType.LIGHT -> R.color.light_primary
+            AlertType.DEFAULT -> R.color.white
+            AlertType.ERROR -> R.color.white
         }
     )
-
-    val borderWidth = this?.context.dimen(R.dimen.dimen_1).roundToInt()
-
-    val drawable = GradientDrawable().apply {
-        this.setStroke(borderWidth, textColor)
-    }
 
     snack(
         message = message,
         backgroundColor = backgroundColor,
-        resTextAppearance = R.style.TextAppearance_Inter_Regular_B2,
+        resTextAppearance = R.style.TextAppearance_Inter_Regular_B3,
         textColor = textColor,
+        actionText = actionText,
         displayLength = Snackbar.LENGTH_LONG,
         isAnchored = isAnchored,
         anchoredView = anchoredView,
-        onViewCreated = {
-            it.setAlertIcon(alertType)
-            it.setCloseIcon()
+        animationMode = animationMode,
+        onViewCreated = { snackBar ->
+            startIconRes?.let { res ->
+                snackBar.setAlertIcon(res)
+            }
         },
         action = action
     )
 }
 
-private fun Snackbar.setAlertIcon(alertType: AlertType) {
-    val drawable = context.drawable(
-        when(alertType) {
-            AlertType.SUCCESS -> R.drawable.ic_alert_success
-            AlertType.ERROR -> R.drawable.ic_alert_error
-            AlertType.WARNING -> R.drawable.ic_alert_warning
-            AlertType.INFO -> R.drawable.ic_alert_info
-            AlertType.LIGHT -> R.drawable.ic_alert_light
-        }
-    )
+private fun Snackbar.setAlertIcon(@DrawableRes drawableRes: Int, colorInt: Int = Color.WHITE) {
+    val drawable = context.drawable(drawableRes).apply {
+        DrawableCompat.setTint(this, colorInt)
+    }
 
     view.findViewById<TextView>(com.google.android.material.R.id.snackbar_text).apply {
         setDrawable(drawableLeft = drawable)

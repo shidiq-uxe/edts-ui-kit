@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".GuidelinesSharedSearchBarActivity">
+    
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarShared"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:elevation="@dimen/xxxs"
+        android:elevation="@dimen/xxxs">
+        
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            
+            <ImageButton
+                android:id="@+id/ibNavigationIcon"
+                android:layout_width="@dimen/m2"
+                android:layout_height="@dimen/m2"
+                android:layout_margin="@dimen/s"
+                android:src="@drawable/ic_arrow_left"
+                android:background="@null"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <id.co.edtslib.uikit.searchbar.SearchBar
+                android:id="@+id/sbShared"
+                android:layout_width="@dimen/dimen_0"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/s"
+                android:transitionName="shared_searchbar"
+                app:layout_constraintTop_toTopOf="@id/ibNavigationIcon"
+                app:layout_constraintStart_toEndOf="@id/ibNavigationIcon"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="@id/ibNavigationIcon"/>
+            
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        
+    </com.google.android.material.appbar.AppBarLayout>
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginTop="56dp"
+        app:layout_anchor="@id/appBarShared"
+        app:layout_anchorGravity="bottom">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitXY"
+            android:adjustViewBounds="true"
+            android:src="@drawable/search_product_placeholder"
+            app:layout_anchor="@id/appBarShared"/>
+
+    </LinearLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

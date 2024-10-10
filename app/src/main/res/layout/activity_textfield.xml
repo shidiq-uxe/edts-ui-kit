@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:ignore="HardcodedText">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clipToPadding="false"
+        android:orientation="vertical"
+        android:padding="@dimen/s">
+
+        <id.co.edtslib.uikit.textfield.TextField
+            android:id="@+id/tilLabelInside"
+            style="@style/Widget.EDTS.UIKit.TextInputLayout.LabelInside"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/s"
+            android:hint="Input Normal"
+            app:placeholderText="Placeholder"/>
+
+        <id.co.edtslib.uikit.textfield.TextField
+            android:id="@+id/tilLabelInsidePassword"
+            style="@style/Widget.EDTS.UIKit.TextInputLayout.LabelInside"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/s"
+            android:hint="Input with Password Toggle"
+            app:fieldInputType="password"
+            app:placeholderText="Placeholder"/>
+
+        <id.co.edtslib.uikit.textfield.TextField
+            android:id="@+id/tilLabelInsideDisable"
+            style="@style/Widget.EDTS.UIKit.TextInputLayout.LabelInside"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/s"
+            android:enabled="false"
+            android:hint="Input Disable"
+            app:placeholderText="Placeholder"/>
+
+        <id.co.edtslib.uikit.textfield.TextField
+            android:id="@+id/tilLabelInsideError"
+            style="@style/Widget.EDTS.UIKit.TextInputLayout.LabelInside"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/s"
+            android:hint="Input Error"
+            app:placeholderText="Placeholder"/>
+
+        <id.co.edtslib.uikit.textfield.TextField
+            android:id="@+id/tilLabelInsideLoading"
+            style="@style/Widget.EDTS.UIKit.TextInputLayout.LabelInside"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/s"
+            android:hint="Input Loading"
+            app:placeholderText="Placeholder"/>
+
+        <id.co.edtslib.uikit.textfield.TextField
+            android:id="@+id/tilLabelInsideSuccess"
+            style="@style/Widget.EDTS.UIKit.TextInputLayout.LabelInside"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/s"
+            android:hint="Input Success"
+            app:placeholderText="Placeholder"/>
+
+        <id.co.edtslib.uikit.textfield.TextField
+            android:id="@+id/tilLabelInsideState"
+            style="@style/Widget.EDTS.UIKit.TextInputLayout.LabelInside"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/s"
+            android:hint="Input with State"
+            app:placeholderText="Placeholder"/>
+
+        <id.co.edtslib.uikit.textfield.TextField
+            android:id="@+id/tilLabelInsideOther"
+            style="@style/Widget.EDTS.UIKit.TextInputLayout.LabelInside"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/s"
+            android:hint="Input Other"
+            app:endIconDrawable="@drawable/ic_placeholder_medium_24"
+            app:endIconMode="custom"
+            app:placeholderText="Placeholder"
+            app:prefixText="Rp"
+            app:startIconDrawable="@drawable/ic_placeholder_medium_24"
+            app:suffixText="gr"/>
+
+        <id.co.edtslib.uikit.textfield.TextField
+            android:id="@+id/tilWithoutLabel"
+            style="@style/Widget.EDTS.UIKit.TextInputLayout.WithoutLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/s"
+            app:placeholderText="Input WithoutLabel"/>
+
+        <id.co.edtslib.uikit.textfield.TextField
+            android:id="@+id/tilWithoutLabelDisable"
+            style="@style/Widget.EDTS.UIKit.TextInputLayout.WithoutLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/s"
+            android:enabled="false"
+            app:placeholderText="Input WithoutLabel Disable"/>
+
+        <id.co.edtslib.uikit.textfield.TextField
+            android:id="@+id/tilWithoutLabelError"
+            style="@style/Widget.EDTS.UIKit.TextInputLayout.WithoutLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/s"
+            app:placeholderText="Input WithoutLabel Error"/>
+
+        <id.co.edtslib.uikit.textfield.TextField
+            android:id="@+id/tilWithoutLabelLoading"
+            style="@style/Widget.EDTS.UIKit.TextInputLayout.WithoutLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/s"
+            app:placeholderText="Input WithoutLabel Loading"/>
+
+        <id.co.edtslib.uikit.textfield.TextField
+            android:id="@+id/tilWithoutLabelSuccess"
+            style="@style/Widget.EDTS.UIKit.TextInputLayout.WithoutLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/s"
+            app:placeholderText="Input WithoutLabel Success"/>
+
+        <id.co.edtslib.uikit.textfield.TextField
+            android:id="@+id/tilWithoutLabelState"
+            style="@style/Widget.EDTS.UIKit.TextInputLayout.WithoutLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/s"
+            app:placeholderText="Input WithoutLabel with State"/>
+
+        <id.co.edtslib.uikit.textfield.TextField
+            android:id="@+id/tilWithoutLabelOther"
+            style="@style/Widget.EDTS.UIKit.TextInputLayout.WithoutLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/s"
+            app:endIconDrawable="@drawable/ic_placeholder_medium_24"
+            app:endIconMode="custom"
+            app:placeholderText="Input WithoutLabel Other"
+            app:prefixText="Rp"
+            app:startIconDrawable="@drawable/ic_placeholder_medium_24"
+            app:suffixText="gr"/>
+    </LinearLayout>
+
+</ScrollView>

@@ -12,21 +12,73 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.EDTS.UIKit"
+        android:theme="@style/Theme.EDTS.UIKit.ActionBar"
         tools:targetApi="31">
+        <activity
+            android:name=".GuidelinesBottomTrayActivity"
+            android:exported="false"
+            android:label="Bottom Sheet"/>
+        <activity
+            android:name=".GuidelinesSnackbarActivity"
+            android:exported="false"
+            android:label="Snackbar" />
+        <activity
+            android:name=".GuidelinesListItemActivity"
+            android:exported="false"
+            android:label="List Item" />
+        <activity
+            android:name=".GuidelinesSharedSearchBarActivity"
+            android:exported="false"
+            android:theme="@style/Theme.EDTS.UIKit" />
+        <activity
+            android:name=".GuidelinesBoardingActivity"
+            android:exported="false"
+            android:label="Boarding" />
+        <activity
+            android:name=".GuidelinesAlertBoxActivity"
+            android:exported="false"
+            android:label="Alert Box" />
+        <activity
+            android:name=".GuidelinesOtpActivity"
+            android:exported="false"
+            android:label="OTP" />
+        <activity
+            android:name=".GuidelinesSearchbarActivity"
+            android:exported="false"
+            android:label="Searchbar" />
+        <activity
+            android:name=".GuidelinesTextfieldActivity"
+            android:exported="false"
+            android:label="Textfield - Work In Progress" />
+        <activity
+            android:name=".GuidelinesColorActivity"
+            android:exported="false"
+            android:label="Color" />
+        <activity
+            android:name=".GuidelinesBaseActivity"
+            android:exported="false" />
+        <activity
+            android:name=".GuidelinesTypographyActivity"
+            android:exported="false"
+            android:label="Typography"
+            android:theme="@style/Theme.EDTS.UIKit.ActionBar" />
         <activity
             android:name=".IndicatorViewActivity"
             android:exported="false" />
         <activity
-            android:name=".ButtonActivity"
-            android:exported="false" />
+            android:name=".GuidelinesButtonActivity"
+            android:exported="false"
+            android:label="Button"
+            android:theme="@style/Theme.EDTS.UIKit.ActionBar" />
         <activity
             android:name=".BoardingPlaygroundActivity"
             android:exported="false" />
         <activity
             android:name=".SpotlightTrialsActivity"
             android:exported="false"
-            android:theme="@style/Theme.EDTS.UIKit.ActionBar" />
+            android:label="Work In Progress"
+            android:theme="@style/Theme.EDTS.UIKit.ActionBar"
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".MainActivity"
             android:exported="true">

@@ -3,7 +3,7 @@
     <!--Bottom Sheet-->
     <style name="Widget.EDTS.UIKit.BottomSheet.Modal" parent="Widget.Material3.BottomSheet.Modal">
         <item name="backgroundTint">?colorSurface</item>
-        <item name="shapeAppearance">@style/ShapeAppearance.EDTS.UIKit.ExtraLargeComponent</item>
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearance.EDTS.UIKit.BottomSheet</item>
     </style>
 
     <!--Bottom Sheet Theme-->

@@ -16,7 +16,7 @@ import androidx.core.widget.doAfterTextChanged
 import id.co.edtslib.uikit.R
 import id.co.edtslib.uikit.databinding.TextFieldOtpBinding
 import id.co.edtslib.uikit.textfield.TextField
-import id.co.edtslib.uikit.textinputlayout.TextInputLayout
+import id.co.edtslib.uikit.utils.hapticfeedback.HapticFeedback
 import id.co.edtslib.uikit.utils.inflater
 import id.co.edtslib.uikit.utils.vibrateAnimation
 import id.co.edtslib.uikit.utils.vibratePhone
@@ -42,7 +42,7 @@ class OtpGroup @JvmOverloads constructor(
             if (value && shouldAnimateError) {
                 it.vibrateAnimation()
 
-                if (shouldVibrate) context.vibratePhone()
+                if (shouldVibrate) context.vibratePhone(HapticFeedback.ERROR)
             }
         }
 

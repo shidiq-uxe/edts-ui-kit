@@ -1,7 +1,6 @@
 package id.co.edtslib.uikit.alert
 
 import android.content.Context
-import android.graphics.Color
 import android.os.Build
 import android.util.AttributeSet
 import android.util.Log
@@ -9,9 +8,7 @@ import android.widget.FrameLayout
 import androidx.core.content.ContextCompat
 import id.co.edtslib.uikit.R
 import id.co.edtslib.uikit.databinding.ViewAlertBinding
-import id.co.edtslib.uikit.utils.AlertType
 import id.co.edtslib.uikit.utils.color
-import id.co.edtslib.uikit.utils.colorStateList
 import id.co.edtslib.uikit.utils.drawable
 import id.co.edtslib.uikit.utils.inflater
 
@@ -110,5 +107,9 @@ class AlertBox @JvmOverloads constructor(
         textAppearance = alertBoxOptions.textAppearance
         alertType = alertBoxOptions.alertType
         alertBoxOptions.text?.let { text = it }
+    }
+
+    enum class AlertType {
+        SUCCESS, ERROR, WARNING, INFO, LIGHT
     }
 }

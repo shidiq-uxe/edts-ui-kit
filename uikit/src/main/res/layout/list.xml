@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/s">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/ivStartIcon"
+            android:layout_width="@dimen/dimen_0"
+            android:layout_height="@dimen/dimen_0"
+            android:visibility="gone"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="1:1" />
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="@dimen/dimen_0"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/xs"
+            android:textAppearance="@style/TextAppearance.Inter.Semibold.H2"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/ivStartIcon"
+            app:layout_constraintEnd_toStartOf="@id/ivEndIcon"
+            app:layout_constraintBottom_toTopOf="@id/tvSubtitle"
+            app:layout_constraintVertical_chainStyle="packed"
+            app:layout_goneMarginStart="@dimen/dimen_0"
+            app:layout_goneMarginEnd="@dimen/dimen_0"
+            tools:text="Tools Title"/>
+
+        <TextView
+            android:id="@+id/tvSubtitle"
+            android:layout_width="@dimen/dimen_0"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/xs"
+            android:layout_marginTop="@dimen/dimen_2"
+            android:visibility="gone"
+            android:textAppearance="@style/TextAppearance.Inter.Regular.B3"
+            app:layout_constraintStart_toEndOf="@id/ivStartIcon"
+            app:layout_constraintEnd_toStartOf="@id/ivEndIcon"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvTitle"
+            app:layout_goneMarginStart="@dimen/dimen_0"
+            app:layout_goneMarginEnd="@dimen/dimen_0"
+            tools:text="Tools Subtitle"/>
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/ivEndIcon"
+            android:layout_width="@dimen/dimen_0"
+            android:layout_height="@dimen/dimen_0"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="1:1"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

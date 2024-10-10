@@ -1,40 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<id.co.edtslib.uikit.pulltorefresh.LiquidRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <id.co.edtslib.uikit.boarding.BoardingPagerView
-        android:id="@+id/boardingView"
-        android:layout_width="@dimen/dimen_0"
-        android:layout_height="@dimen/dimen_0"
-        android:layout_marginBottom="@dimen/l"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvItemMenu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:spanCount="2"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/btnTest"/>
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        tools:listitem="@layout/item_guidelines_parent"/>
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnTest"
-        style="@style/Widget.EDTS.UIKit.Button.Filled.Medium"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/s"
-        android:layout_marginBottom="@dimen/xs"
-        android:text="@string/test_button_text"
-        app:layout_constraintBottom_toTopOf="@id/btnTest2"/>
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnTest2"
-        style="@style/Widget.EDTS.UIKit.Button.Outlined.Medium"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/s"
-        android:layout_marginBottom="@dimen/m2"
-        android:text="@string/test_button_text"
-        app:layout_constraintBottom_toBottomOf="parent"/>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</id.co.edtslib.uikit.pulltorefresh.LiquidRefreshLayout>

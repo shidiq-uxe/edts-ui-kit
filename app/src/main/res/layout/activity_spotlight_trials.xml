@@ -77,16 +77,6 @@
         android:layout_marginHorizontal="@dimen/dimen_16"
         app:layout_constraintTop_toBottomOf="@id/ivTarget3"/>
 
-    <id.co.edtslib.uikit.searchbar.SearchBar
-        android:id="@+id/tilTestPassword"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:placeholderText="Placeholder"
-        app:startIconDrawable="@drawable/ic_search"
-        android:layout_marginTop="@dimen/dimen_16"
-        android:layout_marginHorizontal="@dimen/dimen_16"
-        app:layout_constraintTop_toBottomOf="@id/tilTest"/>
-
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/tietTest"
         android:layout_width="match_parent"
@@ -101,7 +91,7 @@
         android:paddingTop="0dp"
         android:paddingBottom="0dp"
         style="@style/Widget.EDTS.UIKit.TextInputEditText.WithoutLabel"
-        app:layout_constraintTop_toBottomOf="@id/tilTestPassword"/>
+        app:layout_constraintTop_toBottomOf="@id/tilTest"/>
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tvTextTest"
@@ -135,5 +125,12 @@
         android:layout_marginHorizontal="@dimen/s"
         app:remainingText="@string/countdown_test"
         app:layout_constraintTop_toBottomOf="@id/mcb"/>
+
+    <TextSwitcher
+        android:id="@+id/tsSearch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/cdtv"/>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

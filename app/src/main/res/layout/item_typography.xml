@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_marginStart="@dimen/s"
+    android:layout_marginEnd="@dimen/s"
+    android:layout_marginTop="@dimen/xxxs"
+    android:layout_marginBottom="@dimen/xxxs">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvTitleSize"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black_70"
+        android:textAppearance="@style/TextAppearance.Inter.Semibold.H2"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Display Size Name"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvTitleName"
+        android:layout_width="@dimen/dimen_0"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/xxxs"
+        android:textColor="@color/black_50"
+        android:textAppearance="@style/TextAppearance.Inter.Regular.B2"
+        app:layout_constraintTop_toBottomOf="@id/tvTitleSize"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:text="Display Large"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

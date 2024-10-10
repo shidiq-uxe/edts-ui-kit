@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/l">
+
+    <View
+        android:id="@+id/inputBackground"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_search_bar_border_default"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <ImageView
+        android:id="@+id/ivStartIcon"
+        android:contentDescription="@string/start_icon"
+        android:layout_width="@dimen/m2"
+        android:layout_height="@dimen/m2"
+        android:layout_marginVertical="@dimen/xxxs"
+        android:layout_marginHorizontal="@dimen/xxs"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="@id/inputBackground"
+        app:layout_constraintStart_toStartOf="@id/inputBackground"
+        app:layout_constraintBottom_toBottomOf="@id/inputBackground"
+        tools:src="@drawable/ic_placeholder_medium_24"/>
+
+    <EditText
+        android:id="@+id/etInput"
+        android:layout_width="@dimen/dimen_0"
+        android:layout_height="match_parent"
+        android:background="@null"
+        android:paddingHorizontal="@dimen/xxxs"
+        android:textAppearance="@style/TextAppearance.Inter.Regular.B2"
+        android:textColor="@color/black_70"
+        android:textColorHint="@color/black_40"
+        app:layout_constraintTop_toTopOf="@id/inputBackground"
+        app:layout_constraintStart_toEndOf="@id/ivStartIcon"
+        app:layout_constraintEnd_toStartOf="@id/ivEndIcon"
+        app:layout_constraintBottom_toBottomOf="@id/inputBackground"
+        app:layout_goneMarginStart="@dimen/xxs"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvSearchContent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/xxxs"
+        android:textAppearance="@style/TextAppearance.Inter.Regular.B2"
+        android:textColor="@color/black_40"
+        app:layout_constraintTop_toTopOf="@id/etInput"
+        app:layout_constraintStart_toStartOf="@id/etInput"
+        app:layout_constraintEnd_toStartOf="@id/tsPlaceholder"
+        app:layout_constraintBottom_toBottomOf="@id/etInput"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintHorizontal_bias="0.0"/>
+
+    <TextSwitcher
+        android:id="@+id/tsPlaceholder"
+        android:layout_width="@dimen/dimen_0"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/xxxs"
+        app:layout_constrainedWidth="true"
+        app:layout_constraintTop_toTopOf="@id/etInput"
+        app:layout_constraintStart_toEndOf="@id/tvSearchContent"
+        app:layout_constraintEnd_toEndOf="@id/etInput"
+        app:layout_constraintBottom_toBottomOf="@id/etInput"
+        app:layout_constraintHorizontal_bias="0.0"/>
+
+    <ImageView
+        android:id="@+id/ivEndIcon"
+        android:layout_width="@dimen/s"
+        android:layout_height="@dimen/s"
+        android:layout_margin="@dimen/xxs"
+        app:layout_constraintTop_toTopOf="@id/inputBackground"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/inputBackground"
+        tools:src="@drawable/ic_placeholder_medium_24"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

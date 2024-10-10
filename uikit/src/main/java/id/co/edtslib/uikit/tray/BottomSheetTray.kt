@@ -4,9 +4,12 @@ import android.app.Dialog
 import android.content.DialogInterface
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
+import androidx.activity.OnBackPressedCallback
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.annotation.IntegerRes
@@ -27,6 +30,8 @@ import id.co.edtslib.uikit.utils.viewBinding
 class BottomSheetTray : BottomSheetDialogFragment() {
 
     val binding by viewBinding<ViewBottomTrayBinding>()
+
+    var delegate: BottomTrayDelegate? = null
 
     var title: String? = null
     var customTitleView: View? = null
@@ -62,12 +67,32 @@ class BottomSheetTray : BottomSheetDialogFragment() {
 
     private var bottomSheetBehavior: BottomSheetBehavior<View>? = null
 
-    // Todo : Delete this line when the override theme is applied
+    fun getBottomSheetBehavior(): BottomSheetBehavior<View>? {
+        return bottomSheetBehavior
+    }
+
+    override fun getTheme(): Int {
+        return R.style.ThemeOverlay_EDTS_UIKit_BottomSheetDialog
+    }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        return BottomSheetDialog(requireContext(), theme).apply {
-            setCanceledOnTouchOutside(isCancelableOnTouchOutside)
+        val dialog = super.onCreateDialog(savedInstanceState) as BottomSheetDialog
+        dialog.setOnShowListener { _ ->
+            val bottomSheet = dialog.findViewById<View>(com.google.android.material.R.id.design_bottom_sheet)
+            bottomSheetBehavior = bottomSheet?.let { sheet -> BottomSheetBehavior.from(sheet) }
+
+            bottomSheetBehavior?.addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
+                override fun onStateChanged(bottomSheet: View, newState: Int) {
+                    delegate?.onStateChanged(bottomSheet, newState)
+                }
+
+                override fun onSlide(bottomSheet: View, slideOffset: Float) {
+                    delegate?.onSlide(bottomSheet, slideOffset)
+                }
+            })
         }
+
+        return dialog
     }
 
     override fun onCreateView(
@@ -90,6 +115,7 @@ class BottomSheetTray : BottomSheetDialogFragment() {
 
         contentView?.let {
             binding.flContent.removeAllViews()
+
             binding.flContent.addView(it)
         }
 
@@ -97,7 +123,7 @@ class BottomSheetTray : BottomSheetDialogFragment() {
             dismiss()
         }
 
-        binding.ivPullBar.isVisible = dragHandleVisibility
+        binding.dragHandleView.isVisible = dragHandleVisibility
         binding.ctaDivider.isVisible = titleDividerVisibility
         binding.btnNavigation.isVisible = shouldShowNavigation
         binding.btnClose.isVisible = shouldShowClose
@@ -122,33 +148,25 @@ class BottomSheetTray : BottomSheetDialogFragment() {
         }
     }
 
-    // Todo : Fix Snapping
-    private fun setupBottomSheetBehavior() {
-        dialog?.setOnShowListener {
-            val dialog = it as BottomSheetDialog
-            val bottomSheet = dialog.findViewById<View>(com.google.android.material.R.id.design_bottom_sheet)
-            bottomSheet?.let { sheet ->
-                dialog.behavior.peekHeight = sheet.height
-                sheet.parent.parent.requestLayout()
-            }
+    private val bottomSheetTrayBehavior = object : BottomSheetBehavior.BottomSheetCallback() {
+        override fun onStateChanged(bottomSheet: View, newState: Int) {
+            // Handle state changes if needed
         }
 
-        // bottomSheetBehavior = BottomSheetBehavior.from(binding.root.parent as View)
+        override fun onSlide(bottomSheet: View, slideOffset: Float) {
+            // Implement snapping behavior
+            val snapPoint = snapPoints.find { it.toFloat() / bottomSheet.height < slideOffset }
+            snapPoint?.let {
+                bottomSheetBehavior?.setPeekHeight(it, true)
+            }
+        }
+    }
+
+    // Todo : Fix Snapping
+    private fun setupBottomSheetBehavior() {
         bottomSheetBehavior?.apply {
             if (snapPoints.isNotEmpty()) {
-                addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
-                    override fun onStateChanged(bottomSheet: View, newState: Int) {
-                        // Handle state changes if needed
-                    }
-
-                    override fun onSlide(bottomSheet: View, slideOffset: Float) {
-                        // Implement snapping behavior
-                        val snapPoint = snapPoints.find { it.toFloat() / bottomSheet.height < slideOffset }
-                        snapPoint?.let {
-                            bottomSheetBehavior?.setPeekHeight(it, true)
-                        }
-                    }
-                })
+                addBottomSheetCallback(bottomSheetTrayBehavior)
             }
             isHideable = dismissOnOutsideTouch
         }
@@ -160,6 +178,8 @@ class BottomSheetTray : BottomSheetDialogFragment() {
     }
 
     override fun onDismiss(dialog: DialogInterface) {
+        delegate?.onDismiss(dialog)
+
         super.onDismiss(dialog)
         // Implement any custom logic on dismiss if needed
     }

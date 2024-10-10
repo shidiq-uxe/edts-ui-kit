@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="cd_boarding_illustration">Boarding Illustration</string>
+    <string name="start_icon">StartIcon</string>
 </resources>

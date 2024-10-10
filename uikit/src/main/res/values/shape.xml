@@ -30,9 +30,8 @@
 
     <style name="ShapeAppearance.EDTS.UIKit.Flat.Corner.End" parent="">
         <item name="cornerFamily">rounded</item>
-        <item name="cornerSize">@dimen/dimen_6</item>
-        <item name="boxCornerRadiusTopStart">@dimen/dimen_0</item>
-        <item name="boxCornerRadiusBottomStart">@dimen/dimen_0</item>
+        <item name="cornerSizeTopLeft">@dimen/dimen_0</item>
+        <item name="cornerSizeBottomLeft">@dimen/dimen_0</item>
     </style>
 
     <style name="ShapeAppearance.EDTS.UIKit.Flat.Corner.Bottom" parent="">
@@ -41,6 +40,12 @@
         <item name="cornerSizeBottomLeft">@dimen/dimen_0</item>
         <item name="cornerSizeTopRight">@dimen/xxxs</item>
         <item name="cornerSizeTopLeft">@dimen/xxxs</item>
+    </style>
+
+    <style name="ShapeAppearance.EDTS.UIKit.BottomSheet" parent="ShapeAppearance.Material3.MediumComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopRight">@dimen/s</item>
+        <item name="cornerSizeTopLeft">@dimen/s</item>
     </style>
 
     <style name="ShapeAppearance.EDTS.UIKit.Button" parent="">

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="array_guidelines_title">
+        <item>Typography</item>
+        <item>Button</item>
+        <item>Text Fields</item>
+        <item>Colors</item>
+        <item>OTP</item>
+        <item>Searchbar</item>
+        <item>AlertBox</item>
+        <item>BoardingView</item>
+        <item>List</item>
+        <item>Snackbar</item>
+        <item>Bottom Tray</item>
+        <item>Checkbox</item>
+        <item>Radio Button</item>
+        <item>Switch</item>
+        <item>Chips</item>
+        <item>Slider</item>
+        <item>Shape</item>
+        <item>Dialogs</item>
+        <item>Date Picker</item>
+        <item>Textarea</item>
+        <item>Dropdown</item>
+        <item>Top Bar</item>
+        <item>Dots Indicator</item>
+    </string-array>
+
+    <string-array name="array_guidelines_font">
+        <!--Light-->
+        <item>TextAppearance.Inter.Semibold.D1</item>
+        <item>TextAppearance.Inter.Semibold.D2</item>
+        <!--Regular-->
+        <item>TextAppearance.Inter.Semibold.H1</item>
+        <item>TextAppearance.Inter.Semibold.H2</item>
+        <item>TextAppearance.Inter.Semibold.H3</item>
+        <item>TextAppearance.Inter.Semibold.H4</item>
+        <!--SemiBold-->
+        <item>TextAppearance.Inter.Regular.B1</item>
+        <item>TextAppearance.Inter.Regular.B2</item>
+        <item>TextAppearance.Inter.Regular.B3</item>
+        <item>TextAppearance.Inter.Regular.B4</item>
+        <!--Bold-->
+        <item>TextAppearance.Inter.Regular.Paragraph</item>
+    </string-array>
+
+    <string-array name="array_guidelines_font_title">
+        <!--Light-->
+        <item>Display 1 (D1)</item>
+        <item>Display 2 (D2)</item>
+        <!--Regular-->
+        <item>Heading 1 (H1)</item>
+        <item>Heading 2 (H2)</item>
+        <item>Heading 3 (H3)</item>
+        <item>Heading 4 (H4)</item>
+        <!--SemiBold-->
+        <item>Body 1 (B1)</item>
+        <item>Body 2 (B2)</item>
+        <item>Body 3 (B3)</item>
+        <item>Body 4 (B4)</item>
+        <!--Bold-->
+        <item>Paragraph</item>
+    </string-array>
+
+    <string-array name="placeholder">
+        <item>Placeholder Noodles</item>
+        <item>Placeholder Milk</item>
+        <item>Placeholder Ketchup</item>
+        <item>Placeholder Makeup</item>
+    </string-array>
+
+    <string-array name="categories">
+        <item>Noodles</item>
+        <item>Milk</item>
+        <item>Ketchup</item>
+        <item>Makeup</item>
+    </string-array>
+</resources>

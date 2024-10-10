@@ -43,7 +43,7 @@
         <item name="colorInfoBackground">@color/support_selected</item>
         <item name="colorHub">@color/secondary_50</item>
         <item name="colorService">@color/support_extra</item>
-        <item name="colorSnackbar">@color/black_70</item>
+        <item name="colorSnackbar">@color/black_60</item>
         <item name="colorText">@color/black_70</item>
         <item name="colorTextDesc">@color/black_50</item>
         <item name="colorMutedText">@color/black_50</item>
@@ -70,12 +70,16 @@
 
         <!--Tray/BottomSheet Theme-->
         <item name="bottomSheetDialogTheme">@style/ThemeOverlay.EDTS.UIKit.BottomSheetDialog</item>
+
+        <!--Snackbar-->
+        <item name="snackbarStyle">@style/Widget.EDTS.UIKit.Snackbar</item>
+        <item name="snackbarButtonStyle">@style/Widget.EDTS.UIKit.SnackbarButton</item>
+        <item name="snackbarTextViewStyle">@style/Widget.EDTS.UIKit.Snackbar.TextView</item>
     </style>
 
     <style name="Theme.EDTS.UIKit" parent="Theme.EDTS.UIKit.ActionBar">
         <item name="windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
     </style>
-
 
 </resources>

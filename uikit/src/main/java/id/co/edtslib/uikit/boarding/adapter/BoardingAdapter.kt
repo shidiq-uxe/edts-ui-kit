@@ -79,6 +79,14 @@ object BoardingAdapter {
         val context =
             if (root.context is FragmentActivity) root.context as FragmentActivity else root.context
 
+        // Safeguard against destroyed activity or invalid context
+        val activity = (context as? FragmentActivity)
+
+        if (activity != null && (activity.isDestroyed || activity.isFinishing)) {
+            // If the activity is destroyed, return early to avoid Glide loading issues
+            return
+        }
+
         val image  = item.image?.let { image ->
             when(image) {
                 is Int -> context.getDrawable(image)
