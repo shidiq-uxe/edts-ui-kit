@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:strokeWidth="@dimen/dimen_0"
+    app:cardElevation="@dimen/xxxs">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/s"
+        android:clipToPadding="false">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/ivProductPlaceholder"
+            android:layout_width="@dimen/dimen_0"
+            android:layout_height="@dimen/dimen_0"
+            android:layout_marginTop="@dimen/s"
+            android:layout_marginHorizontal="@dimen/s"
+            android:layout_marginBottom="@dimen/dimen_2"
+            app:srcCompat="@color/black_20"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/Chip1"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minHeight="@dimen/dimen_0"
+            android:minWidth="@dimen/dimen_0"
+            android:paddingVertical="@dimen/xxs"
+            android:paddingHorizontal="@dimen/s"
+            android:layout_margin="@dimen/xxs"
+            android:text="Ter"
+            android:textColor="@color/white"
+            android:textAppearance="@style/TextAppearance.Inter.Semibold.H4"
+            android:background="@drawable/bg_limited_offer_gradient"
+            app:ensureMinTouchTargetSize="false"
+            app:chipCornerRadius="@dimen/s"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvTitle"
+            android:layout_width="@dimen/dimen_0"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/s"
+            android:layout_marginTop="@dimen/s"
+            android:text="Diskon 10% XBox Series X 512 Tb - Black Version"
+            android:textAppearance="@style/TextAppearance.Inter.Semibold.H3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/ivProductPlaceholder"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvSubtitle"
+            android:layout_width="@dimen/dimen_0"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/s"
+            android:layout_marginTop="@dimen/xxxs"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="Tersedia: 870/1.000 Kupon"
+            android:textAppearance="@style/TextAppearance.Inter.Regular.B4"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/ivProductPlaceholder"
+            app:layout_constraintTop_toBottomOf="@id/tvTitle" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/Chip1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/s"
+            android:layout_marginTop="@dimen/xxs"
+            android:text="i-Kupon"
+            android:textColor="@color/primary_30"
+            android:textAppearance="@style/TextAppearance.Inter.Semibold.H4"
+            app:chipStrokeWidth="@dimen/dimen_0"
+            app:ensureMinTouchTargetSize="false"
+            android:elevation="@dimen/xxxs"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/Chip2"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toEndOf="@+id/ivProductPlaceholder"
+            app:layout_constraintTop_toBottomOf="@id/tvSubtitle" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/Chip2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/xxs"
+            android:elevation="@dimen/xxxs"
+            app:chipStrokeWidth="@dimen/dimen_0"
+            android:text="5000 Poin"
+            android:textColor="@color/white"
+            android:textAppearance="@style/TextAppearance.Inter.Semibold.H4"
+            app:chipBackgroundColor="@color/secondary_30"
+            app:ensureMinTouchTargetSize="false"
+            app:layout_constraintBottom_toBottomOf="@+id/Chip1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/Chip1"
+            app:layout_constraintTop_toTopOf="@+id/Chip1" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

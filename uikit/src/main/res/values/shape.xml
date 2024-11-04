@@ -22,6 +22,11 @@
         <item name="cornerSize">@dimen/s</item>
     </style>
 
+    <style name="ShapeAppearance.EDTS.UIKit.MultiExtraLargeComponent" parent="ShapeAppearance.Material3.MediumComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/l</item>
+    </style>
+
     <style name="ShapeAppearance.EDTS.UIKit.Flat.Corner.Start" parent="">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSizeTopLeft">@dimen/dimen_0</item>

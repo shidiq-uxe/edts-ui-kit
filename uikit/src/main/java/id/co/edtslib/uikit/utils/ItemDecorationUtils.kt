@@ -2,12 +2,15 @@ package id.co.edtslib.uikit.utils
 
 import android.content.Context
 import android.graphics.Canvas
+import android.graphics.Rect
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.InsetDrawable
+import android.view.View
 import androidx.annotation.DimenRes
 import androidx.annotation.DrawableRes
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import id.co.edtslib.uikit.R
 
@@ -81,3 +84,103 @@ class DividerItemDecoration(
         private val ATTRS = intArrayOf(android.R.attr.listDivider)
     }
 }
+
+private const val startIndex = 0
+
+fun gridMarginItemDecoration(
+    spanCount: Int,
+    spacing: MarginItem,
+    includeEdge: Boolean
+) = object : RecyclerView.ItemDecoration() {
+
+    override fun getItemOffsets(
+        outRect: Rect,
+        view: View,
+        parent: RecyclerView,
+        state: RecyclerView.State
+    ) {
+        val position = parent.getChildAdapterPosition(view)
+        val column: Int = position % spanCount
+
+        if (includeEdge) {
+            outRect.left =
+                spacing.left - column * spacing.left / spanCount // spacing - column * ((1f / spanCount) * spacing)
+            outRect.right =
+                (column + 1) * spacing.right / spanCount // (column + 1) * ((1f / spanCount) * spacing)
+            if (position < spanCount) { // top edge
+                outRect.top = spacing.first
+            }
+            outRect.bottom = spacing.last // item bottom
+        } else {
+            outRect.left =
+                column * spacing.left / spanCount // column * ((1f / spanCount) * spacing)
+            outRect.right =
+                spacing.right - (column + 1) * spacing.right / spanCount // spacing - (column + 1) * ((1f /    spanCount) * spacing)
+            if (position >= spanCount) {
+                outRect.top = spacing.top // item top
+            }
+        }
+    }
+}
+
+fun linearMarginItemDecoration(
+    orientation: Int,
+    margin: MarginItem
+) = object : RecyclerView.ItemDecoration() {
+
+    override fun getItemOffsets(
+        outRect: Rect,
+        view: View,
+        parent: RecyclerView,
+        state: RecyclerView.State
+    ) {
+        with(outRect) {
+            val childCount = parent.adapter?.itemCount ?: 0
+            val childAdapterPosition = parent.getChildAdapterPosition(view)
+
+            val isOnStartIndex = margin.first != startIndex && childAdapterPosition == startIndex
+            val isOnLastIndex =
+                margin.last != startIndex && childAdapterPosition == childCount.minus(1)
+
+            if (orientation == LinearLayoutManager.VERTICAL) {
+                top = if (isOnStartIndex) margin.first else margin.top
+                bottom = if (isOnLastIndex) margin.last else margin.bottom
+                left = margin.left
+                right = margin.right
+            } else {
+                left = if (isOnStartIndex) margin.first else margin.left
+                right = if (isOnLastIndex) margin.last else margin.right
+                top = margin.top
+                bottom = margin.bottom
+            }
+        }
+    }
+}
+
+fun RecyclerView.attachGridItemDecoration(
+    spanCount: Int,
+    includeEdge: Boolean,
+    margin: MarginItem
+): RecyclerView.ItemDecoration {
+    return gridMarginItemDecoration(spanCount, margin, includeEdge).apply {
+        addItemDecoration(this)
+    }
+}
+
+fun RecyclerView.attachLinearMarginItemDecoration(
+    orientation: Int,
+    margin: MarginItem
+): RecyclerView.ItemDecoration {
+    return linearMarginItemDecoration(orientation, margin).apply {
+        addItemDecoration(this)
+    }
+}
+
+data class MarginItem(
+    var top: Int = 0,
+    var left: Int = 0,
+    var right: Int = 0,
+    var bottom: Int = 0,
+    var first: Int = 0,
+    var last: Int = 0
+)

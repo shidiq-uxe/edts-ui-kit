@@ -6,6 +6,7 @@ import android.view.MotionEvent
 import android.view.View
 import android.animation.ValueAnimator
 import android.annotation.SuppressLint
+import android.util.Log
 import android.util.TypedValue
 import android.view.Gravity
 import android.view.ViewGroup
@@ -20,9 +21,10 @@ class LiquidRefreshLayout @JvmOverloads constructor(
     defStyleAttr: Int = 0
 ) : FrameLayout(context, attrs, defStyleAttr) {
 
-    private var headerBackgroundColor = context.color(R.color.primary_30)
-    private var headerForegroundColor = context.color(R.color.white)
-    private var headerCircleRadius = 6
+    var headerBackgroundColor = context.color(R.color.primary_30)
+    var headerForegroundColor = context.color(R.color.white)
+    var headerCircleRadius = 6
+    var loadingIcon: Int? = null
 
     private var maxPullDistance: Float = 0f
     private var maxHeaderHeight: Float = 0f
@@ -73,15 +75,15 @@ class LiquidRefreshLayout @JvmOverloads constructor(
         val typedArray = context.obtainStyledAttributes(attrs, R.styleable.LiquidRefreshLayout)
 
         headerBackgroundColor = typedArray.getColor(
-            R.styleable.LiquidRefreshLayout_AniBackColor,
+            R.styleable.LiquidRefreshLayout_backgroundColor,
             headerBackgroundColor
         )
         headerForegroundColor = typedArray.getColor(
-            R.styleable.LiquidRefreshLayout_AniForeColor,
+            R.styleable.LiquidRefreshLayout_foregroundColor,
             headerForegroundColor
         )
         headerCircleRadius = typedArray.getInt(
-            R.styleable.LiquidRefreshLayout_CircleSmaller,
+            R.styleable.LiquidRefreshLayout_circleRadius,
             headerCircleRadius
         )
 
@@ -122,7 +124,7 @@ class LiquidRefreshLayout @JvmOverloads constructor(
         }
         returnToTopAnimator!!.duration = RETURN_TO_TOP_DURATION
 
-        headerView!!.setOnViewAniDone(object : LiquidAnimationView.OnViewAniDone {
+        headerView!!.setOnAnimationDoneListener(object : LiquidAnimationView.OnAnimationDoneListener {
             override fun viewAniDone() {
                 returnToTopAnimator!!.start()
             }
@@ -173,12 +175,14 @@ class LiquidRefreshLayout @JvmOverloads constructor(
         when (event.action) {
             MotionEvent.ACTION_MOVE -> {
                 currentTouchY = event.y
+
                 var distanceY = currentTouchY - initialTouchY
                 distanceY = Math.min(maxPullDistance * 2, distanceY)
                 distanceY = Math.max(0f, distanceY)
 
                 contentView?.let {
                     val offsetY = slowDownInterpolator.getInterpolation(distanceY / 2f / maxPullDistance) * distanceY / 2
+
                     it.translationY = offsetY
                     headerView!!.layoutParams.height = offsetY.toInt()
                     headerView!!.requestLayout()
@@ -245,7 +249,7 @@ class LiquidRefreshLayout @JvmOverloads constructor(
     }
 
     companion object {
-        private const val RETURN_TO_TOP_DURATION: Long = 300
+        private const val RETURN_TO_TOP_DURATION: Long = 200
         private const val DRAG_RETURN_DURATION: Long = 200
     }
 }

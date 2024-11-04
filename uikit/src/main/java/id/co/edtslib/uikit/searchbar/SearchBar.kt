@@ -116,8 +116,6 @@ class SearchBar @JvmOverloads constructor(
         set(value) {
             field = value
 
-            Log.e("Start Icon", "Start Icon Visible : ${value == null}")
-
             isStartIconVisible = value != null
             startIconView.setImageDrawable(value?.let { context.drawable(it) })
         }

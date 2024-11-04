@@ -54,6 +54,10 @@ class GuidelinesBottomTrayActivity : GuidelinesBaseActivity() {
     }
 
     private val bottomTrayDelegate = object : BottomTrayDelegate {
+        override fun onShow(dialogInterface: DialogInterface) {
+
+        }
+
         override fun onDismiss(dialogInterface: DialogInterface) {
             Log.e(DIALOG_TAG, "Dismissed")
         }

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".GuidelinesProgressBarActivity">
+
+    <com.google.android.material.progressindicator.LinearProgressIndicator
+        android:id="@+id/lpiSample"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/s"
+        app:trackColor="@color/black_20"
+        app:trackThickness="@dimen/dimen_6"
+        app:trackCornerRadius="@dimen/xxs"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <id.co.edtslib.uikit.progressindicator.DoubleArcProgressIndicator
+        android:id="@+id/piSample"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/s"
+        app:layout_constraintTop_toBottomOf="@id/lpiSample"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <id.co.edtslib.uikit.progressbar.GradientLinearProgressBar
+        android:id="@+id/gLPB"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/s"
+        app:trackCornerRadius="@dimen/xxs"
+        app:trackThickness="@dimen/xxs"
+        app:layout_constraintTop_toBottomOf="@id/piSample"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <id.co.edtslib.uikit.progressbar.GradientCircularProgressBar
+        android:id="@+id/gCPB"
+        android:layout_width="@dimen/dimen_0"
+        android:layout_height="@dimen/dimen_0"
+        android:layout_margin="@dimen/s"
+        app:indicatorProgress="20"
+        app:layout_constraintTop_toBottomOf="@id/gLPB"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintWidth_percent="0.3"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnVisibility"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/s"
+        android:text="Change ProgressIndicator Visibility"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

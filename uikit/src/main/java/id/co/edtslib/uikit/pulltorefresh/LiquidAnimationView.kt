@@ -1,6 +1,5 @@
 package id.co.edtslib.uikit.pulltorefresh
 
-import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
 import android.content.Context
 import android.graphics.Canvas
@@ -10,13 +9,19 @@ import android.graphics.Path
 import android.graphics.PointF
 import android.graphics.RectF
 import android.graphics.drawable.Drawable
+import android.os.Build
 import android.util.AttributeSet
-import android.util.TypedValue
+import android.view.HapticFeedbackConstants
 import android.view.View
+import androidx.annotation.RequiresApi
 import androidx.core.graphics.drawable.DrawableCompat
+import androidx.dynamicanimation.animation.FloatPropertyCompat
+import androidx.dynamicanimation.animation.SpringAnimation
+import androidx.dynamicanimation.animation.SpringForce
 import id.co.edtslib.uikit.R
 import id.co.edtslib.uikit.utils.color
 import id.co.edtslib.uikit.utils.drawable
+import id.co.edtslib.uikit.utils.px
 
 class LiquidAnimationView @JvmOverloads constructor(
     context: Context,
@@ -24,7 +29,26 @@ class LiquidAnimationView @JvmOverloads constructor(
     defStyleAttr: Int = 0
 ) : View(context, attrs, defStyleAttr) {
 
-    private var vectorDrawable: Drawable = context.drawable(R.drawable.ic_alert_light).apply {
+    internal enum class AnimatorStatus {
+        PULL_DOWN, DRAG_DOWN, RELEASE_DRAG, SPRING_UP,
+        POP_BALL, OUTER_CIRCLE, REFRESHING, DONE, STOP;
+
+        override fun toString() = when (this) {
+            PULL_DOWN -> "on View Pulled Down"
+            DRAG_DOWN -> "on View Dragged Down"
+            RELEASE_DRAG -> "on Drag Released"
+            SPRING_UP -> "on View Spring Up"
+            POP_BALL -> "on Pop Ball Showing"
+            OUTER_CIRCLE -> "on Outer Circle Showing"
+            REFRESHING -> "on Refreshing"
+            DONE -> "on Animation Done"
+            STOP -> "on Animation Stopped"
+        }
+    }
+
+    private var animatorStatus = AnimatorStatus.PULL_DOWN
+
+    var iconDrawable: Drawable? = context.drawable(R.drawable.ic_alert_light).apply {
         DrawableCompat.setTint(this, context.color(R.color.primary_30))
         mutate()
     }
@@ -32,8 +56,6 @@ class LiquidAnimationView @JvmOverloads constructor(
     private var pullHeight: Int = 0
     private var pullDelta: Int = 0
     private var widthOffset: Float = 0.toFloat()
-
-    private var aniStatus = AnimatorStatus.PULL_DOWN
 
     private var backPaint: Paint? = null
     private var ballPaint: Paint? = null
@@ -52,35 +74,36 @@ class LiquidAnimationView @JvmOverloads constructor(
 
     private var lastHeight: Int = 0
 
-    private val relHeight: Int get() = (spriDeta * (1 - relRatio)).toInt()
-
-    private val springDelta: Int get() = (pullDelta * sprRatio).toInt()
+    private val releaseHeight: Int get() = (spriDeta * (1 - releaseRatio)).toInt()
+    private val springDelta: Int
+        get() = (pullDelta * springRatio).toInt()
 
     private var start1: Long = 0
     private var stop: Long = 0
     private var spriDeta: Int = 0
 
-    private val relRatio: Float
-        get() {
-            if (System.currentTimeMillis() >= stop) {
-                springUp()
-                return 1f
-            }
-            val ratio = (System.currentTimeMillis() - start1) / REL_DRAG_DUR.toFloat()
-            return Math.min(ratio, 1f)
+    private val releaseRatio: Float get() {
+        if (System.currentTimeMillis() >= stop) {
+            springUp()
+            return 1f
         }
+        val ratio = (System.currentTimeMillis() - start1) / REL_DRAG_DUR.toFloat()
+        return ratio.coerceAtMost(1f)
+    }
+
     private var sprStart: Long = 0
     private var sprStop: Long = 0
 
-    private val sprRatio: Float
-        get() {
-            if (System.currentTimeMillis() >= sprStop) {
-                popBall()
-                return 1f
-            }
-            val ratio = (System.currentTimeMillis() - sprStart) / SPRING_DUR.toFloat()
-            return Math.min(1f, ratio)
+    private val springRatio: Float get() {
+        if (System.currentTimeMillis() >= sprStop) {
+            popBall()
+            return 1f
         }
+
+        val ratio = (System.currentTimeMillis() - sprStart) / SPRING_DUR.toFloat()
+        return 1f.coerceAtMost(ratio)
+    }
+
     private var popStart: Long = 0
     private var popStop: Long = 0
 
@@ -92,7 +115,7 @@ class LiquidAnimationView @JvmOverloads constructor(
             }
 
             val ratio = (System.currentTimeMillis() - popStart) / POP_BALL_DUR.toFloat()
-            return Math.min(ratio, 1f)
+            return ratio.coerceAtMost(1f)
         }
     private var outStart: Long = 0
     private var outStop: Long = 0
@@ -100,92 +123,96 @@ class LiquidAnimationView @JvmOverloads constructor(
     private val outRatio: Float
         get() {
             if (System.currentTimeMillis() >= outStop) {
-                aniStatus = AnimatorStatus.REFRESHING
+                animatorStatus = AnimatorStatus.REFRESHING
                 isRefreshing = true
                 return 1f
             }
             val ratio = (System.currentTimeMillis() - outStart) / OUTER_DUR.toFloat()
-            return Math.min(ratio, 1f)
+            return ratio.coerceAtMost(1f)
         }
     private var doneStart: Long = 0
     private var doneStop: Long = 0
 
-    private val doneRatio: Float
-        get() {
-            if (System.currentTimeMillis() >= doneStop) {
-                aniStatus = AnimatorStatus.STOP
-                if (onViewAniDone != null) {
-                    onViewAniDone!!.viewAniDone()
-                }
-                return 1f
+    private val doneRatio: Float get() {
+        if (System.currentTimeMillis() >= doneStop) {
+            animatorStatus = AnimatorStatus.STOP
+            if (onAnimationDoneListener != null) {
+                onAnimationDoneListener!!.viewAniDone()
             }
 
-            val ratio = (System.currentTimeMillis() - doneStart) / DONE_DUR.toFloat()
-            return Math.min(ratio, 1f)
+            return 1f
         }
 
-    private var onViewAniDone: OnViewAniDone? = null
+        val ratio = (System.currentTimeMillis() - doneStart) / DONE_DUR.toFloat()
+        return ratio.coerceAtMost(1f)
+    }
 
-    internal enum class AnimatorStatus {
-        PULL_DOWN,
-        DRAG_DOWN,
-        REL_DRAG,
-        SPRING_UP,
-        POP_BALL,
-        OUTER_CIR,
-        REFRESHING,
-        DONE,
-        STOP;
+    private val ballYProperty = @RequiresApi(Build.VERSION_CODES.N)
+    object : FloatPropertyCompat<LiquidAnimationView>( "ballY") {
+        override fun setValue(view: LiquidAnimationView, value: Float) {
+            view.ballInnerY = value.toInt()// Update the Y position of the ball
+            view.invalidate() // Trigger a redraw of the view
+        }
 
-        override fun toString(): String = when (this) {
-            PULL_DOWN -> "pull down"
-            DRAG_DOWN -> "drag down"
-            REL_DRAG -> "release drag"
-            SPRING_UP -> "spring up"
-            POP_BALL -> "pop ball"
-            OUTER_CIR -> "outer circle"
-            REFRESHING -> "refreshing..."
-            DONE -> "done!"
-            STOP -> "stop"
+        override fun getValue(view: LiquidAnimationView): Float {
+            return view.ballInnerY.toFloat()
         }
     }
+
+    private lateinit var ballYSpringAnim: SpringAnimation
+
+    private var onAnimationDoneListener: OnAnimationDoneListener? = null
+
+    var ballInnerY = 0
 
     init {
         initView(context)
+        initSpringAnimation()
     }
 
     private fun initView(context: Context) {
-
-        pullHeight = TypedValue.applyDimension(
-            TypedValue.COMPLEX_UNIT_DIP, 100f,
-            context.resources.displayMetrics
-        )
-            .toInt()
-        pullDelta = TypedValue.applyDimension(
-            TypedValue.COMPLEX_UNIT_DIP, 50f,
-            context.resources.displayMetrics
-        )
-            .toInt()
+        pullHeight = 100.px.toInt()
+        pullDelta = 50.px.toInt()
         widthOffset = 0.5f
-        backPaint = Paint()
-        backPaint!!.isAntiAlias = true
-        backPaint!!.style = Paint.Style.FILL
-        backPaint!!.color = -0x746f51
 
-        ballPaint = Paint()
-        ballPaint!!.isAntiAlias = true
-        ballPaint!!.color = -0x1
-        ballPaint!!.style = Paint.Style.FILL
+        val defaultBallColor = Color.WHITE
+        val defaultGroundColor = context.color(R.color.primary_30)
 
-        outPaint = Paint()
-        outPaint!!.isAntiAlias = true
-        outPaint!!.color = -0x1
-        outPaint!!.style = Paint.Style.STROKE
-        outPaint!!.strokeWidth = 5f
-
+        // Initialize Paint instances
+        backPaint = createPaint(defaultGroundColor, Paint.Style.FILL)
+        ballPaint = createPaint(defaultBallColor, Paint.Style.FILL)
+        outPaint = createPaint(defaultBallColor, Paint.Style.STROKE, strokeWidth = 5f)
 
         path = Path()
+    }
 
+    // Create a Paint instance with common properties
+    private fun createPaint(
+        color: Int,
+        style: Paint.Style,
+        isAntiAlias: Boolean = true,
+        strokeWidth: Float = 0f
+    ) = Paint().apply {
+            this.isAntiAlias = isAntiAlias
+            this.style = style
+            this.color = color
+            if (strokeWidth > 0f) {
+                this.strokeWidth = strokeWidth
+            }
+    }
+
+    // Used for Ball animation during popping phase until refreshing phase
+    private fun initSpringAnimation() {
+        ballYSpringAnim = SpringAnimation(this, ballYProperty).apply {
+            // Apply Spring Force with final Position on the Y Center of the screen
+            spring = SpringForce((pullHeight / 2).toFloat()).apply {
+                dampingRatio = SpringForce.DAMPING_RATIO_MEDIUM_BOUNCY
+                stiffness = SpringForce.STIFFNESS_LOW
+            }
+
+            // Apply reversed effect spring with negative value
+            setStartVelocity(-900f)
+        }
     }
 
     override fun onMeasure(
@@ -193,11 +220,11 @@ class LiquidAnimationView @JvmOverloads constructor(
         heightMeasureSpec: Int
     ) {
         var tempHeightMeasureSpec = heightMeasureSpec
-        val height = View.MeasureSpec.getSize(tempHeightMeasureSpec)
+        val height = MeasureSpec.getSize(tempHeightMeasureSpec)
         if (height > pullDelta + pullHeight) {
-            tempHeightMeasureSpec = View.MeasureSpec.makeMeasureSpec(
+            tempHeightMeasureSpec = MeasureSpec.makeMeasureSpec(
                 pullDelta + pullHeight,
-                View.MeasureSpec.getMode(tempHeightMeasureSpec)
+                MeasureSpec.getMode(tempHeightMeasureSpec)
             )
         }
         super.onMeasure(widthMeasureSpec, tempHeightMeasureSpec)
@@ -216,10 +243,10 @@ class LiquidAnimationView @JvmOverloads constructor(
             localWidth = width
             localHeight = height
             when {
-                localHeight < pullHeight -> aniStatus = AnimatorStatus.PULL_DOWN
+                localHeight < pullHeight -> animatorStatus = AnimatorStatus.PULL_DOWN
             }
             when {
-                aniStatus == AnimatorStatus.PULL_DOWN && localHeight >= pullHeight -> aniStatus =
+                animatorStatus == AnimatorStatus.PULL_DOWN && localHeight >= pullHeight -> animatorStatus =
                     AnimatorStatus.DRAG_DOWN
             }
 
@@ -228,14 +255,14 @@ class LiquidAnimationView @JvmOverloads constructor(
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-        when (aniStatus) {
+        when (animatorStatus) {
             AnimatorStatus.PULL_DOWN -> canvas.drawRect(
                 0f, 0f, localWidth.toFloat(),
                 localHeight.toFloat(), backPaint!!
             )
-            AnimatorStatus.REL_DRAG, AnimatorStatus.DRAG_DOWN -> drawDrag(
-                canvas
-            )
+            AnimatorStatus.RELEASE_DRAG, AnimatorStatus.DRAG_DOWN -> {
+                drawDrag(canvas)
+            }
             AnimatorStatus.SPRING_UP -> {
                 drawSpring(canvas, springDelta)
                 invalidate()
@@ -244,7 +271,7 @@ class LiquidAnimationView @JvmOverloads constructor(
                 drawPopBall(canvas)
                 invalidate()
             }
-            AnimatorStatus.OUTER_CIR -> {
+            AnimatorStatus.OUTER_CIRCLE -> {
                 drawOutCir(canvas)
                 drawVectorDrawable(canvas)
                 startAlphaAnimation()
@@ -258,18 +285,17 @@ class LiquidAnimationView @JvmOverloads constructor(
             AnimatorStatus.DONE -> {
                 drawDone(canvas)
                 stopAlphaAnimation()
-                stopAlphaAnimation()
                 invalidate()
             }
             AnimatorStatus.STOP -> drawDone(canvas)
         }
 
-        if (aniStatus == AnimatorStatus.REL_DRAG) {
+        if (animatorStatus == AnimatorStatus.RELEASE_DRAG) {
             val params = layoutParams
             var height: Int
             do {
-                height = relHeight
-            } while (height == lastHeight && relRatio != 1f)
+                height = releaseHeight
+            } while (height == lastHeight && releaseRatio != 1f)
             lastHeight = height
             params.height = pullHeight + height
             requestLayout()
@@ -303,11 +329,11 @@ class LiquidAnimationView @JvmOverloads constructor(
         canvas.drawPath(path!!, backPaint!!)
         val curH = pullHeight - springDelta / 2
         if (curH > pullHeight - pullDelta / 2) {
-            val leftX = (localWidth / 2 - 2 * radius + sprRatio * radius).toInt()
+            val leftX = (localWidth / 2 - 2 * radius + springRatio * radius).toInt()
             path!!.reset()
             path!!.moveTo(leftX.toFloat(), curH.toFloat())
             path!!.quadTo(
-                (localWidth / 2).toFloat(), curH - radius.toFloat() * sprRatio * 2f,
+                (localWidth / 2).toFloat(), curH - radius.toFloat() * springRatio * 2f,
                 (localWidth - leftX).toFloat(), curH.toFloat()
             )
             canvas.drawPath(path!!, ballPaint!!)
@@ -320,7 +346,6 @@ class LiquidAnimationView @JvmOverloads constructor(
                 180f, 180f, true, ballPaint!!
             )
         }
-
     }
 
     private fun drawPopBall(canvas: Canvas) {
@@ -335,27 +360,30 @@ class LiquidAnimationView @JvmOverloads constructor(
         canvas.drawPath(path!!, backPaint!!)
 
         val cirCentStart = pullHeight - pullDelta / 2
-        val cirCenY = (cirCentStart - radius.toFloat() * 2f * popRatio).toInt()
+        ballInnerY = (cirCentStart - radius.toFloat() * 2f * popRatio).toInt()
 
+        // Use ballInnerY for drawing
+        val innerY = ballInnerY
         canvas.drawArc(
             RectF(
-                (localWidth / 2 - radius).toFloat(), (cirCenY - radius).toFloat(),
-                (localWidth / 2 + radius).toFloat(), (cirCenY + radius).toFloat()
+                (localWidth / 2 - radius).toFloat(),
+                (innerY - radius).toFloat(),
+                (localWidth / 2 + radius).toFloat(),
+                (innerY + radius).toFloat()
             ),
             180f, 360f, true, ballPaint!!
         )
 
         if (popRatio < 1) {
-            drawTail(canvas, cirCenY, cirCentStart + 1, popRatio)
+            drawTail(canvas, ballInnerY, cirCentStart + 1, popRatio)
         } else {
             canvas.drawCircle(
                 (localWidth / 2).toFloat(),
-                cirCenY.toFloat(),
+                ballInnerY.toFloat(),
                 radius.toFloat(),
                 ballPaint!!
             )
         }
-
     }
 
     private fun drawTail(
@@ -393,15 +421,23 @@ class LiquidAnimationView @JvmOverloads constructor(
         )
         path!!.lineTo(localWidth.toFloat(), 0f)
         canvas.drawPath(path!!, backPaint!!)
-        val innerY = pullHeight - pullDelta / 2 - radius * 2
-        canvas.drawCircle((localWidth / 2).toFloat(), innerY.toFloat(), radius.toFloat(), ballPaint!!)
+
+        ballYSpringAnim.start()
+
+        canvas.drawCircle(
+            (localWidth / 2).toFloat(),
+            ballInnerY.toFloat(),
+            radius.toFloat(),
+            ballPaint!!
+        )
     }
 
     private fun drawRefreshing(canvas: Canvas) {
         canvas.drawRect(0f, 0f, localWidth.toFloat(), localHeight.toFloat(), backPaint!!)
 
-        val innerY = pullHeight - pullDelta / 2 - radius * 2
-        canvas.drawCircle((localWidth / 2).toFloat(), innerY.toFloat(), radius.toFloat(), ballPaint!!)
+        ballYSpringAnim.start()
+
+        canvas.drawCircle((localWidth / 2).toFloat(), ballInnerY.toFloat(), radius.toFloat(), ballPaint!!)
         val outerR = radius + 10
         refreshStart += if (isStart) 3 else 10
         refreshStop += if (isStart) 10 else 3
@@ -411,10 +447,12 @@ class LiquidAnimationView @JvmOverloads constructor(
         swipe = if (swipe < 0) swipe + 360 else swipe
         canvas.drawArc(
             RectF(
-                (localWidth / 2 - outerR).toFloat(), (innerY - outerR).toFloat(),
-                (localWidth / 2 + outerR).toFloat(), (innerY + outerR).toFloat()
+                (localWidth / 2 - outerR).toFloat(), (ballInnerY.toFloat() - outerR),
+                (localWidth / 2 + outerR).toFloat(), (ballInnerY.toFloat() + outerR)
             ),
-            refreshStart.toFloat(), swipe.toFloat(), false, outPaint!!
+            refreshStart.toFloat(), swipe.toFloat(), false, outPaint!!.apply {
+                alpha = 105
+            }
         )
         if (swipe >= targetDegree) {
             isStart = false
@@ -485,29 +523,31 @@ class LiquidAnimationView @JvmOverloads constructor(
     fun releaseDrag() {
         start1 = System.currentTimeMillis()
         stop = start1 + REL_DRAG_DUR
-        aniStatus = AnimatorStatus.REL_DRAG
+        animatorStatus = AnimatorStatus.RELEASE_DRAG
         spriDeta = localHeight - pullHeight
         requestLayout()
+
+        performHapticFeedback(HapticFeedbackConstants.CONFIRM)
     }
 
     private fun springUp() {
         sprStart = System.currentTimeMillis()
         sprStop = sprStart + SPRING_DUR
-        aniStatus = AnimatorStatus.SPRING_UP
+        animatorStatus = AnimatorStatus.SPRING_UP
         invalidate()
     }
 
     private fun popBall() {
         popStart = System.currentTimeMillis()
         popStop = popStart + POP_BALL_DUR
-        aniStatus = AnimatorStatus.POP_BALL
+        animatorStatus = AnimatorStatus.POP_BALL
         invalidate()
     }
 
     private fun startOutCir() {
         outStart = System.currentTimeMillis()
         outStop = outStart + OUTER_DUR
-        aniStatus = AnimatorStatus.OUTER_CIR
+        animatorStatus = AnimatorStatus.OUTER_CIRCLE
         refreshStart = 90
         refreshStop = 90
         targetDegree = 270
@@ -542,15 +582,14 @@ class LiquidAnimationView @JvmOverloads constructor(
 
     // Update the draw method to use the animatedAlpha value
     private fun drawVectorDrawable(canvas: Canvas) {
-        vectorDrawable.let { drawable ->
+        iconDrawable?.let { drawable ->
 
             drawable.alpha = (animatedAlpha * 255).toInt()
             // Calculate the y position based on pull height and radius
-            val innerY = pullHeight - pullDelta / 2 - radius * 2
 
             // Calculate the center position for the drawable
             val centerX = (localWidth / 2).toFloat() // Center X of the drawable
-            val centerY = innerY.toFloat()           // Adjusted Y position based on pull
+            val centerY = ballInnerY.toFloat()           // Adjusted Y position based on pull
 
             // Calculate the size of the drawable (scaled down relative to the circle radius)
             val drawableRadius = radius * 0.6f // Adjust size relative to circle radius
@@ -572,14 +611,14 @@ class LiquidAnimationView @JvmOverloads constructor(
     private fun applyDone() {
         doneStart = System.currentTimeMillis()
         doneStop = doneStart + DONE_DUR
-        aniStatus = AnimatorStatus.DONE
+        animatorStatus = AnimatorStatus.DONE
     }
 
-    fun setOnViewAniDone(onViewAniDone: OnViewAniDone) {
-        this.onViewAniDone = onViewAniDone
+    fun setOnAnimationDoneListener(onAnimationDoneListener: OnAnimationDoneListener) {
+        this.onAnimationDoneListener = onAnimationDoneListener
     }
 
-    interface OnViewAniDone {
+    interface OnAnimationDoneListener {
         fun viewAniDone()
     }
 
@@ -598,14 +637,14 @@ class LiquidAnimationView @JvmOverloads constructor(
     }
 
     companion object {
-        private const val REL_DRAG_DUR: Long = 200
+        private const val REL_DRAG_DUR: Long = 100
 
-        private const val SPRING_DUR: Long = 200
+        private const val SPRING_DUR: Long = 100
 
-        private const val POP_BALL_DUR: Long = 300
+        private const val POP_BALL_DUR: Long = 100
 
         private const val OUTER_DUR: Long = 200
 
-        private const val DONE_DUR: Long = 1000
+        private const val DONE_DUR: Long = 200
     }
 }

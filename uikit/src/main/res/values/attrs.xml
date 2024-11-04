@@ -55,6 +55,7 @@
     <attr name="endIconVisible" format="boolean"/>
     <attr name="icon" format="reference"/>
     <attr name="strokeWidth"/>
+    <attr name="shouldAnimate" format="boolean"/>
 
     <attr name="cornerRadius" format="dimension"/>
     <attr name="topRightCornerRadius" format="dimension"/>
@@ -65,6 +66,10 @@
     <attr name="startIconSize" format="dimension"/>
     <attr name="endIconSize" format="dimension"/>
     <attr name="strokeColor" format="color"/>
+
+    <attr name="backgroundColor" format="color"/>
+    <attr name="foregroundColor" format="color"/>
+    <attr name="circleRadius" format="dimension"/>
 
     <attr name="fieldInputType" format="enum">
         <enum name="text" value="0" />
@@ -78,9 +83,9 @@
     <attr name="fieldMaxLength" format="integer" />
 
     <declare-styleable name="LiquidRefreshLayout">
-        <attr name="AniBackColor" format="color" />
-        <attr name="AniForeColor" format="color" />
-        <attr name="CircleSmaller" format="integer" />
+        <attr name="backgroundColor"/>
+        <attr name="foregroundColor" />
+        <attr name="circleRadius" />
         <attr name="icon" />
     </declare-styleable>
 
@@ -235,5 +240,50 @@
         <attr name="startIconGravity"/>
         <attr name="endIconGravity"/>
     </declare-styleable>
+
+    <declare-styleable name="DoubleArcProgressIndicator">
+        <attr name="innerArcPadding" format="dimension"/>
+        <attr name="progressThickness" format="dimension"/>
+        <attr name="progressSize" format="dimension"/>
+        <attr name="rotateSpeed" format="float"/>
+        <attr name="arcSweepAngle" format="float"/>
+        <attr name="progressColor" format="color"/>
+    </declare-styleable>
+
+    <attr name="indicatorProgress" format="float" />
+    <attr name="maxIndicatorProgress" format="float" />
+    <attr name="indicatorStartColor" format="color" />
+    <attr name="indicatorEndColor" format="color" />
+    <attr name="trackColor" format="color" />
+    <attr name="trackThickness" format="dimension" />
+    <attr name="trackCornerRadius" format="dimension" />
+    <attr name="trackPadding" format="dimension"/>
+
+    <declare-styleable name="GradientLinearProgressBar">
+        <attr name="indicatorProgress" />
+        <attr name="maxIndicatorProgress" />
+        <attr name="indicatorStartColor" />
+        <attr name="indicatorEndColor" />
+        <attr name="trackColor" />
+        <attr name="trackThickness" />
+        <attr name="trackCornerRadius" />
+        <attr name="trackPadding" />
+        <attr name="shouldAnimate" />
+    </declare-styleable>
+
+    <declare-styleable name="GradientCircularProgressBar">
+        <attr name="indicatorProgress" />
+        <attr name="maxIndicatorProgress" />
+        <attr name="indicatorStartColor" />
+        <attr name="indicatorEndColor" />
+        <attr name="trackColor" />
+        <attr name="trackThickness" />
+        <attr name="trackCornerRadius" />
+        <attr name="trackPadding" />
+        <attr name="shouldAnimate" />
+    </declare-styleable>
+
+
+
 
 </resources>

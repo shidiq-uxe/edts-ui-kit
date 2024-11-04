@@ -12,6 +12,7 @@ constraintlayout = "2.1.4"
 swipeRefresh = "1.1.0"
 glide = "4.13.2"
 spotlight = "2.0.5"
+shimmer = "0.5.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -28,6 +29,7 @@ glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "gl
 glide-compiler = { group = "com.github.bumptech.glide", name = "compiler", version.ref = "glide" }
 
 spotlight = { group = "com.github.takusemba", name = "spotlight", version.ref = "spotlight" }
+shimmer = { group = "com.facebook.shimmer", name = "shimmer", version.ref = "shimmer"}
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

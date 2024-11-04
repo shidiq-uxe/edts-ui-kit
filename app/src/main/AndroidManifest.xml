@@ -15,9 +15,18 @@
         android:theme="@style/Theme.EDTS.UIKit.ActionBar"
         tools:targetApi="31">
         <activity
+            android:name=".GuidelinesProgressBarActivity"
+            android:exported="false" />
+        <activity
+            android:name=".PoinkuResearchActivity"
+            android:exported="false" />
+        <activity
+            android:name=".GuidelinesRefreshLayoutActivity"
+            android:exported="false" />
+        <activity
             android:name=".GuidelinesBottomTrayActivity"
             android:exported="false"
-            android:label="Bottom Sheet"/>
+            android:label="Bottom Sheet" />
         <activity
             android:name=".GuidelinesSnackbarActivity"
             android:exported="false"

@@ -44,7 +44,7 @@ class MainActivity : AppCompatActivity() {
                 Handler(Looper.getMainLooper()).postDelayed({
                     // Stop refresh animation after the operation is complete
                     binding.root.finishRefreshing()
-                }, 7500)
+                }, 2000)
             }
         })
     }
@@ -87,6 +87,8 @@ class MainActivity : AppCompatActivity() {
                         8 -> Intent(this, GuidelinesListItemActivity::class.java)
                         9 -> Intent(this, GuidelinesSnackbarActivity::class.java)
                         10 -> Intent(this, GuidelinesBottomTrayActivity::class.java)
+                        11 -> Intent(this, PoinkuResearchActivity::class.java)
+                        12 -> Intent(this, GuidelinesProgressBarActivity::class.java)
                         else -> Intent(this, SpotlightTrialsActivity::class.java)
                     },
                     binding.sharedElementOptions

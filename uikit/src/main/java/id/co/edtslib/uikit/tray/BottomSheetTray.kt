@@ -77,9 +77,11 @@ class BottomSheetTray : BottomSheetDialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val dialog = super.onCreateDialog(savedInstanceState) as BottomSheetDialog
-        dialog.setOnShowListener { _ ->
+        dialog.setOnShowListener { dialogInterface ->
             val bottomSheet = dialog.findViewById<View>(com.google.android.material.R.id.design_bottom_sheet)
             bottomSheetBehavior = bottomSheet?.let { sheet -> BottomSheetBehavior.from(sheet) }
+
+            delegate?.onShow(dialogInterface)
 
             bottomSheetBehavior?.addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
                 override fun onStateChanged(bottomSheet: View, newState: Int) {
