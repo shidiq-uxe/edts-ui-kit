@@ -19,7 +19,7 @@ dependencies {
 2. [Button](docs/Button.md)
 3. [Dialog](docs/Dialog.md)
 4. [PopUp](docs/Popup.md)
-5. [AlertBox](docs/AlertBox)
+5. [AlertBox](docs/AlertBox.md)
 6. [Snackbar Alerts](docs/Snackbar.md)
 7. [Base Adapter](docs/BaseAdapter.md)
 8. [Animation Wrapper Adapter](docs/AnimationWrapperAdapter.md)
