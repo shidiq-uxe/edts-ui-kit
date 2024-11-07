@@ -24,6 +24,8 @@
     <attr name="colorDisableFill" format="color"/>
     <attr name="colorFocusBorder" format="color"/>
 
+    <attr name="buttonStyle" format="reference" />
+
     <attr name="searchBarStyle" format="reference"/>
     <attr name="inputSearchBarStyle" format="reference"/>
 

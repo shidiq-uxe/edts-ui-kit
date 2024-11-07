@@ -21,3 +21,47 @@ This document outlines the button styles available in the UI Kit. Each button st
 <style name="Widget.EDTS.UIKit.Button.Filled" parent="Widget.Material3.Button.UnelevatedButton">
     <!-- Styles here -->
 </style>
+```
+
+# Custom Button with Pulsing Shimmer Effect and Touch Animation
+
+This repository provides an implementation of a custom `Button` class for Android that extends `MaterialButton` and includes features such as an optional pulsing shimmer effect and touch animation feedback.
+
+## Features
+
+-   **Shimmer Effect**: Adds a pulsing shimmer effect when `shouldShowShimmer` is set to `true`, making the button visually engaging.
+-   **Touch Animation**: Includes scaling animation to provide tactile feedback when the button is pressed and released.
+-   **Configurable**: The shimmer effect can be easily enabled or disabled with the `shouldShowShimmer` property.
+-   **Styling**: You could change the style of the button based on [Button Styles](#button-styles-overview) with xml style attribute.
+
+## Button Overview
+
+| Button Style                | Description                                                                                               |
+|-----------------------------|-----------------------------------------------------------------------------------------------------------|
+| **(Default) Filled Button** | ![Filled](https://res.cloudinary.com/dmduc9apd/image/upload/v1730965402/Button/ydpmcew44h7dwwyp9cws.gif)  |
+| **Secondary Button**        | ![Variant](https://res.cloudinary.com/dmduc9apd/image/upload/v1730965401/Button/xrh1wemdtzzc9dcusn6g.gif) |
+
+## Usage
+1.  **Include the `Button` class in your project.**
+2.  Set `shouldShowShimmer` to `true` to activate the shimmer effect.
+
+```kotlin
+val customButton = findViewById<Button>(R.id.custom_button)
+customButton.shouldShowShimmer = true
+```
+
+1.  The touch animation is already integrated and works out-of-the-box, providing scale feedback when the button is pressed and released.
+
+## Properties:
+
+-   **`shouldShowShimmer`**: A `Boolean` property to enable or disable the shimmer effect.
+-   **`shimmerFrameLayout`**: An optional `ShimmerFrameLayout` instance that manages the shimmer effect when `shouldShowShimmer` is `true`.
+
+## Dependencies
+
+Ensure that your project includes the necessary dependencies for `MaterialButton` and `ShimmerFrameLayout`.
+
+```gradle
+implementation 'com.google.android.material:material:your_version'
+implementation 'com.facebook.shimmer:shimmer:your_version'
+```

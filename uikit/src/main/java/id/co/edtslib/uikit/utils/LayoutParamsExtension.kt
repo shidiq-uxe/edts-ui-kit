@@ -121,6 +121,31 @@ fun View.disconnectEnd() {
     }
 }
 
+fun View.disconnectVerticalChain() {
+    ConstraintSet().apply {
+        clone(parent as ConstraintLayout)
+        removeFromVerticalChain(id)
+        applyTo(parent as ConstraintLayout)
+    }
+}
+
+fun View.disconnectHorizontalChain() {
+    ConstraintSet().apply {
+        clone(parent as ConstraintLayout)
+        removeFromHorizontalChain(id)
+        applyTo(parent as ConstraintLayout)
+    }
+}
+
+fun View.disconnectChains() {
+    ConstraintSet().apply {
+        clone(parent as ConstraintLayout)
+        removeFromVerticalChain(id)
+        removeFromHorizontalChain(id)
+        applyTo(parent as ConstraintLayout)
+    }
+}
+
 fun View.setRatio( ratio: String) {
     ConstraintSet().apply {
         clone(parent as ConstraintLayout)

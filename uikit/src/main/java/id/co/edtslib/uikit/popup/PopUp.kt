@@ -3,10 +3,34 @@ package id.co.edtslib.uikit.popup
 import android.content.Context
 import android.view.Gravity
 import android.view.View
+import androidx.core.view.doOnLayout
+import androidx.core.view.isVisible
+import androidx.core.view.marginStart
+import id.co.edtslib.uikit.R
 import id.co.edtslib.uikit.databinding.ViewDialogBinding
 import id.co.edtslib.uikit.utils.alertDialog
+import id.co.edtslib.uikit.utils.dimen
+import id.co.edtslib.uikit.utils.disconnectBottom
+import id.co.edtslib.uikit.utils.disconnectChains
+import id.co.edtslib.uikit.utils.disconnectEnd
+import id.co.edtslib.uikit.utils.disconnectHorizontalChain
+import id.co.edtslib.uikit.utils.disconnectStart
+import id.co.edtslib.uikit.utils.disconnectTop
+import id.co.edtslib.uikit.utils.disconnectVerticalChain
+import id.co.edtslib.uikit.utils.endToEndOf
+import id.co.edtslib.uikit.utils.horizontalBias
+import id.co.edtslib.uikit.utils.horizontalWeight
 import id.co.edtslib.uikit.utils.htmlToString
 import id.co.edtslib.uikit.utils.inflater
+import id.co.edtslib.uikit.utils.marginBottom
+import id.co.edtslib.uikit.utils.marginEnd
+import id.co.edtslib.uikit.utils.marginHorizontal
+import id.co.edtslib.uikit.utils.marginStart
+import id.co.edtslib.uikit.utils.marginTop
+import id.co.edtslib.uikit.utils.marginVertical
+import id.co.edtslib.uikit.utils.startToStartOf
+import id.co.edtslib.uikit.utils.topToBottomOf
+import id.co.edtslib.uikit.utils.topToTopOf
 
 object PopUp {
 
@@ -29,6 +53,36 @@ object PopUp {
         tvMessage.text = message
     }
 
+    private fun ViewDialogBinding.adjustButtonVisibilityBasedOnActionText(
+        positiveButtonText: String?,
+        negativeButtonText: String?
+    ) {
+        this.btnPositive.isVisible = !positiveButtonText.isNullOrEmpty()
+        this.btnNegative.isVisible = !negativeButtonText.isNullOrEmpty()
+    }
+
+    private fun ViewDialogBinding.adjustButtonPosition(
+        isHorizontal: Boolean = true
+    ) {
+        val parent = this.root
+
+        if (!isHorizontal) {
+            btnPositive.disconnectBottom()
+
+            btnPositive.marginVertical(parent, parent.context.dimen(R.dimen.dimen_36))
+            btnPositive.marginHorizontal(parent, 0f)
+            btnNegative.marginVertical(parent, parent.context.dimen(R.dimen.xxs))
+            btnNegative.marginHorizontal(parent, 0f)
+
+            btnPositive.topToBottomOf(tvMessage)
+            btnPositive.startToStartOf(tvMessage)
+            btnPositive.endToEndOf(tvMessage)
+
+            btnNegative.topToBottomOf(btnPositive)
+            btnNegative.startToStartOf(tvMessage)
+            btnNegative.endToEndOf(tvMessage)
+        }
+    }
 
     /**
      * Displays a custom alert dialog with various configuration options.
@@ -38,6 +92,7 @@ object PopUp {
      * @param title The title text for the dialog.
      * @param message The message displayed in the dialog, using CharSequence for rich text.
      * @param displayAsHtml Determines if the title & message should be displayed as HTML or plainText.
+     * @param isActionHorizontal Determines if the Button Should be Stacked or Chained Horizontally.
      * @param isFullScreen Indicates whether the dialog should be displayed in full-screen mode.
      * @param isDismissible Determines if the dialog can be dismissed by clicking outside or pressing the back button.
      * @param positiveButton The text for the positive button. If null or empty, the button will not be shown.
@@ -57,6 +112,7 @@ object PopUp {
         title: CharSequence,
         displayAsHtml: Boolean = false,
         message: CharSequence,
+        isActionHorizontal: Boolean = true,
         isFullScreen: Boolean = false,
         isDismissible: Boolean = true,
         positiveButton: String? = null,
@@ -72,6 +128,8 @@ object PopUp {
             configureView = { view, dialog ->
                 ViewDialogBinding.bind(view).apply {
                     bindContent(title, message, displayAsHtml)
+                    adjustButtonVisibilityBasedOnActionText(positiveButton, negativeButton)
+                    adjustButtonPosition(isActionHorizontal)
 
                     if (!positiveButton.isNullOrEmpty()) {
                         btnPositive.text = positiveButton

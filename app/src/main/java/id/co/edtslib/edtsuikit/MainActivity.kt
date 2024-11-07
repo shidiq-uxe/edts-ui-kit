@@ -89,6 +89,7 @@ class MainActivity : AppCompatActivity() {
                         10 -> Intent(this, GuidelinesBottomTrayActivity::class.java)
                         11 -> Intent(this, PoinkuResearchActivity::class.java)
                         12 -> Intent(this, GuidelinesProgressBarActivity::class.java)
+                        13 -> Intent(this, GuidelinesPopupActivity::class.java)
                         else -> Intent(this, SpotlightTrialsActivity::class.java)
                     },
                     binding.sharedElementOptions

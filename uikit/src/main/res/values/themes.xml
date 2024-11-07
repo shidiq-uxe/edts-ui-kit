@@ -53,6 +53,9 @@
         <item name="colorDisableFill">@color/black_30</item>
         <item name="colorFocusBorder">@color/primary_30</item>
 
+        <!--Button-->
+        <item name="buttonStyle">@style/Widget.EDTS.UIKit.Button.Filled</item>
+
         <!--Status Bar Color-->
         <item name="android:statusBarColor">@color/white</item>
 

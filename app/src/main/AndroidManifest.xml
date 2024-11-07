@@ -15,6 +15,9 @@
         android:theme="@style/Theme.EDTS.UIKit.ActionBar"
         tools:targetApi="31">
         <activity
+            android:name=".GuidelinesPopupActivity"
+            android:exported="false" />
+        <activity
             android:name=".GuidelinesProgressBarActivity"
             android:exported="false" />
         <activity

@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.transition.AutoTransition
 import android.transition.TransitionManager
 import android.view.MotionEvent
+import android.view.View
+import android.view.ViewGroup
 import androidx.core.transition.addListener
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -13,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.bumptech.glide.Glide
 import com.facebook.shimmer.Shimmer
+import com.facebook.shimmer.ShimmerFrameLayout
 import id.co.edtslib.edtsuikit.databinding.ActivityPoinkuResearchBinding
 import id.co.edtslib.edtsuikit.databinding.ItemGridLayoutPoinkuBinding
 import id.co.edtslib.edtsuikit.databinding.ItemLinearLayoutPoinkuBinding
@@ -20,6 +23,7 @@ import id.co.edtslib.uikit.adapter.AnimationType
 import id.co.edtslib.uikit.adapter.AnimationWrapperAdapter
 import id.co.edtslib.uikit.adapter.multiTypeAdapter
 import id.co.edtslib.uikit.utils.MarginItem
+import id.co.edtslib.uikit.utils.attachShimmerEffect
 import id.co.edtslib.uikit.utils.dimenPixelSize
 import id.co.edtslib.uikit.utils.gridMarginItemDecoration
 import id.co.edtslib.uikit.utils.linearMarginItemDecoration
@@ -157,23 +161,13 @@ class PoinkuResearchActivity : GuidelinesBaseActivity() {
     }
 
     private fun setupPulsingEffect() {
-        val shimmer = Shimmer.AlphaHighlightBuilder()
-            .setBaseAlpha(1f)
-            .setHighlightAlpha(0.75f)
-            .setDirection(Shimmer.Direction.LEFT_TO_RIGHT)
-            .setAutoStart(true)
-            .setDuration(3000)
-            .build()
-
-        binding.shimmerFrameLayout.setShimmer(shimmer)
-        binding.shimmerFrameLayout.startShimmer()
+       binding.btnLayoutType.attachShimmerEffect()
     }
+
 
     @SuppressLint("ClickableViewAccessibility")
     private fun setupTouchEffect() {
-        val views = listOf(binding.btnLayoutType, binding.shimmerFrameLayout)
-
-        val scaleUpValue = 1.035f
+        val scaleUpValue = 0.95f
         val scaleDownValue = 1f
 
         binding.btnLayoutType.setOnTouchListener { view, motionEvent ->

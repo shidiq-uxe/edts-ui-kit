@@ -1,10 +1,8 @@
-BottomSheetTray
-===============
+# BottomSheetTray
 
 `BottomSheetTray` is a custom implementation of `BottomSheetDialogFragment`, designed to provide a configurable and interactive bottom sheet experience in Android. It offers a variety of customization options, such as title views, navigation icons, content layouts, and animation configurations.
 
-Class Overview
---------------
+## Class Overview
 
 ### Primary Features:
 
@@ -14,8 +12,7 @@ Class Overview
 -   Adjustable dismiss behavior and animations
 -   Options for visibility and styling of navigation and action icons
 
-Properties
-----------
+## Properties
 
 ### General Properties:
 
@@ -44,8 +41,7 @@ Properties
 -   **`navigationIcon`**: Drawable resource ID for the navigation icon.
 -   **`navigationIconTint`**: Tint color resource ID for the navigation icon.
 
-Methods
--------
+## Methods
 
 ### Public Methods:
 
@@ -71,18 +67,15 @@ Methods
 
 -   **`bottomSheetTrayBehavior`**: A `BottomSheetBehavior.BottomSheetCallback` implementation that handles state changes and sliding behavior, supporting snap points.
 
-Delegate Interface
-------------------
+## Delegate Interface
 
 The `BottomTrayDelegate` interface (not included in the class but referenced) is expected to handle callbacks like `onShow()`, `onStateChanged()`, `onSlide()`, and `onDismiss()` for custom behavior logic.
 
-Companion Object
-----------------
+## Companion Object
 
 -   **`newInstance()`**: Simplifies the creation of a `BottomSheetTray` instance with optional arguments for title and custom views.
 
-Usage Example
--------------
+## Usage Example
 
 ```kotlin
 val bottomSheet = BottomSheetTray.newInstance(
@@ -93,8 +86,7 @@ val bottomSheet = BottomSheetTray.newInstance(
 bottomSheet.show(supportFragmentManager, "BottomSheetTrayTag")
 ```
 
-Remarks
--------
+## Remarks
 
 -   The `BottomSheetTray` class supports customization to fit various use cases, such as creating complex modal dialogues or simple information sheets.
 -   `setCustomAnimations()` is a placeholder, and developers should define custom animations in `styles.xml` for full functionality.

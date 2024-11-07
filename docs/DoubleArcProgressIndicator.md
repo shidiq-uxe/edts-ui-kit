@@ -1,17 +1,18 @@
-DoubleArcProgressIndicator
-==========================
+# DoubleArcProgressIndicator
 
 The `DoubleArcProgressIndicator` is a custom view component for Android, designed to show an animated circular progress indicator with two rotating half-arcs. It supports various customization options like arc thickness, rotation speed, padding, and colors.
 
-Features
---------
+## Features
 
 -   **Dual Arc Design**: Displays two rotating half-arcs, creating a dynamic visual effect.
 -   **Smooth Animation**: Automatically animates at 60 frames per second with customizable rotation speed.
 -   **Customizable Attributes**: Control the arc thickness, size, color, and padding.
 
-Usage
------
+## Indicator Overview
+
+![Indicator](https://res.cloudinary.com/dmduc9apd/image/upload/v1730966135/Progress%20Indicator/vfy4tpduxa9zkzdptaec.gif)
+
+## Usage
 
 ### 1\. Add to Layout XML
 
