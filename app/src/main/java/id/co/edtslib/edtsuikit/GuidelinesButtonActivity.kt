@@ -1,15 +1,16 @@
 package id.co.edtslib.edtsuikit
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import id.co.edtslib.uikit.otp.OtpDelegate
-import id.co.edtslib.uikit.otp.OtpGroup
+import id.co.edtslib.edtsuikit.databinding.ActivityButtonBinding
+import id.co.edtslib.uikit.button.Button
 import id.co.edtslib.uikit.utils.setLightStatusBar
-import id.co.edtslib.uikit.utils.snack
 
 class GuidelinesButtonActivity : GuidelinesBaseActivity() {
+
+    private val binding by viewBinding<ActivityButtonBinding>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_button)

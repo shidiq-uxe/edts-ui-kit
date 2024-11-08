@@ -84,6 +84,21 @@
 
     <attr name="fieldMaxLength" format="integer" />
 
+    <declare-styleable name="Button">
+        <attr name="buttonType" format="enum">
+            <enum name="filled" value="0" />
+            <enum name="filledMedium" value="1" />
+            <enum name="secondary" value="2" />
+            <enum name="secondaryMedium" value="3" />
+            <enum name="variant" value="4" />
+            <enum name="variantMedium" value="5" />
+            <enum name="text" value="6" />
+            <enum name="textMedium" value="7" />
+        </attr>
+        <attr name="shouldShowShimmer" format="boolean"/>
+        <attr name="pressedScale" format="float"/>
+    </declare-styleable>
+
     <declare-styleable name="LiquidRefreshLayout">
         <attr name="backgroundColor"/>
         <attr name="foregroundColor" />

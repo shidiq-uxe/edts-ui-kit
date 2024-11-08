@@ -13,18 +13,18 @@ The `AlertBox` class is an easy-to-use, customizable UI component designed to di
 
 ## AlertBox Overview
 
-| AlertBox Style | Description                               |
-|----------------|-------------------------------------------|
-| **Light**      | ![Light](./assets/AlertBox/Light.jpg)     |
-| **Info**       | ![Info](./assets/AlertBox/Info.jpg)       |
-| **Success**    | ![Success](./assets/AlertBox/Success.jpg) |
-| **Warning**    | ![Warning](./assets/AlertBox/Warning.jpg) |
-| **Error**      | ![Error](./assets/AlertBox/Error.jpg)     |
+| AlertBox Style | Description                                           |
+|----------------|-------------------------------------------------------|
+| **Light**      | <img src="./assets/AlertBox/Light.jpg" width="400">   |
+| **Info**       | <img src="./assets/AlertBox/Info.jpg" width="400">    |
+| **Success**    | <img src="./assets/AlertBox/Success.jpg" width="400"> |
+| **Warning**    | <img src="./assets/AlertBox/Warning.jpg" width="400"> |
+| **Error**      | <img src="./assets/AlertBox/Error.jpg" width="400">   |
 
 
 | Close Animation                                                                                           |
 |-----------------------------------------------------------------------------------------------------------|
-| ![Close](https://res.cloudinary.com/dmduc9apd/image/upload/v1730973051/Alertbox/ojfdgazlzmfuvtcid7fz.gif) |
+| ![Close](https://res.cloudinary.com/dmduc9apd/image/upload/v1731035526/Alertbox/deo9aizehttlr52a4fyi.gif) |
 
 >In order to use animation shown above, use `animateLayoutChanges="true"` in Parent ViewGroup of the AlertBox.
 
