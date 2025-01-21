@@ -31,12 +31,13 @@ dependencies {
 14. [ProgressView for TextView and Button](docs/ProgressView.md)
 15. [Double Arc Progress Indicator](docs/DoubleArcProgressIndicator.md)
 16. [Gradient ProgressBar](docs/GradientProgressBar.md)
-17. [Liquid Refresh Layout](docs/LiquidRefreshLayout.md)
-18. [BottomTray/BottomSheet](docs/BottomTray.md)
-19. [Interpolator](docs/Interpolator.md)
-20. [Utils Extensions](docs/UtilsExtensions.md)
-21. [Spannable Extensions](docs/UtilsExtensions.md)
-22. [String Builder Extensions](docs/UtilsExtensions.md)
+17. [HomeTabLayout](docs/HomeTabLayout.md)
+18. [Liquid Refresh Layout](docs/LiquidRefreshLayout.md)
+19. [BottomTray/BottomSheet](docs/BottomTray.md)
+20. [Interpolator](docs/Interpolator.md)
+21. [Utils Extensions](docs/UtilsExtensions.md)
+22. [Spannable Extensions](docs/UtilsExtensions.md)
+23. [String Builder Extensions](docs/UtilsExtensions.md)
 
 ## Basic setup and initialization :
 
