@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- res/drawable/custom_ripple.xml -->
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="?attr/colorControlHighlight">
+
+    <!-- Shape for ripple effect -->
+    <item android:id="@android:id/mask">
+        <shape android:shape="rectangle">
+            <corners android:radius="12dp" /> <!-- Adjust corner radius -->
+            <solid android:color="@color/primary_30" /> <!-- Required for masking -->
+        </shape>
+    </item>
+
+</ripple>

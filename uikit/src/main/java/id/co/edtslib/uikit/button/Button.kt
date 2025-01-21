@@ -3,6 +3,7 @@ package id.co.edtslib.uikit.button
 import android.content.Context
 import android.util.AttributeSet
 import android.view.MotionEvent
+import androidx.core.content.res.use
 import androidx.core.view.doOnLayout
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.google.android.material.button.MaterialButton
@@ -43,7 +44,7 @@ class Button @JvmOverloads constructor(
 
     init {
         if (attrs != null) {
-            context.obtainStyledAttributes(attrs, R.styleable.Button, defStyleAttr, 0).use {
+            context.obtainStyledAttributes(attrs, R.styleable.Button, defStyleAttr, 0).use  {
                 buttonType = ButtonType.values()[it.getInt(R.styleable.Button_buttonType, buttonType.ordinal)]
                 shouldShowShimmer = it.getBoolean(R.styleable.Button_shouldShowShimmer, shouldShowShimmer)
                 pressedScale = it.getFloat(R.styleable.Button_pressedScale, pressedScale)

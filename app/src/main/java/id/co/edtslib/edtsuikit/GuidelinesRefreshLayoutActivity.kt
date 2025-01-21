@@ -12,6 +12,7 @@ import androidx.core.view.updateLayoutParams
 import androidx.dynamicanimation.animation.FloatValueHolder
 import androidx.dynamicanimation.animation.SpringAnimation
 import androidx.dynamicanimation.animation.SpringForce
+import com.google.android.material.tabs.TabLayout
 import id.co.edtslib.edtsuikit.databinding.ActivityGuidelinesRefreshLayoutBinding
 import kotlin.math.exp
 
@@ -29,8 +30,6 @@ class GuidelinesRefreshLayoutActivity : AppCompatActivity() {
         }
 
         binding.btnSpringForce.setOnClickListener {
-            binding.springView.startSpringAnimation()
-
             //startSpringAnimation()
 
             /*SpringAnimation(binding.btnSpringForce, SpringAnimation.TRANSLATION_Y, 0f).apply {

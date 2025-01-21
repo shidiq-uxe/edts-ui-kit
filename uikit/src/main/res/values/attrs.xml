@@ -41,6 +41,9 @@
         <enum name="bottom" value="1" />
     </attr>
 
+    <attr name="text" format="string"/>
+    <attr name="textAppearance" format="reference" />
+
     <attr name="titleText" format="string"/>
     <attr name="titleTextAppearance" format="reference"/>
     <attr name="titleTextColor" format="color"/>
@@ -97,6 +100,20 @@
         </attr>
         <attr name="shouldShowShimmer" format="boolean"/>
         <attr name="pressedScale" format="float"/>
+    </declare-styleable>
+
+    <declare-styleable name="Ribbon">
+        <attr name="triangleColor" format="color"/>
+        <attr name="containerColor" format="color"/>
+        <attr name="containerStartColor" format="color"/>
+        <attr name="containerEndColor" format="color"/>
+        <attr name="textColor" format="color"/>
+        <attr name="text"/>
+        <attr name="gravity" format="enum">
+            <enum name="start" value="0" />
+            <enum name="end" value="1" />
+        </attr>
+        <attr name="textAppearance" />
     </declare-styleable>
 
     <declare-styleable name="LiquidRefreshLayout">
@@ -204,8 +221,8 @@
             <enum name="light" value="4" />
         </attr>
 
-        <attr name="text" format="string" />
-        <attr name="textAppearance" format="reference" />
+        <attr name="text"/>
+        <attr name="textAppearance"/>
     </declare-styleable>
 
     <declare-styleable name="OtpGroup">
@@ -300,7 +317,28 @@
         <attr name="shouldAnimate" />
     </declare-styleable>
 
+    <declare-styleable name="HorizontalCarouselRecyclerView">
+        <attr name="itemSpacing" format="dimension" />
+    </declare-styleable>
 
+    <declare-styleable name="ImageOverlayLayout">
+        <attr name="drawableWidth" format="dimension" />
+    </declare-styleable>
 
+    <declare-styleable name="SegmentedTabLayoutBottomEdges">
+        <attr name="edgeGravity" format="enum">
+            <enum name="start" value="0" />
+            <enum name="end" value="1" />
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="HomeSwitcher">
+        <attr name="firstTabTitle" format="string"/>
+        <attr name="secondTabTitle" format="string"/>
+        <attr name="firstTabSubtitle" format="string"/>
+        <attr name="secondTabSubtitle" format="string"/>
+        <attr name="firstTabIcon" format="reference"/>
+        <attr name="secondTabIcon" format="reference"/>
+    </declare-styleable>
 
 </resources>

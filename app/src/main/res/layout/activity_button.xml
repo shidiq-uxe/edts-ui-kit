@@ -87,9 +87,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/s"
+        android:layout_marginTop="8dp"
         android:text="Text Button"
         app:buttonType="text"
-        app:layout_constraintTop_toBottomOf="@id/btnDisabled"/>
+        app:layout_constraintTop_toBottomOf="@id/btnDisabled" />
 
     <id.co.edtslib.uikit.button.Button
         android:id="@+id/btnTextButtonMedium"
@@ -110,5 +111,34 @@
         app:icon="@drawable/ic_search"
         app:iconGravity="textStart"
         app:layout_constraintTop_toBottomOf="@id/btnTextButtonMedium"/>
+
+    <id.co.edtslib.uikit.ribbon.Ribbon
+        android:id="@+id/ribbon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/xxs"
+        android:layout_marginStart="-6dp"
+        android:elevation="@dimen/xxxs"
+        app:gravity="start"
+        app:text="999x"
+        app:textAppearance="@style/TextAppearance.Inter.Semibold.H2"
+        app:layout_constraintTop_toTopOf="@id/btnDisabled"
+        app:layout_constraintStart_toStartOf="@id/btnTextButton"/>
+
+    <id.co.edtslib.uikit.ribbon.Ribbon
+        android:id="@+id/ribbon2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/xxs"
+        android:layout_marginStart="-6dp"
+        android:elevation="@dimen/xxxs"
+        app:containerStartColor="@color/secondary_10"
+        app:containerEndColor="@color/secondary_30"
+        app:triangleColor="@color/secondary_50"
+        app:gravity="start"
+        app:text="Baru!"
+        app:textAppearance="@style/TextAppearance.Inter.Semibold.H2"
+        app:layout_constraintTop_toTopOf="@id/btnSecondaryOutlinedMedium"
+        app:layout_constraintStart_toStartOf="@id/btnTextButton"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

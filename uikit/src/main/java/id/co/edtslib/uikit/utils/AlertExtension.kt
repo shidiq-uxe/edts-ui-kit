@@ -85,7 +85,7 @@ enum class AlertType {
 
 fun View?.alertSnack(
     message: CharSequence,
-    alertType: AlertType,
+    alertType: AlertType = AlertType.DEFAULT,
     actionText: CharSequence? = null,
     @DrawableRes startIconRes: Int? = null,
     isAnchored: Boolean = false,

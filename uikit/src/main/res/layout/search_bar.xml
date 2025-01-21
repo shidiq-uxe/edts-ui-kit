@@ -5,11 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="@dimen/l">
 
-    <View
+    <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/inputBackground"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/bg_search_bar_border_default"
+        android:layout_height="match_parent"
+        android:padding="@dimen/dimen_1"
+        app:strokeColor="@color/black_20"
+        app:strokeWidth="@dimen/dimen_1"
+        android:background="@color/white"
+        app:shapeAppearance="@style/ShapeAppearance.EDTS.UIKit.MediumComponent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
 

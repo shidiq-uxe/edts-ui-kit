@@ -15,6 +15,17 @@
         android:theme="@style/Theme.EDTS.UIKit.ActionBar"
         tools:targetApi="31">
         <activity
+            android:name=".GuidelinesHomepageExploration"
+            android:exported="false"
+            android:theme="@style/Theme.EDTS.UIKit" />
+        <activity
+            android:name=".GuidelinesHomeSwitcherActivity"
+            android:exported="false" />
+        <activity
+            android:name=".GuidelinesSegmentedTabLayoutActivity"
+            android:exported="false"
+            android:theme="@style/Theme.EDTS.UIKit" />
+        <activity
             android:name=".GuidelinesPopupActivity"
             android:exported="false" />
         <activity

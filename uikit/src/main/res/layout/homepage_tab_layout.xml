@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/black_10">
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/tab1"
+        style="@style/Widget.EDTS.UIKit.Button.Tab"
+        android:layout_width="@dimen/dimen_0"
+        android:layout_height="wrap_content"
+        android:maxLines="1"
+        android:text="@string/grocery"
+        app:icon="@drawable/ic_basket_grocery_16"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/tab2"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/tab2"
+        style="@style/Widget.EDTS.UIKit.Button.Tab"
+        android:layout_width="@dimen/dimen_0"
+        android:layout_height="wrap_content"
+        android:maxLines="1"
+        android:text="@string/food"
+        app:shapeAppearance="@style/ShapeAppearance.EDTS.UIKit.SegmentedTabEnd"
+        app:icon="@drawable/ic_food_16"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@id/tab1"
+        app:layout_constraintEnd_toStartOf="@id/tab3"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/tab3"
+        style="@style/Widget.EDTS.UIKit.Button.Tab"
+        android:layout_width="@dimen/dimen_0"
+        android:layout_height="wrap_content"
+        android:maxLines="1"
+        android:text="@string/virtual"
+        app:cornerRadius="@dimen/dimen_0"
+        app:icon="@drawable/ic_card_virtual_16"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tab2"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/activeButton"
+        style="@style/Widget.EDTS.UIKit.Button.Tab.Active"
+        android:layout_width="@dimen/dimen_0"
+        android:layout_height="wrap_content"
+        android:minHeight="@dimen/dimen_0"
+        android:maxLines="1"
+        android:text="@string/grocery"
+        app:icon="@drawable/ic_placeholder_medium_24"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/tab2"/>
+
+    <id.co.edtslib.uikit.tablayout.HomeTabLayoutBottomEdges
+        android:id="@+id/leftEdges"
+        android:layout_width="@dimen/s"
+        android:layout_height="@dimen/s"
+        app:edgeGravity="start"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/activeButton"
+        tools:visibility="gone"/>
+
+    <id.co.edtslib.uikit.tablayout.HomeTabLayoutBottomEdges
+        android:id="@+id/rightEdges"
+        android:layout_width="@dimen/s"
+        android:layout_height="@dimen/s"
+        app:edgeGravity="end"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/activeButton"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

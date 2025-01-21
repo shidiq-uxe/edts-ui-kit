@@ -1,4 +1,4 @@
-package id.co.edtslib.uikit.adapter
+ package id.co.edtslib.uikit.adapter
 
 import android.animation.Animator
 import android.animation.ObjectAnimator

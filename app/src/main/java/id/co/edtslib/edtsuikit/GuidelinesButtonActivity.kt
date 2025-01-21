@@ -4,7 +4,8 @@ import android.os.Bundle
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import id.co.edtslib.edtsuikit.databinding.ActivityButtonBinding
-import id.co.edtslib.uikit.button.Button
+import id.co.edtslib.uikit.ribbon.Ribbon
+import id.co.edtslib.uikit.utils.dp
 import id.co.edtslib.uikit.utils.setLightStatusBar
 
 class GuidelinesButtonActivity : GuidelinesBaseActivity() {
@@ -21,5 +22,15 @@ class GuidelinesButtonActivity : GuidelinesBaseActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
+    Ribbon(this).apply {
+        ribbonText = "Ribbon"
+        gravity = Ribbon.Gravity.START
+        elevation = 4.dp
+    }.anchorToView(
+            rootParent = binding.root,
+            targetView = binding.btnSecondaryOutlined,
+            verticalAlignment = Ribbon.VerticalAlignment.Center
+        )
     }
 }

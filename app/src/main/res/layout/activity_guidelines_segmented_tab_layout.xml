@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black_10"
+    tools:context=".GuidelinesSegmentedTabLayoutActivity">
+
+    <!--Assume that this View was a toolbar container-->
+    <View
+        android:id="@+id/view_divider"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/s"
+        android:background="@color/primary_30"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <id.co.edtslib.uikit.tablayout.HomeTabLayout
+        android:id="@+id/segmentedTabLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/view_divider"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,4 +4,5 @@
     <string name="button_outlined_tag" translatable="false">button_outlined</string>
     <string name="button_text_button_tag" translatable="false">button_text_button</string>
     <string name="button_icon_button_tag" translatable="false">button_icon_button</string>
+    <string name="tab_button" translatable="false">tab_button</string>
 </resources>

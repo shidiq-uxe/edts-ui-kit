@@ -15,6 +15,9 @@
         <item>Poinku List</item>
         <item>Progress Bar</item>
         <item>Popup</item>
+        <item>Home Tab Layout</item>
+        <item>Home Switcher</item>
+        <item>Homepage Exploration</item>
         <item>Checkbox</item>
         <item>Radio Button</item>
         <item>Switch</item>
@@ -63,6 +66,12 @@
         <item>Body 4 (B4)</item>
         <!--Bold-->
         <item>Paragraph</item>
+    </string-array>
+
+    <string-array name="home_exploration_search_placeholder">
+        <item>Makanan Beku</item>
+        <item>Keperluan Dapur</item>
+        <item>Makanan Kemasan</item>
     </string-array>
 
     <string-array name="placeholder">

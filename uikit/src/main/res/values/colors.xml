@@ -62,6 +62,7 @@
     <color name="support_fab">#F9CA24</color>
     <color name="support_selected">#E7F2FB</color>
     <color name="transparent">#00000000</color>
+    <color name="alert_link">#EFF5FD</color>
 
     <color name="spotlightBackground">#BF000000</color>
 

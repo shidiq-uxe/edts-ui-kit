@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clipChildren="false"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <id.co.edtslib.uikit.ribbon.Ribbon
+        android:id="@+id/ribbonCouponLeft"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="@dimen/xxxs"
+        tools:text="99x"/>
+
+    <id.co.edtslib.uikit.ribbon.Ribbon
+        android:id="@+id/ribbonNew"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="@dimen/xxxs"
+        app:gravity="end"
+        app:containerStartColor="#FAC714"
+        app:containerEndColor="#FA9E14"
+        app:triangleColor="@color/secondary_50"
+        tools:text="Baru!"/>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/xxs"
+        app:shapeAppearanceOverlay="@style/ShapeAppearance.EDTS.UIKit.MediumComponent"
+        app:strokeWidth="@dimen/dimen_0"
+        app:cardElevation="@dimen/xxxs"
+        android:elevation="@dimen/xxxs"
+        android:clipChildren="false"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/ivCouponImage"
+                android:layout_width="@dimen/dimen_0"
+                android:layout_height="@dimen/dimen_0"
+                android:contentDescription="Coupon Image"
+                app:layout_constraintDimensionRatio="79:60"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:src="@drawable/ic_placeholder_medium_24"/>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvExpiredIn"
+                android:layout_width="@dimen/dimen_0"
+                android:layout_height="wrap_content"
+                android:paddingVertical="@dimen/xxxs"
+                android:paddingHorizontal="@dimen/xxs"
+                android:background="@color/alert_link"
+                android:textColor="@color/primary_30"
+                android:textAppearance="@style/TextAppearance.Inter.Regular.B4"
+                android:gravity="center_vertical"
+                android:drawablePadding="@dimen/xxxs"
+                app:drawableStartCompat="@drawable/ic_placeholder_medium_24"
+                app:drawableTint="@color/primary_30"
+                android:maxLines="1"
+                android:ellipsize="end"
+                app:layout_constraintTop_toBottomOf="@id/ivCouponImage"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:text="Hingga 2 November 2024"/>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvCouponName"
+                android:layout_width="@dimen/dimen_0"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/xxs"
+                android:maxLines="2"
+                android:ellipsize="end"
+                android:textAppearance="@style/TextAppearance.Inter.Regular.B3"
+                android:textColor="@color/black_60"
+                app:layout_constraintTop_toBottomOf="@id/tvExpiredIn"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:text="Diskon Rp5.000 Kelloggs Frosted Flakes 300gr"/>
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipCouponCategory"
+                style="@style/Widget.Material3.Chip.Assist"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/xxs"
+                android:layout_marginHorizontal="@dimen/xxs"
+                android:textColor="@color/primary_30"
+                android:textAppearance="@style/TextAppearance.Inter.Regular.B4"
+                app:shapeAppearanceOverlay="@style/ShapeAppearance.EDTS.UIKit.MediumComponent"
+                app:ensureMinTouchTargetSize="false"
+                app:chipStrokeWidth="@dimen/dimen_0"
+                app:chipBackgroundColor="@color/alert_link"
+                app:chipIcon="@drawable/ic_placeholder_medium_24"
+                app:chipIconEnabled="true"
+                app:chipIconTint="@color/primary_30"
+                android:maxLines="1"
+                android:ellipsize="end"
+                app:layout_constraintTop_toBottomOf="@id/tvCouponName"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constrainedWidth="true"
+                app:layout_constraintHorizontal_bias="0.0"
+                tools:text="Merchant"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnUseCoupon"
+                style="@style/Widget.EDTS.UIKit.Button.Filled"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/xxs"
+                android:text="@string/poinku_use_coupon"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:textAppearance="@style/TextAppearance.Inter.Semibold.H4"
+                app:shapeAppearanceOverlay="@style/ShapeAppearance.EDTS.UIKit.MediumComponent"
+                app:layout_constraintTop_toBottomOf="@id/chipCouponCategory"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintVertical_bias="0.0"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</FrameLayout>

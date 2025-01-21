@@ -122,5 +122,10 @@ fun Fragment.getText(id: Int, vararg args: Any): CharSequence {
     return HtmlCompat.fromHtml(formattedHtml, HtmlCompat.FROM_HTML_MODE_COMPACT).trim()
 }
 
-val Int.px: Float get() = (this * Resources.getSystem().displayMetrics.density)
-val Int.dp: Float get() = (this / Resources.getSystem().displayMetrics.density)
+val Int.px: Float get() = (this / Resources.getSystem().displayMetrics.density)
+val Int.dp: Float get() = (this * Resources.getSystem().displayMetrics.density)
+val Int.sp: Float get() = (this / Resources.getSystem().displayMetrics.scaledDensity)
+
+val Float.px: Float get() = (this / Resources.getSystem().displayMetrics.density)
+val Float.dp: Float get() = (this * Resources.getSystem().displayMetrics.density)
+val Float.sp: Float get() = (this / Resources.getSystem().displayMetrics.scaledDensity)

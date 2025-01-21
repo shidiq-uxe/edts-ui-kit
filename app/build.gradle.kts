@@ -6,12 +6,12 @@ plugins {
 
 android {
     namespace = "id.co.edtslib.edtsuikit"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "id.co.edtslib.edtsuikit"
         minSdk = 21
-        targetSdk = 33
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 

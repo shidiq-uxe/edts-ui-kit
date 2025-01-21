@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <include layout="@layout/skeleton_adapter_home_point"
+        android:id="@+id/skeleton_point"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/s"/>
+
+    <include layout="@layout/skeleton_adapter_home_banner"
+        android:id="@+id/skeleton_banner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/s"/>
+
+    <include layout="@layout/skeleton_adapter_home_grocery"
+        android:id="@+id/skeleton_grocery"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/s"/>
+
+    <include layout="@layout/skeleton_adapter_home_product_sections"
+        android:id="@+id/skeleton_product_sections"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/s"/>
+
+</androidx.appcompat.widget.LinearLayoutCompat>

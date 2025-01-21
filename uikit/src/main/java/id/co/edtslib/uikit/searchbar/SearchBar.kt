@@ -3,11 +3,13 @@ package id.co.edtslib.uikit.searchbar
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.content.Context
+import android.graphics.Outline
 import android.os.Build
 import android.text.InputFilter
 import android.util.AttributeSet
 import android.util.Log
 import android.view.View
+import android.view.ViewOutlineProvider
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.AlphaAnimation
 import android.view.animation.Animation
@@ -18,6 +20,7 @@ import android.widget.FrameLayout
 import android.widget.TextView
 import androidx.annotation.ColorRes
 import androidx.annotation.StyleRes
+import androidx.core.content.res.use
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import id.co.edtslib.uikit.R
@@ -25,6 +28,7 @@ import id.co.edtslib.uikit.databinding.SearchBarBinding
 import id.co.edtslib.uikit.textfield.TextField.InputType
 import id.co.edtslib.uikit.utils.color
 import id.co.edtslib.uikit.utils.colorStateList
+import id.co.edtslib.uikit.utils.dp
 import id.co.edtslib.uikit.utils.drawable
 import id.co.edtslib.uikit.utils.fade
 import id.co.edtslib.uikit.utils.inflater
@@ -338,29 +342,33 @@ class SearchBar @JvmOverloads constructor(
     }
 
     private fun initAttrs(attrs: AttributeSet?, defStyleAttr: Int) {
+        outlineProvider = object : ViewOutlineProvider() {
+            override fun getOutline(view: View?, outline: Outline?) {
+                outline?.setRoundRect(0, 0, view?.width ?: 0, view?.height ?: 0, 8.dp)
+            }
+        }
+
         if (attrs != null) {
-            context.theme.obtainStyledAttributes(attrs, R.styleable.SearchBar, defStyleAttr, 0).apply {
-                isCancelVisible = getBoolean(R.styleable.SearchBar_closeIconVisible, isCancelVisible)
+            context.theme.obtainStyledAttributes(attrs, R.styleable.SearchBar, defStyleAttr, 0).use {
+                isCancelVisible = it.getBoolean(R.styleable.SearchBar_closeIconVisible, isCancelVisible)
 
-                fieldMaxLength = getInt(R.styleable.SearchBar_fieldMaxLength, fieldMaxLength ?: Int.MAX_VALUE)
-                fieldInputType = InputType.values()[getInt(R.styleable.SearchBar_fieldInputType, 0)]
+                fieldMaxLength = it.getInt(R.styleable.SearchBar_fieldMaxLength, fieldMaxLength ?: Int.MAX_VALUE)
+                fieldInputType = InputType.values()[it.getInt(R.styleable.SearchBar_fieldInputType, 0)]
 
-                prefixText = getString(R.styleable.SearchBar_prefixText)
-                placeholderTextAppearance = getResourceId(R.styleable.SearchBar_placeholderTextAppearance, placeholderTextAppearance ?: R.style.TextAppearance_Inter_Regular_B2)
+                prefixText = it.getString(R.styleable.SearchBar_prefixText)
+                placeholderTextAppearance = it.getResourceId(R.styleable.SearchBar_placeholderTextAppearance, placeholderTextAppearance ?: R.style.TextAppearance_Inter_Regular_B2)
 
-                val startIconColorRes = getResourceId(R.styleable.SearchBar_startIcon, 0)
+                val startIconColorRes = it.getResourceId(R.styleable.SearchBar_startIcon, 0)
 
                 if (startIconColorRes != 0) {
                     startIcon = startIconColorRes
                 }
 
-                val itemsArrayId = getResourceId(R.styleable.SearchBar_placeholderTextList, 0)
+                val itemsArrayId = it.getResourceId(R.styleable.SearchBar_placeholderTextList, 0)
 
                 if (itemsArrayId != 0) {
                     placeholderTexts = resources.getStringArray(itemsArrayId)
                 }
-
-                recycle()
             }
         }
     }

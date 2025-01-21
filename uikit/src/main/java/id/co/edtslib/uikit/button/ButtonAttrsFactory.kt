@@ -6,6 +6,7 @@ import android.os.Build
 import android.util.AttributeSet
 import android.view.ContextThemeWrapper
 import androidx.annotation.StyleRes
+import androidx.core.content.res.use
 import com.google.android.material.R
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.shape.ShapeAppearanceModel

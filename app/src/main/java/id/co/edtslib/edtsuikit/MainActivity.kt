@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.view.ViewCompat
@@ -90,6 +91,9 @@ class MainActivity : AppCompatActivity() {
                         11 -> Intent(this, PoinkuResearchActivity::class.java)
                         12 -> Intent(this, GuidelinesProgressBarActivity::class.java)
                         13 -> Intent(this, GuidelinesPopupActivity::class.java)
+                        14 -> Intent(this, GuidelinesSegmentedTabLayoutActivity::class.java)
+                        15 -> Intent(this, GuidelinesHomeSwitcherActivity::class.java)
+                        16 -> Intent(this, GuidelinesHomepageExploration::class.java)
                         else -> Intent(this, SpotlightTrialsActivity::class.java)
                     },
                     binding.sharedElementOptions

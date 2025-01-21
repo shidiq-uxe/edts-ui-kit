@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clipToPadding="false"
+    android:paddingHorizontal="@dimen/s">
+
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/shimmerSection1"
+        android:layout_width="@dimen/dimen_0"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_percent="0.4">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/s"
+            android:background="@color/black_30"
+            android:scaleType="centerCrop"
+            app:shapeAppearanceOverlay="@style/ShapeAppearance.EDTS.UIKit.SmallComponent" />
+
+    </com.facebook.shimmer.ShimmerFrameLayout>
+
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/shimmerSubSection1"
+        android:layout_width="@dimen/dimen_0"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_percent="0.3">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/s"
+            android:background="@color/black_30"
+            android:scaleType="centerCrop"
+            app:shapeAppearanceOverlay="@style/ShapeAppearance.EDTS.UIKit.SmallComponent" />
+
+    </com.facebook.shimmer.ShimmerFrameLayout>
+
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/shimmerPlaceholder1"
+        android:layout_width="@dimen/dimen_0"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/xs"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/shimmerSection1"
+        app:layout_constraintWidth_percent="0.3">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:background="@color/black_30"
+            android:scaleType="centerCrop"
+            app:shapeAppearanceOverlay="@style/ShapeAppearance.EDTS.UIKit.MediumComponent" />
+    </com.facebook.shimmer.ShimmerFrameLayout>
+
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/shimmerPlaceholderTitle1"
+        android:layout_width="@dimen/dimen_0"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/xxs"
+        app:layout_constraintStart_toStartOf="@id/shimmerPlaceholder1"
+        app:layout_constraintTop_toBottomOf="@id/shimmerPlaceholder1"
+        app:layout_constraintEnd_toEndOf="@id/shimmerPlaceholder1">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/s"
+            android:background="@color/black_30"
+            android:scaleType="centerCrop"
+            app:shapeAppearanceOverlay="@style/ShapeAppearance.EDTS.UIKit.SmallComponent" />
+    </com.facebook.shimmer.ShimmerFrameLayout>
+
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/shimmerPlaceholderSubtitle1"
+        android:layout_width="@dimen/dimen_0"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/xxs"
+        android:layout_marginEnd="@dimen/m1"
+        app:layout_constraintStart_toStartOf="@id/shimmerPlaceholder1"
+        app:layout_constraintTop_toBottomOf="@id/shimmerPlaceholderTitle1"
+        app:layout_constraintEnd_toEndOf="@id/shimmerPlaceholder1">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/s"
+            android:background="@color/black_30"
+            android:scaleType="centerCrop"
+            app:shapeAppearanceOverlay="@style/ShapeAppearance.EDTS.UIKit.SmallComponent" />
+    </com.facebook.shimmer.ShimmerFrameLayout>
+
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/shimmerPlaceholderBody1"
+        android:layout_width="@dimen/dimen_0"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/xxs"
+        app:layout_constraintStart_toStartOf="@id/shimmerPlaceholder1"
+        app:layout_constraintTop_toBottomOf="@id/shimmerPlaceholderSubtitle1"
+        app:layout_constraintEnd_toEndOf="@id/shimmerPlaceholder1">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/s"
+            android:layout_marginEnd="@dimen/m3"
+            android:background="@color/black_30"
+            android:scaleType="centerCrop"
+            app:shapeAppearanceOverlay="@style/ShapeAppearance.EDTS.UIKit.SmallComponent" />
+    </com.facebook.shimmer.ShimmerFrameLayout>
+
+    <!-- Duplicate 1 -->
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/shimmerPlaceholder2"
+        android:layout_width="@dimen/dimen_0"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/xs"
+        android:layout_marginStart="@dimen/xs"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintStart_toEndOf="@id/shimmerPlaceholder1"
+        app:layout_constraintTop_toBottomOf="@id/shimmerSection1"
+        app:layout_constraintWidth_percent="0.3">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:background="@color/black_30"
+            android:scaleType="centerCrop"
+            app:shapeAppearanceOverlay="@style/ShapeAppearance.EDTS.UIKit.MediumComponent" />
+    </com.facebook.shimmer.ShimmerFrameLayout>
+
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/shimmerPlaceholderTitle2"
+        android:layout_width="@dimen/dimen_0"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/xxs"
+        app:layout_constraintStart_toStartOf="@id/shimmerPlaceholder2"
+        app:layout_constraintTop_toBottomOf="@id/shimmerPlaceholder2"
+        app:layout_constraintEnd_toEndOf="@id/shimmerPlaceholder2">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/s"
+            android:background="@color/black_30"
+            android:scaleType="centerCrop"
+            app:shapeAppearanceOverlay="@style/ShapeAppearance.EDTS.UIKit.SmallComponent" />
+    </com.facebook.shimmer.ShimmerFrameLayout>
+
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/shimmerPlaceholderSubtitle2"
+        android:layout_width="@dimen/dimen_0"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/xxs"
+        android:layout_marginEnd="@dimen/m1"
+        app:layout_constraintStart_toStartOf="@id/shimmerPlaceholder2"
+        app:layout_constraintTop_toBottomOf="@id/shimmerPlaceholderTitle2"
+        app:layout_constraintEnd_toEndOf="@id/shimmerPlaceholder2">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/s"
+            android:background="@color/black_30"
+            android:scaleType="centerCrop"
+            app:shapeAppearanceOverlay="@style/ShapeAppearance.EDTS.UIKit.SmallComponent" />
+    </com.facebook.shimmer.ShimmerFrameLayout>
+
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/shimmerPlaceholderBody2"
+        android:layout_width="@dimen/dimen_0"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/xxs"
+        android:layout_marginEnd="@dimen/m3"
+        app:layout_constraintStart_toStartOf="@id/shimmerPlaceholder2"
+        app:layout_constraintTop_toBottomOf="@id/shimmerPlaceholderSubtitle2"
+        app:layout_constraintEnd_toEndOf="@id/shimmerPlaceholder2">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/s"
+            android:background="@color/black_30"
+            android:scaleType="centerCrop"
+            app:shapeAppearanceOverlay="@style/ShapeAppearance.EDTS.UIKit.SmallComponent" />
+    </com.facebook.shimmer.ShimmerFrameLayout>
+
+    <!-- Duplicate 2 -->
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/shimmerPlaceholder3"
+        android:layout_width="@dimen/dimen_0"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/xs"
+        android:layout_marginStart="@dimen/xs"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintStart_toEndOf="@id/shimmerPlaceholder2"
+        app:layout_constraintTop_toBottomOf="@id/shimmerSection1"
+        app:layout_constraintWidth_percent="0.3">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:background="@color/black_30"
+            android:scaleType="centerCrop"
+            app:shapeAppearanceOverlay="@style/ShapeAppearance.EDTS.UIKit.MediumComponent" />
+    </com.facebook.shimmer.ShimmerFrameLayout>
+
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/shimmerPlaceholderTitle3"
+        android:layout_width="@dimen/dimen_0"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/xxs"
+        app:layout_constraintStart_toStartOf="@id/shimmerPlaceholder3"
+        app:layout_constraintTop_toBottomOf="@id/shimmerPlaceholder3"
+        app:layout_constraintEnd_toEndOf="@id/shimmerPlaceholder3">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/s"
+            android:background="@color/black_30"
+            android:scaleType="centerCrop"
+            app:shapeAppearanceOverlay="@style/ShapeAppearance.EDTS.UIKit.SmallComponent" />
+    </com.facebook.shimmer.ShimmerFrameLayout>
+
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/shimmerPlaceholderSubtitle3"
+        android:layout_width="@dimen/dimen_0"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/xxs"
+        android:layout_marginEnd="@dimen/m1"
+        app:layout_constraintStart_toStartOf="@id/shimmerPlaceholder3"
+        app:layout_constraintTop_toBottomOf="@id/shimmerPlaceholderTitle3"
+        app:layout_constraintEnd_toEndOf="@id/shimmerPlaceholder3">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/s"
+            android:background="@color/black_30"
+            android:scaleType="centerCrop"
+            app:shapeAppearanceOverlay="@style/ShapeAppearance.EDTS.UIKit.SmallComponent" />
+    </com.facebook.shimmer.ShimmerFrameLayout>
+
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/shimmerPlaceholderBody3"
+        android:layout_width="@dimen/dimen_0"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/xxs"
+        android:layout_marginEnd="@dimen/m3"
+        app:layout_constraintStart_toStartOf="@id/shimmerPlaceholder3"
+        app:layout_constraintTop_toBottomOf="@id/shimmerPlaceholderSubtitle3"
+        app:layout_constraintEnd_toEndOf="@id/shimmerPlaceholder3">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/s"
+            android:background="@color/black_30"
+            android:scaleType="centerCrop"
+            app:shapeAppearanceOverlay="@style/ShapeAppearance.EDTS.UIKit.SmallComponent" />
+    </com.facebook.shimmer.ShimmerFrameLayout>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

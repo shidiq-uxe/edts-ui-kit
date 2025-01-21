@@ -27,6 +27,27 @@
         <item name="cornerSize">@dimen/l</item>
     </style>
 
+    <style name="ShapeAppearance.EDTS.UIKit.CircleComponent" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/l</item>
+    </style>
+
+    <style name="ShapeAppearance.EDTS.UIKit.MediumComponent.Flat.Start" parent="ShapeAppearance.Material3.MediumComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopLeft">@dimen/dimen_0</item>
+        <item name="cornerSizeBottomLeft">@dimen/dimen_0</item>
+        <item name="cornerSizeTopRight">@dimen/xxs</item>
+        <item name="cornerSizeBottomRight">@dimen/xxs</item>
+    </style>
+
+    <style name="ShapeAppearance.EDTS.UIKit.MediumComponent.Flat.End" parent="ShapeAppearance.Material3.MediumComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopLeft">@dimen/xxs</item>
+        <item name="cornerSizeBottomLeft">@dimen/xxs</item>
+        <item name="cornerSizeTopRight">@dimen/dimen_0</item>
+        <item name="cornerSizeBottomRight">@dimen/dimen_0</item>
+    </style>
+
     <style name="ShapeAppearance.EDTS.UIKit.Flat.Corner.Start" parent="">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSizeTopLeft">@dimen/dimen_0</item>
@@ -76,5 +97,33 @@
     <style name="ShapeAppearance.EDTS.UIKit.Chip" parent="">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">50%</item>
+    </style>
+
+    <style name="ShapeAppearance.EDTS.UIKit.SegmentedTabStart" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeBottomRight">@dimen/xs</item>
+    </style>
+
+    <style name="ShapeAppearance.EDTS.UIKit.SegmentedTabEnd" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeBottomLeft">@dimen/xs</item>
+    </style>
+
+    <style name="ShapeAppearance.EDTS.UIKit.SegmentedTab.Active" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopRight">@dimen/xs</item>
+        <item name="cornerSizeTopLeft">@dimen/xs</item>
+    </style>
+
+    <style name="ShapeAppearance.EDTS.UIKit.HomeSwitcher.Start" parent="ShapeAppearance.Material3.Corner.Medium">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopLeft">@dimen/xs</item>
+        <item name="cornerSizeBottomLeft">@dimen/xs</item>
+    </style>
+
+    <style name="ShapeAppearance.EDTS.UIKit.HomeSwitcher.End" parent="ShapeAppearance.Material3.Corner.Medium">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopRight">@dimen/xs</item>
+        <item name="cornerSizeBottomRight">@dimen/xs</item>
     </style>
 </resources>
