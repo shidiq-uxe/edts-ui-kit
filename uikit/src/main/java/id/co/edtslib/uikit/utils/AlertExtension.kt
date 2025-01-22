@@ -6,6 +6,7 @@ import android.os.Build
 import android.text.TextUtils
 import android.view.Gravity
 import android.view.View
+import android.widget.FrameLayout
 import android.widget.TextView
 import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
@@ -31,9 +32,11 @@ fun View?.snack(
     @ColorInt backgroundColor: Int = this?.context.color(R.color.black_60),
     @StyleRes resTextAppearance: Int = -1,
     @ColorInt textColor: Int = Color.WHITE,
+    messageHasStyle: Boolean = false,
     isAnchored: Boolean = false,
     anchoredView: View? = this,
     animationMode: Int = Snackbar.ANIMATION_MODE_FADE,
+    bottomMargin: Int? = null,
     onViewCreated: (Snackbar) -> Unit = {},
     action: ((View) -> Unit)? = null
 ) {
@@ -43,6 +46,12 @@ fun View?.snack(
             this.animationMode = animationMode
 
             with(this.view) {
+                if (bottomMargin != null) {
+                    val params = layoutParams as? FrameLayout.LayoutParams
+                    params?.bottomMargin = bottomMargin
+                    layoutParams = params
+                }
+
                 onViewCreated(this@apply)
 
                 if (isAnchored) {
@@ -55,10 +64,12 @@ fun View?.snack(
                     ellipsize = TextUtils.TruncateAt.END
 
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                        setTextAppearance(
-                            if (resTextAppearance != -1) resTextAppearance
-                            else R.style.TextAppearance_Inter_Regular_B3
-                        )
+                        if (!messageHasStyle) {
+                            setTextAppearance(
+                                if (resTextAppearance != -1) resTextAppearance
+                                else R.style.TextAppearance_Inter_Regular_B3
+                            )
+                        }
                     }
 
                     this.setTextColor(
@@ -79,15 +90,18 @@ fun View?.snack(
     }
 }
 
+
 enum class AlertType {
     DEFAULT, ERROR
 }
 
 fun View?.alertSnack(
     message: CharSequence,
+    messageHasStyle: Boolean = false,
     alertType: AlertType = AlertType.DEFAULT,
     actionText: CharSequence? = null,
     @DrawableRes startIconRes: Int? = null,
+    bottomMargin: Int? = null,
     isAnchored: Boolean = false,
     anchoredView: View? = this,
     animationMode: Int = Snackbar.ANIMATION_MODE_FADE,
@@ -112,8 +126,10 @@ fun View?.alertSnack(
         backgroundColor = backgroundColor,
         resTextAppearance = R.style.TextAppearance_Inter_Regular_B3,
         textColor = textColor,
+        messageHasStyle = messageHasStyle,
         actionText = actionText,
         displayLength = Snackbar.LENGTH_LONG,
+        bottomMargin = bottomMargin,
         isAnchored = isAnchored,
         anchoredView = anchoredView,
         animationMode = animationMode,

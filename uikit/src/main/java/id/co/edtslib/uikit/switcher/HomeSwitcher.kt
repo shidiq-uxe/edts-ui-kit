@@ -55,6 +55,20 @@ class HomeSwitcher @JvmOverloads constructor(
             binding.ivXtraLogo.setImageDrawable(context.drawable(value))
         }
 
+    var selectedTab = Tab.Xpress
+        set(value) {
+            field = value
+
+            when(value) {
+                Tab.Xpress -> {
+                    binding.xpressTab.performClick()
+                }
+                Tab.Xtra -> {
+                    binding.xtraTab.performClick()
+                }
+            }
+        }
+
     init {
         init(attrs)
         setupTabs()
@@ -113,6 +127,23 @@ class HomeSwitcher @JvmOverloads constructor(
             addUpdateListener(object : DynamicAnimation.OnAnimationUpdateListener {
                 override fun onAnimationUpdate(animation: DynamicAnimation<*>?, value: Float, velocity: Float) {
                     updateActiveTabContent(selectedTab)
+                }
+            })
+
+            addEndListener(object : DynamicAnimation.OnAnimationEndListener {
+                override fun onAnimationEnd(
+                    animation: DynamicAnimation<*>?,
+                    canceled: Boolean,
+                    value: Float,
+                    velocity: Float
+                ) {
+                    delegate?.setOnSwitchAnimationEndListener(
+                        when(selectedTab) {
+                            binding.xpressTab -> Tab.Xpress
+                            binding.xtraTab -> Tab.Xtra
+                            else -> Tab.Xpress
+                        }
+                    )
                 }
             })
         }

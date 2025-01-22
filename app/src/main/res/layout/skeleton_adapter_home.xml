@@ -4,6 +4,18 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
+    <include layout="@layout/skeleton_adapter_home_searchbar"
+        android:id="@+id/skeleton_searchbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/xs"/>
+
+    <include layout="@layout/skeleton_adapter_home_switcher"
+        android:id="@+id/skeleton_switcher"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/s"/>
+
     <include layout="@layout/skeleton_adapter_home_point"
         android:id="@+id/skeleton_point"
         android:layout_width="match_parent"

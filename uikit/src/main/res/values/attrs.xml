@@ -332,6 +332,11 @@
         </attr>
     </declare-styleable>
 
+    <declare-styleable name="HomeTabLayout">
+        <attr name="selectedItemColor" format="reference"/>
+        <attr name="unselectedItemColor" format="reference"/>
+    </declare-styleable>
+
     <declare-styleable name="HomeSwitcher">
         <attr name="firstTabTitle" format="string"/>
         <attr name="secondTabTitle" format="string"/>

@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.google.android.material.button.MaterialButton
 import id.co.edtslib.edtsuikit.databinding.ActivityGuidelinesSegmentedTabLayoutBinding
 import id.co.edtslib.uikit.tablayout.HomeTabLayout
 import id.co.edtslib.uikit.tablayout.HomeTabLayoutDelegate

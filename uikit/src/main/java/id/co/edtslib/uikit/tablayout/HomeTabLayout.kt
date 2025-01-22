@@ -2,6 +2,7 @@ package id.co.edtslib.uikit.tablayout
 
 import android.animation.ValueAnimator
 import android.content.Context
+import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.util.AttributeSet
@@ -10,9 +11,11 @@ import android.view.View
 import android.widget.FrameLayout
 import com.google.android.material.button.MaterialButton
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.res.use
 import com.google.android.material.shape.ShapeAppearanceModel
 import id.co.edtslib.uikit.ribbon.Ribbon
 import id.co.edtslib.uikit.utils.color
+import id.co.edtslib.uikit.utils.colorStateList
 import id.co.edtslib.uikit.R as UIKitR
 import id.co.edtslib.uikit.utils.dp
 import id.co.edtslib.uikit.utils.drawable
@@ -27,25 +30,77 @@ class HomeTabLayout @JvmOverloads constructor(
 
     val binding = HomeTabLayoutBinding.inflate(LayoutInflater.from(context), this, true)
 
-    private val tab1: MaterialButton = binding.tab1
-    private val tab2: MaterialButton = binding.tab2
-    private val tab3: MaterialButton = binding.tab3
-    private val activeButton: MaterialButton = binding.activeButton
-    private val parentLayout: ConstraintLayout = binding.root
+    val tab1: MaterialButton = binding.tab1
+    val tab2: MaterialButton = binding.tab2
+    val tab3: MaterialButton = binding.tab3
+    val activeButton: MaterialButton = binding.activeButton
+
+    private val tabs: List<MaterialButton> = listOf(tab1, tab2, tab3)
 
     private val leftEdges = binding.leftEdges
     private val rightEdges = binding.rightEdges
 
-    private var homeTab = HomeTab.Grocery
+    private var internalSelectedTab: HomeTab = HomeTab.Grocery
+
+    var selectedTab = internalSelectedTab
+        set(value) {
+            field = value
+
+            when (value) {
+                HomeTab.Grocery -> tab1.performClick()
+                HomeTab.Food -> tab2.performClick()
+                HomeTab.Virtual -> tab3.performClick()
+            }
+        }
+
     var delegate: HomeTabLayoutDelegate? = null
+
+    var titles = listOf(HomeTab.Grocery.value, HomeTab.Food.value, HomeTab.Virtual.value)
+        set(value) {
+            field = value
+            tab1.text = context.getString(value.first())
+            tab2.text = context.getString(value[1])
+            tab3.text = context.getString(value[2])
+        }
+
+    var icons = listOf(HomeTab.Grocery.icon, HomeTab.Food.icon, HomeTab.Virtual.icon)
+        set(value) {
+            field = value
+            tab1.icon = context.drawable(value.first())
+            tab2.icon = context.drawable(value[1])
+            tab3.icon = context.drawable(value[2])
+        }
+
+    var selectedColor = context.color(UIKitR.color.primary_30)
+        set(value) {
+            field = value
+            activeButton.iconTint = ColorStateList.valueOf(value)
+            activeButton.setTextColor(value)
+        }
+    var unselectedColor = context.color(UIKitR.color.white)
+        set(value) {
+            field = value
+            tabs.forEach {
+                it.iconTint = ColorStateList.valueOf(value)
+                it.setTextColor(value)
+            }
+        }
 
     init {
         this.background = ColorDrawable(context.color(UIKitR.color.black_10))
+        initAttrs(attrs)
         setupListeners()
         updateActiveTab(tab1)
 
         // Initial Alpha
         leftEdges.alpha = 0f
+    }
+
+    private fun initAttrs(attrs: AttributeSet?) {
+        context.theme.obtainStyledAttributes(attrs, UIKitR.styleable.HomeTabLayout, 0, 0).use {
+            selectedColor = it.getColor(UIKitR.styleable.HomeTabLayout_selectedItemColor, context.color(UIKitR.color.primary_30))
+            unselectedColor = it.getColor(UIKitR.styleable.HomeTabLayout_unselectedItemColor, context.color(UIKitR.color.white))
+        }
     }
 
     private fun setupListeners() {
@@ -63,10 +118,14 @@ class HomeTabLayout @JvmOverloads constructor(
     }
 
     private fun activateTab(selectedTab: MaterialButton, tab: HomeTab) {
+        if (this.internalSelectedTab != tab) {
+            this.internalSelectedTab = tab
+        }
+
         activeButton.text = tab.toString()
         activeButton.icon = context.drawable(tab.icon)
 
-        homeTab = tab.also { delegate?.onTabSelected(it) }
+        delegate?.onTabSelected(tab)
 
         repositionActiveButton(selectedTab)
         animateButtonCorners(selectedTab)

@@ -72,6 +72,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:visibility="gone"
-        app:layout_constraintTop_toBottomOf="@id/homeSwitcher"/>
+        app:layout_constraintTop_toBottomOf="@id/tl_home"/>
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/viewGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="ivContent, sbHome, tvLogin, homeSwitcher"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

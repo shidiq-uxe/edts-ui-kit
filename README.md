@@ -10,7 +10,7 @@ To include this library in your project, add the following dependency to your `b
 
 ```groovy
 dependencies {
-    implementation 'com.edts:uikits:$latestVersion'
+    implementation 'com.github.shidiq-uxe:edts-ui-kit:$latestVersion'
 }
 ```
 

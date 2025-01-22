@@ -52,8 +52,8 @@ homeTabLayout.delegate = object : HomeTabLayoutDelegate {
     override fun onTabSelected(tab: HomeTabLayout.HomeTab) {
         // Handle tab selection
         when (tab) {
-            HomeTabLayout.HomeTab.Grocery -> // Todo...
-                HomeTabLayout.HomeTab.Food -> // Todo...
+            HomeTabLayout.HomeTab.Grocery -> // Todo... 
+            HomeTabLayout.HomeTab.Food -> // Todo...
             HomeTabLayout.HomeTab.Virtual -> // Todo...
         }
     }
@@ -65,7 +65,7 @@ homeTabLayout.delegate = object : HomeTabLayoutDelegate {
 The current tab is stored in the `homeTab` property:
 
 ```kotlin
-val currentTab = homeTabLayout.homeTab
+val currentTab = homeTabLayout.selectedTab
 ```
 
 * * * * *
@@ -86,14 +86,41 @@ interface HomeTabLayoutDelegate {
 Possible Customization
 -------------
 
-### 1\. Changing Tab Text or Style
-
-Modify the `MaterialButton` properties in your layout or programmatically:
+### 1\. Changing Icons & Text
 
 ```kotlin
-homeTabLayout.findViewById<MaterialButton>(R.id.tab1).apply {
+binding.segmentedTabLayout.apply {
+    titles = listOf<String>(title1, title2, title3)
+    icons = listOf<Int>(R.drawable.icon1, R.drawable.icon1, R.drawable.icon1)
+
+    selectedColor = color(R.color.primary_30)
+    unselectedColor = color(R.color.white)
+}
+```
+
+```xml
+    <id.co.edtslib.uikit.tablayout.HomeTabLayout
+        android:id="@+id/segmentedTabLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:selectedItemColor="@color/primary_30"
+        app:unselectedItemColor="@color/white"/>
+```
+
+### 2\. Changing Selected Tab
+```kotlin
+binding.segmentedTabLayout.apply {
+    selectedTab = HomeTabLayout.HomeTab.Grocery
+}
+```
+
+### 3\. If you have to customise further
+you could modify the button directly 
+```kotlin
+homeTabLayout.tab1.apply {
     text = "Custom Tab Name"
     setTextColor(Color.RED)
+    // Other attributes as needed
 }
 ```
 
@@ -102,7 +129,7 @@ homeTabLayout.findViewById<MaterialButton>(R.id.tab1).apply {
 Dependencies
 ------------
 
--   **Material Components**: Ensure you have the Material Design library in your `build.gradle` file:
+-   **Material Components**: Ensure you have the Material Design 1.9.0 library in your `build.gradle` file:
 
 ```groovy
 implementation 'com.google.android.material:material:1.9.0'

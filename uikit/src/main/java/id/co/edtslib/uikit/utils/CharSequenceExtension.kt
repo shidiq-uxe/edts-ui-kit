@@ -190,10 +190,14 @@ sealed class TextStyle(
             lineHeight = context.resources.getDimension(R.dimen.dimen_16)
         )
 
-        fun h3Style(context: Context) = H3(
+        fun h3Style(
+            context: Context,
+            color: Int = context.color(R.color.black_50),
+            fontFamily: Int = R.font.inter_semibold,
+        ) = H3(
             context = context,
-            color = context.color(R.color.black_50),
-            font = R.font.inter_semibold,
+            color = color,
+            font = fontFamily,
             textSize = context.resources.getDimension(R.dimen.h3_text_size),
             lineHeight = context.resources.getDimension(R.dimen.dimen_14)
         )
@@ -223,9 +227,12 @@ sealed class TextStyle(
             lineHeight = context.resources.getDimension(R.dimen.dimen_16)
         )
 
-        fun b3Style(context: Context) = B3(
+        fun b3Style(
+            context: Context,
+            color: Int = context.color(R.color.black_50),
+        ) = B3(
             context = context,
-            color = context.color(R.color.black_50),
+            color = color,
             font = R.font.inter,
             textSize = context.resources.getDimension(R.dimen.b3_text_size),
             lineHeight = context.resources.getDimension(R.dimen.dimen_16)

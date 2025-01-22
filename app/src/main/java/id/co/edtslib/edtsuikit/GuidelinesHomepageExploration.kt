@@ -10,7 +10,12 @@ import id.co.edtslib.edtsuikit.databinding.ActivityGuidelinesHomepageExploration
 import id.co.edtslib.uikit.searchbar.SearchBar
 import id.co.edtslib.uikit.switcher.HomeSwitcher
 import id.co.edtslib.uikit.switcher.HomeSwitcherDelegate
+import id.co.edtslib.uikit.utils.TextStyle
+import id.co.edtslib.uikit.utils.alertSnack
+import id.co.edtslib.uikit.utils.buildHighlightedMessage
 import id.co.edtslib.uikit.utils.color
+import id.co.edtslib.uikit.utils.dimen
+import id.co.edtslib.uikit.utils.dimenPixelSize
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -39,11 +44,15 @@ class GuidelinesHomepageExploration : AppCompatActivity() {
     private fun onSwitcherChange() {
         binding.homeSwitcher.delegate = object : HomeSwitcherDelegate {
             override fun setOnSwitchChangedListener(selectedTab: HomeSwitcher.Tab) {
+                // Set something during tab click
+            }
+
+            override fun setOnSwitchAnimationEndListener(selectedTab: HomeSwitcher.Tab) {
                 // Cancelling job to ensure no multiple job created
                 job.cancel()
 
                 job = lifecycleScope.launch {
-                    swapPlaceholderVisibility()
+                    swapPlaceholderVisibility(selectedTab)
                 }
             }
         }
@@ -53,13 +62,33 @@ class GuidelinesHomepageExploration : AppCompatActivity() {
         window.statusBarColor = color(id.co.edtslib.uikit.R.color.primary_30)
     }
 
-    private suspend fun swapPlaceholderVisibility() {
+    private suspend fun swapPlaceholderVisibility(tab: HomeSwitcher.Tab) {
         binding.homeSkeleton.root.isVisible = true
-        binding.ivContent.isVisible = false
+        binding.viewGroup.isVisible = false
         // 3 Seconds Delay
         delay(3000)
         binding.homeSkeleton.root.isVisible = false
-        binding.ivContent.isVisible = true
+        binding.viewGroup.isVisible = true
+
+        val alertMessage = buildHighlightedMessage(
+            context = this,
+            message = "Belanja $tab Dipilih.",
+            defaultTextAppearance = TextStyle.b3Style(context = this, color(R.color.white)),
+            highlightedMessages = listOf("Belanja $tab"),
+            highlightedTextAppearance = listOf(
+                TextStyle.h3Style(
+                    context = this,
+                    color = color(id.co.edtslib.uikit.R.color.white),
+                    fontFamily = id.co.edtslib.uikit.R.font.inter_black
+                )
+            )
+        )
+
+        binding.root.alertSnack(
+            message = alertMessage,
+            bottomMargin = dimenPixelSize(id.co.edtslib.uikit.R.dimen.dimen_96),
+            messageHasStyle = true
+        )
     }
 
 }
