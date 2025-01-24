@@ -11,8 +11,10 @@ import androidx.core.content.res.use
 import androidx.dynamicanimation.animation.DynamicAnimation
 import androidx.dynamicanimation.animation.SpringAnimation
 import androidx.dynamicanimation.animation.SpringForce
+import com.google.android.material.button.MaterialButton
 import id.co.edtslib.uikit.R
 import id.co.edtslib.uikit.databinding.HomepageSwitcherBinding
+import id.co.edtslib.uikit.tablayout.HomeTabLayout.HomeTab
 import id.co.edtslib.uikit.utils.color
 import id.co.edtslib.uikit.utils.colorStateList
 import id.co.edtslib.uikit.utils.drawable
@@ -61,10 +63,10 @@ class HomeSwitcher @JvmOverloads constructor(
 
             when(value) {
                 Tab.Xpress -> {
-                    binding.xpressTab.performClick()
+                    updateActiveTab(binding.xpressTab)
                 }
                 Tab.Xtra -> {
-                    binding.xtraTab.performClick()
+                    updateActiveTab(binding.xtraTab)
                 }
             }
         }
@@ -88,23 +90,47 @@ class HomeSwitcher @JvmOverloads constructor(
     private fun setupTabs() {
         clipChildren = false
 
-        setActiveTab(binding.xpressTab)
+        updateActiveTab(binding.xpressTab)
 
         binding.xpressTab.setOnClickListener {
-            setActiveTab(it)
-            binding.xpressTab.isEnabled = false
-            binding.xtraTab.isEnabled = true
+            selectedTab = Tab.Xpress
         }
 
         binding.xtraTab.setOnClickListener {
-            setActiveTab(it)
-            binding.xtraTab.isEnabled = false
-            binding.xpressTab.isEnabled = true
+            selectedTab = Tab.Xtra
         }
     }
 
-    private fun setActiveTab(selectedTab: View) {
+    fun updateActiveTab(selectedTab: View) {
+        when (selectedTab) {
+            binding.xpressTab -> {
+                setActiveTab(binding.xpressTab, Tab.Xpress)
+                binding.xpressTab.isEnabled = false
+                binding.xtraTab.isEnabled = true
+            }
+            binding.xtraTab -> {
+                setActiveTab(binding.xtraTab, Tab.Xtra)
+                binding.xtraTab.isEnabled = false
+                binding.xpressTab.isEnabled = true
+            }
+        }
+    }
+
+    private fun setActiveTab(selectedTab: View, tab: Tab) {
+        if (this.selectedTab != tab) {
+            this.selectedTab = tab
+        }
+
         val targetTranslationX = selectedTab.left.toFloat() - binding.activeTab.left.toFloat()
+
+        when(selectedTab) {
+            binding.xpressTab -> {
+                delegate?.onSwitchChangedListener(Tab.Xpress)
+            }
+            binding.xtraTab -> {
+                delegate?.onSwitchChangedListener(Tab.Xtra)
+            }
+        }
 
         val (startColor, endColor) = when (selectedTab) {
             binding.xpressTab -> {
@@ -137,7 +163,7 @@ class HomeSwitcher @JvmOverloads constructor(
                     value: Float,
                     velocity: Float
                 ) {
-                    delegate?.setOnSwitchAnimationEndListener(
+                    delegate?.onSwitchAnimationEndListener(
                         when(selectedTab) {
                             binding.xpressTab -> Tab.Xpress
                             binding.xtraTab -> Tab.Xtra
@@ -182,8 +208,6 @@ class HomeSwitcher @JvmOverloads constructor(
 
                 binding.tvXtraTitle.setTextColor(defaultTitleColor)
                 binding.tvXtraSubtitle.setTextColor(defaultSubtitleColor)
-
-                delegate?.setOnSwitchChangedListener(Tab.Xpress)
             }
             binding.xtraTab -> {
                 binding.ivXtraLogo.imageTintList = selectedIconColor
@@ -194,8 +218,6 @@ class HomeSwitcher @JvmOverloads constructor(
 
                 binding.tvXpressTitle.setTextColor(defaultTitleColor)
                 binding.tvXpressSubtitle.setTextColor(defaultSubtitleColor)
-
-                delegate?.setOnSwitchChangedListener(Tab.Xtra)
             }
             else -> Toast.makeText(context, "Unknown tab clicked", Toast.LENGTH_SHORT).show()
         }

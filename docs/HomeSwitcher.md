@@ -66,6 +66,10 @@ homeSwitcher.delegate = object : HomeSwitcherDelegate {
             }
         }
     }
+
+    override fun setOnSwitchAnimationEndListener(tab: HomeSwitcher.Tab) {
+        // Customize when animation end, such as displaying Skeleton(Shimmer)
+    }
 }
 ```
 
@@ -94,6 +98,13 @@ Implement the `HomeSwitcherDelegate` to listen for tab change events:
 interface HomeSwitcherDelegate {
     fun setOnSwitchChangedListener(selectedTab: HomeSwitcher.Tab)
     fun setOnSwitchAnimationEndListener(selectedTab: HomeSwitcher.Tab)
+}
+```
+
+### 4\. Changing Selected Tab
+```kotlin
+binding.homeSwitcher.apply {
+    selectedTab = Tab.Xtra
 }
 ```
 

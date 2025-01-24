@@ -1,6 +1,6 @@
 package id.co.edtslib.uikit.switcher
 
 interface HomeSwitcherDelegate {
-    fun setOnSwitchChangedListener(selectedTab: HomeSwitcher.Tab)
-    fun setOnSwitchAnimationEndListener(selectedTab: HomeSwitcher.Tab)
+    fun onSwitchChangedListener(selectedTab: HomeSwitcher.Tab)
+    fun onSwitchAnimationEndListener(selectedTab: HomeSwitcher.Tab)
 }

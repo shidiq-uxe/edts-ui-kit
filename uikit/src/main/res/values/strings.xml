@@ -10,7 +10,7 @@
 
     <!--Homepage Switcher-->
     <string name="switcher_xpress_title">Belanja Xpress</string>
-    <string name="switcher_xpress_subtitle">Estimasi tiba hari ini</string>
+    <string name="switcher_xpress_subtitle">Tiba hari ini</string>
     <string name="switcher_xtra_title">Belanja Xtra</string>
-    <string name="switcher_xtra_subtitle">Estimasi tiba 1-3 hari</string>
+    <string name="switcher_xtra_subtitle">Tiba 1-3 hari</string>
 </resources>

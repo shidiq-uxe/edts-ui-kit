@@ -39,8 +39,8 @@ fun View?.snack(
     bottomMargin: Int? = null,
     onViewCreated: (Snackbar) -> Unit = {},
     action: ((View) -> Unit)? = null
-) {
-    this?.let {
+): Snackbar? {
+    return this?.let {
         Snackbar.make(it, message, displayLength).apply {
             this.setBackgroundTint(backgroundColor)
             this.animationMode = animationMode
@@ -86,7 +86,9 @@ fun View?.snack(
                     }
                 }
             }
-        }.show()
+        }.also {
+            it.show()
+        }
     }
 }
 
@@ -106,7 +108,7 @@ fun View?.alertSnack(
     anchoredView: View? = this,
     animationMode: Int = Snackbar.ANIMATION_MODE_FADE,
     action: ((View) -> Unit)? = null,
-) {
+): Snackbar? {
    val backgroundColor = this?.context.color(
        when(alertType) {
            AlertType.DEFAULT -> R.color.black_60
@@ -121,7 +123,7 @@ fun View?.alertSnack(
         }
     )
 
-    snack(
+    return snack(
         message = message,
         backgroundColor = backgroundColor,
         resTextAppearance = R.style.TextAppearance_Inter_Regular_B3,

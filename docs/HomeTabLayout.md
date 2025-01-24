@@ -117,7 +117,7 @@ binding.segmentedTabLayout.apply {
 ### 3\. If you have to customise further
 you could modify the button directly 
 ```kotlin
-homeTabLayout.tab1.apply {
+homeTabLayout.getTab(tabType).apply {
     text = "Custom Tab Name"
     setTextColor(Color.RED)
     // Other attributes as needed

@@ -30,26 +30,24 @@ class HomeTabLayout @JvmOverloads constructor(
 
     val binding = HomeTabLayoutBinding.inflate(LayoutInflater.from(context), this, true)
 
-    val tab1: MaterialButton = binding.tab1
-    val tab2: MaterialButton = binding.tab2
-    val tab3: MaterialButton = binding.tab3
-    val activeButton: MaterialButton = binding.activeButton
+    private val tab1: MaterialButton = binding.tab1
+    private val tab2: MaterialButton = binding.tab2
+    private val tab3: MaterialButton = binding.tab3
+    private val activeButton: MaterialButton = binding.activeButton
 
     private val tabs: List<MaterialButton> = listOf(tab1, tab2, tab3)
 
     private val leftEdges = binding.leftEdges
     private val rightEdges = binding.rightEdges
 
-    private var internalSelectedTab: HomeTab = HomeTab.Grocery
-
-    var selectedTab = internalSelectedTab
+    var selectedTab = HomeTab.Grocery
         set(value) {
             field = value
 
             when (value) {
-                HomeTab.Grocery -> tab1.performClick()
-                HomeTab.Food -> tab2.performClick()
-                HomeTab.Virtual -> tab3.performClick()
+                HomeTab.Grocery -> updateActiveTab(tab1)
+                HomeTab.Food -> updateActiveTab(tab2)
+                HomeTab.Virtual -> updateActiveTab(tab3)
             }
         }
 
@@ -104,12 +102,12 @@ class HomeTabLayout @JvmOverloads constructor(
     }
 
     private fun setupListeners() {
-        tab1.setOnClickListener { updateActiveTab(tab1) }
-        tab2.setOnClickListener { updateActiveTab(tab2) }
-        tab3.setOnClickListener { updateActiveTab(tab3) }
+        tab1.setOnClickListener { selectedTab = HomeTab.Grocery }
+        tab2.setOnClickListener { selectedTab = HomeTab.Food }
+        tab3.setOnClickListener { selectedTab = HomeTab.Virtual }
     }
 
-    private fun updateActiveTab(selectedTab: MaterialButton) {
+    fun updateActiveTab(selectedTab: MaterialButton) {
         when (selectedTab) {
             tab1 -> activateTab(tab1, HomeTab.Grocery)
             tab2 -> activateTab(tab2, HomeTab.Food)
@@ -118,10 +116,6 @@ class HomeTabLayout @JvmOverloads constructor(
     }
 
     private fun activateTab(selectedTab: MaterialButton, tab: HomeTab) {
-        if (this.internalSelectedTab != tab) {
-            this.internalSelectedTab = tab
-        }
-
         activeButton.text = tab.toString()
         activeButton.icon = context.drawable(tab.icon)
 
@@ -232,6 +226,14 @@ class HomeTabLayout @JvmOverloads constructor(
             .setBottomLeftCornerSize(bottomLeft * progress)
             .setBottomRightCornerSize(bottomRight * progress)
             .build()
+    }
+
+    fun getTab(tab: HomeTab): MaterialButton {
+        return when (tab) {
+            HomeTab.Grocery -> tab1
+            HomeTab.Food -> tab2
+            HomeTab.Virtual -> tab3
+        }
     }
 
     enum class HomeTab {

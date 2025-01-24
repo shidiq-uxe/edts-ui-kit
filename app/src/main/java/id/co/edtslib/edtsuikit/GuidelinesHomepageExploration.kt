@@ -6,6 +6,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
+import com.google.android.material.snackbar.Snackbar
 import id.co.edtslib.edtsuikit.databinding.ActivityGuidelinesHomepageExplorationBinding
 import id.co.edtslib.uikit.searchbar.SearchBar
 import id.co.edtslib.uikit.switcher.HomeSwitcher
@@ -14,7 +15,6 @@ import id.co.edtslib.uikit.utils.TextStyle
 import id.co.edtslib.uikit.utils.alertSnack
 import id.co.edtslib.uikit.utils.buildHighlightedMessage
 import id.co.edtslib.uikit.utils.color
-import id.co.edtslib.uikit.utils.dimen
 import id.co.edtslib.uikit.utils.dimenPixelSize
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -25,6 +25,8 @@ class GuidelinesHomepageExploration : AppCompatActivity() {
     private val binding by viewBinding<ActivityGuidelinesHomepageExplorationBinding>()
 
     private var job: Job = Job()
+
+    private var switcherSnackbar: Snackbar? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,11 +45,12 @@ class GuidelinesHomepageExploration : AppCompatActivity() {
 
     private fun onSwitcherChange() {
         binding.homeSwitcher.delegate = object : HomeSwitcherDelegate {
-            override fun setOnSwitchChangedListener(selectedTab: HomeSwitcher.Tab) {
+            override fun onSwitchChangedListener(selectedTab: HomeSwitcher.Tab) {
                 // Set something during tab click
+                switcherSnackbar?.dismiss()
             }
 
-            override fun setOnSwitchAnimationEndListener(selectedTab: HomeSwitcher.Tab) {
+            override fun onSwitchAnimationEndListener(selectedTab: HomeSwitcher.Tab) {
                 // Cancelling job to ensure no multiple job created
                 job.cancel()
 
@@ -84,7 +87,7 @@ class GuidelinesHomepageExploration : AppCompatActivity() {
             )
         )
 
-        binding.root.alertSnack(
+        switcherSnackbar = binding.root.alertSnack(
             message = alertMessage,
             bottomMargin = dimenPixelSize(id.co.edtslib.uikit.R.dimen.dimen_96),
             messageHasStyle = true
