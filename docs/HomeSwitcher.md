@@ -24,15 +24,15 @@
 Include the `HomeSwitcher` component in your layout file:
 
 ```xml
-<id.co.edtslib.uikit.switcher.HomeSwitcher 
+<id.co.edtslib.uikit.switcher.HomeSwitcher
     android:id="@+id/homeSwitcher"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:firstTabTitle="Xpress"
     app:firstTabSubtitle="Fast Delivery"
     app:firstTabIcon="@drawable/ic_flash_xpress_24"
-    app:secondTabTitle="Xtra"   
-    app:secondTabSubtitle="Extra Features" 
+    app:secondTabTitle="Xtra"
+    app:secondTabSubtitle="Extra Features"
     app:secondTabIcon="@drawable/ic_box_xtra_16" />
 ```
 
@@ -53,6 +53,7 @@ homeSwitcher.firstTabIcon = R.drawable.custom_xpress_icon
 homeSwitcher.secondTabTitle = "Custom Xtra Title"
 homeSwitcher.secondTabSubtitle = "Custom Xtra Subtitle"
 homeSwitcher.secondTabIcon = R.drawable.custom_xtra_icon
+homeSwitcher.isDraggable = true
 
 homeSwitcher.delegate = object : HomeSwitcherDelegate {
     override fun setOnSwitchChangedListener(tab: HomeSwitcher.Tab) {
@@ -79,14 +80,15 @@ homeSwitcher.delegate = object : HomeSwitcherDelegate {
 
 You can configure titles, subtitles, and icons directly in XML using the following attributes:
 
-| Attribute Name      | Description                 | Default Value                  |
-|---------------------|-----------------------------|--------------------------------|
-| `firstTabTitle`     | Title for the first tab     | `"Xpress"`                     |
-| `firstTabSubtitle`  | Subtitle for the first tab  | `"Fast Delivery"`              |
-| `firstTabIcon`      | Icon for the first tab      | `@drawable/ic_flash_xpress_24` |
-| `secondTabTitle`    | Title for the second tab    | `"Xtra"`                       |
-| `secondTabSubtitle` | Subtitle for the second tab | `"Extra Features"`             |
-| `secondTabIcon`     | Icon for the second tab     | `@drawable/ic_box_xtra_16`     |
+| Attribute Name      | Description                                     | Default Value                  |
+|---------------------|-------------------------------------------------|--------------------------------|
+| `firstTabTitle`     | Title for the first tab                         | `"Xpress"`                     |
+| `firstTabSubtitle`  | Subtitle for the first tab                      | `"Fast Delivery"`              |
+| `firstTabIcon`      | Icon for the first tab                          | `@drawable/ic_flash_xpress_24` |
+| `secondTabTitle`    | Title for the second tab                        | `"Xtra"`                       |
+| `secondTabSubtitle` | Subtitle for the second tab                     | `"Extra Features"`             |
+| `secondTabIcon`     | Icon for the second tab                         | `@drawable/ic_box_xtra_16`     |
+| `isDraggable`       | Toggle for enabling drag feature for Active Tab | `false`                        |
 
 * * * * *
 
@@ -113,8 +115,8 @@ binding.homeSwitcher.apply {
 ## Example
 
 ```kotlin
-homeSwitcher.delegate = object : HomeSwitcherDelegate { 
-    override fun setOnSwitchChangedListener(tab: HomeSwitcher.Tab) { 
+homeSwitcher.delegate = object : HomeSwitcherDelegate {
+    override fun setOnSwitchChangedListener(tab: HomeSwitcher.Tab) {
         when (tab) {
             HomeSwitcher.Tab.Xpress -> {
                 // Perform action for Xpress tab
@@ -122,10 +124,10 @@ homeSwitcher.delegate = object : HomeSwitcherDelegate {
 
             HomeSwitcher.Tab.Xtra -> {
                 // Perform action for Xtra tab
-            } 
+            }
         }
     }
-    
+
     override fun setOnSwitchAnimationEndListener(tab: HomeSwitcher.Tab) {
         // Customize when animation end, such as displaying Skeleton(Shimmer)
     }
@@ -144,6 +146,7 @@ You can dynamically update the titles, subtitles, and icons at runtime:
 homeSwitcher.firstTabTitle = "Updated Xpress Title"
 homeSwitcher.firstTabSubtitle = "Updated Subtitle"
 homeSwitcher.firstTabIcon = R.drawable.new_xpress_icon
+homeSwitcher.isDraggable = true
 ```
 
 ## Animation
@@ -154,4 +157,5 @@ The component includes a spring animation for smooth transitions. As for now, yo
 
 ## Requirements
 
-*Dependencies**: Material Components 1.9.0 for Android.
+- *Dependencies**: Material Components 1.9.0 for Android.
+- *XML Attributes**: `clipChildren="false"` is required for each `HomeSwitcher` parent(ViewGroup) to show its shadow and overlap spring animation

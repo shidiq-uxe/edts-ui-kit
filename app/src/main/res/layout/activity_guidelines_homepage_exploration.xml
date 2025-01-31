@@ -53,6 +53,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/xxs"
         android:layout_marginHorizontal="@dimen/s"
+        app:isDraggable="true"
         app:layout_constraintTop_toBottomOf="@id/tvLogin" />
 
     <ImageView

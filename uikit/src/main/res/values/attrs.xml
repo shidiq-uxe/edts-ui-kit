@@ -344,6 +344,7 @@
         <attr name="secondTabSubtitle" format="string"/>
         <attr name="firstTabIcon" format="reference"/>
         <attr name="secondTabIcon" format="reference"/>
+        <attr name="isDraggable" format="boolean"/>
     </declare-styleable>
 
 </resources>

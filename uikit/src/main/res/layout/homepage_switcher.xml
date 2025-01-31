@@ -56,9 +56,9 @@
             android:layout_marginTop="@dimen/xxs"
             android:layout_marginStart="@dimen/s"
             app:srcCompat="@drawable/ic_flash_xpress_24"
+            app:tint="@color/white"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            tools:tint="@color/white"/>
+            app:layout_constraintStart_toStartOf="parent"/>
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tvXpressTitle"
@@ -68,14 +68,13 @@
             android:layout_marginStart="@dimen/xxs"
             android:layout_marginEnd="@dimen/s"
             android:text="@string/switcher_xpress_title"
-            android:textColor="@color/black_60"
+            android:textColor="@color/white"
             android:textAppearance="@style/TextAppearance.Inter.Semibold.H3"
             android:maxLines="1"
             android:ellipsize="end"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toEndOf="@id/ivXpressLogo"
-            app:layout_constraintEnd_toEndOf="parent"
-            tools:textColor="@color/white"/>
+            app:layout_constraintEnd_toEndOf="parent"/>
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tvXpressSubtitle"
@@ -85,7 +84,7 @@
             android:layout_marginEnd="@dimen/s"
             android:layout_marginBottom="@dimen/xxs"
             android:text="@string/switcher_xpress_subtitle"
-            android:textColor="@color/black_40"
+            android:textColor="@color/white"
             android:textAppearance="@style/TextAppearance.Inter.Regular.B4"
             android:maxLines="1"
             android:ellipsize="end"
@@ -93,8 +92,7 @@
             app:layout_constraintStart_toEndOf="@id/ivXpressLogo"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintVertical_bias="0.0"
-            tools:textColor="@color/white"/>
+            app:layout_constraintVertical_bias="0.0"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
