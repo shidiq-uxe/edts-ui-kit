@@ -50,7 +50,7 @@
         <item name="colorPlaceholder">@color/black_40</item>
         <item name="colorDisableBorder">@color/black_30</item>
         <item name="colorInputBorder">@color/black_30</item>
-        <item name="colorDisableFill">@color/black_30</item>
+        <item name="colorDisableFill">@color/black_20</item>
         <item name="colorFocusBorder">@color/primary_30</item>
 
         <!--Button-->
@@ -63,6 +63,7 @@
         <item name="actionBarStyle">@style/Widget.EDTS.UIKit.ActionBar</item>
 
         <item name="textInputStyle">@style/Widget.EDTS.UIKit.TextInputLayout.LabelInside</item>
+        <item name="textFieldStyle">@style/Widget.EDTS.UIKit.TextInputLayout.LabelInside</item>
 
         <!--Selector-->
         <item name="checkboxStyle">@style/Widget.EDTS.UIKit.CheckBox</item>

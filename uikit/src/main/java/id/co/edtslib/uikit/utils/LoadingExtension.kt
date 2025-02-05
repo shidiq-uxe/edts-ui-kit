@@ -14,7 +14,7 @@ import id.co.edtslib.uikit.progressview.bindProgressButton
 import id.co.edtslib.uikit.progressview.showProgress
 
 fun Context.getProgressIndicatorDrawable(
-    @ColorRes color: Int = R.color.primary_50,
+    @ColorRes color: Int = R.color.primary_30,
     @StyleRes style: Int = R.style.Widget_EDTS_UIKit_CircularProgressIndicator_Small,
 ): IndeterminateDrawable<CircularProgressIndicatorSpec> {
     val progressIndicatorSpec = CircularProgressIndicatorSpec(
@@ -29,7 +29,7 @@ fun Context.getProgressIndicatorDrawable(
 }
 
 fun Context.getProgressIndicatorDrawableLarge(
-    @ColorRes color: Int = R.color.primary_50,
+    @ColorRes color: Int = R.color.primary_30,
     @StyleRes style: Int = R.style.Widget_EDTS_UIKit_CircularProgressIndicator_Large,
 ): IndeterminateDrawable<CircularProgressIndicatorSpec> =
     getProgressIndicatorDrawable(color, style)

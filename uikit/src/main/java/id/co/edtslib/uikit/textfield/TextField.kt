@@ -1,49 +1,36 @@
 package id.co.edtslib.uikit.textfield
 
 import android.content.Context
-import android.content.res.ColorStateList
-import android.graphics.Color
-import android.graphics.Rect
 import android.os.Build
-import android.text.Editable
 import android.text.InputFilter
-import android.text.TextWatcher
 import android.util.AttributeSet
-import android.util.Log
-import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
-import android.widget.Toast
-import androidx.core.view.doOnLayout
+import androidx.core.content.res.use
 import androidx.core.widget.addTextChangedListener
-import com.google.android.material.internal.CollapsingTextHelper
 import com.google.android.material.textfield.TextInputEditText
 import id.co.edtslib.uikit.R
 import id.co.edtslib.uikit.textinputlayout.TextInputLayout
-import id.co.edtslib.uikit.utils.animateErrorIn
-import id.co.edtslib.uikit.utils.animateErrorOut
+import id.co.edtslib.uikit.utils.buildHighlightedMessage
 import id.co.edtslib.uikit.utils.color
+import id.co.edtslib.uikit.utils.colorStateList
 import id.co.edtslib.uikit.utils.dimenPixelSize
 import id.co.edtslib.uikit.utils.hapticfeedback.HapticFeedback
 import id.co.edtslib.uikit.utils.lineHeight
 import id.co.edtslib.uikit.utils.vibrateAnimation
 import id.co.edtslib.uikit.utils.vibratePhone
-import java.lang.reflect.Field
+import id.co.edtslib.uikit.utils.TextStyle
 import android.text.InputType as AndroidTextInputType
 
 open class TextField @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
-    defStyleAttr: Int = com.google.android.material.R.attr.textInputStyle
-) : id.co.edtslib.uikit.textinputlayout.TextInputLayout(context, attrs, defStyleAttr) {
-
-    private val color50 get() = context.color(R.color.black_50)
+    defStyleAttr: Int = R.attr.textFieldStyle
+) : TextInputLayout(context, attrs, defStyleAttr) {
 
     var delegate: TextFieldDelegate? = null
 
-    private var focusedColor: Int = color50
-    private var errorColor: Int = color50
-    private var defaultColor: Int = color50
+    var isFieldRequired = true
 
     init {
         val textInputEditText = TextInputEditText(context, attrs).apply {
@@ -53,12 +40,6 @@ open class TextField @JvmOverloads constructor(
             )
 
             hint = if(this@TextField.placeholderText.isNullOrEmpty()) this.hint else null
-
-            addTextChangedListener (
-                afterTextChanged = {
-                    overrideCollapsingTextHelperErrorColor()
-                }
-            )
         }
 
         this@TextField.addView(textInputEditText)
@@ -68,65 +49,72 @@ open class TextField @JvmOverloads constructor(
         setContainerPadding()
     }
 
-    private fun overrideCollapsingTextHelperErrorColor() {
-        val hasFocus = editText?.hasFocus() == true
-        val hasError = isErrorEnabled
+    private fun overrideCollapsingTextHelperErrorColor(errorText: CharSequence?) {
+        val textColorStates = context.colorStateList(
+            if (errorText.isNullOrEmpty()) R.color.black_60
+            else R.color.red_30
+        )
 
-        val colorStateList = when {
-            hasError -> ColorStateList.valueOf(errorColor)
-            hasFocus -> ColorStateList.valueOf(focusedColor)
-            else -> ColorStateList.valueOf(defaultColor)
-        }
+        isError = !errorText.isNullOrEmpty()
 
-        // Update the label colors (this assumes `collapsingTextHelper` is accessible)
-        try {
-            val collapsingTextHelperField = com.google.android.material.textfield.TextInputLayout::class.java.getDeclaredField("collapsingTextHelper")
-            collapsingTextHelperField.isAccessible = true
-            val collapsingTextHelper = collapsingTextHelperField.get(this)
+        setHelperTextColor(textColorStates)
 
-            val setCollapsedAndExpandedTextColor = collapsingTextHelper.javaClass.getDeclaredMethod("setCollapsedAndExpandedTextColor", ColorStateList::class.java)
-            setCollapsedAndExpandedTextColor.isAccessible = true
-            setCollapsedAndExpandedTextColor.invoke(collapsingTextHelper, colorStateList)
+        helperText = errorText
+        isHelperTextEnabled = !errorText.isNullOrEmpty()
 
-        } catch (e: Exception) {
-            e.printStackTrace()
+        if (isCounterEnabled) {
+            counterTextColor = textColorStates
         }
     }
 
     private fun init(attrs: AttributeSet?, defStyleAttr: Int) {
-        if (attrs != null) {
-            context.theme.obtainStyledAttributes(attrs, R.styleable.TextField, defStyleAttr, 0).apply {
-                inputType = InputType.values()[getInt(R.styleable.TextField_fieldInputType, 0)]
-                maxLength = getInt(R.styleable.TextField_fieldMaxLength, 0)
-                imeOption = ImeOption.values()[getInt(R.styleable.TextField_fieldImeOptions, 0)]
+        this.isExpandedHintEnabled = false
 
-                recycle()
+        if (attrs != null) {
+            context.theme.obtainStyledAttributes(attrs, R.styleable.TextField, defStyleAttr, 0).use {
+                inputType = InputType.values()[it.getInt(R.styleable.TextField_fieldInputType, 0)]
+                maxLength = it.getInt(R.styleable.TextField_fieldMaxLength, 0)
+                imeOption = ImeOption.values()[it.getInt(R.styleable.TextField_fieldImeOptions, 0)]
+                isFieldRequired = it.getBoolean(R.styleable.TextField_isFieldRequired, isFieldRequired)
             }
         } else {
             inputType = InputType.Text
             imeOption = ImeOption.Next
         }
+
+       if (!isInEditMode) {
+           if (isFieldRequired) {
+               hint = buildHighlightedMessage(
+                   context = context,
+                   message = "$hint *",
+                   highlightedMessages = listOf("*"),
+                   highlightedTextAppearance = listOf(
+                       TextStyle.h3Style(
+                           context = context,
+                           color = context.color(R.color.red_30)
+                       )
+                   ),
+                   defaultTextAppearance = TextStyle.h3Style(
+                       context = context,
+                       color = context.color(R.color.black_50)
+                   )
+               )
+           }
+       }
     }
 
     override fun isHelperTextEnabled(): Boolean {
         setContainerPadding()
-
         return super.isHelperTextEnabled()
     }
 
     // Ensure to call this view only when the errorText is not null
     val textInputError: TextView? get() = this.findViewById(com.google.android.material.R.id.textinput_error)
 
-    override fun setErrorEnabled(enabled: Boolean) {
-        super.setErrorEnabled(enabled)
-
-        overrideCollapsingTextHelperErrorColor()
-    }
-
     override fun setError(errorText: CharSequence?) {
-        super.setError(errorText)
-
-        overrideCollapsingTextHelperErrorColor()
+        // In order to achieve 1:1 Design System i have done several workarounds such as using Helper text instead errorText and using custom background for Error
+        // Sadly even after using reflection won't work to change the hint error color, it was defined inside Internal File named CollapsingTextHelper
+        overrideCollapsingTextHelperErrorColor(errorText)
 
         if (inputType == InputType.OTP) {
             this.editText?.setTextColor(context.color(R.color.red_30))
@@ -217,25 +205,25 @@ open class TextField @JvmOverloads constructor(
                 InputType.Phone -> {
                     Pair(
                         android.text.InputType.TYPE_CLASS_PHONE or android.text.InputType.TYPE_TEXT_VARIATION_PHONETIC,
-                        END_ICON_NONE
+                        endIconMode
                     )
                 }
                 InputType.Email -> {
                     Pair(
                         android.text.InputType.TYPE_CLASS_TEXT or android.text.InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS,
-                        END_ICON_NONE
+                        endIconMode
                     )
                 }
                 InputType.OTP -> {
                     Pair(
                         android.text.InputType.TYPE_CLASS_NUMBER,
-                        END_ICON_NONE
+                        endIconMode
                     )
                 }
                 else -> {
                     Pair(
                         AndroidTextInputType.TYPE_CLASS_TEXT or AndroidTextInputType.TYPE_TEXT_VARIATION_NORMAL,
-                        END_ICON_NONE
+                        endIconMode
                     )
                 }
             }

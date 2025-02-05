@@ -12,6 +12,14 @@ class GuidelinesTextfieldActivity : GuidelinesBaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_textfield)
 
+
+        setErrorByDefault()
+    }
+
+    private fun setErrorByDefault() {
+        binding.tilLabelInsideErrorWStartEndIcon.error = "Supporting Text"
+        binding.tilLabelInsideErrorHelperCounter.error = "Supporting Text"
+        binding.tilLabelInsideLoading.isLoading = true
     }
 
 }

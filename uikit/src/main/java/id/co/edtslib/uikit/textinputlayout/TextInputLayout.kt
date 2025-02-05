@@ -31,7 +31,7 @@ import id.co.edtslib.uikit.utils.vibrateAnimation
 open class TextInputLayout @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
-    defStyleAttr: Int = com.google.android.material.R.attr.textInputStyle,
+    defStyleAttr: Int = R.attr.textFieldStyle,
 ) : TextInputLayout(context, attrs, defStyleAttr) {
 
     private val originalEndIconDrawable = endIconDrawable

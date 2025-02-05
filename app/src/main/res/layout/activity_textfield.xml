@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    tools:context=".GuidelinesTextfieldActivity"
     tools:ignore="HardcodedText">
 
     <LinearLayout
@@ -20,7 +21,41 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/s"
             android:hint="Input Normal"
-            app:placeholderText="Placeholder"/>
+            app:placeholderText="This is Placeholder"/>
+
+        <id.co.edtslib.uikit.textfield.TextField
+            android:id="@+id/tilLabelInsideWStartIcon"
+            style="@style/Widget.EDTS.UIKit.TextInputLayout.LabelInside"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/s"
+            app:startIconDrawable="@drawable/ic_placeholder_medium_24"
+            android:hint="Input Normal"
+            app:placeholderText="Start Icon Placeholder"/>
+
+        <id.co.edtslib.uikit.textfield.TextField
+            android:id="@+id/tilLabelInsideWStartEndIcon"
+            style="@style/Widget.EDTS.UIKit.TextInputLayout.LabelInside"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/s"
+            app:startIconDrawable="@drawable/ic_placeholder_medium_24"
+            app:endIconDrawable="@drawable/ic_placeholder_medium_24"
+            app:endIconMode="custom"
+            android:hint="Input Normal"
+            app:placeholderText="Start End Icon Placeholder"/>
+
+        <id.co.edtslib.uikit.textfield.TextField
+            android:id="@+id/tilLabelInsideErrorWStartEndIcon"
+            style="@style/Widget.EDTS.UIKit.TextInputLayout.LabelInside"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/s"
+            app:startIconDrawable="@drawable/ic_placeholder_medium_24"
+            app:endIconDrawable="@drawable/ic_placeholder_medium_24"
+            app:endIconMode="custom"
+            android:hint="Input Error"
+            app:placeholderText="Start End Icon Placeholder"/>
 
         <id.co.edtslib.uikit.textfield.TextField
             android:id="@+id/tilLabelInsidePassword"
@@ -28,28 +63,55 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/s"
-            android:hint="Input with Password Toggle"
+            android:hint="Input Password"
             app:fieldInputType="password"
-            app:placeholderText="Placeholder"/>
+            app:placeholderText="This is Placeholder"/>
 
         <id.co.edtslib.uikit.textfield.TextField
-            android:id="@+id/tilLabelInsideDisable"
+            android:id="@+id/tilLabelInsideHelperCounter"
             style="@style/Widget.EDTS.UIKit.TextInputLayout.LabelInside"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/s"
+            app:startIconDrawable="@drawable/ic_placeholder_medium_24"
+            app:endIconDrawable="@drawable/ic_placeholder_medium_24"
+            app:endIconMode="custom"
+            android:hint="Input Helper Counter"
+            app:placeholderText="Start End Icon Placeholder"
+            app:helperText="Supporting Text"
+            app:counterMaxLength="250"
+            app:counterEnabled="true"/>
+
+        <id.co.edtslib.uikit.textfield.TextField
+            android:id="@+id/tilLabelInsideErrorHelperCounter"
+            style="@style/Widget.EDTS.UIKit.TextInputLayout.LabelInside"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/s"
+            android:hint="Input Loading"
+            app:startIconDrawable="@drawable/ic_placeholder_medium_24"
+            app:endIconDrawable="@drawable/ic_placeholder_medium_24"
+            app:endIconMode="custom"
+            app:placeholderText="Placeholder"
+            app:helperText="Supporting Text"
+            app:counterMaxLength="250"
+            app:counterEnabled="true"/>
+
+        <id.co.edtslib.uikit.textfield.TextField
+            android:id="@+id/tilLabelInsideDisabledHelperCounter"
+            style="@style/Widget.EDTS.UIKit.TextInputLayout.LabelInside"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/s"
+            app:startIconDrawable="@drawable/ic_placeholder_medium_24"
+            app:endIconDrawable="@drawable/ic_placeholder_medium_24"
+            app:endIconMode="custom"
             android:enabled="false"
             android:hint="Input Disable"
-            app:placeholderText="Placeholder"/>
-
-        <id.co.edtslib.uikit.textfield.TextField
-            android:id="@+id/tilLabelInsideError"
-            style="@style/Widget.EDTS.UIKit.TextInputLayout.LabelInside"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/s"
-            android:hint="Input Error"
-            app:placeholderText="Placeholder"/>
+            app:placeholderText="This is Disable Placeholder"
+            app:helperText="Supporting Text"
+            app:counterMaxLength="250"
+            app:counterEnabled="true"/>
 
         <id.co.edtslib.uikit.textfield.TextField
             android:id="@+id/tilLabelInsideLoading"
@@ -57,102 +119,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/s"
+            app:startIconDrawable="@drawable/ic_placeholder_medium_24"
             android:hint="Input Loading"
-            app:placeholderText="Placeholder"/>
+            app:placeholderText="This is Loading Placeholder"
+            app:helperText="Supporting Text"
+            app:counterMaxLength="250"
+            app:counterEnabled="true"/>
 
-        <id.co.edtslib.uikit.textfield.TextField
-            android:id="@+id/tilLabelInsideSuccess"
-            style="@style/Widget.EDTS.UIKit.TextInputLayout.LabelInside"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/s"
-            android:hint="Input Success"
-            app:placeholderText="Placeholder"/>
-
-        <id.co.edtslib.uikit.textfield.TextField
-            android:id="@+id/tilLabelInsideState"
-            style="@style/Widget.EDTS.UIKit.TextInputLayout.LabelInside"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/s"
-            android:hint="Input with State"
-            app:placeholderText="Placeholder"/>
-
-        <id.co.edtslib.uikit.textfield.TextField
-            android:id="@+id/tilLabelInsideOther"
-            style="@style/Widget.EDTS.UIKit.TextInputLayout.LabelInside"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/s"
-            android:hint="Input Other"
-            app:endIconDrawable="@drawable/ic_placeholder_medium_24"
-            app:endIconMode="custom"
-            app:placeholderText="Placeholder"
-            app:prefixText="Rp"
-            app:startIconDrawable="@drawable/ic_placeholder_medium_24"
-            app:suffixText="gr"/>
-
-        <id.co.edtslib.uikit.textfield.TextField
-            android:id="@+id/tilWithoutLabel"
-            style="@style/Widget.EDTS.UIKit.TextInputLayout.WithoutLabel"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/s"
-            app:placeholderText="Input WithoutLabel"/>
-
-        <id.co.edtslib.uikit.textfield.TextField
-            android:id="@+id/tilWithoutLabelDisable"
-            style="@style/Widget.EDTS.UIKit.TextInputLayout.WithoutLabel"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/s"
-            android:enabled="false"
-            app:placeholderText="Input WithoutLabel Disable"/>
-
-        <id.co.edtslib.uikit.textfield.TextField
-            android:id="@+id/tilWithoutLabelError"
-            style="@style/Widget.EDTS.UIKit.TextInputLayout.WithoutLabel"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/s"
-            app:placeholderText="Input WithoutLabel Error"/>
-
-        <id.co.edtslib.uikit.textfield.TextField
-            android:id="@+id/tilWithoutLabelLoading"
-            style="@style/Widget.EDTS.UIKit.TextInputLayout.WithoutLabel"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/s"
-            app:placeholderText="Input WithoutLabel Loading"/>
-
-        <id.co.edtslib.uikit.textfield.TextField
-            android:id="@+id/tilWithoutLabelSuccess"
-            style="@style/Widget.EDTS.UIKit.TextInputLayout.WithoutLabel"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/s"
-            app:placeholderText="Input WithoutLabel Success"/>
-
-        <id.co.edtslib.uikit.textfield.TextField
-            android:id="@+id/tilWithoutLabelState"
-            style="@style/Widget.EDTS.UIKit.TextInputLayout.WithoutLabel"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/s"
-            app:placeholderText="Input WithoutLabel with State"/>
-
-        <id.co.edtslib.uikit.textfield.TextField
-            android:id="@+id/tilWithoutLabelOther"
-            style="@style/Widget.EDTS.UIKit.TextInputLayout.WithoutLabel"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/s"
-            app:endIconDrawable="@drawable/ic_placeholder_medium_24"
-            app:endIconMode="custom"
-            app:placeholderText="Input WithoutLabel Other"
-            app:prefixText="Rp"
-            app:startIconDrawable="@drawable/ic_placeholder_medium_24"
-            app:suffixText="gr"/>
     </LinearLayout>
 
 </ScrollView>

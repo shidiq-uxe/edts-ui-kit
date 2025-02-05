@@ -182,6 +182,8 @@
 
     </declare-styleable>
 
+    <attr name="textFieldStyle" format="reference"/>
+
     <declare-styleable name="TextField">
         <attr name="textInputStyleEnum" format="enum">
             <enum name="labelInside" value="0" />
@@ -198,6 +200,7 @@
         </attr>
         <attr name="fieldInputType"/>
         <attr name="fieldMaxLength"/>
+        <attr name="isFieldRequired" format="boolean"/>
     </declare-styleable>
 
     <declare-styleable name="SearchBar">
