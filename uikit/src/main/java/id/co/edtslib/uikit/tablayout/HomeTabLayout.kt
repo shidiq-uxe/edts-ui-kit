@@ -30,6 +30,8 @@ class HomeTabLayout @JvmOverloads constructor(
 
     val binding = HomeTabLayoutBinding.inflate(LayoutInflater.from(context), this, true)
 
+    private val shapeModels = mutableMapOf<MaterialButton, ShapeAppearanceModel>()
+
     private val tab1: MaterialButton = binding.tab1
     private val tab2: MaterialButton = binding.tab2
     private val tab3: MaterialButton = binding.tab3
@@ -41,8 +43,6 @@ class HomeTabLayout @JvmOverloads constructor(
     private val rightEdges = binding.rightEdges
 
     private var shapeBuilder = ShapeAppearanceModel.builder()
-
-    private val cachedShapes: MutableMap<String, ShapeAppearanceModel> = mutableMapOf()
 
     var selectedTab = HomeTab.Grocery
         set(value) {
@@ -145,28 +145,34 @@ class HomeTabLayout @JvmOverloads constructor(
     }
 
     private fun updateCornersWithAnimation(selectedTab: MaterialButton, progress: Float) {
-        val shape1 = getOrCreateShape("tab1", bottomRight = if (selectedTab == tab2) 12.dp * progress else 0f)
-        val shape2 = getOrCreateShape("tab2",
+        updateShape(tab1, bottomRight = if (selectedTab == tab2) 12.dp * progress else 0f)
+        updateShape(tab2,
             bottomLeft = if (selectedTab == tab1) 12.dp * progress else 0f,
             bottomRight = if (selectedTab == tab3) 12.dp * progress else 0f
         )
-        val shape3 = getOrCreateShape("tab3", bottomLeft = if (selectedTab == tab2) 12.dp * progress else 0f)
-
-        // Batch update
-        tab1.shapeAppearanceModel = shape1
-        tab2.shapeAppearanceModel = shape2
-        tab3.shapeAppearanceModel = shape3
+        updateShape(tab3, bottomLeft = if (selectedTab == tab2) 12.dp * progress else 0f)
     }
 
-    private fun getOrCreateShape(key: String, bottomLeft: Float = 0f, bottomRight: Float = 0f): ShapeAppearanceModel {
-        val newKey = "$key-$bottomLeft-$bottomRight"
-        return cachedShapes.getOrPut(newKey) {
-            shapeBuilder
+    private fun updateShape(button: MaterialButton, bottomLeft: Float = 0f, bottomRight: Float = 0f) {
+        val existingModel = shapeModels[button]
+
+        if (existingModel != null) {
+            // Update existing shape dynamically
+            button.shapeAppearanceModel = existingModel.toBuilder()
                 .setBottomLeftCornerSize(bottomLeft)
                 .setBottomRightCornerSize(bottomRight)
                 .build()
+        } else {
+            // Create new shape and cache it
+            val newModel = ShapeAppearanceModel.builder()
+                .setBottomLeftCornerSize(bottomLeft)
+                .setBottomRightCornerSize(bottomRight)
+                .build()
+            shapeModels[button] = newModel
+            button.shapeAppearanceModel = newModel
         }
     }
+
 
     private fun updateEdgesWithAnimation(selectedTab: MaterialButton, progress: Float) {
         val leftAlpha = when (selectedTab) {

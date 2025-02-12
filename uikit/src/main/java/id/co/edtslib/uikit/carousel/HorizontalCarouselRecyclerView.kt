@@ -6,9 +6,6 @@ import androidx.core.content.res.use
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
-import com.google.android.material.carousel.CarouselLayoutManager
-import com.google.android.material.carousel.CarouselStrategy
-import com.google.android.material.carousel.MultiBrowseCarouselStrategy
 import id.co.edtslib.uikit.R
 import id.co.edtslib.uikit.adapter.BaseAdapter
 import id.co.edtslib.uikit.utils.MarginItem
@@ -26,11 +23,11 @@ abstract class HorizontalCarouselRecyclerView<T : Any, B : ViewBinding>(
     var itemSpacing: Int = 0.dp.toInt()
 
     init {
-        layoutManager = CarouselLayoutManager().apply {
+        /*layoutManager = CarouselLayoutManager().apply {
             val strategy = MultiBrowseCarouselStrategy()
 
             setCarouselStrategy(strategy)
-        }
+        }*/
 
         clipToPadding = false
         clipChildren = false

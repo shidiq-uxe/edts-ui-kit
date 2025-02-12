@@ -79,7 +79,6 @@ Usage
 
 ```xml
 <id.co.edtslib.uikit.textfield.TextField
-    style="@style/Widget.EDTS.UIKit.TextInputLayout.LabelInside"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:hint="Input Normal"

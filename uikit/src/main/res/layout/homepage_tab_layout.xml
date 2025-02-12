@@ -52,6 +52,7 @@
         android:layout_height="wrap_content"
         android:minHeight="@dimen/dimen_0"
         android:maxLines="1"
+        android:duplicateParentState="false"
         android:text="@string/grocery"
         app:icon="@drawable/ic_placeholder_medium_24"
         app:layout_constraintStart_toStartOf="parent"

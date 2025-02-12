@@ -10,6 +10,7 @@ import androidx.core.content.res.use
 import androidx.core.view.doOnLayout
 import androidx.core.view.doOnNextLayout
 import androidx.core.widget.addTextChangedListener
+import androidx.core.widget.doAfterTextChanged
 import com.google.android.material.textfield.TextInputEditText
 import id.co.edtslib.uikit.R
 import id.co.edtslib.uikit.button.Button.ButtonType
@@ -245,7 +246,7 @@ open class TextField @JvmOverloads constructor(
                     }
                 }
 
-                addTextChangedListener {
+                doAfterTextChanged {
                     delegate?.onValueChange(it?.toString())
                 }
             }
