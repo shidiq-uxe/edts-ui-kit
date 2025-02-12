@@ -16,7 +16,6 @@
 
         <id.co.edtslib.uikit.textfield.TextField
             android:id="@+id/tilLabelInside"
-            style="@style/Widget.EDTS.UIKit.TextInputLayout.LabelInside"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/s"
@@ -25,7 +24,6 @@
 
         <id.co.edtslib.uikit.textfield.TextField
             android:id="@+id/tilLabelInsideWStartIcon"
-            style="@style/Widget.EDTS.UIKit.TextInputLayout.LabelInside"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/s"
@@ -35,7 +33,6 @@
 
         <id.co.edtslib.uikit.textfield.TextField
             android:id="@+id/tilLabelInsideWStartEndIcon"
-            style="@style/Widget.EDTS.UIKit.TextInputLayout.LabelInside"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/s"
@@ -47,7 +44,6 @@
 
         <id.co.edtslib.uikit.textfield.TextField
             android:id="@+id/tilLabelInsideErrorWStartEndIcon"
-            style="@style/Widget.EDTS.UIKit.TextInputLayout.LabelInside"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/s"
@@ -59,7 +55,6 @@
 
         <id.co.edtslib.uikit.textfield.TextField
             android:id="@+id/tilLabelInsidePassword"
-            style="@style/Widget.EDTS.UIKit.TextInputLayout.LabelInside"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/s"
@@ -69,7 +64,6 @@
 
         <id.co.edtslib.uikit.textfield.TextField
             android:id="@+id/tilLabelInsideHelperCounter"
-            style="@style/Widget.EDTS.UIKit.TextInputLayout.LabelInside"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/s"
@@ -84,7 +78,6 @@
 
         <id.co.edtslib.uikit.textfield.TextField
             android:id="@+id/tilLabelInsideErrorHelperCounter"
-            style="@style/Widget.EDTS.UIKit.TextInputLayout.LabelInside"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/s"
@@ -99,7 +92,6 @@
 
         <id.co.edtslib.uikit.textfield.TextField
             android:id="@+id/tilLabelInsideDisabledHelperCounter"
-            style="@style/Widget.EDTS.UIKit.TextInputLayout.LabelInside"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/s"
@@ -115,7 +107,6 @@
 
         <id.co.edtslib.uikit.textfield.TextField
             android:id="@+id/tilLabelInsideLoading"
-            style="@style/Widget.EDTS.UIKit.TextInputLayout.LabelInside"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/s"

@@ -40,6 +40,10 @@ class HomeTabLayout @JvmOverloads constructor(
     private val leftEdges = binding.leftEdges
     private val rightEdges = binding.rightEdges
 
+    private var shapeBuilder = ShapeAppearanceModel.builder()
+
+    private val cachedShapes: MutableMap<String, ShapeAppearanceModel> = mutableMapOf()
+
     var selectedTab = HomeTab.Grocery
         set(value) {
             field = value
@@ -75,6 +79,7 @@ class HomeTabLayout @JvmOverloads constructor(
             activeButton.iconTint = ColorStateList.valueOf(value)
             activeButton.setTextColor(value)
         }
+
     var unselectedColor = context.color(UIKitR.color.white)
         set(value) {
             field = value
@@ -121,112 +126,62 @@ class HomeTabLayout @JvmOverloads constructor(
 
         delegate?.onTabSelected(tab)
 
-        repositionActiveButton(selectedTab)
-        animateButtonCorners(selectedTab)
-    }
-
-
-    private fun repositionActiveButton(selectedTab: MaterialButton) {
-        activeButton.animate()
-            .x(selectedTab.x)
-            .setInterpolator(EaseInterpolator.EaseInOutQubicInterpolator)
-            .setDuration(200)
-            .start()
-    }
-
-    private fun animateButtonCorners(selectedTab: MaterialButton) {
-        val cornerAnimator = ValueAnimator.ofFloat(0f, 1f).apply {
+        val animator = ValueAnimator.ofFloat(0f, 1f).apply {
             duration = 400
             addUpdateListener { animator ->
                 val progress = animator.animatedFraction
+                repositionActiveButton(selectedTab, progress)
                 updateCornersWithAnimation(selectedTab, progress)
-                updateEdgesWithAnimation(selectedTab)
+                updateEdgesWithAnimation(selectedTab, progress)
             }
         }
-        cornerAnimator.start()
+        animator.start()
+    }
+
+
+    private fun repositionActiveButton(selectedTab: MaterialButton, progress: Float) {
+        val targetX = selectedTab.x
+        activeButton.x = (activeButton.x * (1 - progress)) + (targetX * progress)
     }
 
     private fun updateCornersWithAnimation(selectedTab: MaterialButton, progress: Float) {
-        when (selectedTab) {
-            tab1 -> {
-                tab1.shapeAppearanceModel = createShapeAppearance(0f, 0f, progress)
-                tab2.shapeAppearanceModel = createShapeAppearance(12.dp, 0f, progress)
-                tab3.shapeAppearanceModel = createShapeAppearance(0f, 0f, progress)
-            }
-            tab2 -> {
-                tab1.shapeAppearanceModel = createShapeAppearance(0f, 12.dp, progress)
-                tab2.shapeAppearanceModel = createShapeAppearance(0f, 0f, progress)
-                tab3.shapeAppearanceModel = createShapeAppearance(12.dp, 0f, progress)
-            }
-            tab3 -> {
-                tab1.shapeAppearanceModel = createShapeAppearance(0f, 0f, progress)
-                tab2.shapeAppearanceModel = createShapeAppearance(0f, 12.dp, progress)
-                tab3.shapeAppearanceModel = createShapeAppearance(0f, 0f, progress)
-            }
+        val shape1 = getOrCreateShape("tab1", bottomRight = if (selectedTab == tab2) 12.dp * progress else 0f)
+        val shape2 = getOrCreateShape("tab2",
+            bottomLeft = if (selectedTab == tab1) 12.dp * progress else 0f,
+            bottomRight = if (selectedTab == tab3) 12.dp * progress else 0f
+        )
+        val shape3 = getOrCreateShape("tab3", bottomLeft = if (selectedTab == tab2) 12.dp * progress else 0f)
+
+        // Batch update
+        tab1.shapeAppearanceModel = shape1
+        tab2.shapeAppearanceModel = shape2
+        tab3.shapeAppearanceModel = shape3
+    }
+
+    private fun getOrCreateShape(key: String, bottomLeft: Float = 0f, bottomRight: Float = 0f): ShapeAppearanceModel {
+        val newKey = "$key-$bottomLeft-$bottomRight"
+        return cachedShapes.getOrPut(newKey) {
+            shapeBuilder
+                .setBottomLeftCornerSize(bottomLeft)
+                .setBottomRightCornerSize(bottomRight)
+                .build()
         }
     }
 
-    private var isAnimatingLeftEdge = false
-    private var isAnimatingRightEdge = false
-
-    private fun updateEdgesWithAnimation(selectedTab: MaterialButton) {
-        when (selectedTab) {
-            tab1 -> {
-                if (!isAnimatingLeftEdge && leftEdges.alpha > 0f) {
-                    animateEdgeAlpha(leftEdges, 0f)
-                    isAnimatingLeftEdge = true
-                }
-                if (!isAnimatingRightEdge && rightEdges.alpha < 1f) {
-                    animateEdgeAlpha(rightEdges, 1f)
-                    isAnimatingRightEdge = true
-                }
-            }
-            tab2 -> {
-                if (!isAnimatingLeftEdge && leftEdges.alpha < 1f) {
-                    animateEdgeAlpha(leftEdges, 1f)
-                    isAnimatingLeftEdge = true
-                }
-                if (!isAnimatingRightEdge && rightEdges.alpha < 1f) {
-                    animateEdgeAlpha(rightEdges, 1f)
-                    isAnimatingRightEdge = true
-                }
-            }
-            tab3 -> {
-                if (!isAnimatingLeftEdge && leftEdges.alpha < 1f) {
-                    animateEdgeAlpha(leftEdges, 1f)
-                    isAnimatingLeftEdge = true
-                }
-                if (!isAnimatingRightEdge && rightEdges.alpha > 0f) {
-                    animateEdgeAlpha(rightEdges, 0f)
-                    isAnimatingRightEdge = true
-                }
-            }
+    private fun updateEdgesWithAnimation(selectedTab: MaterialButton, progress: Float) {
+        val leftAlpha = when (selectedTab) {
+            tab1 -> 0f
+            else -> 1f
         }
+        val rightAlpha = when (selectedTab) {
+            tab3 -> 0f
+            else -> 1f
+        }
+
+        leftEdges.alpha = (leftEdges.alpha * (1 - progress)) + (leftAlpha * progress)
+        rightEdges.alpha = (rightEdges.alpha * (1 - progress)) + (rightAlpha * progress)
     }
 
-    private fun animateEdgeAlpha(edge: View, targetAlpha: Float) {
-        edge.animate()
-            .alpha(targetAlpha)
-            .setDuration(300)
-            .setInterpolator(EaseInterpolator.EaseInOutQubicInterpolator)
-            .withEndAction {
-                if (edge == leftEdges) isAnimatingLeftEdge = false
-                if (edge == rightEdges) isAnimatingRightEdge = false
-            }
-            .start()
-    }
-
-
-    private fun createShapeAppearance(
-        bottomLeft: Float,
-        bottomRight: Float,
-        progress: Float
-    ): ShapeAppearanceModel {
-        return ShapeAppearanceModel.builder()
-            .setBottomLeftCornerSize(bottomLeft * progress)
-            .setBottomRightCornerSize(bottomRight * progress)
-            .build()
-    }
 
     fun getTab(tab: HomeTab): MaterialButton {
         return when (tab) {
@@ -256,7 +211,5 @@ class HomeTabLayout @JvmOverloads constructor(
         abstract val value: Int
         abstract val icon: Int
     }
-
-
 }
 

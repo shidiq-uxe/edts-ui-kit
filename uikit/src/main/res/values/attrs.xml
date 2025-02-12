@@ -183,9 +183,11 @@
     </declare-styleable>
 
     <attr name="textFieldStyle" format="reference"/>
+    <attr name="textEditTextStyle" format="reference"/>
+    <attr name="otpEditTextStyle" format="reference"/>
 
     <declare-styleable name="TextField">
-        <attr name="textInputStyleEnum" format="enum">
+        <attr name="textFieldType" format="enum">
             <enum name="labelInside" value="0" />
             <enum name="flatStart" value="1" />
             <enum name="flatEnd" value="2" />

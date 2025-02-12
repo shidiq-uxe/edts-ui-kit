@@ -54,6 +54,4 @@
         tools:maxLines="3"
         tools:text="@tools:sample/lorem/random" />
 
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

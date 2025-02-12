@@ -64,6 +64,8 @@
 
         <item name="textInputStyle">@style/Widget.EDTS.UIKit.TextInputLayout.LabelInside</item>
         <item name="textFieldStyle">@style/Widget.EDTS.UIKit.TextInputLayout.LabelInside</item>
+        <item name="textEditTextStyle">@style/Widget.EDTS.UIKit.TextInputEditText.LabelInside</item>
+        <item name="otpEditTextStyle">@style/Widget.EDTS.UIKit.TextInputEditText.Otp</item>
 
         <!--Selector-->
         <item name="checkboxStyle">@style/Widget.EDTS.UIKit.CheckBox</item>

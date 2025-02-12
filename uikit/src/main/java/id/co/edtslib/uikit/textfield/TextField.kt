@@ -7,9 +7,13 @@ import android.util.AttributeSet
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
 import androidx.core.content.res.use
+import androidx.core.view.doOnLayout
+import androidx.core.view.doOnNextLayout
 import androidx.core.widget.addTextChangedListener
 import com.google.android.material.textfield.TextInputEditText
 import id.co.edtslib.uikit.R
+import id.co.edtslib.uikit.button.Button.ButtonType
+import id.co.edtslib.uikit.button.ButtonAttrsFactory
 import id.co.edtslib.uikit.textinputlayout.TextInputLayout
 import id.co.edtslib.uikit.utils.buildHighlightedMessage
 import id.co.edtslib.uikit.utils.color
@@ -24,30 +28,19 @@ import android.text.InputType as AndroidTextInputType
 
 open class TextField @JvmOverloads constructor(
     context: Context,
-    attrs: AttributeSet? = null,
-    defStyleAttr: Int = R.attr.textFieldStyle
+    private val attrs: AttributeSet? = null,
+    defStyleAttr: Int = getDefStyle(context, R.attr.textFieldStyle)
 ) : TextInputLayout(context, attrs, defStyleAttr) {
 
     var delegate: TextFieldDelegate? = null
 
     var isFieldRequired = true
 
-    init {
-        val textInputEditText = TextInputEditText(context, attrs).apply {
-            layoutParams = LayoutParams(
-                LayoutParams.MATCH_PARENT,
-                LayoutParams.WRAP_CONTENT
-            )
-
-            hint = if(this@TextField.placeholderText.isNullOrEmpty()) this.hint else null
+    var textFieldStyle: TextFieldStyle = TextFieldStyle.LABEL_INSIDE
+        set(value) {
+            field = value
+            // applyStyle(value)
         }
-
-        this@TextField.addView(textInputEditText)
-
-        init(attrs, defStyleAttr)
-
-        setContainerPadding()
-    }
 
     private fun overrideCollapsingTextHelperErrorColor(errorText: CharSequence?) {
         val textColorStates = context.colorStateList(
@@ -72,6 +65,7 @@ open class TextField @JvmOverloads constructor(
 
         if (attrs != null) {
             context.theme.obtainStyledAttributes(attrs, R.styleable.TextField, defStyleAttr, 0).use {
+                textFieldStyle = TextFieldStyle.values()[it.getInt(R.styleable.TextField_textFieldType, 0)]
                 inputType = InputType.values()[it.getInt(R.styleable.TextField_fieldInputType, 0)]
                 maxLength = it.getInt(R.styleable.TextField_fieldMaxLength, 0)
                 imeOption = ImeOption.values()[it.getInt(R.styleable.TextField_fieldImeOptions, 0)]
@@ -215,6 +209,17 @@ open class TextField @JvmOverloads constructor(
                     )
                 }
                 InputType.OTP -> {
+                    val oldEditText = this.findViewById<TextInputEditText>(R.id.text_input_edit_text) // Cari EditText yang ada
+
+                    if (oldEditText != null) {
+                        this.removeView(oldEditText) // Hapus EditText lama
+                    }
+
+                    doOnNextLayout {
+                        val otpEditText = TextInputEditText(context, attrs, R.attr.otpEditTextStyle)
+                        this.addView(otpEditText)
+                    }
+
                     Pair(
                         android.text.InputType.TYPE_CLASS_NUMBER,
                         endIconMode
@@ -253,4 +258,31 @@ open class TextField @JvmOverloads constructor(
             if (value > 0) addFilter(InputFilter.LengthFilter(maxLength))
             else removeMaxLengthFilter()
         }
+
+    private fun applyStyle(textFieldStyle: TextFieldStyle) {
+        TextFieldAttrsFactory.applyAttributes(
+            context = context,
+            textField = this,
+            styleRes = textFieldStyle.styleResId,
+            editTextStyleResId = textFieldStyle.editTextStyleResId,
+            attrs = attrs
+        )
+    }
+
+    init {
+        val textInputEditText = TextInputEditText(context, attrs, R.attr.textEditTextStyle).apply {
+            layoutParams = LayoutParams(
+                LayoutParams.MATCH_PARENT,
+                LayoutParams.WRAP_CONTENT
+            )
+
+            hint = if(this@TextField.placeholderText.isNullOrEmpty()) this.hint else null
+        }
+
+        this@TextField.addView(textInputEditText)
+
+        init(attrs, defStyleAttr)
+
+        setContainerPadding()
+    }
 }
