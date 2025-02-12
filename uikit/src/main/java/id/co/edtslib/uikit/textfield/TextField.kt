@@ -245,10 +245,6 @@ open class TextField @JvmOverloads constructor(
                         this.setTextAppearance(context, R.style.TextAppearance_Inter_Semibold_D1)
                     }
                 }
-
-                doAfterTextChanged {
-                    delegate?.onValueChange(it?.toString())
-                }
             }
         }
 
@@ -278,6 +274,10 @@ open class TextField @JvmOverloads constructor(
             )
 
             hint = if(this@TextField.placeholderText.isNullOrEmpty()) this.hint else null
+
+            doAfterTextChanged {
+                delegate?.onValueChange(it?.toString())
+            }
         }
 
         this@TextField.addView(textInputEditText)
