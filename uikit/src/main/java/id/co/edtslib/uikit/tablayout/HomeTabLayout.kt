@@ -201,17 +201,17 @@ class HomeTabLayout @JvmOverloads constructor(
         Grocery {
             override val value: Int get() = ordinal
             override val icon: Int get() = UIKitR.drawable.ic_basket_grocery_16
-            override fun toString() = javaClass.simpleName.toString()
+            override fun toString() = "Grocery"
         },
         Food {
             override val value: Int get() = ordinal
             override val icon: Int get() = UIKitR.drawable.ic_food_16
-            override fun toString() = javaClass.simpleName.toString()
+            override fun toString() = "Food"
         },
         Virtual {
             override val value: Int get() = ordinal
             override val icon: Int get() = UIKitR.drawable.ic_card_virtual_16
-            override fun toString() = javaClass.simpleName.toString()
+            override fun toString() = "Virtual"
         };
 
         abstract val value: Int
