@@ -107,9 +107,6 @@ class HomeTabLayout @JvmOverloads constructor(
 
     private var currentSelectedTab: MaterialButton? = null
 
-    private var currentLeftEdgeAlpha = 0f
-    private var currentRightEdgeAlpha = 1f
-
     init {
         this.background = ColorDrawable(context.color(UIKitR.color.black_10))
         initAttrs(attrs)
@@ -118,7 +115,6 @@ class HomeTabLayout @JvmOverloads constructor(
 
         updateActiveTab(tab1)
 
-        // Initial Alpha
         leftEdges.alpha = 0f
     }
 
@@ -202,24 +198,21 @@ class HomeTabLayout @JvmOverloads constructor(
     }
 
     private fun updateEdgesWithAnimation(selectedTab: MaterialButton, progress: Float) {
-        val targetLeftAlpha = when (selectedTab) {
-            tab1 -> 0f
-            else -> 1f
+        val targetLeftAlpha = if (selectedTab == tab1) 0f else 1f
+        val targetRightAlpha = if (selectedTab == tab3) 0f else 1f
+
+        if (progress > 0.1f) {
+            val interpolatedProgress = (progress - 0.1f) / 0.9f
+            leftEdges.alpha = lerp(leftEdges.alpha, targetLeftAlpha, interpolatedProgress)
+            rightEdges.alpha = lerp(rightEdges.alpha, targetRightAlpha, interpolatedProgress)
+
+            leftEdges.translationY = lerp(leftEdges.translationY, if (targetLeftAlpha != 1f) -(12).dp else 0f, interpolatedProgress)
+            rightEdges.translationY = lerp(rightEdges.translationY, if (targetRightAlpha != 1f) -(12).dp else 0f, interpolatedProgress)
         }
+    }
 
-        val targetRightAlpha = when (selectedTab) {
-            tab3 -> 0f
-            else -> 1f
-        }
-
-
-        leftEdges.alpha = targetLeftAlpha
-        rightEdges.alpha = targetRightAlpha
-
-        if (progress >= 0.99f) {
-            currentLeftEdgeAlpha = targetLeftAlpha
-            currentRightEdgeAlpha = targetRightAlpha
-        }
+    private fun lerp(start: Float, end: Float, fraction: Float): Float {
+        return start + fraction * (end - start)
     }
 
     private fun updateTabContentColors(previousTab: MaterialButton?, newTab: MaterialButton, progress: Float) {
