@@ -212,13 +212,9 @@ class HomeTabLayout @JvmOverloads constructor(
             else -> 1f
         }
 
-        val easedProgress = progress * progress * (3.0f - 2.0f * progress)
 
-        val newLeftAlpha = currentLeftEdgeAlpha + (targetLeftAlpha - currentLeftEdgeAlpha) * easedProgress
-        val newRightAlpha = currentRightEdgeAlpha + (targetRightAlpha - currentRightEdgeAlpha) * easedProgress
-
-        leftEdges.alpha = newLeftAlpha
-        rightEdges.alpha = newRightAlpha
+        leftEdges.alpha = targetLeftAlpha
+        rightEdges.alpha = targetRightAlpha
 
         if (progress >= 0.99f) {
             currentLeftEdgeAlpha = targetLeftAlpha
