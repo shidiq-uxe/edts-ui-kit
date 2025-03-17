@@ -1,17 +1,28 @@
 package id.co.edtslib.uikit.tablayout
 
+import android.animation.ArgbEvaluator
 import android.animation.ValueAnimator
 import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.Color
+import android.graphics.Outline
+import android.graphics.Path
 import android.graphics.drawable.ColorDrawable
+import android.os.Build
+import android.os.Handler
+import android.os.Looper
 import android.util.AttributeSet
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewOutlineProvider
 import android.widget.FrameLayout
 import com.google.android.material.button.MaterialButton
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.animation.doOnEnd
 import androidx.core.content.res.use
+import androidx.core.view.doOnLayout
+import androidx.core.view.updateLayoutParams
 import com.google.android.material.shape.ShapeAppearanceModel
 import id.co.edtslib.uikit.ribbon.Ribbon
 import id.co.edtslib.uikit.utils.color
@@ -35,14 +46,17 @@ class HomeTabLayout @JvmOverloads constructor(
     private val tab1: MaterialButton = binding.tab1
     private val tab2: MaterialButton = binding.tab2
     private val tab3: MaterialButton = binding.tab3
-    private val activeButton: MaterialButton = binding.activeButton
 
     private val tabs: List<MaterialButton> = listOf(tab1, tab2, tab3)
 
     private val leftEdges = binding.leftEdges
     private val rightEdges = binding.rightEdges
 
+    private val activeIndicator = binding.ivActiveTab
+
     private var shapeBuilder = ShapeAppearanceModel.builder()
+
+    var shouldAnimate = true
 
     var selectedTab = HomeTab.Grocery
         set(value) {
@@ -57,12 +71,12 @@ class HomeTabLayout @JvmOverloads constructor(
 
     var delegate: HomeTabLayoutDelegate? = null
 
-    var titles = listOf(HomeTab.Grocery.value, HomeTab.Food.value, HomeTab.Virtual.value)
+    var titles = listOf(HomeTab.Grocery.toString(), HomeTab.Food.toString(), HomeTab.Virtual.toString())
         set(value) {
             field = value
-            tab1.text = context.getString(value.first())
-            tab2.text = context.getString(value[1])
-            tab3.text = context.getString(value[2])
+            tab1.text = value[0]
+            tab2.text = value[1]
+            tab3.text = value[2]
         }
 
     var icons = listOf(HomeTab.Grocery.icon, HomeTab.Food.icon, HomeTab.Virtual.icon)
@@ -76,8 +90,10 @@ class HomeTabLayout @JvmOverloads constructor(
     var selectedColor = context.color(UIKitR.color.primary_30)
         set(value) {
             field = value
-            activeButton.iconTint = ColorStateList.valueOf(value)
-            activeButton.setTextColor(value)
+            currentSelectedTab?.apply {
+                iconTint = ColorStateList.valueOf(value)
+                setTextColor(value)
+            }
         }
 
     var unselectedColor = context.color(UIKitR.color.white)
@@ -89,20 +105,35 @@ class HomeTabLayout @JvmOverloads constructor(
             }
         }
 
+    private var currentSelectedTab: MaterialButton? = null
+
+    private var currentLeftEdgeAlpha = 0f
+    private var currentRightEdgeAlpha = 1f
+
     init {
         this.background = ColorDrawable(context.color(UIKitR.color.black_10))
         initAttrs(attrs)
+        enableHardwareAcceleration()
         setupListeners()
+
         updateActiveTab(tab1)
 
         // Initial Alpha
         leftEdges.alpha = 0f
     }
 
+    fun enableHardwareAcceleration() {
+        this.setLayerType(LAYER_TYPE_HARDWARE, null)
+        binding.tab1.setLayerType(LAYER_TYPE_HARDWARE, null)
+        binding.tab2.setLayerType(LAYER_TYPE_HARDWARE, null)
+        binding.tab3.setLayerType(LAYER_TYPE_HARDWARE, null)
+    }
+
     private fun initAttrs(attrs: AttributeSet?) {
         context.theme.obtainStyledAttributes(attrs, UIKitR.styleable.HomeTabLayout, 0, 0).use {
             selectedColor = it.getColor(UIKitR.styleable.HomeTabLayout_selectedItemColor, context.color(UIKitR.color.primary_30))
             unselectedColor = it.getColor(UIKitR.styleable.HomeTabLayout_unselectedItemColor, context.color(UIKitR.color.white))
+            shouldAnimate = it.getBoolean(UIKitR.styleable.HomeTabLayout_shouldAnimate, shouldAnimate)
         }
     }
 
@@ -121,73 +152,107 @@ class HomeTabLayout @JvmOverloads constructor(
     }
 
     private fun activateTab(selectedTab: MaterialButton, tab: HomeTab) {
-        activeButton.text = tab.toString()
-        activeButton.icon = context.drawable(tab.icon)
+        if (selectedTab == currentSelectedTab) return
+
+        val previousTab = currentSelectedTab
+        currentSelectedTab = selectedTab
 
         delegate?.onTabSelected(tab)
+        updateActiveTabWidth(selectedTab)
 
-        val animator = ValueAnimator.ofFloat(0f, 1f).apply {
-            duration = 400
-            addUpdateListener { animator ->
-                val progress = animator.animatedFraction
-                repositionActiveButton(selectedTab, progress)
-                updateCornersWithAnimation(selectedTab, progress)
-                updateEdgesWithAnimation(selectedTab, progress)
+        if (shouldAnimate) {
+            val animator = ValueAnimator.ofFloat(0f, 1f).apply {
+                duration = 450
+                addUpdateListener { animator ->
+                    val progress = animator.animatedFraction
+
+                    updateTabContentColors(previousTab, selectedTab, progress)
+                    repositionActiveButton(selectedTab, progress)
+                    updateEdgesWithAnimation(selectedTab, progress)
+                }
+            }
+            animator.start()
+        } else {
+            updateTabContentColors(previousTab, selectedTab, 1f)
+            updateEdgesWithAnimation(selectedTab, 1f)
+            doOnLayout {
+                repositionActiveButton(selectedTab, 1f)
             }
         }
-        animator.start()
+    }
+
+    private fun updateActiveTabWidth(selectedTab: MaterialButton) {
+        selectedTab.doOnLayout {
+            val activeWidth = selectedTab.width + 24.dp
+
+            val tabCachedShape = TabBackgroundDrawable(activeWidth.toInt(), selectedTab.height, context.color(UIKitR.color.black_10))
+            binding.ivActiveTab.updateLayoutParams<MarginLayoutParams> {
+                this.width = activeWidth.toInt()
+            }
+
+            binding.ivActiveTab.setImageDrawable(tabCachedShape)
+        }
     }
 
 
     private fun repositionActiveButton(selectedTab: MaterialButton, progress: Float) {
-        val targetX = selectedTab.x
-        activeButton.x = (activeButton.x * (1 - progress)) + (targetX * progress)
+        val targetX = selectedTab.x - 12.dp
+
+        activeIndicator.x = (activeIndicator.x * (1 - progress)) + (targetX * progress)
     }
-
-    private fun updateCornersWithAnimation(selectedTab: MaterialButton, progress: Float) {
-        updateShape(tab1, bottomRight = if (selectedTab == tab2) 12.dp * progress else 0f)
-        updateShape(tab2,
-            bottomLeft = if (selectedTab == tab1) 12.dp * progress else 0f,
-            bottomRight = if (selectedTab == tab3) 12.dp * progress else 0f
-        )
-        updateShape(tab3, bottomLeft = if (selectedTab == tab2) 12.dp * progress else 0f)
-    }
-
-    private fun updateShape(button: MaterialButton, bottomLeft: Float = 0f, bottomRight: Float = 0f) {
-        val existingModel = shapeModels[button]
-
-        if (existingModel != null) {
-            // Update existing shape dynamically
-            button.shapeAppearanceModel = existingModel.toBuilder()
-                .setBottomLeftCornerSize(bottomLeft)
-                .setBottomRightCornerSize(bottomRight)
-                .build()
-        } else {
-            // Create new shape and cache it
-            val newModel = ShapeAppearanceModel.builder()
-                .setBottomLeftCornerSize(bottomLeft)
-                .setBottomRightCornerSize(bottomRight)
-                .build()
-            shapeModels[button] = newModel
-            button.shapeAppearanceModel = newModel
-        }
-    }
-
 
     private fun updateEdgesWithAnimation(selectedTab: MaterialButton, progress: Float) {
-        val leftAlpha = when (selectedTab) {
+        val targetLeftAlpha = when (selectedTab) {
             tab1 -> 0f
             else -> 1f
         }
-        val rightAlpha = when (selectedTab) {
+
+        val targetRightAlpha = when (selectedTab) {
             tab3 -> 0f
             else -> 1f
         }
 
-        leftEdges.alpha = (leftEdges.alpha * (1 - progress)) + (leftAlpha * progress)
-        rightEdges.alpha = (rightEdges.alpha * (1 - progress)) + (rightAlpha * progress)
+        val easedProgress = progress * progress * (3.0f - 2.0f * progress)
+
+        val newLeftAlpha = currentLeftEdgeAlpha + (targetLeftAlpha - currentLeftEdgeAlpha) * easedProgress
+        val newRightAlpha = currentRightEdgeAlpha + (targetRightAlpha - currentRightEdgeAlpha) * easedProgress
+
+        leftEdges.alpha = newLeftAlpha
+        rightEdges.alpha = newRightAlpha
+
+        if (progress >= 0.99f) {
+            currentLeftEdgeAlpha = targetLeftAlpha
+            currentRightEdgeAlpha = targetRightAlpha
+        }
     }
 
+    private fun updateTabContentColors(previousTab: MaterialButton?, newTab: MaterialButton, progress: Float) {
+        if (previousTab == null) {
+            newTab.setTextColor(selectedColor)
+            newTab.icon?.setTint(selectedColor)
+
+            tabs.forEach { tab ->
+                if (tab != newTab) {
+                    tab.setTextColor(unselectedColor)
+                    tab.icon?.setTint(unselectedColor)
+                }
+            }
+            return
+        }
+
+        val previousTabColor = interpolateColor(selectedColor, unselectedColor, progress)
+        previousTab.setTextColor(previousTabColor)
+        previousTab.iconTint = ColorStateList.valueOf(previousTabColor)
+
+        val newTabColor = interpolateColor(unselectedColor, selectedColor, progress)
+        newTab.setTextColor(newTabColor)
+        newTab.iconTint = ColorStateList.valueOf(newTabColor)
+    }
+
+    private fun interpolateColor(startColor: Int, endColor: Int, fraction: Float): Int {
+        val fractionClamped = fraction.coerceIn(0f, 1f)
+        return ArgbEvaluator().evaluate(fractionClamped, startColor, endColor) as Int
+    }
 
     fun getTab(tab: HomeTab): MaterialButton {
         return when (tab) {

@@ -94,6 +94,7 @@ class MainActivity : AppCompatActivity() {
                         14 -> Intent(this, GuidelinesSegmentedTabLayoutActivity::class.java)
                         15 -> Intent(this, GuidelinesHomeSwitcherActivity::class.java)
                         16 -> Intent(this, GuidelinesHomepageExploration::class.java)
+                        17 -> Intent(this, GuidelineCoachmarkActivity::class.java)
                         else -> Intent(this, SpotlightTrialsActivity::class.java)
                     },
                     binding.sharedElementOptions

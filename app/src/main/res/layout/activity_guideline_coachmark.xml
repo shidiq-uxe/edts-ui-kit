@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clipChildren="false"
+    android:background="@color/black_10"
+    tools:context=".GuidelineCoachmarkActivity">
+
+    <!--Assume this is a toolbar container-->
+    <View
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/s"
+        android:background="@color/primary_30"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <id.co.edtslib.uikit.tablayout.HomeTabLayout
+        android:id="@+id/tl_home"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"/>
+
+    <id.co.edtslib.uikit.searchbar.SearchBar
+        android:id="@+id/sbHome"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/s"
+        android:elevation="@dimen/xxxs"
+        app:startIcon="@drawable/ic_search"
+        app:prefixText="Cari"
+        app:placeholderTextList="@array/home_exploration_search_placeholder"
+        app:layout_constraintTop_toBottomOf="@id/tl_home"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvLogin"
+        android:layout_width="@dimen/dimen_0"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/s"
+        android:layout_marginHorizontal="@dimen/s"
+        android:text="Login dulu yuk!"
+        android:textAppearance="@style/TextAppearance.Inter.Semibold.H3"
+        app:layout_constraintTop_toBottomOf="@id/sbHome"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <id.co.edtslib.uikit.switcher.HomeSwitcher
+        android:id="@+id/homeSwitcher"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/xxs"
+        android:layout_marginHorizontal="@dimen/s"
+        app:isDraggable="true"
+        app:layout_constraintTop_toBottomOf="@id/tvLogin" />
+
+    <ImageView
+        android:id="@+id/ivContent"
+        android:layout_width="@dimen/dimen_0"
+        android:layout_height="@dimen/dimen_0"
+        android:contentDescription="@string/app_name"
+        android:scaleType="fitXY"
+        android:src="@drawable/home_switcher_placeholder"
+        app:layout_constraintTop_toBottomOf="@id/homeSwitcher"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <include layout="@layout/skeleton_adapter_home"
+        android:id="@+id/home_skeleton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/tl_home"/>
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/viewGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="ivContent, sbHome, tvLogin, homeSwitcher"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

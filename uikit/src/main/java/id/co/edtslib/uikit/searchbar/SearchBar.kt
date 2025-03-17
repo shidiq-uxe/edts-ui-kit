@@ -322,6 +322,7 @@ class SearchBar @JvmOverloads constructor(
 
     init {
         initAttrs(attrs, defStyleAttr)
+        enableHardwareAcceleration()
 
         editText.maxLines = 1
 
@@ -339,6 +340,12 @@ class SearchBar @JvmOverloads constructor(
                 this.height = resources.getDimensionPixelSize(R.dimen.l)
             }
         }*/
+    }
+
+    private fun enableHardwareAcceleration() {
+        this.setLayerType(LAYER_TYPE_HARDWARE, null)
+        binding.tsPlaceholder.setLayerType(LAYER_TYPE_HARDWARE, null)
+        binding.tsPlaceholder.currentView.setLayerType(LAYER_TYPE_HARDWARE, null)
     }
 
     private fun initAttrs(attrs: AttributeSet?, defStyleAttr: Int) {

@@ -12,8 +12,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.doOnLayout
 import androidx.core.view.doOnPreDraw
+import com.google.android.material.shape.EdgeTreatment
 import com.google.android.material.shape.MarkerEdgeTreatment
 import com.google.android.material.shape.OffsetEdgeTreatment
+import com.google.android.material.shape.ShapePath
 import com.takusemba.spotlight.OnSpotlightListener
 import com.takusemba.spotlight.OnTargetListener
 import com.takusemba.spotlight.Spotlight
@@ -23,6 +25,7 @@ import id.co.edtslib.edtsuikit.databinding.ActivitySpotlightTrialsBinding
 import id.co.edtslib.uikit.utils.TextStyle
 import id.co.edtslib.uikit.utils.buildHighlightedMessage
 import id.co.edtslib.uikit.utils.dimen
+import id.co.edtslib.uikit.utils.dp
 import id.co.edtslib.uikit.utils.minutes
 import id.co.edtslib.uikit.utils.setLightStatusBar
 import id.co.edtslib.uikit.utils.snack
@@ -52,13 +55,21 @@ class SpotlightTrialsActivity : AppCompatActivity() {
             val markerEdgeTreatment = MarkerEdgeTreatment(cornerRadius.times(2))
             val offsetEdgeTreatment = OffsetEdgeTreatment(markerEdgeTreatment, 50f)
 
-            binding.ivTarget1.setShapeAppearanceModel(
-                binding.ivTarget1.shapeAppearanceModel
-                    .toBuilder()
-                    .setTopEdge(offsetEdgeTreatment)
-                    .build()
-            )
+
         }
+
+        binding.ivTarget1.setShapeAppearanceModel(
+            binding.ivTarget1.shapeAppearanceModel
+                .toBuilder()
+                .setTopEdge(RoundTipTriangleEdgeTreatment(
+                    triangleWidth = 12.dp,
+                    triangleHeight = 8.dp,
+                    triangleOffset = 24.dp,
+                    roundedCornerRadius = 2.dp,
+                    isEdgeAtTop = true
+                ))
+                .build()
+        )
 
         binding.ivTarget1.setOnClickListener {
             spotlightTrials()
@@ -213,12 +224,56 @@ class SpotlightTrialsActivity : AppCompatActivity() {
         second.findViewById<View>(R.id.btnNext).setOnClickListener(nextTarget)
         third.findViewById<View>(R.id.btnNext).setOnClickListener(nextTarget)
 
-        first.findViewById<View>(R.id.btnPrevious).setOnClickListener(closeSpotlight)
-        second.findViewById<View>(R.id.btnPrevious).setOnClickListener(closeSpotlight)
-        third.findViewById<View>(R.id.btnPrevious).setOnClickListener(closeSpotlight)
-
         spotlight.start()
     }
 
+    class RoundTipTriangleEdgeTreatment(
+        private val triangleWidth: Float,
+        private val triangleHeight: Float,
+        private val triangleOffset: Float,
+        private val roundedCornerRadius: Float,
+        private val isEdgeAtTop: Boolean = true
+    ) : EdgeTreatment() {
+
+        override fun getEdgePath(
+            length: Float,
+            center: Float,
+            interpolation: Float,
+            shapePath: ShapePath
+        ) {
+            val halfWidth = triangleWidth / 2f
+
+            val notchStart = (triangleOffset - halfWidth).coerceAtLeast(0f)
+            val notchEnd = (triangleOffset + halfWidth).coerceAtMost(length)
+
+            shapePath.lineTo(notchStart, 0f)
+
+            if (isEdgeAtTop) {
+                shapePath.cubicToPoint(
+                    notchStart + roundedCornerRadius, 0f,
+                    triangleOffset - roundedCornerRadius, -triangleHeight,
+                    triangleOffset, -triangleHeight
+                )
+                shapePath.cubicToPoint(
+                    triangleOffset + roundedCornerRadius, -triangleHeight,
+                    notchEnd - roundedCornerRadius, 0f,
+                    notchEnd, 0f
+                )
+            } else {
+                shapePath.cubicToPoint(
+                    notchStart + roundedCornerRadius, 0f,
+                    triangleOffset - roundedCornerRadius, triangleHeight,
+                    triangleOffset, triangleHeight
+                )
+                shapePath.cubicToPoint(
+                    triangleOffset + roundedCornerRadius, triangleHeight,
+                    notchEnd - roundedCornerRadius, 0f,
+                    notchEnd, 0f
+                )
+            }
+
+            shapePath.lineTo(length, 0f)
+        }
+    }
 
 }

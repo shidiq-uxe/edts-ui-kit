@@ -23,14 +23,14 @@ class GuidelinesButtonActivity : GuidelinesBaseActivity() {
             insets
         }
 
-    Ribbon(this).apply {
-        ribbonText = "Ribbon"
-        gravity = Ribbon.Gravity.START
-        elevation = 4.dp
-    }.anchorToView(
-            rootParent = binding.root,
-            targetView = binding.btnSecondaryOutlined,
-            verticalAlignment = Ribbon.VerticalAlignment.Center
-        )
-    }
+        Ribbon(this).apply {
+            ribbonText = "Ribbon"
+            gravity = Ribbon.Gravity.START
+            elevation = 4.dp
+        }.anchorToView(
+                rootParent = binding.root,
+                targetView = binding.btnSecondaryOutlined,
+                verticalAlignment = Ribbon.VerticalAlignment.Center
+            )
+        }
 }
