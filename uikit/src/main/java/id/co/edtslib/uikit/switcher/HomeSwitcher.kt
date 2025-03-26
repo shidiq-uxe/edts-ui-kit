@@ -78,6 +78,7 @@ class HomeSwitcher @JvmOverloads constructor(
         }
 
     var isDraggable = false
+    var shouldAnimate = true
 
     private var initialTouchX = 0f
     private var initialTranslationX = 0f
@@ -103,6 +104,7 @@ class HomeSwitcher @JvmOverloads constructor(
             firstTabIcon = it.getResourceId(R.styleable.HomeSwitcher_firstTabIcon, firstTabIcon)
             secondTabIcon = it.getResourceId(R.styleable.HomeSwitcher_secondTabIcon, secondTabIcon)
             isDraggable = it.getBoolean(R.styleable.HomeSwitcher_isDraggable, isDraggable)
+            shouldAnimate = it.getBoolean(R.styleable.HomeSwitcher_shouldAnimate, shouldAnimate)
         }
     }
 
@@ -158,7 +160,13 @@ class HomeSwitcher @JvmOverloads constructor(
                 delegate?.onSwitchAnimationEndListener(tab)
             }
         }
-        springAnimation.start()
+
+        if (!shouldAnimate) {
+            binding.activeTab.translationX = targetTranslationX
+            updateUIForTranslationX(targetTranslationX)
+        } else {
+            springAnimation.start()
+        }
     }
 
     private fun updateUIForTranslationX(translationX: Float) {

@@ -351,6 +351,7 @@
         <attr name="firstTabIcon" format="reference"/>
         <attr name="secondTabIcon" format="reference"/>
         <attr name="isDraggable" format="boolean"/>
+        <attr name="shouldAnimate"/>
     </declare-styleable>
 
 </resources>
