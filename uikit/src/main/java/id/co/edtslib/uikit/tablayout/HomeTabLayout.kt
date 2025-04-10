@@ -114,6 +114,7 @@ class HomeTabLayout @JvmOverloads constructor(
         setupListeners()
 
         updateActiveTab(tab1)
+        currentSelectedTab = binding.tab1
 
         leftEdges.alpha = 0f
     }
