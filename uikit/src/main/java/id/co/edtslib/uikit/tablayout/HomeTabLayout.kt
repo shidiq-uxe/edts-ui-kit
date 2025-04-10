@@ -113,8 +113,8 @@ class HomeTabLayout @JvmOverloads constructor(
         enableHardwareAcceleration()
         setupListeners()
 
-        updateActiveTab(tab1)
         currentSelectedTab = binding.tab1
+        updateActiveTab(tab1)
 
         leftEdges.alpha = 0f
     }
@@ -149,8 +149,6 @@ class HomeTabLayout @JvmOverloads constructor(
     }
 
     private fun activateTab(selectedTab: MaterialButton, tab: HomeTab) {
-        if (selectedTab == currentSelectedTab) return
-
         val previousTab = currentSelectedTab
         currentSelectedTab = selectedTab
 
