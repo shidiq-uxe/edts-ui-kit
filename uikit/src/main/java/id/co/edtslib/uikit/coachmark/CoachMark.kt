@@ -16,13 +16,14 @@ import android.graphics.PorterDuffXfermode
 import android.graphics.Rect
 import android.graphics.RectF
 import android.util.AttributeSet
-import android.view.ContextThemeWrapper
 import android.view.KeyEvent
+import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewOutlineProvider
 import android.widget.FrameLayout
+import androidx.appcompat.view.ContextThemeWrapper
 import androidx.core.view.isVisible
 import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.FragmentActivity
@@ -67,7 +68,7 @@ class CoachMarkOverlay @JvmOverloads constructor(
     private var isDismissible = false
 
     private val coachmarkBinding: ViewCoachmarkBinding =
-        ViewCoachmarkBinding.inflate(context.inflater, this, false).apply {
+        ViewCoachmarkBinding.inflate(LayoutInflater.from(this.context), this, false).apply {
             setOnButtonClickListener()
         }
 
