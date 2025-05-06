@@ -30,7 +30,7 @@ import androidx.fragment.app.FragmentActivity
 import com.google.android.material.shape.OffsetEdgeTreatment
 import com.google.android.material.shape.ShapeAppearanceModel
 import id.co.edtslib.uikit.R
-import id.co.edtslib.uikit.databinding.ViewCoachmarkBinding
+import id.co.edtslib.uikit.databinding.ViewCoachmarkUikitBinding
 import id.co.edtslib.uikit.utils.deviceHeight
 import id.co.edtslib.uikit.utils.deviceWidth
 import id.co.edtslib.uikit.utils.dp
@@ -67,8 +67,8 @@ class CoachMarkOverlay @JvmOverloads constructor(
 
     private var isDismissible = false
 
-    private val coachmarkBinding: ViewCoachmarkBinding =
-        ViewCoachmarkBinding.inflate(LayoutInflater.from(this.context), this, false).apply {
+    private val coachmarkBinding: ViewCoachmarkUikitBinding =
+        ViewCoachmarkUikitBinding.inflate(LayoutInflater.from(this.context), this, false).apply {
             setOnButtonClickListener()
         }
 
@@ -87,7 +87,7 @@ class CoachMarkOverlay @JvmOverloads constructor(
         setLayerType(LAYER_TYPE_HARDWARE, null)
     }
 
-    private fun ViewCoachmarkBinding.setOnButtonClickListener() {
+    private fun ViewCoachmarkUikitBinding.setOnButtonClickListener() {
         btnNext.setOnClickListener {
             coachMarkDelegate?.onNextClickClickListener()
             showNextCoachMark()
