@@ -3,6 +3,7 @@ package id.co.edtslib.uikit.button
 import android.content.Context
 import android.util.AttributeSet
 import android.view.MotionEvent
+import androidx.appcompat.view.ContextThemeWrapper
 import androidx.core.content.res.use
 import androidx.core.view.doOnLayout
 import com.facebook.shimmer.ShimmerFrameLayout
@@ -15,7 +16,7 @@ class Button @JvmOverloads constructor(
     context: Context,
     private val attrs: AttributeSet? = null,
     private val defStyleAttr: Int = R.attr.buttonStyle,
-) : MaterialButton(context, attrs, defStyleAttr) {
+) : MaterialButton(ContextThemeWrapper(context, R.style.Theme_EDTS_UIKit), attrs, defStyleAttr) {
 
     // Only call this variable only when shouldShowShimmer is true
     var shimmerFrameLayout: ShimmerFrameLayout? = null
