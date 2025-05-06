@@ -210,10 +210,10 @@ open class TextField @JvmOverloads constructor(
                     )
                 }
                 InputType.OTP -> {
-                    val oldEditText = this.findViewById<TextInputEditText>(R.id.text_input_edit_text) // Cari EditText yang ada
+                    val oldEditText = this.findViewById<TextInputEditText>(R.id.text_input_edit_text)
 
                     if (oldEditText != null) {
-                        this.removeView(oldEditText) // Hapus EditText lama
+                        this.removeView(oldEditText)
                     }
 
                     doOnNextLayout {

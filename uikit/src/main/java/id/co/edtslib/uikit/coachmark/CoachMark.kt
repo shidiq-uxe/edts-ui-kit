@@ -16,24 +16,33 @@ import android.graphics.PorterDuffXfermode
 import android.graphics.Rect
 import android.graphics.RectF
 import android.util.AttributeSet
+import android.view.ContextThemeWrapper
+import android.view.KeyEvent
+import android.view.MotionEvent
 import android.view.View
+import android.view.ViewGroup
 import android.view.ViewOutlineProvider
 import android.widget.FrameLayout
 import androidx.core.view.isVisible
 import androidx.core.view.updateLayoutParams
+import androidx.fragment.app.FragmentActivity
+import com.google.android.material.shape.OffsetEdgeTreatment
+import com.google.android.material.shape.ShapeAppearanceModel
+import id.co.edtslib.uikit.R
 import id.co.edtslib.uikit.databinding.ViewCoachmarkBinding
 import id.co.edtslib.uikit.utils.deviceHeight
 import id.co.edtslib.uikit.utils.deviceWidth
 import id.co.edtslib.uikit.utils.dp
 import id.co.edtslib.uikit.utils.inflater
 import id.co.edtslib.uikit.utils.interpolator.EaseInterpolator
+import id.co.edtslib.uikit.utils.isDeviceStruggling
 import kotlin.math.max
 
 class CoachMarkOverlay @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyle: Int = 0
-) : FrameLayout(context, attrs, defStyle) {
+) : FrameLayout(ContextThemeWrapper(context, R.style.Theme_EDTS_UIKit), attrs, defStyle) {
 
     var coachMarkDelegate: CoachmarkDelegate? = null
 
@@ -50,22 +59,26 @@ class CoachMarkOverlay @JvmOverloads constructor(
         xfermode = PorterDuffXfermode(PorterDuff.Mode.CLEAR)
     }
 
-    // Used to optionally animate a scale effect on the spotlight if desired.
     private var spotlightScale: Float = 1f
 
     private var coachMarkItems: List<CoachMarkData> = emptyList()
     private var currentCoachMarkIndex: Int = 0
 
-    private val coachmarkBinding: ViewCoachmarkBinding = ViewCoachmarkBinding.inflate(context.inflater, this, false).apply {
-        this.setOnButtonClickListener()
-    }
+    private var isDismissible = false
+
+    private val coachmarkBinding: ViewCoachmarkBinding =
+        ViewCoachmarkBinding.inflate(context.inflater, this, false).apply {
+            setOnButtonClickListener()
+        }
 
     private val coachmarkView: View = coachmarkBinding.root.apply {
-        this.updateLayoutParams<LayoutParams> {
+        updateLayoutParams<LayoutParams> {
             width = (context.deviceWidth * 0.84).toInt()
         }
-        this.alpha = 1f
+        alpha = 0f
     }
+
+    enum class CoachMarkHorizontalGravity { START, CENTER, END }
 
     init {
         addView(coachmarkView)
@@ -74,27 +87,29 @@ class CoachMarkOverlay @JvmOverloads constructor(
     }
 
     private fun ViewCoachmarkBinding.setOnButtonClickListener() {
-        this.btnNext.setOnClickListener {
+        btnNext.setOnClickListener {
             coachMarkDelegate?.onNextClickClickListener()
             showNextCoachMark()
         }
-        this.btnSkip.setOnClickListener {
+        btnSkip.setOnClickListener {
             coachMarkDelegate?.onSkipClickListener()
+            dismiss {}
         }
     }
 
     /**
-     * Set the coachmark items.
+     * Sets the coach mark items.
+     *
+     * @param items vararg list of [CoachMarkData] items.
      */
     fun setCoachMarkItems(vararg items: CoachMarkData) {
-        coachMarkItems = items.toList()
-        currentCoachMarkIndex = 0
-        updateCoachMarkContent()
-        updateCurrentTarget()
+        setCoachMarkItems(items.toList())
     }
 
     /**
-     * Set the coachmark items.
+     * Sets the coach mark items.
+     *
+     * @param items list of [CoachMarkData] items.
      */
     fun setCoachMarkItems(items: List<CoachMarkData>) {
         coachMarkItems = items
@@ -103,33 +118,53 @@ class CoachMarkOverlay @JvmOverloads constructor(
         updateCurrentTarget()
     }
 
+    /**
+     * Sets the container for this overlay.
+     *
+     * @param container the parent [ViewGroup] to attach the overlay to.
+     */
+    fun setContainer(
+        container: ViewGroup = ((context as? FragmentActivity)?.window?.decorView as? ViewGroup)
+            ?: throw IllegalArgumentException("Unable to retrieve container")
+    ) {
+        val params = ViewGroup.LayoutParams(
+            LayoutParams.MATCH_PARENT,
+            LayoutParams.MATCH_PARENT
+        )
+        container.addView(this, params)
+    }
+
     @SuppressLint("SetTextI18n")
     private fun updateCoachMarkContent() {
         if (coachMarkItems.isEmpty()) return
         val currentItem = coachMarkItems[currentCoachMarkIndex]
-        coachmarkBinding.tvTiTle.text = currentItem.title
-        coachmarkBinding.tvDescription.text = currentItem.description
-        coachmarkBinding.tvCoachmarkCount.text = "${currentCoachMarkIndex.plus(1)}/${coachMarkItems.size}"
 
-        coachmarkBinding.btnNext.text =
-            if (currentCoachMarkIndex == coachMarkItems.size - 1) "Tutup" else "Berikutnya"
+        val isOnTheLastIndex = (currentCoachMarkIndex == coachMarkItems.size.minus(1))
+
+        with(coachmarkBinding) {
+            tvTiTle.text = currentItem.title
+            tvDescription.text = currentItem.description
+            tvCoachmarkCount.text = "${currentCoachMarkIndex.plus(1)}/${coachMarkItems.size}"
+            btnNext.text = if (isOnTheLastIndex) "Tutup" else "Berikutnya"
+            btnSkip.isVisible = !isOnTheLastIndex
+        }
     }
 
     /**
-     * Update the current target based on the coachMarkItems list.
+     * Updates the current target based on the coach mark items.
      */
     private fun updateCurrentTarget() {
         if (coachMarkItems.isEmpty()) return
         val newTarget = coachMarkItems[currentCoachMarkIndex].target
-        // Immediately set the initial target without animation.
         setTargetView(newTarget)
     }
 
     /**
-     * Set the target view to be highlighted.
+     * Sets the target view to be highlighted.
+     *
      * @param target The view to highlight.
-     * @param shape The shape of the spotlight (circle or rounded rectangle).
-     * @param padding Optional extra padding around the target.
+     * @param shape The shape of the spotlight.
+     * @param padding Optional padding around the target.
      */
     fun setTargetView(
         target: View,
@@ -138,153 +173,174 @@ class CoachMarkOverlay @JvmOverloads constructor(
     ) {
         this.spotlightShape = shape
         targetRect = calculateTargetRect(target, padding)
-        // Position the coachmark immediately for the first target.
         updateCoachmarkPosition(targetRect!!)
-        // Start the entrance animation for the spotlight.
         startSpotlightAnimation()
     }
 
-    val tooltipEdgeTreatment = NotchTriangleEdgeTreatment(
-        triangleWidth = 12.dp,
-        triangleHeight = 8.dp,
-        triangleOffset = 24.dp,
-        roundedCornerRadius = 2.dp,
-        isEdgeAtTop = false
-    )
-
     /**
-     * Update the coachmark position relative to the given target rect.
-     * Instead of instantly setting the position, this method computes the top margin.
+     * Computes the coachmark's horizontal and vertical translation values based on the given target rectangle.
+     *
+     * @param rect the target rectangle.
+     * @return a Pair where first is the horizontal translation (translationX) and second is the vertical translation (translationY).
      */
-    private fun updateCoachmarkPosition(rect: RectF) {
-        val screenHeight = context.deviceHeight
+    private fun computeCoachmarkPosition(rect: RectF): Pair<Float, Float> {
+        val screenHeight = context.deviceHeight.toFloat()
         val spaceAbove = rect.top
         val spaceBelow = screenHeight - rect.bottom
-        val newMargin = if (spaceBelow > spaceAbove) {
-            // Position below the target.
-            rect.bottom.toInt() + 16.dp.toInt()
+        val vertical = if (spaceBelow > spaceAbove) {
+            rect.bottom + 8.dp
         } else {
-            // Position above the target.
-            rect.top.toInt() - coachmarkView.height - 16.dp.toInt()
+            rect.top - coachmarkView.height - 8.dp
         }
-        // Directly set layout top margin if needed,
-        // or use translationY for smooth animations.
-        coachmarkView.translationY = newMargin.toFloat()
 
-        // Adjust the tooltip edge accordingly.
-        coachmarkBinding.root.shapeAppearanceModel = if (spaceBelow > spaceAbove) {
-            coachmarkBinding.root.shapeAppearanceModel.toBuilder()
-                .setTopEdge(tooltipEdgeTreatment)
-                .build()
-        } else {
-            coachmarkBinding.root.shapeAppearanceModel.toBuilder()
-                .setBottomEdge(tooltipEdgeTreatment)
+        val overlayWidth = this.width.toFloat()
+        val targetCenterX = rect.centerX()
+
+        // Calculate a centered horizontal position then clamp it between left and right bounds
+        val centeredPosition = targetCenterX - coachmarkView.width / 2f
+        val horizontal = centeredPosition.coerceIn(8.dp, overlayWidth - coachmarkView.width - 8.dp)
+
+        return Pair(horizontal, vertical)
+    }
+
+
+    private fun updateCoachMarkShapeAppearanceEdge(
+        gravity: CoachMarkHorizontalGravity,
+        isEdgeAtTop: Boolean
+    ) {
+        val placement = when (gravity) {
+            CoachMarkHorizontalGravity.START -> coachmarkBinding.cardContainer.width.div(2).minus(20.dp).toFloat()
+            CoachMarkHorizontalGravity.CENTER -> 0f
+            CoachMarkHorizontalGravity.END -> -coachmarkBinding.cardContainer.width.div(2).minus(20.dp).toFloat()
+        }
+
+        val markerEdgeTreatment = RoundTipTriangleEdgeTreatment(12.dp, 8.dp, (1.5).toInt().dp, isEdgeAtTop)
+        val offsetEdgeTreatment = OffsetEdgeTreatment(markerEdgeTreatment, if (isEdgeAtTop) placement else -placement)
+
+        coachmarkBinding.cardContainer.shapeAppearanceModel = offsetEdgeTreatment.let {
+            ShapeAppearanceModel().toBuilder()
+                .setAllCornerSizes(8.dp)
+                .apply {
+                    if (isEdgeAtTop) setTopEdge(it)
+                    else setBottomEdge(it)
+                }
                 .build()
         }
     }
 
     /**
-     * Transition to a new target by morphing the spotlight and moving the coachmark.
+     * Updates the coach mark position (both vertical and horizontal) relative to the target rectangle.
+     *
+     * @param rect the target rectangle.
+     */
+    private fun updateCoachmarkPosition(rect: RectF) {
+        coachmarkView.post {
+            val (newX, newY) = computeCoachmarkPosition(rect)
+            coachmarkView.translationX = newX
+            coachmarkView.translationY = newY
+
+            val targetCenterX = rect.centerX()
+            val screenHeight = context.deviceHeight
+            val spaceBelow = screenHeight - rect.bottom
+            val spaceAbove = rect.top
+
+            val edgeIsAtTop = spaceBelow > spaceAbove
+
+            val horizontalGravity =  when {
+                targetCenterX < this.width / 3f -> CoachMarkHorizontalGravity.START
+                targetCenterX > this.width * 2 / 3f -> CoachMarkHorizontalGravity.END
+                else -> CoachMarkHorizontalGravity.CENTER
+            }
+
+            updateCoachMarkShapeAppearanceEdge(horizontalGravity, edgeIsAtTop)
+        }
+    }
+
+
+    /**
+     * Transitions to a new target view with a morphing effect.
+     *
+     * @param newTarget the new target view.
+     * @param onTransitionEnd callback when the transition ends.
      */
     private fun transitionToTarget(newTarget: View, onTransitionEnd: () -> Unit) {
-        // Calculate new target rectangle.
         val newRect = calculateTargetRect(newTarget)
         val currentRect = targetRect ?: newRect
 
-        // Compute current and final coachmark positions.
-        // Use the same logic as updateCoachmarkPosition.
-        val screenHeight = context.deviceHeight
-        val currentMargin = if ((screenHeight - currentRect.bottom) > currentRect.top) {
-            currentRect.bottom.toInt() + 16.dp.toInt()
-        } else {
-            currentRect.top.toInt() - coachmarkView.height - 16.dp.toInt()
-        }
-        val finalMargin = if ((screenHeight - newRect.bottom) > newRect.top) {
-            newRect.bottom.toInt() + 16.dp.toInt()
-        } else {
-            newRect.top.toInt() - coachmarkView.height - 16.dp.toInt()
+        val (currentX, currentY) = computeCoachmarkPosition(currentRect)
+        val (finalX, finalY) = computeCoachmarkPosition(newRect)
+
+        val targetCenterX = newRect.centerX()
+        val isEdgeAtTop = finalY > newRect.bottom
+        val gravity = when {
+            targetCenterX < width / 3f -> CoachMarkHorizontalGravity.START
+            targetCenterX > width * 2 / 3f -> CoachMarkHorizontalGravity.END
+            else -> CoachMarkHorizontalGravity.CENTER
         }
 
-        // Store the starting coachmark position.
-        val startCoachmarkY = coachmarkView.translationY
+        updateCoachMarkShapeAppearanceEdge(gravity, isEdgeAtTop)
 
-        // Animate both the spotlight rect and the coachmark position.
-        val animator = ValueAnimator.ofFloat(0f, 1f).apply {
+        currentCoachMarkIndex++
+        updateCoachMarkContent()
+
+        ValueAnimator.ofFloat(0f, 1f).apply {
             duration = SPOTLIGHT_ENTER_EXIT_DURATION
             interpolator = EaseInterpolator.EaseInOutQubicInterpolator
             addUpdateListener { animation ->
                 val fraction = animation.animatedFraction
 
-                // Interpolate the spotlight rectangle edges.
-                val left = lerp(currentRect.left, newRect.left, fraction)
-                val top = lerp(currentRect.top, newRect.top, fraction)
-                val right = lerp(currentRect.right, newRect.right, fraction)
-                val bottom = lerp(currentRect.bottom, newRect.bottom, fraction)
-                targetRect = RectF(left, top, right, bottom)
-
-                // Optionally adjust spotlight scale if needed.
+                targetRect?.set(
+                    lerp(currentRect.left, newRect.left, fraction),
+                    lerp(currentRect.top, newRect.top, fraction),
+                    lerp(currentRect.right, newRect.right, fraction),
+                    lerp(currentRect.bottom, newRect.bottom, fraction)
+                )
                 spotlightScale = 1f
 
-                // Interpolate coachmark position.
-                val interpolatedMargin = lerp(currentMargin.toFloat(), finalMargin.toFloat(), fraction)
-                coachmarkView.translationY = interpolatedMargin
+                coachmarkView.translationX = lerp(currentX, finalX, fraction)
+                coachmarkView.translationY = lerp(currentY, finalY, fraction)
 
                 invalidate()
             }
             addListener(object : AnimatorListenerAdapter() {
-                override fun onAnimationEnd(animation: Animator) {
-                    // Once the animation ends, update the content.
-                    currentCoachMarkIndex++
-                    updateCoachMarkContent()
-
-                    // Ensure coachmark is positioned exactly at the final value.
-                    coachmarkView.translationY = finalMargin.toFloat()
-
-                    // Fade in the coachmark view if needed.
-                    val coachmarkFadeIn = ObjectAnimator.ofFloat(coachmarkView, ALPHA, 1f).apply {
-                        duration = COACHMARK_ENTER_DURATION
-                    }
-                    coachmarkFadeIn.start()
-
-                    onTransitionEnd()
-                }
+                override fun onAnimationEnd(animation: Animator) = onTransitionEnd()
             })
+            start()
         }
-        animator.start()
     }
 
+
+
     /**
-     * Show next coachmark item with a morphing transition.
+     * Shows the next coach mark item with a morphing transition.
      */
     fun showNextCoachMark() {
         if (currentCoachMarkIndex < coachMarkItems.size - 1) {
-            // Get the next target view.
             val nextTarget = coachMarkItems[currentCoachMarkIndex + 1].target
-            // Morph the spotlight and move the coachmark in sync.
             transitionToTarget(nextTarget) {
                 coachMarkDelegate?.onNextClickClickListener()
             }
         } else {
-            coachMarkDelegate?.onFinishClickListener()
-            finishSpotlight { }
+            dismiss {}
         }
     }
 
     /**
-     * Fade out the overlay (with a fade-out transition) and run an action when finished.
+     * Fades out the overlay.
+     *
+     * @param onAnimationEnd callback when fade out is finished.
      */
     fun fadeOutAndRemove(onAnimationEnd: () -> Unit) {
         coachmarkView.animate().alpha(0f)
             .setDuration(COACHMARK_EXIT_DURATION)
+            .setInterpolator(EaseInterpolator.EaseInQubicInterpolator)
             .withEndAction { onAnimationEnd() }
             .start()
     }
 
     override fun dispatchDraw(canvas: Canvas?) {
-        // Draw the overlay and then clear the spotlight area.
         val saveCount = canvas?.saveLayer(0f, 0f, width.toFloat(), height.toFloat(), null)
         canvas?.drawRect(0f, 0f, width.toFloat(), height.toFloat(), overlayPaint)
-
         targetRect?.let { rect ->
             when (spotlightShape) {
                 SpotlightShape.CIRCLE -> {
@@ -309,25 +365,58 @@ class CoachMarkOverlay @JvmOverloads constructor(
         super.dispatchDraw(canvas)
     }
 
+    @SuppressLint("ClickableViewAccessibility")
+    override fun onTouchEvent(event: MotionEvent?): Boolean {
+        return true
+    }
+
+    override fun onAttachedToWindow() {
+        super.onAttachedToWindow()
+        isFocusableInTouchMode = true
+        requestFocus()
+
+        setOnKeyListener { _, keyCode, event ->
+            if (keyCode == KeyEvent.KEYCODE_BACK && event.action == KeyEvent.ACTION_UP) {
+                if (!isDismissible) {
+                    return@setOnKeyListener true
+                } else {
+                    dismiss {}
+                    return@setOnKeyListener true
+                }
+            }
+            false
+        }
+    }
+
+
     /**
-     * Animate the entrance of the spotlight.
+     * Animates the entrance of the spotlight and fades in the coach mark.
      */
     fun startSpotlightAnimation() {
-        ValueAnimator.ofFloat(0f, 1f).apply {
+        val spotlightAnimator = ValueAnimator.ofFloat(0f, 1f).apply {
             duration = SPOTLIGHT_ENTER_EXIT_DURATION
             interpolator = EaseInterpolator.EaseOutQubicInterpolator
             addUpdateListener { animation ->
                 spotlightScale = animation.animatedValue as Float
                 invalidate()
             }
+        }
+        val coachmarkAlphaAnimator = ObjectAnimator.ofFloat(coachmarkView, ALPHA, 1f).apply {
+            duration = COACHMARK_ENTER_DURATION
+            interpolator = EaseInterpolator.EaseOutQubicInterpolator
+        }
+        AnimatorSet().apply {
+            playTogether(spotlightAnimator, coachmarkAlphaAnimator)
             start()
         }
     }
 
     /**
-     * Animate finishing the spotlight and remove the overlay.
+     * Animates the exit of the spotlight and removes the overlay.
+     *
+     * @param onAnimationEnd callback when animation is finished.
      */
-    fun finishSpotlight(onAnimationEnd: () -> Unit) {
+    fun dismiss(onAnimationEnd: () -> Unit) {
         fadeOutAndRemove { }
         ValueAnimator.ofFloat(spotlightScale, 0f).apply {
             duration = SPOTLIGHT_ENTER_EXIT_DURATION
@@ -339,6 +428,7 @@ class CoachMarkOverlay @JvmOverloads constructor(
             addListener(object : AnimatorListenerAdapter() {
                 override fun onAnimationEnd(animation: Animator) {
                     this@CoachMarkOverlay.isVisible = false
+                    coachMarkDelegate?.onDismissListener()
                     onAnimationEnd()
                 }
             })
@@ -346,22 +436,23 @@ class CoachMarkOverlay @JvmOverloads constructor(
         }
     }
 
-    // Helper to linearly interpolate between two float values.
-    private fun lerp(start: Float, end: Float, fraction: Float): Float {
-        return start + fraction * (end - start)
-    }
+    private fun lerp(start: Float, end: Float, fraction: Float): Float =
+        start + fraction * (end - start)
 
-    // Helper to calculate the target rect for a given view.
+    /**
+     * Calculates the target rectangle for the specified view.
+     *
+     * @param target the target view.
+     * @param padding optional padding to apply.
+     * @return the calculated [RectF].
+     */
     private fun calculateTargetRect(target: View, padding: Int = 4.dp.toInt()): RectF {
         val targetLocation = IntArray(2)
         target.getLocationInWindow(targetLocation)
-
         val overlayLocation = IntArray(2)
         this.getLocationInWindow(overlayLocation)
-
         val relativeX = targetLocation[0] - overlayLocation[0]
         val relativeY = targetLocation[1] - overlayLocation[1]
-
         return RectF(
             relativeX.toFloat() - padding,
             relativeY.toFloat() - padding,
@@ -374,6 +465,65 @@ class CoachMarkOverlay @JvmOverloads constructor(
         private const val COACHMARK_ENTER_DURATION = 500L
         private const val COACHMARK_EXIT_DURATION = 300L
         private const val SPOTLIGHT_ENTER_EXIT_DURATION = 500L
+    }
+
+    /**
+     * Builder class for creating and configuring a [CoachMarkOverlay].
+     */
+    class Builder(private val context: FragmentActivity) {
+        private var coachMarkItems: List<CoachMarkData> = emptyList()
+        private var dismissibleOnBack: Boolean = false
+        private var container: ViewGroup? = context.window?.decorView as? ViewGroup
+        private var delegate: CoachmarkDelegate? = null
+
+        fun setDismissibleOnBack(isDismissible: Boolean) = apply {
+            this.dismissibleOnBack = isDismissible
+        }
+
+        /**
+         * Sets the coach mark items.
+         *
+         * @param items list of [CoachMarkData].
+         */
+        fun setCoachMarkItems(items: List<CoachMarkData>) = apply {
+            this.coachMarkItems = items
+        }
+
+        /**
+         * Sets the coach mark items.
+         *
+         * @param items vararg of [CoachMarkData].
+         */
+        fun setCoachMarkItems(vararg items: CoachMarkData) = apply {
+            this.coachMarkItems = items.toList()
+        }
+
+        /**
+         * Sets the container for the overlay.
+         *
+         * @param container the parent [ViewGroup].
+         */
+        fun setContainer(container: ViewGroup) = apply {
+            this.container = container
+        }
+
+        /**
+         * Sets the delegate for coach mark actions.
+         *
+         * @param delegate the [CoachmarkDelegate].
+         */
+        fun setCoachMarkDelegate(delegate: CoachmarkDelegate) = apply {
+            this.delegate = delegate
+        }
+
+        fun build(): CoachMarkOverlay {
+            val overlay = CoachMarkOverlay(context)
+            overlay.coachMarkDelegate = delegate
+            overlay.setCoachMarkItems(coachMarkItems)
+            container?.let { overlay.setContainer(it) }
+            overlay.isDismissible = dismissibleOnBack
+            return overlay
+        }
     }
 }
 

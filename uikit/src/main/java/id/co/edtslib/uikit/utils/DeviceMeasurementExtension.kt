@@ -15,7 +15,7 @@ fun isLowRamDevice(context: Context): Boolean {
     val activityManager = context.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
     val memoryInfo = ActivityManager.MemoryInfo()
     activityManager.getMemoryInfo(memoryInfo)
-    return memoryInfo.totalMem / (1024 * 1024) <= 2000 // Less than 2GB RAM
+    return memoryInfo.totalMem / (1024 * 1024) <= 2000
 }
 
 fun isLowGPUDevice(): Boolean {

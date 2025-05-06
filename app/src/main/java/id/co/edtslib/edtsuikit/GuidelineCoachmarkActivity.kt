@@ -63,7 +63,9 @@ class GuidelineCoachmarkActivity : AppCompatActivity() {
 
                 override fun onSkipClickListener() {}
 
-                override fun onFinishClickListener() {}
+                override fun onDismissListener() {
+
+                }
             }
 
             if (coachmarkItems.isNotEmpty()) {
