@@ -15,6 +15,7 @@
         <item name="iconTint">@color/slr_button_filled_text</item>
         <item name="rippleColor">@color/slr_button_filled_ripple</item>
         <item name="shapeAppearance">@style/ShapeAppearance.EDTS.UIKit.Button</item>
+        <item name="textAppearance">@style/TextAppearance.Inter.Semibold.H3</item>
     </style>
 
     <style name="Widget.EDTS.UIKit.Button.Filled.Medium" parent="Widget.EDTS.UIKit.Button.Filled">
