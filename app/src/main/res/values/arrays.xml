@@ -19,6 +19,8 @@
         <item>Home Switcher</item>
         <item>Homepage Exploration</item>
         <item>Coachmark</item>
+        <item>Cart</item>
+        <item>Discount Redemption</item>
         <item>Checkbox</item>
         <item>Radio Button</item>
         <item>Switch</item>
@@ -41,7 +43,6 @@
         <item>TextAppearance.Inter.Semibold.H1</item>
         <item>TextAppearance.Inter.Semibold.H2</item>
         <item>TextAppearance.Inter.Semibold.H3</item>
-        <item>TextAppearance.Inter.Semibold.H4</item>
         <!--SemiBold-->
         <item>TextAppearance.Inter.Regular.B1</item>
         <item>TextAppearance.Inter.Regular.B2</item>

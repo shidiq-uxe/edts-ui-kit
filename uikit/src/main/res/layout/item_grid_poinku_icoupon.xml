@@ -122,7 +122,7 @@
                 android:text="@string/poinku_use_coupon"
                 android:maxLines="1"
                 android:ellipsize="end"
-                android:textAppearance="@style/TextAppearance.Inter.Semibold.H4"
+                android:textAppearance="@style/TextAppearance.Inter.SemiBold.B4"
                 app:shapeAppearanceOverlay="@style/ShapeAppearance.EDTS.UIKit.MediumComponent"
                 app:layout_constraintTop_toBottomOf="@id/chipCouponCategory"
                 app:layout_constraintStart_toStartOf="parent"

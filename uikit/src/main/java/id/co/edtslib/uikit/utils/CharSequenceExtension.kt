@@ -8,6 +8,8 @@ import android.text.style.ForegroundColorSpan
 import android.text.style.LineHeightSpan
 import android.text.style.StyleSpan
 import androidx.annotation.ColorInt
+import androidx.annotation.ColorRes
+import androidx.annotation.DimenRes
 import androidx.annotation.FontRes
 import androidx.core.text.inSpans
 import id.co.edtslib.uikit.R
@@ -37,242 +39,86 @@ private fun SpannableStringBuilder.setLineHeight(lineHeightPx: Int) {
     setSpan(span, 0, length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
 }
 
+data class TextStyle(
+    val color: Int,
+    @FontRes val font: Int,
+    val textSize: Float,
+    val lineHeight: Float
+)
 
-sealed class TextStyle(
-    open val context: Context,
-    open val color: Int,
-    @FontRes open val font: Int,
-    open val textSize: Float,
-    open val lineHeight: Float
-) {
-    // Display Typography
-    data class D1(
-        override val context: Context,
-        @ColorInt override val color: Int,
-        @FontRes override val font: Int,
-        override val textSize: Float,
-        override val lineHeight: Float
-    ) : TextStyle(context, color, font, textSize, lineHeight)
+enum class TextStyleKey {
+    D1_SEMIBOLD, D2_SEMIBOLD, D3_SEMIBOLD, D4_SEMIBOLD,
+    H1_SEMIBOLD, H2_SEMIBOLD, H3_SEMIBOLD,
+    B1_SEMIBOLD, B1, B2_BOLD, B2_MEDIUM, B2, B3_BOLD, B3_SEMIBOLD, B3_MEDIUM, B3, B4_BOLD, B4_SEMIBOLD, B4_MEDIUM, B4,
+    P1_SEMIBOLD, P1, P2_SEMIBOLD, P2,
+    BUTTON_EXTRA_LARGE, BUTTON_LARGE, BUTTON_MEDIUM, BUTTON_SMALL,
+    ERROR, ERROR_BLACK
+}
 
-    data class D2(
-        override val context: Context,
-        @ColorInt override val color: Int,
-        @FontRes override val font: Int,
-        override val textSize: Float,
-        override val lineHeight: Float
-    ) : TextStyle(context, color, font, textSize, lineHeight)
 
-    // Heading Typography
-    data class H1(
-        override val context: Context,
-        @ColorInt override val color: Int,
-        @FontRes override val font: Int,
-        override val textSize: Float,
-        override val lineHeight: Float
-    ) : TextStyle(context, color, font, textSize, lineHeight)
+object TextStyleProvider {
+    fun TextStyleKey.get(
+        context: Context,
+        @ColorRes colorRes: Int = R.color.black_50
+    ): TextStyle {
+        return when (this) {
+            TextStyleKey.D1_SEMIBOLD -> create(context, colorRes, R.font.inter_semibold, R.dimen.d1_text_size, R.dimen.dimen_44)
+            TextStyleKey.D2_SEMIBOLD -> create(context, colorRes, R.font.inter_semibold, R.dimen.d2_text_size, R.dimen.dimen_28)
+            TextStyleKey.D3_SEMIBOLD -> create(context, colorRes, R.font.inter_semibold, R.dimen.d3_text_size, R.dimen.dimen_26)
+            TextStyleKey.D4_SEMIBOLD -> create(context, colorRes, R.font.inter_semibold, R.dimen.d4_text_size, R.dimen.dimen_22)
 
-    data class H2(
-        override val context: Context,
-        @ColorInt override val color: Int,
-        @FontRes override val font: Int,
-        override val textSize: Float,
-        override val lineHeight: Float
-    ) : TextStyle(context, color, font, textSize, lineHeight)
+            TextStyleKey.H1_SEMIBOLD -> create(context, colorRes, R.font.inter_semibold, R.dimen.h1_text_size, R.dimen.dimen_18)
+            TextStyleKey.H2_SEMIBOLD -> create(context, colorRes, R.font.inter_semibold, R.dimen.h2_text_size, R.dimen.dimen_16)
+            TextStyleKey.H3_SEMIBOLD -> create(context, colorRes, R.font.inter_semibold, R.dimen.h3_text_size, R.dimen.dimen_14)
 
-    data class H3(
-        override val context: Context,
-        @ColorInt override val color: Int,
-        @FontRes override val font: Int,
-        override val textSize: Float,
-        override val lineHeight: Float
-    ) : TextStyle(context, color, font, textSize, lineHeight)
+            TextStyleKey.B1_SEMIBOLD -> create(context, colorRes, R.font.inter_semibold, R.dimen.b1_text_size, R.dimen.dimen_18)
+            TextStyleKey.B1 -> create(context, colorRes, R.font.inter, R.dimen.b1_text_size, R.dimen.dimen_18)
 
-    data class H4(
-        override val context: Context,
-        @ColorInt override val color: Int,
-        @FontRes override val font: Int,
-        override val textSize: Float,
-        override val lineHeight: Float
-    ) : TextStyle(context, color, font, textSize, lineHeight)
+            TextStyleKey.B2_BOLD -> create(context, colorRes, R.font.inter_bold, R.dimen.b2_text_size, R.dimen.dimen_16)
+            TextStyleKey.B2_MEDIUM -> create(context, colorRes, R.font.inter_medium, R.dimen.b2_text_size, R.dimen.dimen_16)
+            TextStyleKey.B2 -> create(context, colorRes, R.font.inter, R.dimen.b2_text_size, R.dimen.dimen_16)
 
-    // Body Typography
-    data class B1(
-        override val context: Context,
-        @ColorInt override val color: Int,
-        @FontRes override val font: Int,
-        override val textSize: Float,
-        override val lineHeight: Float
-    ) : TextStyle(context, color, font, textSize, lineHeight)
+            TextStyleKey.B3_BOLD -> create(context, colorRes, R.font.inter_bold, R.dimen.b3_text_size, R.dimen.dimen_16)
+            TextStyleKey.B3_SEMIBOLD -> create(context, colorRes, R.font.inter_semibold, R.dimen.b3_text_size, R.dimen.dimen_16)
+            TextStyleKey.B3_MEDIUM -> create(context, colorRes, R.font.inter_medium, R.dimen.b3_text_size, R.dimen.dimen_16)
+            TextStyleKey.B3 -> create(context, colorRes, R.font.inter, R.dimen.b3_text_size, R.dimen.dimen_16)
 
-    data class B2(
-        override val context: Context,
-        @ColorInt override val color: Int,
-        @FontRes override val font: Int,
-        override val textSize: Float,
-        override val lineHeight: Float
-    ) : TextStyle(context, color, font, textSize, lineHeight)
+            TextStyleKey.B4_BOLD -> create(context, colorRes, R.font.inter_bold, R.dimen.b4_text_size, R.dimen.dimen_14)
+            TextStyleKey.B4_SEMIBOLD -> create(context, colorRes, R.font.inter_semibold, R.dimen.b4_text_size, R.dimen.dimen_14)
+            TextStyleKey.B4_MEDIUM -> create(context, colorRes, R.font.inter_medium, R.dimen.b4_text_size, R.dimen.dimen_14)
+            TextStyleKey.B4 -> create(context, colorRes, R.font.inter, R.dimen.b4_text_size, R.dimen.dimen_14)
 
-    data class B3(
-        override val context: Context,
-        @ColorInt override val color: Int,
-        @FontRes override val font: Int,
-        override val textSize: Float,
-        override val lineHeight: Float
-    ) : TextStyle(context, color, font, textSize, lineHeight)
+            TextStyleKey.P1_SEMIBOLD -> create(context, colorRes, R.font.inter_semibold, R.dimen.p1_text_size, R.dimen.dimen_20)
+            TextStyleKey.P1 -> create(context, colorRes, R.font.inter, R.dimen.p1_text_size, R.dimen.dimen_20)
+            TextStyleKey.P2_SEMIBOLD -> create(context, colorRes, R.font.inter_semibold, R.dimen.p2_text_size, R.dimen.dimen_16)
+            TextStyleKey.P2 -> create(context, colorRes, R.font.inter, R.dimen.p2_text_size, R.dimen.dimen_16)
 
-    data class B4(
-        override val context: Context,
-        @ColorInt override val color: Int,
-        @FontRes override val font: Int,
-        override val textSize: Float,
-        override val lineHeight: Float
-    ) : TextStyle(context, color, font, textSize, lineHeight)
+            TextStyleKey.BUTTON_EXTRA_LARGE -> create(context, colorRes, R.font.inter_semibold, R.dimen.button_text_extra_large, R.dimen.dimen_24)
+            TextStyleKey.BUTTON_LARGE -> create(context, colorRes, R.font.inter_semibold, R.dimen.button_text_large, R.dimen.dimen_24)
+            TextStyleKey.BUTTON_MEDIUM -> create(context, colorRes, R.font.inter_semibold, R.dimen.button_text_medium, R.dimen.dimen_16)
+            TextStyleKey.BUTTON_SMALL -> create(context, colorRes, R.font.inter_semibold, R.dimen.button_text_small, R.dimen.dimen_16)
 
-    // Paragraph Typography
-    data class P1(
-        override val context: Context,
-        @ColorInt override val color: Int,
-        @FontRes override val font: Int,
-        override val textSize: Float,
-        override val lineHeight: Float
-    ) : TextStyle(context, color, font, textSize, lineHeight)
+            TextStyleKey.ERROR -> create(context, R.color.red_30, R.font.inter_semibold, R.dimen.b3_text_size, R.dimen.dimen_14)
+            TextStyleKey.ERROR_BLACK -> create(context, colorRes, R.font.inter_semibold, R.dimen.b3_text_size, R.dimen.dimen_14)
+        }
+    }
 
-    // Error Typography
-    data class Error(
-        override val context: Context,
-        @ColorInt override val color: Int,
-        @FontRes override val font: Int,
-        override val textSize: Float,
-        override val lineHeight: Float
-    ) : TextStyle(context, color, font, textSize, lineHeight)
 
-    // Other Typography
-    data class Other(
-        override val context: Context,
-        @ColorInt override val color: Int,
-        @FontRes override val font: Int,
-        override val textSize: Float,
-        override val lineHeight: Float
-    ) : TextStyle(context, color, font, textSize, lineHeight)
-
-    companion object {
-        // Display Typography
-        fun d1Style(context: Context) = D1(
-            context = context,
-            color = context.color(R.color.black_50),
-            font = R.font.inter_semibold,
-            textSize = context.resources.getDimension(R.dimen.d1_text_size),
-            lineHeight = context.resources.getDimension(R.dimen.dimen_30)
-        )
-
-        fun d2Style(context: Context) = D2(
-            context = context,
-            color = context.color(R.color.black_50),
-            font = R.font.inter_semibold,
-            textSize = context.resources.getDimension(R.dimen.d2_text_size),
-            lineHeight = context.resources.getDimension(R.dimen.dimen_26)
-        )
-
-        // Heading Typography
-        fun h1Style(context: Context) = H1(
-            context = context,
-            color = context.color(R.color.black_50),
-            font = R.font.inter_bold,
-            textSize = context.resources.getDimension(R.dimen.h1_text_size),
-            lineHeight = context.resources.getDimension(R.dimen.dimen_18)
-        )
-
-        fun h2Style(context: Context) = H2(
-            context = context,
-            color = context.color(R.color.black_50),
-            font = R.font.inter_semibold,
-            textSize = context.resources.getDimension(R.dimen.h2_text_size),
-            lineHeight = context.resources.getDimension(R.dimen.dimen_16)
-        )
-
-        fun h3Style(
-            context: Context,
-            color: Int = context.color(R.color.black_50),
-            fontFamily: Int = R.font.inter_semibold,
-        ) = H3(
-            context = context,
-            color = color,
-            font = fontFamily,
-            textSize = context.resources.getDimension(R.dimen.h3_text_size),
-            lineHeight = context.resources.getDimension(R.dimen.dimen_14)
-        )
-
-        fun h4Style(context: Context) = H4(
-            context = context,
-            color = context.color(R.color.black_50),
-            font = R.font.inter_semibold,
-            textSize = context.resources.getDimension(R.dimen.h4_text_size),
-            lineHeight = context.resources.getDimension(R.dimen.dimen_14)
-        )
-
-        // Body Typography
-        fun b1Style(context: Context) = B1(
-            context = context,
-            color = context.color(R.color.black_50),
-            font = R.font.inter,
-            textSize = context.resources.getDimension(R.dimen.b1_text_size),
-            lineHeight = context.resources.getDimension(R.dimen.dimen_18)
-        )
-
-        fun b2Style(context: Context) = B2(
-            context = context,
-            color = context.color(R.color.black_50),
-            font = R.font.inter,
-            textSize = context.resources.getDimension(R.dimen.b2_text_size),
-            lineHeight = context.resources.getDimension(R.dimen.dimen_16)
-        )
-
-        fun b3Style(
-            context: Context,
-            color: Int = context.color(R.color.black_50),
-        ) = B3(
-            context = context,
-            color = color,
-            font = R.font.inter,
-            textSize = context.resources.getDimension(R.dimen.b3_text_size),
-            lineHeight = context.resources.getDimension(R.dimen.dimen_16)
-        )
-
-        fun b4Style(context: Context) = B4(
-            context = context,
-            color = context.color(R.color.black_50),
-            font = R.font.inter,
-            textSize = context.resources.getDimension(R.dimen.b3_text_size),
-            lineHeight = context.resources.getDimension(R.dimen.dimen_14)
-        )
-
-        // Paragraph Typography
-        fun p1Style(context: Context) = P1(
-            context = context,
-            color = context.color(R.color.black_50),
-            font = R.font.inter,
-            textSize = context.resources.getDimension(R.dimen.b2_text_size),
-            lineHeight = context.resources.getDimension(R.dimen.dimen_21)
-        )
-
-        // Error Typography
-        fun errorStyle(context: Context) = Error(
-            context = context,
-            color = context.color(R.color.red_30),
-            font = R.font.inter,
-            textSize = context.resources.getDimension(R.dimen.b3_text_size),
-            lineHeight = context.resources.getDimension(R.dimen.dimen_18)
-        )
-
-        // Other Typography
-        fun otherStyle(context: Context) = Other(
-            context = context,
-            color = context.color(R.color.primary_20),
-            font = R.font.inter,
-            textSize = context.resources.getDimension(R.dimen.b3_text_size),
-            lineHeight = context.resources.getDimension(R.dimen.dimen_18)
+    fun create(
+        context: Context,
+        @ColorRes color: Int,
+        @FontRes font: Int,
+        @DimenRes size: Int,
+        @DimenRes height: Int
+    ): TextStyle {
+        return TextStyle(
+            color = context.color(color),
+            font = font,
+            textSize = context.resources.getDimension(size),
+            lineHeight = context.resources.getDimension(height)
         )
     }
+
 }
 
 

@@ -25,6 +25,9 @@ import id.co.edtslib.uikit.utils.lineHeight
 import id.co.edtslib.uikit.utils.vibrateAnimation
 import id.co.edtslib.uikit.utils.vibratePhone
 import id.co.edtslib.uikit.utils.TextStyle
+import id.co.edtslib.uikit.utils.TextStyleKey
+import id.co.edtslib.uikit.utils.TextStyleProvider
+import id.co.edtslib.uikit.utils.TextStyleProvider.get
 import android.text.InputType as AndroidTextInputType
 
 open class TextField @JvmOverloads constructor(
@@ -84,14 +87,13 @@ open class TextField @JvmOverloads constructor(
                    message = "$hint *",
                    highlightedMessages = listOf("*"),
                    highlightedTextAppearance = listOf(
-                       TextStyle.h3Style(
+                       TextStyleKey.H3_SEMIBOLD.get(
                            context = context,
-                           color = context.color(R.color.red_30)
+                           colorRes = R.color.red_30,
                        )
                    ),
-                   defaultTextAppearance = TextStyle.h3Style(
-                       context = context,
-                       color = context.color(R.color.black_50)
+                   defaultTextAppearance = TextStyleKey.H3_SEMIBOLD.get(
+                       context = context
                    )
                )
            }

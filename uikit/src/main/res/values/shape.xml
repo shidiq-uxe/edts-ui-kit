@@ -32,6 +32,10 @@
         <item name="cornerSize">@dimen/l</item>
     </style>
 
+    <style name="ShapeAppearance.EDTS.UIKit.CircularComponent" parent="">
+        <item name="cornerSize">50%</item>
+    </style>
+
     <style name="ShapeAppearance.EDTS.UIKit.MediumComponent.Flat.Start" parent="ShapeAppearance.Material3.MediumComponent">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSizeTopLeft">@dimen/dimen_0</item>
@@ -66,6 +70,14 @@
         <item name="cornerSizeBottomLeft">@dimen/dimen_0</item>
         <item name="cornerSizeTopRight">@dimen/xxxs</item>
         <item name="cornerSizeTopLeft">@dimen/xxxs</item>
+    </style>
+
+    <style name="ShapeAppearance.EDTS.UIKit.Flat.Corner.Bottom.12" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeBottomRight">@dimen/dimen_0</item>
+        <item name="cornerSizeBottomLeft">@dimen/dimen_0</item>
+        <item name="cornerSizeTopRight">@dimen/xs</item>
+        <item name="cornerSizeTopLeft">@dimen/xs</item>
     </style>
 
     <style name="ShapeAppearance.EDTS.UIKit.BottomSheet" parent="ShapeAppearance.Material3.MediumComponent">

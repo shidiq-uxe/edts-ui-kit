@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black_10"
+    tools:context=".GuidelinesDiscountRedemptionActivity">
+
+    <!--Ignore the tabLayout - Only for prototyping purpose-->
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/dummyTab"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_44"
+        android:paddingHorizontal="@dimen/xxs"
+        android:clipToPadding="false"
+        app:tabMode="scrollable"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hadiah Produk"/>
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tebus Murah"/>
+
+    </com.google.android.material.tabs.TabLayout>
+
+    <id.co.edtslib.uikit.chipgroup.DiscountRedemptionChipGroup
+        android:id="@+id/chipGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:paddingTop="@dimen/xxs"
+        android:paddingHorizontal="@dimen/s"
+        app:layout_constraintTop_toBottomOf="@id/dummyTab"
+        tools:listitem="@layout/view_discount_redemption_category"/>
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/vpCategory"
+        android:layout_width="@dimen/dimen_0"
+        android:layout_height="@dimen/dimen_0"
+        app:layout_constraintTop_toBottomOf="@id/chipGroup"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/flFooter"/>
+
+    <include
+        android:id="@+id/skeletonPlaceholder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        layout="@layout/layout_guideline_discount_redemption_skeleton"
+        app:layout_constraintTop_toBottomOf="@id/dummyTab"/>
+
+    <!--Todo : Create general footer Component-->
+    <FrameLayout
+        android:id="@+id/flFooter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/xs">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvTotalTitle"
+                style="?b3Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/s"
+                android:layout_marginTop="@dimen/s"
+                android:text="Maksimal Pilih"
+                android:textColor="@color/black_50"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/tvTotal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/xxxs"
+                android:drawablePadding="@dimen/xxxs"
+                android:paddingVertical="@dimen/xxxs"
+                android:textColor="@color/primary_30"
+                app:chipMinTouchTargetSize="@dimen/dimen_0"
+                android:text="0/1 Produk"
+                android:textAppearance="?h3SemiBold"
+                app:chipBackgroundColor="@color/black_20"
+                app:chipCornerRadius="@dimen/m2"
+                app:chipStrokeWidth="@dimen/dimen_0"
+                app:chipMinHeight="@dimen/dimen_0"
+                app:textStartPadding="@dimen/dimen_0"
+                app:textEndPadding="@dimen/dimen_0"
+                app:chipStartPadding="@dimen/xxs"
+                app:chipEndPadding="@dimen/xxs"
+                app:layout_constraintStart_toStartOf="@id/tvTotalTitle"
+                app:layout_constraintTop_toBottomOf="@id/tvTotalTitle"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintVertical_bias="0.0"/>
+
+            <id.co.edtslib.uikit.button.Button
+                android:id="@+id/btnSubmit"
+                style="@style/Widget.EDTS.UIKit.Button.Filled.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/s"
+                android:minWidth="170dp"
+                android:text="Perbarui Keranjang"
+                app:buttonType="filledMedium"
+                app:layout_constraintBottom_toBottomOf="@+id/tvTotal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/tvTotalTitle"
+                app:layout_goneMarginBottom="@dimen/m2" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </FrameLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -23,6 +23,8 @@ import com.takusemba.spotlight.Target
 import com.takusemba.spotlight.shape.RoundedRectangle
 import id.co.edtslib.edtsuikit.databinding.ActivitySpotlightTrialsBinding
 import id.co.edtslib.uikit.utils.TextStyle
+import id.co.edtslib.uikit.utils.TextStyleKey
+import id.co.edtslib.uikit.utils.TextStyleProvider.get
 import id.co.edtslib.uikit.utils.buildHighlightedMessage
 import id.co.edtslib.uikit.utils.dimen
 import id.co.edtslib.uikit.utils.dp
@@ -89,10 +91,10 @@ class SpotlightTrialsActivity : AppCompatActivity() {
         binding.tvTextTest.text = buildHighlightedMessage(
             context = this@SpotlightTrialsActivity,
             message = message,
-            defaultTextAppearance = TextStyle.p1Style(this),
-            highlightedTextAppearance = listOf(TextStyle.h2Style(this).copy(
+            defaultTextAppearance = TextStyleKey.P1.get(this),
+            highlightedTextAppearance = listOf(TextStyleKey.H2_SEMIBOLD.get(this).copy(
                 font = id.co.edtslib.uikit.R.font.inter_black
-            ), TextStyle.errorStyle(this)),
+            ), TextStyleKey.ERROR.get(this)),
             highlightedMessages = listOf(test1, test2),
             highlightClickAction = listOf(onHighlightClick(1), onHighlightClick(2))
         )

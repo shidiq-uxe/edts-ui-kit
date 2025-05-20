@@ -4,4 +4,10 @@
     <string name="test_button_text">Only For Test Purpose</string>
     <string name="snk_hg_test">Dengan mendaftar, saya menyetujui syarat &amp; %1$s dari %2$s</string>
     <string name="countdown_test">This is test View where countdown : %s</string>
+    <!--Info Box-->
+    <string name="discount_redemption_box_title">Tebus Murah dan Hadiah</string>
+    <string name="discount_redemption_box_info">Lihat semua promo yang tersedia, yuk</string>
+    <!--Footer-->
+    <string name="coupon_footer_info_text">Masukkan kode kupon di sini</string>
+
 </resources>

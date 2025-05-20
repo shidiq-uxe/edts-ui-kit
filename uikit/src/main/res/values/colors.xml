@@ -65,5 +65,6 @@
     <color name="alert_link">#EFF5FD</color>
 
     <color name="spotlightBackground">#BF000000</color>
+    <color name="shimmerSkeleton">#E7E5E5</color>
 
 </resources>

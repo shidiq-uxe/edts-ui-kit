@@ -21,37 +21,54 @@
             android:id="@+id/ivAlertIcon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/s"
-            app:srcCompat="@drawable/ic_alert_light"
-            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="@dimen/dimen_2"
+            android:layout_marginHorizontal="@dimen/xs"
+            app:srcCompat="@drawable/ic_info_16"
+            app:layout_constraintTop_toTopOf="@id/tvAlertMessage"
             app:layout_constraintStart_toStartOf="parent"/>
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tvAlertMessage"
             android:layout_width="@dimen/dimen_0"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dimen_14"
+            android:layout_marginTop="@dimen/xs"
             android:layout_marginHorizontal="@dimen/xxs"
-            android:layout_marginBottom="@dimen/s"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toEndOf="@id/ivAlertIcon"
             app:layout_constraintEnd_toStartOf="@id/ivAlertClose"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/btnAction"
             app:layout_constraintVertical_bias="0.0"
-            android:textAppearance="@style/TextAppearance.Inter.Regular.B2"
+            app:layout_goneMarginBottom="@dimen/xs"
+            android:textAppearance="@style/TextAppearance.Inter.Regular.P2"
             tools:text="@tools:sample/lorem/random"
-            tools:maxLines="3"/>
+            android:textColor="@color/black_60"
+            app:layout_goneMarginStart="@dimen/xs"
+            app:layout_goneMarginEnd="@dimen/xs"
+            tools:maxLines="2"/>
 
-        <com.google.android.material.imageview.ShapeableImageView
+        <com.google.android.material.checkbox.MaterialCheckBox
             android:id="@+id/ivAlertClose"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/s"
-            app:srcCompat="@drawable/ic_close_16"
-            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginEnd="@dimen/xs"
+            android:button="@drawable/ic_close_16"
+            app:buttonTint="@color/black_60"
+            app:layout_constraintTop_toTopOf="@id/tvAlertMessage"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <id.co.edtslib.uikit.button.Button
+            android:id="@+id/btnAction"
+            android:layout_width="@dimen/dimen_0"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/xxs"
+            android:layout_marginHorizontal="@dimen/xs"
+            android:layout_marginBottom="@dimen/xs"
+            app:buttonType="filled"
+            app:layout_constraintTop_toBottomOf="@id/tvAlertMessage"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:foreground="?selectableItemBackgroundBorderless"
-            tools:targetApi="m" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:text="Button"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

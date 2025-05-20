@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardBackgroundColor="@color/primary_30"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:cardCornerRadius="@dimen/xxs"
+    app:strokeWidth="@dimen/dimen_0"
+    android:theme="@style/Theme.EDTS.UIKit">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/ivDecorativeIllustrationBackground"
+            android:layout_width="@dimen/dimen_0"
+            android:layout_height="@dimen/dimen_0"
+            app:srcCompat="@drawable/bg_ill_gradient_redemption_box"
+            app:layout_constraintDimensionRatio="29:19"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/ivDecorativeIllustration"
+            android:layout_width="@dimen/dimen_0"
+            android:layout_height="@dimen/dimen_0"
+            app:srcCompat="@drawable/ill_redemption_box"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvTitle"
+            android:layout_width="@dimen/dimen_0"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/xs"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:textAppearance="?h2SemiBold"
+            android:textColor="@color/white"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/ivDecorativeIllustration"
+            app:layout_constraintHorizontal_bias="0.0"
+            tools:text="Tebus Murah dan Hadiah"/>
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipInfo"
+            android:layout_width="@dimen/dimen_0"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/xxs"
+            android:layout_marginHorizontal="@dimen/xs"
+            android:layout_marginBottom="@dimen/xs"
+            app:chipMinHeight="0dp"
+            android:paddingVertical="@dimen/xxs"
+            app:chipStartPadding="0dp"
+            app:chipEndPadding="0dp"
+            app:iconStartPadding="0dp"
+            app:iconEndPadding="@dimen/dimen_0"
+            app:textStartPadding="@dimen/xs"
+            app:textEndPadding="@dimen/m1"
+            app:chipMinTouchTargetSize="@dimen/dimen_0"
+            app:ensureMinTouchTargetSize="false"
+            android:textAppearance="?b4Medium"
+            android:textColor="@color/black_60"
+            android:maxLines="1"
+            android:ellipsize="end"
+            app:chipStrokeColor="@color/white"
+            app:chipBackgroundColor="@color/support_selected"
+            app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.ExtraLarge"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintTop_toBottomOf="@id/tvTitle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/ivDecorativeIllustration"
+            tools:text="Tambah Rp50.000 untuk dapat promo"/>
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/iconButton"
+            android:layout_width="@dimen/dimen_0"
+            android:layout_height="@dimen/dimen_0"
+            android:layout_marginVertical="@dimen/xxxs"
+            android:layout_marginHorizontal="@dimen/xxs"
+            android:background="@color/white"
+            app:srcCompat="@drawable/ic_arrow_right_16"
+            app:shapeAppearance="@style/ShapeAppearance.EDTS.UIKit.CircularComponent"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintTop_toTopOf="@id/chipInfo"
+            app:layout_constraintEnd_toEndOf="@id/chipInfo"
+            app:layout_constraintBottom_toBottomOf="@id/chipInfo"/>
+
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/skeletonShimmerChip"
+            android:layout_width="@dimen/dimen_0"
+            android:layout_height="@dimen/dimen_0"
+            app:shimmer_auto_start="true"
+            android:visibility="gone"
+            app:layout_constraintTop_toTopOf="@id/chipInfo"
+            app:layout_constraintStart_toStartOf="@id/chipInfo"
+            app:layout_constraintEnd_toEndOf="@id/chipInfo"
+            app:layout_constraintBottom_toBottomOf="@id/chipInfo">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginVertical="@dimen/dimen_6"
+                android:layout_marginHorizontal="@dimen/xxs"
+                android:background="@drawable/bg_skeleton_shimmer_darker_6"/>
+
+        </com.facebook.shimmer.ShimmerFrameLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

@@ -12,6 +12,8 @@ import id.co.edtslib.uikit.searchbar.SearchBar
 import id.co.edtslib.uikit.switcher.HomeSwitcher
 import id.co.edtslib.uikit.switcher.HomeSwitcherDelegate
 import id.co.edtslib.uikit.utils.TextStyle
+import id.co.edtslib.uikit.utils.TextStyleKey
+import id.co.edtslib.uikit.utils.TextStyleProvider.get
 import id.co.edtslib.uikit.utils.alertSnack
 import id.co.edtslib.uikit.utils.buildHighlightedMessage
 import id.co.edtslib.uikit.utils.color
@@ -76,13 +78,12 @@ class GuidelinesHomepageExploration : AppCompatActivity() {
         val alertMessage = buildHighlightedMessage(
             context = this,
             message = "Belanja $tab Dipilih.",
-            defaultTextAppearance = TextStyle.b3Style(context = this, color(R.color.white)),
+            defaultTextAppearance = TextStyleKey.B3_MEDIUM.get(context = this, color(R.color.white)),
             highlightedMessages = listOf("Belanja $tab"),
             highlightedTextAppearance = listOf(
-                TextStyle.h3Style(
+                TextStyleKey.B3_BOLD.get(
                     context = this,
-                    color = color(id.co.edtslib.uikit.R.color.white),
-                    fontFamily = id.co.edtslib.uikit.R.font.inter_black
+                    colorRes = color(id.co.edtslib.uikit.R.color.white),
                 )
             )
         )

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:strokeColor="@color/primary_30"
+    app:cardBackgroundColor="@color/info_background"
+    app:shapeAppearance="@style/ShapeAppearance.EDTS.UIKit.Flat.Corner.Bottom.12"
+    android:theme="@style/Theme.EDTS.UIKit">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvInfo"
+            style="?attr/b2Medium"
+            android:layout_width="@dimen/dimen_0"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/xs"
+            android:layout_marginHorizontal="@dimen/xs"
+            android:layout_marginBottom="@dimen/m2"
+            android:textColor="@color/primary_30"
+            android:drawablePadding="@dimen/xxs"
+            android:maxLines="1"
+            android:ellipsize="end"
+            app:drawableStartCompat="@drawable/ic_coupon_star_16"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/actionIndicator"
+            tools:text="Masukkan kode kupon di sini"/>
+
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:id="@+id/actionIndicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/xs"
+            android:button="@drawable/ic_arrow_right_16"
+            app:buttonTint="@color/primary_30"
+            app:layout_constraintTop_toTopOf="@id/tvInfo"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/tvInfo"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

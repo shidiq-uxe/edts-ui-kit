@@ -20,14 +20,15 @@
 
     <!--Other-->
     <!--Display Size-->
-    <dimen name="d1_text_size">28sp</dimen>
-    <dimen name="d2_text_size">24sp</dimen>
+    <dimen name="d1_text_size">42sp</dimen>
+    <dimen name="d2_text_size">28sp</dimen>
+    <dimen name="d3_text_size">24sp</dimen>
+    <dimen name="d4_text_size">20sp</dimen>
 
     <!--Heading Size-->
     <dimen name="h1_text_size">16sp</dimen>
     <dimen name="h2_text_size">14sp</dimen>
     <dimen name="h3_text_size">12sp</dimen>
-    <dimen name="h4_text_size">10sp</dimen>
 
     <!--Heading Size-->
     <dimen name="b1_text_size">16sp</dimen>
@@ -37,6 +38,13 @@
 
     <!--Paragraph-->
     <dimen name="p1_text_size">14sp</dimen>
+    <dimen name="p2_text_size">12sp</dimen>
+
+    <!--Button Typography-->
+    <dimen name="button_text_extra_large">16sp</dimen>
+    <dimen name="button_text_large">14sp</dimen>
+    <dimen name="button_text_medium">14sp</dimen>
+    <dimen name="button_text_small">12sp</dimen>
 
     <!--Text Link-->
     <dimen name="tl_text_size">@dimen/p1_text_size</dimen>
@@ -60,11 +68,15 @@
     <dimen name="dimen_14">14dp</dimen>
     <dimen name="dimen_16">16dp</dimen>
     <dimen name="dimen_18">18dp</dimen>
+    <dimen name="dimen_20">20dp</dimen>
     <dimen name="dimen_21">21dp</dimen>
+    <dimen name="dimen_22">22dp</dimen>
+    <dimen name="dimen_24">24dp</dimen>
     <dimen name="dimen_26">26dp</dimen>
     <dimen name="dimen_28">28dp</dimen>
     <dimen name="dimen_30">30dp</dimen>
     <dimen name="dimen_36">36dp</dimen>
+    <dimen name="dimen_44">44dp</dimen>
     <dimen name="dimen_48">48dp</dimen>
     <dimen name="dimen_64">64dp</dimen>
     <dimen name="dimen_72">72dp</dimen>

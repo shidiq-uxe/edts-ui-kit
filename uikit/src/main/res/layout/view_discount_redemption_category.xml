@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/transparent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:theme="@style/Theme.EDTS.UIKit"
+    tools:layout_width="90dp">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardContainer"
+        android:layout_width="@dimen/dimen_0"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="@dimen/dimen_6"
+        app:cardBackgroundColor="@color/slr_card_bg_discount_redemption_category"
+        app:strokeWidth="@dimen/dimen_0"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dimen_6"
+            android:lines="2"
+            android:maxLines="2"
+            android:ellipsize="end"
+            android:textAppearance="?b4SemiBold"
+            android:textColor="@color/white"
+            tools:text="Live Shopping Face Care Fair"
+            app:layout_constraintWidth_percent="0.25"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"/>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/indicator"
+        android:layout_width="@dimen/dimen_0"
+        android:layout_height="@dimen/dimen_2"
+        android:layout_marginTop="@dimen/dimen_6"
+        android:background="@color/primary_30"
+        android:visibility="gone"
+        app:shapeAppearance="@style/ShapeAppearance.EDTS.UIKit.CircularComponent"
+        app:layout_constraintTop_toBottomOf="@id/cardContainer"
+        app:layout_constraintStart_toStartOf="@id/cardContainer"
+        app:layout_constraintEnd_toEndOf="@id/cardContainer"/>
+
+    <com.google.android.material.chip.Chip
+        android:id="@+id/chipInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/xxxs"
+        app:chipMinHeight="0dp"
+        android:padding="0dp"
+        app:chipStartPadding="0dp"
+        app:chipEndPadding="0dp"
+        app:iconStartPadding="0dp"
+        app:iconEndPadding="@dimen/dimen_0"
+        app:textStartPadding="@dimen/xxxs"
+        app:textEndPadding="@dimen/xxxs"
+        app:chipMinTouchTargetSize="@dimen/dimen_0"
+        app:ensureMinTouchTargetSize="false"
+        android:textAppearance="?b4Medium"
+        android:textColor="@color/primary_30"
+        android:visibility="gone"
+        app:chipStrokeColor="@color/white"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintTop_toBottomOf="@id/cardContainer"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:text="Maks. 1 Item"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

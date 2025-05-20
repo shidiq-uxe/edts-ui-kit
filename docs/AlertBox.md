@@ -7,19 +7,19 @@ The `AlertBox` class is an easy-to-use, customizable UI component designed to di
 ## Key Features
 
 -   **Predefined Alert Types**: Includes `SUCCESS`, `ERROR`, `WARNING`, `INFO`, and `LIGHT` for standardized feedback.
--   **Customizable Text Appearance**: Allows for setting different text styles.
--   **Icon and Color Binding**: Automatically updates icons and colors according to the selected `AlertType`.
+-   **Customizable Attributes**: Allows for setting different styles.
 -   **Delegate Pattern Support**: Enables close button interaction with a customizable callback through `AlertBoxDelegate`.
 
 ## AlertBox Overview
 
-| AlertBox Style | Description                                           |
-|----------------|-------------------------------------------------------|
-| **Light**      | <img src="./assets/AlertBox/Light.jpg" width="400">   |
-| **Info**       | <img src="./assets/AlertBox/Info.jpg" width="400">    |
-| **Success**    | <img src="./assets/AlertBox/Success.jpg" width="400"> |
-| **Warning**    | <img src="./assets/AlertBox/Warning.jpg" width="400"> |
-| **Error**      | <img src="./assets/AlertBox/Error.jpg" width="400">   |
+| AlertBox Style  | Description                                               |
+|-----------------|-----------------------------------------------------------|
+| **Light**       | <img src="./assets/AlertBox/Light.webp" width="400">      |
+| **Info**        | <img src="./assets/AlertBox/Info.webp" width="400">       |
+| **Success**     | <img src="./assets/AlertBox/Success.webp" width="400">    |
+| **Warning**     | <img src="./assets/AlertBox/Warning.webp" width="400">    |
+| **Error**       | <img src="./assets/AlertBox/Error.webp" width="400">      |
+| **With Button** | <img src="./assets/AlertBox/WithButton.webp" width="400"> |
 
 
 | Close Animation                                                                                           |
@@ -27,25 +27,6 @@ The `AlertBox` class is an easy-to-use, customizable UI component designed to di
 | ![Close](https://res.cloudinary.com/dmduc9apd/image/upload/v1731035526/Alertbox/deo9aizehttlr52a4fyi.gif) |
 
 >In order to use animation shown above, use `animateLayoutChanges="true"` in Parent ViewGroup of the AlertBox.
-
-## Properties
-
-### Public Properties
-
--   **`delegate: AlertBoxDelegate?`**
-
-    -   Interface for handling close button interactions.
--   **`alertType: AlertType`**
-
-    -   Enum property for setting the type of alert. It updates the background, stroke, text color, and icon accordingly.
-    -   Default: `AlertType.LIGHT`
--   **`textAppearance: Int`**
-
-    -   Defines the style resource for the alert text appearance.
-    -   Default: `R.style.TextAppearance_Inter_Regular_B2`
--   **`text: CharSequence`**
-
-    -   The message displayed within the alert box.
 
 ## AlertType Enum
 
@@ -69,13 +50,12 @@ Each type comes with specific:
 ### XML Layout
 
 ```xml
-<com.example.AlertBox
+<id.co.edtslib.uikit.alert.AlertBox
     android:id="@+id/alertBox"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:alertType="error"
-    app:text="This is an error alert."
-    app:textAppearance="@style/TextAppearance_AppCompat_Body1" />
+    app:text="This is an error alert." />
 ```
 
 ### Kotlin Code
@@ -88,7 +68,64 @@ alertBox.apply {
         override fun onCloseClickListener(view: View) {
             // Handle close button click
         }
+        override fun onButtonClickListener(view: View) {
+            // Handle action button click
+        }
     }
+}
+```
+
+## Customization Options
+
+| Property               | Description                                                                 |
+|------------------------|-----------------------------------------------------------------------------|
+| `alertType`            | Enum to define alert style (`SUCCESS`, `ERROR`, `WARNING`, `INFO`, `LIGHT`) |
+| `text`                 | Message to display                                                          |
+| `textColor`            | Message color                                                               |
+| `textAppearance`       | Style for the text appearance                                               |
+| `cornerRadius`         | Radius for card corners                                                     |
+| `strokeWidth`          | Width of the border stroke                                                  |
+| `strokeColor`          | Color of the border stroke                                                  |
+| `alertBackgroundColor` | Background color of the alert                                               |
+| `startIcon`            | Drawable shown on the left                                                  |
+| `startIconTint`        | Tint for the start icon                                                     |
+| `isStartIconVisible`   | Whether to show start icon                                                  |
+| `closeIcon`            | Drawable for the close icon                                                 |
+| `closeIconTint`        | Tint for the close icon                                                     |
+| `isCloseIconVisible`   | Whether to show the close icon                                              |
+| `buttonText`           | Text for the optional action button                                         |
+| `buttonType`           | Enum for button style (e.g., `FILLED`, custom)                              |
+| `isButtonVisible`      | Whether to show the button                                                  |
+
+## Attributes Reference
+
+| XML Attribute            | Type      | Description              |
+|--------------------------|-----------|--------------------------|
+| `app:alertType`          | enum      | Alert style              |
+| `app:text`               | string    | Alert message            |
+| `app:textColor`          | color     | Message text color       |
+| `app:textAppearance`     | style     | Text appearance          |
+| `app:strokeWidth`        | dimension | Border thickness         |
+| `app:strokeColor`        | color     | Border color             |
+| `app:cornerRadius`       | dimension | Corner radius            |
+| `app:backgroundColor`    | color     | Background color         |
+| `app:startIcon`          | drawable  | Icon on the left         |
+| `app:startIconTint`      | color     | Tint for start icon      |
+| `app:isStartIconVisible` | boolean   | Toggle start icon        |
+| `app:closeIcon`          | drawable  | Close icon drawable      |
+| `app:closeIconTint`      | color     | Tint for close icon      |
+| `app:isCloseIconVisible` | boolean   | Toggle close icon        |
+| `app:buttonText`         | string    | Action button text       |
+| `app:isButtonVisible`    | boolean   | Toggle button visibility |
+
+## Delegate Interface
+
+Implement `AlertBoxDelegate` to handle interaction:
+
+```kotlin
+interface AlertBoxDelegate { 
+    fun onCloseClickListener(view: View)
+    fun onButtonClickListener(view: View)
 }
 ```
 

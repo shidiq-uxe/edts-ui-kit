@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black_20"
+    tools:context=".GuidelinesCartActivity">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvCart"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_0"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@id/dummyTab"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <id.co.edtslib.uikit.infobox.DiscountRedemptionBox
+        android:id="@+id/discountRedemptionBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:isExpanded="false"
+        android:visibility="gone"
+        android:translationY="-50dp"
+        app:infoText="@string/discount_redemption_box_info"
+        app:layout_constraintTop_toBottomOf="@id/dummyTab"
+        tools:visibility="visible"/>
+
+    <!--Ignore the tabLayout - Only for prototyping purpose-->
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/dummyTab"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Grocery"/>
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Food"/>
+
+    </com.google.android.material.tabs.TabLayout>
+
+    <id.co.edtslib.uikit.footer.CartFooter
+        android:id="@+id/footerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:buttonText="Beli"
+        app:infoText="@string/coupon_footer_info_text"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -48,7 +48,7 @@ class LiquidAnimationView @JvmOverloads constructor(
 
     private var animatorStatus = AnimatorStatus.PULL_DOWN
 
-    var iconDrawable: Drawable? = context.drawable(R.drawable.ic_alert_light).apply {
+    var iconDrawable: Drawable? = context.drawable(R.drawable.ic_placeholder_medium_24).apply {
         DrawableCompat.setTint(this, context.color(R.color.primary_30))
         mutate()
     }

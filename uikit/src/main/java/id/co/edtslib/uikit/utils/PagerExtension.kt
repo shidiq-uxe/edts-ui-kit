@@ -10,7 +10,7 @@ fun ViewPager2.setCurrentItem(
     item: Int,
     duration: Long,
     interpolator: TimeInterpolator = AccelerateDecelerateInterpolator(),
-    pagePxWidth: Int = width // Default value from getWidth() @ViewPager2
+    pagePxWidth: Int = width
 ) {
     val pxToDrag: Int = pagePxWidth * (item - currentItem)
     val animator = ValueAnimator.ofInt(0, pxToDrag)

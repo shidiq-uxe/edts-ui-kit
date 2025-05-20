@@ -23,7 +23,6 @@ Each style is built using the `Inter` font, with variations in font weight, size
 | `TextAppearance.Inter.Semibold.H1` | ![H1 Semibold Style](assets/Typography/h1.jpeg) | For large headings with a semibold weight. Applied with `android:textAppearance="@style/TextAppearance.Inter.Semibold.H1"`  |
 | `TextAppearance.Inter.Semibold.H2` | ![H2 Semibold Style](assets/Typography/h2.jpeg) | For medium headings. Applied with `android:textAppearance="@style/TextAppearance.Inter.Semibold.H2"`                        |
 | `TextAppearance.Inter.Semibold.H3` | ![H3 Semibold Style](assets/Typography/h3.jpeg) | For small headings. Applied with `android:textAppearance="@style/TextAppearance.Inter.Semibold.H3"`                         |
-| `TextAppearance.Inter.Semibold.H4` | ![H4 Semibold Style](assets/Typography/h4.jpeg) | For very small headings or section headers. Applied with `android:textAppearance="@style/TextAppearance.Inter.Semibold.H4"` |
 
 ### Body Styles
 

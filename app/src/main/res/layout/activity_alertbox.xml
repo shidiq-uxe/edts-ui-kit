@@ -25,7 +25,7 @@
             android:layout_marginTop="@dimen/s"
             android:layout_marginHorizontal="@dimen/s"
             app:text="@string/lorem"
-            app:alertType="success" />
+            app:alertType="success"/>
 
         <id.co.edtslib.uikit.alert.AlertBox
             android:id="@+id/abInfo"
@@ -53,6 +53,16 @@
             android:layout_marginHorizontal="@dimen/s"
             app:text="@string/lorem"
             app:alertType="error" />
+
+        <id.co.edtslib.uikit.alert.AlertBox
+            android:id="@+id/abDefaultButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/s"
+            android:layout_marginBottom="@dimen/s"
+            app:isButtonVisible="true"
+            app:buttonText="Action"
+            app:text="@string/lorem"/>
 
     </LinearLayout>
 

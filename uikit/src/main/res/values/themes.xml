@@ -52,7 +52,46 @@
         <item name="colorInputBorder">@color/black_30</item>
         <item name="colorDisableFill">@color/black_20</item>
         <item name="colorFocusBorder">@color/primary_30</item>
+        
+        <!--Typography-->
+        <item name="d1SemiBold">@style/TextAppearance.Inter.Semibold.D1</item>
+        <item name="d2SemiBold">@style/TextAppearance.Inter.Semibold.D2</item>
+        <item name="d3SemiBold">@style/TextAppearance.Inter.Semibold.D3</item>
+        <item name="d4SemiBold">@style/TextAppearance.Inter.Semibold.D4</item>
 
+        <item name="h1SemiBold">@style/TextAppearance.Inter.Semibold.H1</item>
+        <item name="h2SemiBold">@style/TextAppearance.Inter.Semibold.H2</item>
+        <item name="h3SemiBold">@style/TextAppearance.Inter.Semibold.H3</item>
+
+        <item name="b1SemiBold">@style/TextAppearance.Inter.SemiBold.B1</item>
+        <item name="b1Regular">@style/TextAppearance.Inter.Regular.B1</item>
+
+        <item name="b2Bold">@style/TextAppearance.Inter.Bold.B2</item>
+        <item name="b2SemiBold">@style/TextAppearance.Inter.SemiBold.B2</item>
+        <item name="b2Medium">@style/TextAppearance.Inter.Medium.B2</item>
+        <item name="b2Regular">@style/TextAppearance.Inter.Regular.B2</item>
+
+        <item name="b3Bold">@style/TextAppearance.Inter.Bold.B3</item>
+        <item name="b3SemiBold">@style/TextAppearance.Inter.SemiBold.B3</item>
+        <item name="b3Medium">@style/TextAppearance.Inter.Medium.B3</item>
+        <item name="b3Regular">@style/TextAppearance.Inter.Regular.B3</item>
+
+        <item name="b4Bold">@style/TextAppearance.Inter.Bold.B4</item>
+        <item name="b4SemiBold">@style/TextAppearance.Inter.SemiBold.B4</item>
+        <item name="b4Medium">@style/TextAppearance.Inter.Medium.B4</item>
+        <item name="b4Regular">@style/TextAppearance.Inter.Regular.B4</item>
+
+        <item name="p1SemiBold">@style/TextAppearance.Inter.SemiBold.P1</item>
+        <item name="p1Regular">@style/TextAppearance.Inter.Regular.P1</item>
+
+        <item name="p2SemiBold">@style/TextAppearance.Inter.SemiBold.P2</item>
+        <item name="p2Regular">@style/TextAppearance.Inter.Regular.P2</item>
+
+        <item name="buttonTextExtraLarge">@style/TextAppearance.Inter.SemiBold.Button.Text.ExtraLarge</item>
+        <item name="buttonTextLarge">@style/TextAppearance.Inter.SemiBold.Button.Text.Large</item>
+        <item name="buttonTextMedium">@style/TextAppearance.Inter.SemiBold.Button.Text.Medium</item>
+        <item name="buttonTextSmall">@style/TextAppearance.Inter.SemiBold.Button.Text.Small</item>
+        
         <!--Button-->
         <item name="buttonStyle">@style/Widget.EDTS.UIKit.Button.Filled</item>
 
@@ -81,6 +120,10 @@
         <item name="snackbarStyle">@style/Widget.EDTS.UIKit.Snackbar</item>
         <item name="snackbarButtonStyle">@style/Widget.EDTS.UIKit.SnackbarButton</item>
         <item name="snackbarTextViewStyle">@style/Widget.EDTS.UIKit.Snackbar.TextView</item>
+    </style>
+
+    <style name="Theme.EDTS.UIKit.ActionBar.NoElevation" parent="Theme.EDTS.UIKit.ActionBar">
+        <item name="actionBarStyle">@style/Widget.EDTS.UIKit.ActionBar.NoElevation</item>
     </style>
 
     <style name="Theme.EDTS.UIKit" parent="Theme.EDTS.UIKit.ActionBar">

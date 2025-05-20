@@ -15,9 +15,18 @@
         android:theme="@style/Theme.EDTS.UIKit.ActionBar"
         tools:targetApi="31">
         <activity
+            android:name=".GuidelinesDiscountRedemptionActivity"
+            android:label="Promo Hadiah dan Tebus Murah"
+            android:theme="@style/Theme.EDTS.UIKit.ActionBar.NoElevation"
+            android:exported="false" />
+        <activity
+            android:name=".GuidelinesCartActivity"
+            android:label="Keranjang Belanja"
+            android:exported="false" />
+        <activity
             android:name=".GuidelineCoachmarkActivity"
             android:exported="false"
-            android:theme="@style/Theme.EDTS.UIKit"/>
+            android:theme="@style/Theme.EDTS.UIKit" />
         <activity
             android:name=".GuidelinesHomepageExploration"
             android:exported="false"

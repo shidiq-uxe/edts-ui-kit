@@ -34,7 +34,6 @@ class GuidelinesTypographyActivity : GuidelinesBaseActivity() {
             Core_uiR.style.TextAppearance_Inter_Semibold_H1,
             Core_uiR.style.TextAppearance_Inter_Semibold_H2,
             Core_uiR.style.TextAppearance_Inter_Semibold_H3,
-            Core_uiR.style.TextAppearance_Inter_Semibold_H4,
             // Medium
             Core_uiR.style.TextAppearance_Inter_Regular_B1,
             Core_uiR.style.TextAppearance_Inter_Regular_B2,
@@ -64,6 +63,10 @@ class GuidelinesTypographyActivity : GuidelinesBaseActivity() {
             ),
             itemList = list
         )
+
+        adapter.setOnItemClickListener { itemBinding, (textName, text, appearance), _ ->
+            itemBinding.tvTitleSize.isSelected = !itemBinding.tvTitleSize.isSelected
+        }
 
         binding.rvGuidelinesFont.adapter = adapter
         binding.rvGuidelinesFont.addItemDecoration(

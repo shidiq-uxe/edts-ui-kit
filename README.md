@@ -39,6 +39,9 @@ dependencies {
 22. [Utils Extensions](docs/UtilsExtensions.md)
 23. [Spannable Extensions](docs/UtilsExtensions.md)
 24. [String Builder Extensions](docs/UtilsExtensions.md)
+25. [CartFooter](docs/CartFooter.md)
+26. [DiscountRedemptionBox](docs/DiscountRedemptionBox.md)
+27. [DiscountRedemptionChipGroup](docs/DiscountRedemptionChipGroup.md)
 
 ## Basic setup and initialization :
 
