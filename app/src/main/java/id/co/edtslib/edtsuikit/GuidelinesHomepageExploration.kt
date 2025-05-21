@@ -78,12 +78,12 @@ class GuidelinesHomepageExploration : AppCompatActivity() {
         val alertMessage = buildHighlightedMessage(
             context = this,
             message = "Belanja $tab Dipilih.",
-            defaultTextAppearance = TextStyleKey.B3_MEDIUM.get(context = this, color(R.color.white)),
+            defaultTextAppearance = TextStyleKey.B3_MEDIUM.get(context = this, R.color.white),
             highlightedMessages = listOf("Belanja $tab"),
             highlightedTextAppearance = listOf(
                 TextStyleKey.B3_BOLD.get(
                     context = this,
-                    colorRes = color(id.co.edtslib.uikit.R.color.white),
+                    colorRes = R.color.white,
                 )
             )
         )

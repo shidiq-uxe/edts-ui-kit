@@ -25,6 +25,7 @@ import id.co.edtslib.uikit.utils.colorStateList
 import id.co.edtslib.uikit.utils.drawable
 import id.co.edtslib.uikit.utils.inflater
 import kotlin.math.abs
+import kotlin.math.max
 
 class HomeSwitcher @JvmOverloads constructor(
     context: Context,
@@ -91,7 +92,8 @@ class HomeSwitcher @JvmOverloads constructor(
         setupTabs()
 
         binding.root.doOnLayout {
-            maxTranslationX = binding.xtraTab.left - binding.xpressTab.left.toFloat()
+            val raw = binding.xtraTab.left - binding.xpressTab.left
+            maxTranslationX = max(0f, raw.toFloat())
         }
     }
 
@@ -234,7 +236,8 @@ class HomeSwitcher @JvmOverloads constructor(
         when (event.action) {
             MotionEvent.ACTION_MOVE -> {
                 val deltaX = event.x - initialTouchX
-                var newTranslation = (initialTranslationX + deltaX).coerceIn(0f, maxTranslationX)
+                val maxX = maxTranslationX.coerceAtLeast(0f)
+                val newTranslation = (initialTranslationX + deltaX).coerceIn(0f, maxX)
                 binding.activeTab.translationX = newTranslation
                 updateUIForTranslationX(newTranslation)
                 return true
