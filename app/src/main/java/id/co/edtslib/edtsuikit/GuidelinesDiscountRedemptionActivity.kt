@@ -35,7 +35,7 @@ class GuidelinesDiscountRedemptionActivity : GuidelinesBaseActivity() {
         binding.chipGroup.items = List(5) {
             DiscountRedemptionCategory(
                 id = it.hashCode().toString(),
-                categoryName = "Category $it",
+                categoryName = if (it % 2 == 0) "1 Lines" else "Category That is 2 Lines long",
                 state = when (it) {
                     in 0..1 -> DiscountRedemptionChip.STATE_DEFAULT
                     in 2..4 -> DiscountRedemptionChip.STATE_INACTIVE

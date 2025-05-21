@@ -23,6 +23,7 @@
     app:isExpanded="false"
     android:visibility="gone"
     android:translationY="-50dp"
+    app:isHtml="false"
     app:infoText="@string/discount_redemption_box_info"
     app:layout_constraintTop_toTopOf="parent"
     tools:visibility="visible"/>
@@ -37,8 +38,8 @@ binding.discountRedemptionBox.apply {
     isExpanded = true
     isLoading = false
     delegate = object : DiscountRedemptionBoxDelegate {
-        override fun onClick(view: View) {
-            // Handle box click
+        override fun onInfoBoxClick(view: View) {
+            // Action
         }
     }
 
@@ -68,6 +69,7 @@ buildHighlightedMessage(
 | `infoText`   | `CharSequence?` | Chip text representing discount info.            |
 | `isExpanded` | `Boolean`       | Whether the box shows title and expands margins. |
 | `isLoading`  | `Boolean`       | Enables shimmer and disables chip while loading. |
+| `isHtml`     | `Boolean`       | Enables html parser for the infoText             |
 
 ## Sticky Header Behavior
 
@@ -85,7 +87,7 @@ To handle interactions, set a delegate that implements DiscountRedemptionBoxDele
 
 ```kotlin
 interface DiscountRedemptionBoxDelegate {
-    fun onClick(view: View)
+    fun onInfoBoxClick(view: View)
 }
 ```
 

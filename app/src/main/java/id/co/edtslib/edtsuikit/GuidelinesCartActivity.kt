@@ -3,6 +3,7 @@ package id.co.edtslib.edtsuikit
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.view.View
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updateLayoutParams
@@ -13,6 +14,7 @@ import id.co.edtslib.edtsuikit.databinding.ActivityGuidelinesCartBinding
 import id.co.edtslib.edtsuikit.databinding.ItemCartDiscountRedemptionInfoBinding
 import id.co.edtslib.edtsuikit.databinding.ItemCartPlaceholderBinding
 import id.co.edtslib.uikit.adapter.multiTypeAdapter
+import id.co.edtslib.uikit.infobox.DiscountRedemptionBoxDelegate
 import id.co.edtslib.uikit.utils.MarginItem
 import id.co.edtslib.uikit.utils.TextStyleKey
 import id.co.edtslib.uikit.utils.TextStyleProvider.get
@@ -57,6 +59,14 @@ class GuidelinesCartActivity : GuidelinesBaseActivity() {
                 top = 8.dp.toInt()
             )
         )
+    }
+
+    private fun bindDelegate() {
+        binding.discountRedemptionBox.delegate = object : DiscountRedemptionBoxDelegate {
+            override fun onInfoBoxClick(view: View) {
+                // Action
+            }
+        }
     }
 
     private fun stimulateDummyLoading() {

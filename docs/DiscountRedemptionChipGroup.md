@@ -2,11 +2,11 @@
 
 ## Overview
 
-| State              | Visual                                                               |
-|--------------------|----------------------------------------------------------------------|
-| **Default State**  | <img src="./assets/ChipGroup/DR_chipGroup_default.webp" width="80">  |
-| **Inactive State** | <img src="./assets/ChipGroup/DR_chipGroup_inactive.webp" width="80"> |
-| **Checked State**  | <img src="./assets/ChipGroup/DR_chipGroup_checked.webp" width="80">  |
+| State              | Visual                                                                |
+|--------------------|-----------------------------------------------------------------------|
+| **Default State**  | <img src="./assets/ChipGroup/DR_chipGroup_default.webp" width="130">  |
+| **Inactive State** | <img src="./assets/ChipGroup/DR_chipGroup_inactive.webp" width="130"> |
+| **Checked State**  | <img src="./assets/ChipGroup/DR_chipGroup_checked.webp" width="130">  |
 
 | Snapping Animation                                                                                                                                  |
 |-----------------------------------------------------------------------------------------------------------------------------------------------------|

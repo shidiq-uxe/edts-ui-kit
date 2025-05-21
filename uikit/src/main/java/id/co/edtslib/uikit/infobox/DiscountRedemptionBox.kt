@@ -6,6 +6,7 @@ import android.util.AttributeSet
 import android.widget.FrameLayout
 import androidx.appcompat.view.ContextThemeWrapper
 import androidx.core.content.res.use
+import androidx.core.text.parseAsHtml
 import androidx.core.view.doOnLayout
 import androidx.core.view.isVisible
 import androidx.core.view.marginEnd
@@ -40,7 +41,7 @@ class DiscountRedemptionBox @JvmOverloads constructor(
     var infoText: CharSequence? = null
         set(value) {
             field = value
-            binding.chipInfo.text = value
+            binding.chipInfo.text = if (isHtml) value.toString().parseAsHtml() else value
         }
 
     var boxBackgroundColor: Int = this.context.color(R.color.primary_30)
@@ -63,6 +64,12 @@ class DiscountRedemptionBox @JvmOverloads constructor(
             if (!value) {
                 this.doOnLayout { boxHeight = this.height }
             }
+        }
+
+    var isHtml: Boolean = false
+        set(value) {
+            field = value
+            binding.chipInfo.text = if (value) infoText.toString().parseAsHtml() else infoText
         }
 
     private var shimmerFrameLayout: ShimmerFrameLayout? = null
@@ -96,13 +103,14 @@ class DiscountRedemptionBox @JvmOverloads constructor(
                 titleText = it.getString(R.styleable.DiscountRedemptionBox_titleText)
                 infoText = it.getString(R.styleable.DiscountRedemptionBox_infoText)
                 isExpanded = it.getBoolean(R.styleable.DiscountRedemptionBox_isExpanded, isExpanded)
+                isHtml = it.getBoolean(R.styleable.DiscountRedemptionBox_isHtml, isHtml)
             }
         }
     }
 
     private fun bindClickAction() {
-        binding.root.setOnClickListener {
-            delegate?.onClick(it)
+        binding.chipInfo.setOnClickListener {
+            delegate?.onInfoBoxClick(it)
         }
     }
 

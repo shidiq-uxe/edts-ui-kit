@@ -75,6 +75,22 @@ alertBox.apply {
 }
 ```
 
+## Adding Span Content
+You could adjust span of the message using:
+```kotlin
+buildHighlightedMessage(
+    context = this@GuidelinesCartActivity,
+    message = "This is regular text while this is Bold and H4",
+    highlightedMessages = listOf("Bold", "H4"),
+    highlightedTextAppearance = listOf(
+        TextStyleKey.B4_SEMIBOLD.get(context, UIKitR.color.black_70),
+        TextStyleKey.H4_SEMIBOLD.get(context, UIKitR.color.black_70),
+    )
+)
+```
+>See more about this function inside [StringBuilderExtension](https://github.com/shidiq-uxe/edts-ui-kit/blob/main/uikit/src/main/java/id/co/edtslib/uikit/utils/StringBuilderExtension.kt)
+
+
 ## Customization Options
 
 | Property               | Description                                                                 |
@@ -96,6 +112,7 @@ alertBox.apply {
 | `buttonText`           | Text for the optional action button                                         |
 | `buttonType`           | Enum for button style (e.g., `FILLED`, custom)                              |
 | `isButtonVisible`      | Whether to show the button                                                  |
+| `isHtml`               | Parse text to html                                                          |
 
 ## Attributes Reference
 
@@ -117,6 +134,7 @@ alertBox.apply {
 | `app:isCloseIconVisible` | boolean   | Toggle close icon        |
 | `app:buttonText`         | string    | Action button text       |
 | `app:isButtonVisible`    | boolean   | Toggle button visibility |
+| `app:isHtml`             | boolean   | Parse text to html       |
 
 ## Delegate Interface
 

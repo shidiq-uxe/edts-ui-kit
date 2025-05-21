@@ -107,6 +107,7 @@
     <attr name="isCloseIconVisible" format="boolean"/>
 
     <attr name="isExpanded" format="boolean"/>
+    <attr name="isHtml" format="boolean"/>
 
     <attr name="cornerRadius" format="dimension"/>
     <attr name="topRightCornerRadius" format="dimension"/>
@@ -274,6 +275,7 @@
         <attr name="buttonType"/>
 
         <attr name="text"/>
+        <attr name="isHtml"/>
         <attr name="buttonText"/>
         <attr name="textAppearance"/>
         <attr name="textColor"/>
@@ -418,6 +420,7 @@
         <attr name="isExpanded"/>
         <attr name="titleText"/>
         <attr name="infoText"/>
+        <attr name="isHtml"/>
     </declare-styleable>
 
     <declare-styleable name="CartCouponExtendedFooter">

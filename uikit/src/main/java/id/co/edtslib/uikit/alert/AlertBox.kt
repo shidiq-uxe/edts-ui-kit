@@ -11,6 +11,7 @@ import androidx.annotation.ColorInt
 import androidx.appcompat.view.ContextThemeWrapper
 import androidx.core.content.ContextCompat
 import androidx.core.content.withStyledAttributes
+import androidx.core.text.parseAsHtml
 import androidx.core.view.isVisible
 import androidx.core.view.updateLayoutParams
 import androidx.core.view.updateMargins
@@ -80,8 +81,14 @@ class AlertBox @JvmOverloads constructor(
 
     var text: CharSequence = ""
         set(value) {
-            binding.tvAlertMessage.text = value
             field = value
+            binding.tvAlertMessage.text = if (isHtml) value.toString().parseAsHtml() else value
+        }
+
+    var isHtml: Boolean = false
+        set(value) {
+            field = value
+            binding.tvAlertMessage.text = if (value) text.toString().parseAsHtml() else text
         }
 
     var textColor: Int = context.color(R.color.black_60)
@@ -89,7 +96,6 @@ class AlertBox @JvmOverloads constructor(
             field = value
             binding.tvAlertMessage.setTextColor(value)
         }
-
 
     var buttonText: CharSequence = ""
         set(value) {
@@ -219,13 +225,15 @@ class AlertBox @JvmOverloads constructor(
             this@AlertBox.startIconTint = startIconTint?.let { getColor(R.styleable.AlertBox_startIconTint,  it) }
             this@AlertBox.closeIconTint = getColor(R.styleable.AlertBox_closeIconTint, closeIconTint)
 
+            this@AlertBox.isHtml = getBoolean(R.styleable.AlertBox_isHtml, isHtml)
+
             if (hasValue(R.styleable.AlertBox_alertType)) {
                 this@AlertBox.alertType = AlertType.values()[alertType]
             }
         }
     }
 
-    fun showOpticalSpacing(enable: Boolean) {
+    fun showOpticalSpacing(enable: Boolean = true) {
         binding.ivAlertIcon.updateLayoutParams<MarginLayoutParams> {
             updateMargins(
                 top = if (enable) 2.dp.toInt() else 0.dp.toInt(),
