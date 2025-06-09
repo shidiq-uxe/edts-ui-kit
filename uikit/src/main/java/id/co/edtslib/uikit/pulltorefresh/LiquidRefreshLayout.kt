@@ -14,6 +14,7 @@ import android.view.animation.DecelerateInterpolator
 import android.widget.FrameLayout
 import id.co.edtslib.uikit.R
 import id.co.edtslib.uikit.utils.color
+import androidx.core.content.withStyledAttributes
 
 class LiquidRefreshLayout @JvmOverloads constructor(
     context: Context,
@@ -72,22 +73,22 @@ class LiquidRefreshLayout @JvmOverloads constructor(
     }
 
     private fun setAttributes(attrs: AttributeSet?) {
-        val typedArray = context.obtainStyledAttributes(attrs, R.styleable.LiquidRefreshLayout)
+        context.withStyledAttributes(attrs, R.styleable.LiquidRefreshLayout) {
 
-        headerBackgroundColor = typedArray.getColor(
-            R.styleable.LiquidRefreshLayout_backgroundColor,
-            headerBackgroundColor
-        )
-        headerForegroundColor = typedArray.getColor(
-            R.styleable.LiquidRefreshLayout_foregroundColor,
-            headerForegroundColor
-        )
-        headerCircleRadius = typedArray.getInt(
-            R.styleable.LiquidRefreshLayout_circleRadius,
-            headerCircleRadius
-        )
+            headerBackgroundColor = getColor(
+                R.styleable.LiquidRefreshLayout_backgroundColor,
+                headerBackgroundColor
+            )
+            headerForegroundColor = getColor(
+                R.styleable.LiquidRefreshLayout_foregroundColor,
+                headerForegroundColor
+            )
+            headerCircleRadius = getInt(
+                R.styleable.LiquidRefreshLayout_circleRadius,
+                headerCircleRadius
+            )
 
-        typedArray.recycle()
+        }
     }
 
     private fun addHeaderView() {

@@ -39,6 +39,7 @@ import id.co.edtslib.uikit.utils.interpolator.EaseInterpolator
 import id.co.edtslib.uikit.utils.isDeviceStruggling
 import kotlin.math.max
 import androidx.core.graphics.toColorInt
+import androidx.core.view.updateMargins
 
 class CoachMarkOverlay @JvmOverloads constructor(
     context: Context,
@@ -74,8 +75,11 @@ class CoachMarkOverlay @JvmOverloads constructor(
         }
 
     private val coachmarkView: View = coachmarkBinding.root.apply {
-        updateLayoutParams<LayoutParams> {
-            width = (context.deviceWidth * 0.84).toInt()
+        updateLayoutParams<MarginLayoutParams> {
+            updateMargins(
+                left = 16.dp.toInt(),
+                right = 16.dp.toInt(),
+            )
         }
         alpha = 0f
     }
@@ -146,7 +150,7 @@ class CoachMarkOverlay @JvmOverloads constructor(
         with(coachmarkBinding) {
             tvTiTle.text = currentItem.title
             tvDescription.text = currentItem.description
-            tvCoachmarkCount.text = "${currentCoachMarkIndex.plus(1)}/${coachMarkItems.size}"
+            tvCoachmarkCount.text = "${currentCoachMarkIndex.plus(1)} dari ${coachMarkItems.size}"
             btnNext.text = if (isOnTheLastIndex) "Tutup" else "Berikutnya"
             btnSkip.isVisible = !isOnTheLastIndex
         }
@@ -198,7 +202,6 @@ class CoachMarkOverlay @JvmOverloads constructor(
         val overlayWidth = this.width.toFloat()
         val targetCenterX = rect.centerX()
 
-        // Calculate a centered horizontal position then clamp it between left and right bounds
         val centeredPosition = targetCenterX - coachmarkView.width / 2f
         val horizontal = centeredPosition.coerceIn(8.dp, overlayWidth - coachmarkView.width - 8.dp)
 
@@ -238,7 +241,6 @@ class CoachMarkOverlay @JvmOverloads constructor(
     private fun updateCoachmarkPosition(rect: RectF) {
         coachmarkView.post {
             val (newX, newY) = computeCoachmarkPosition(rect)
-            coachmarkView.translationX = newX
             coachmarkView.translationY = newY
 
             val targetCenterX = rect.centerX()
@@ -299,7 +301,6 @@ class CoachMarkOverlay @JvmOverloads constructor(
                 )
                 spotlightScale = 1f
 
-                coachmarkView.translationX = lerp(currentX, finalX, fraction)
                 coachmarkView.translationY = lerp(currentY, finalY, fraction)
 
                 invalidate()

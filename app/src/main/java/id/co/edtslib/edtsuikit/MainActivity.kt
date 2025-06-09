@@ -97,6 +97,7 @@ class MainActivity : AppCompatActivity() {
                         17 -> Intent(this, GuidelineCoachmarkActivity::class.java)
                         18 -> Intent(this, GuidelinesCartActivity::class.java)
                         19 -> Intent(this, GuidelinesDiscountRedemptionActivity::class.java)
+                        20 -> Intent(this, GuidelinesAnimatedCardViewActivity::class.java)
                         else -> Intent(this, SpotlightTrialsActivity::class.java)
                     },
                     binding.sharedElementOptions

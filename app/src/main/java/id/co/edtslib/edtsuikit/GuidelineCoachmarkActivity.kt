@@ -81,33 +81,25 @@ class GuidelineCoachmarkActivity : AppCompatActivity() {
     private fun addDummyTargets() {
         coachmarkItems.add(
             CoachMarkData(
-                title = "Total Stamp yang Kamu Punya",
-                description = "Ini adalah total Stamp yang kamu punya pada brand ini. Kamu bisa tukar beberapa kupon sekaligus asal Stamp-nya cukup!",
+                title = "Spotlight One",
+                description = "This is a short description showing what Spotlight One highlight",
                 target = binding.sbHome
             )
         )
 
         coachmarkItems.add(
             CoachMarkData(
-                title = "Syarat & Ketentuan Stamp",
-                description = "Cek cara mendapatkan Stamp, masa berlaku, dan ketentuan lainnya di sini.",
+                title = "Spotlight 2",
+                description = "This is a short description showing what Spotlight Two highlight",
                 target = binding.homeSwitcher
             )
         )
 
         coachmarkItems.add(
             CoachMarkData(
-                title = "Tukar Stamp jadi i-Kupon Lebih Cepat",
-                description = "Kalau sudah yakin sama kupon yang kamu suka, kamu bisa langsung tukar Stamp kamu dengan tap pada tombol ini.",
+                title = "Spotlight 3",
+                description = "This is a short description showing what Spotlight Three highlight",
                 target = binding.tlHome
-            )
-        )
-
-        coachmarkItems.add(
-            CoachMarkData(
-                title = "Tukar Stamp jadi i-Kupon Lebih Cepat",
-                description = "Kalau sudah yakin sama kupon yang kamu suka, kamu bisa langsung tukar Stamp kamu dengan tap pada tombol ini.",
-                target = binding.ivContent
             )
         )
     }

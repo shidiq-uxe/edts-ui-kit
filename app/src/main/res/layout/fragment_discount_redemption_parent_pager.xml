@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".DiscountRedemptionParentPagerFragment" >
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabLayout"
+        android:layout_width="match_parent"
+        android:layout_height="32dp"
+        android:background="@color/white"
+        android:elevation="0dp"
+        app:tabMode="scrollable"
+        app:tabPaddingStart="@dimen/xs"
+        app:tabPaddingEnd="@dimen/xs"
+        app:tabRippleColor="@color/transparent"
+        app:tabGravity="fill"
+        app:tabIndicator="@drawable/tabs_rounded_indicator"
+        app:tabInlineLabel="true"
+        app:tabIndicatorAnimationMode="linear"
+        app:tabTextAppearance="@style/Widget.EDTS.UIKit.Tab.Text.SingleLine"
+        app:tabTextColor="@color/slr_tab_text_tint"
+        android:paddingHorizontal="@dimen/s"
+        android:clipToPadding="false"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <com.google.android.material.divider.MaterialDivider
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:dividerThickness="@dimen/dimen_1"
+        app:dividerColor="@color/black_30"
+        app:layout_constraintTop_toBottomOf="@id/tabLayout"/>
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/vp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/divider"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

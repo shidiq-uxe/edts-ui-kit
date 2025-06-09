@@ -20,10 +20,10 @@
         android:id="@+id/ivActiveTab"
         android:layout_width="@dimen/dimen_0"
         android:layout_height="@dimen/dimen_0"
-        app:layout_constraintTop_toTopOf="@id/tab2"
-        app:layout_constraintStart_toStartOf="@id/tab2"
-        app:layout_constraintEnd_toEndOf="@id/tab2"
-        app:layout_constraintBottom_toBottomOf="@id/tab2"/>
+        app:layout_constraintTop_toTopOf="@id/tab1"
+        app:layout_constraintStart_toStartOf="@id/tab1"
+        app:layout_constraintEnd_toEndOf="@id/tab1"
+        app:layout_constraintBottom_toBottomOf="@id/tab1"/>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/tab1"

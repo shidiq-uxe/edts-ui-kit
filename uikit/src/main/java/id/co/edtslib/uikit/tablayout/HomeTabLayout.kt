@@ -4,34 +4,20 @@ import android.animation.ArgbEvaluator
 import android.animation.ValueAnimator
 import android.content.Context
 import android.content.res.ColorStateList
-import android.graphics.Color
-import android.graphics.Outline
-import android.graphics.Path
 import android.graphics.drawable.ColorDrawable
-import android.os.Build
-import android.os.Handler
-import android.os.Looper
 import android.util.AttributeSet
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewOutlineProvider
 import android.widget.FrameLayout
 import com.google.android.material.button.MaterialButton
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.animation.doOnEnd
 import androidx.core.content.res.use
 import androidx.core.view.doOnLayout
 import androidx.core.view.updateLayoutParams
 import com.google.android.material.shape.ShapeAppearanceModel
-import id.co.edtslib.uikit.ribbon.Ribbon
 import id.co.edtslib.uikit.utils.color
-import id.co.edtslib.uikit.utils.colorStateList
 import id.co.edtslib.uikit.R as UIKitR
 import id.co.edtslib.uikit.utils.dp
 import id.co.edtslib.uikit.utils.drawable
 import id.co.edtslib.uikit.databinding.HomepageTabLayoutBinding as HomeTabLayoutBinding
-import id.co.edtslib.uikit.utils.interpolator.EaseInterpolator
 
 class HomeTabLayout @JvmOverloads constructor(
     context: Context,
@@ -105,7 +91,7 @@ class HomeTabLayout @JvmOverloads constructor(
             }
         }
 
-    private var currentSelectedTab: MaterialButton? = null
+    private var currentSelectedTab: MaterialButton? = binding.tab1
 
     init {
         this.background = ColorDrawable(context.color(UIKitR.color.black_10))
@@ -113,7 +99,6 @@ class HomeTabLayout @JvmOverloads constructor(
         enableHardwareAcceleration()
         setupListeners()
 
-        currentSelectedTab = binding.tab1
         updateActiveTab(tab1)
 
         leftEdges.alpha = 0f
@@ -180,7 +165,7 @@ class HomeTabLayout @JvmOverloads constructor(
         selectedTab.doOnLayout {
             val activeWidth = selectedTab.width + 24.dp
 
-            val tabCachedShape = TabBackgroundDrawable(activeWidth.toInt(), selectedTab.height, context.color(UIKitR.color.black_10))
+            val tabCachedShape = QuadRoundTabBackgroundDrawable(activeWidth.toInt(), selectedTab.height, context.color(UIKitR.color.black_10))
             binding.ivActiveTab.updateLayoutParams<MarginLayoutParams> {
                 this.width = activeWidth.toInt()
             }
