@@ -137,12 +137,23 @@
                         android:layout_height="wrap_content">
 
                         <com.google.android.material.imageview.ShapeableImageView
-                            android:id="@+id/illPromoPoint"
+                            android:id="@+id/illPromoPointBackground"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:paddingVertical="@dimen/dimen_1"
                             android:paddingStart="@dimen/dimen_1"
-                            app:srcCompat="@drawable/ill_coin_reward"
+                            app:srcCompat="@drawable/ill_point_background_28"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <com.google.android.material.imageview.ShapeableImageView
+                            android:id="@+id/illPointIcon"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingVertical="@dimen/dimen_1"
+                            android:paddingStart="@dimen/dimen_1"
+                            app:srcCompat="@drawable/ill_point_n_stars_24"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
@@ -160,7 +171,7 @@
                             android:textColor="@color/black_60"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toEndOf="@+id/illPromoPoint"
+                            app:layout_constraintStart_toEndOf="@+id/illPromoPointBackground"
                             app:layout_constraintTop_toTopOf="parent"
                             tools:text="Berpotensi mendapat Poin Cash / Poin Loyalty / Stamp" />
 

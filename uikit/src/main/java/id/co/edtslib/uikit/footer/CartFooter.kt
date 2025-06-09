@@ -2,10 +2,12 @@ package id.co.edtslib.uikit.footer
 
 import android.content.Context
 import android.graphics.Color
+import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.widget.FrameLayout
 import androidx.appcompat.view.ContextThemeWrapper
 import androidx.core.content.withStyledAttributes
+import androidx.core.text.parseAsHtml
 import androidx.core.view.doOnLayout
 import androidx.core.view.isVisible
 import androidx.core.view.updatePadding
@@ -74,6 +76,27 @@ open class CartFooter @JvmOverloads constructor(
             skeletonLoaders.forEach {
                 it.isVisible = value
             }
+        }
+
+    var cashbackBadgeIcon: Drawable = context.drawable(R.drawable.ill_point_n_stars_24)
+        set(value) {
+            field = value
+            binding.illPointIcon.setImageDrawable(value)
+
+        }
+
+    var cashbackBadgeText: CharSequence? = null
+        set(value) {
+            field = value
+            value?.let {
+                binding.tvPromoPointInfo.text = if (isHtml) it.toString().parseAsHtml() else it
+            }
+        }
+
+    var isHtml: Boolean = false
+        set(value) {
+            field = value
+            binding.tvPromoPointInfo.text = if (value) cashbackBadgeText.toString().parseAsHtml() else cashbackBadgeText
         }
 
     var isCashbackBadgeVisible: Boolean = false
