@@ -105,6 +105,12 @@ open class CartFooter @JvmOverloads constructor(
             binding.flCashbackBadge.isVisible = value
         }
 
+    var isButtonEnabled: Boolean = false
+        set(value) {
+            field = value
+            binding.btnSubmit.isEnabled = value
+        }
+
     init {
         initAttrs(attrs)
         bindClickAction()

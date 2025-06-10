@@ -75,6 +75,8 @@ class GuidelinesCartActivity : GuidelinesBaseActivity() {
 
         Handler(Looper.getMainLooper()).postDelayed({
             binding.footerView.isLoading = false
+            binding.footerView.isButtonEnabled = false
+
         }, 3000L)
 
     }
