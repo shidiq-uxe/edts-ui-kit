@@ -30,6 +30,8 @@ open class CartFooter @JvmOverloads constructor(
 
     var delegate: CartFooterDelegate? = null
 
+    val extendedFooter = binding.extendedCouponSection
+
     var infoText: CharSequence? = null
         set(value) {
             field = value
