@@ -1,5 +1,12 @@
 # QuadRoundTabLayout
 
+
+| Tabs Count & Mode             | Preview                                                  |
+|-------------------------------|----------------------------------------------------------|
+| **2 Tabs - Fixed**            | ![2 Tabs](assets/QuadRoundTabLayout/TwoTabs.webp)        |
+| **3 Tabs - Fixed**            | ![3 Tabs](assets/QuadRoundTabLayout/ThreeTabs.webp)      |
+| **4+ Tabs - Scrollable**      | ![4+ Tabs](assets/QuadRoundTabLayout/ScrollingTabs.webp) |
+
 ## Basic Usage
 
 ### 1. Add to Layout
