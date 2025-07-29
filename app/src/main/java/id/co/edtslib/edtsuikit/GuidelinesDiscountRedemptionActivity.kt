@@ -88,7 +88,31 @@ class GuidelinesDiscountRedemptionActivity : GuidelinesBaseActivity() {
                         textColor = color(R.color.white),
                         backgroundColor = color(id.co.edtslib.uikit.R.color.black_40)
                     )
-                )
+                ),
+                QuadRoundTabLayout.TabItem(
+                    title = "Clearance Sale",
+                    badge = QuadRoundTabLayout.BadgeConfig(
+                        text = "1",
+                        textColor = color(R.color.white),
+                        backgroundColor = color(id.co.edtslib.uikit.R.color.black_40)
+                    )
+                ),
+                QuadRoundTabLayout.TabItem(
+                    title = "Event Sale",
+                    badge = QuadRoundTabLayout.BadgeConfig(
+                        text = "1",
+                        textColor = color(R.color.white),
+                        backgroundColor = color(id.co.edtslib.uikit.R.color.black_40)
+                    )
+                ),
+                QuadRoundTabLayout.TabItem(
+                    title = "Flash Sale",
+                    badge = QuadRoundTabLayout.BadgeConfig(
+                        text = "1",
+                        textColor = color(R.color.white),
+                        backgroundColor = color(id.co.edtslib.uikit.R.color.black_40)
+                    )
+                ),
             )
         )
 
@@ -99,6 +123,14 @@ class GuidelinesDiscountRedemptionActivity : GuidelinesBaseActivity() {
                 item: QuadRoundTabLayout.TabItem
             ) {
                 binding.vpCategory.setCurrentItem(position, false)
+            }
+
+            override fun onPreventSelected(
+                position: Int,
+                view: QuadRoundTabLayout.QuadRoundTabView,
+                item: QuadRoundTabLayout.TabItem
+            ): Boolean {
+                return false
             }
         }
     }

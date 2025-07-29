@@ -52,6 +52,7 @@ class QuadRoundTabLayout @JvmOverloads constructor(
 
     private val tabPool = Pools.SynchronizedPool<QuadRoundTabView>(8)
     private val tabs = mutableListOf<QuadRoundTabView>()
+    private val tabItems = mutableListOf<TabItem>()
 
     var textPaddingStart = context.dimen(R.dimen.xxxs)
     var textPaddingEnd = context.dimen(R.dimen.xxxs)
@@ -99,6 +100,14 @@ class QuadRoundTabLayout @JvmOverloads constructor(
         .setTopRightCornerSize(context.dimen(R.dimen.xs))
 
     private val defaultWidthPercentage = 0.23
+
+    var currentSelectedTab = selectedPosition
+        set(value) {
+            field = value
+            selectTab(value)
+        }
+
+    var isUserClickEnabled = true
 
     @QuadRoundTabLayoutScrollMode
     var scrollMode = MODE_AUTO
@@ -191,6 +200,8 @@ class QuadRoundTabLayout @JvmOverloads constructor(
         tabs.clear()
         contentContainer.removeAllViews()
 
+        this@QuadRoundTabLayout.tabItems.addAll(tabItems)
+
         val startIndex = 0
         val lastIndex = tabItems.lastIndex
 
@@ -202,7 +213,10 @@ class QuadRoundTabLayout @JvmOverloads constructor(
             ).apply {
                 bind(item)
                 setOnClickListener {
-                    selectTab(index, shouldAnimate, item) }
+                    if (delegate?.onPreventSelected(index, this, item) != true) {
+                        selectTab(index, shouldAnimate)
+                    }
+                }
             }
             tabs.add(tab)
             contentContainer.addView(tab)
@@ -216,7 +230,7 @@ class QuadRoundTabLayout @JvmOverloads constructor(
             updateTabWidthsForSelection()
 
             if (tabItems.isNotEmpty()) {
-                selectTab(0, animate = false, tabItems.first())
+                selectTab(0, animate = false)
             }
         }
     }
@@ -238,7 +252,7 @@ class QuadRoundTabLayout @JvmOverloads constructor(
         }
     }
 
-    fun selectTab(position: Int, animate: Boolean = true, item: TabItem) {
+    fun selectTab(position: Int, animate: Boolean = false, item: TabItem) {
         if (position == selectedPosition) return
 
         val prevPosition = selectedPosition
@@ -254,6 +268,28 @@ class QuadRoundTabLayout @JvmOverloads constructor(
             // Expand current tab if needed
             expandTabForFullText(selectedPosition)
         }
+
+        updateActiveIndicator(animate, item)
+        smoothScrollToTab(position)
+
+        delegate?.onTabSelected(position, tabs[position], item)
+    }
+
+    fun selectTab(position: Int, animate: Boolean = false) {
+        if (position == selectedPosition) return
+
+        val prevPosition = selectedPosition
+        selectedPosition = position.coerceIn(0, tabs.size - 1)
+
+        if (scrollMode == MODE_SCROLLABLE || (scrollMode == MODE_FIXED && tabs.size == 3)) {
+            if (prevPosition != selectedPosition && prevPosition >= 0) {
+                resetTabWidth(prevPosition)
+            }
+
+            expandTabForFullText(selectedPosition)
+        }
+
+        val item = tabItems[position]
 
         updateActiveIndicator(animate, item)
         smoothScrollToTab(position)
@@ -529,7 +565,6 @@ class QuadRoundTabLayout @JvmOverloads constructor(
         }
 
         private fun initAttributes() {
-            // First Initialization
             updateTabPadding(false)
             applyOutlineProviderAndElevation()
 
