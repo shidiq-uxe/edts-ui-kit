@@ -45,6 +45,26 @@ val tabItems = listOf(
 
 // Set tabs
 tabLayout.setTabs(tabItems)
+
+// Delegate
+tabLayout.delegate = object : QuadRoundTabLayout.Delegate {
+    // Will not be called when onPreventSelected return true
+    override fun onTabSelected(
+        position: Int,
+        view: QuadRoundTabLayout.QuadRoundTabView,
+        item: QuadRoundTabLayout.TabItem
+    ) {
+        // Handle tab selection when onPreventSelected return false.
+    }
+
+    override fun onPreventSelected(
+        position: Int,
+        view: QuadRoundTabLayout.QuadRoundTabView,
+        item: QuadRoundTabLayout.TabItem
+    ): Boolean {
+        // Handle manual tab selection when return is true and disable auto tab selection during user click, 
+    }
+}
 ```
 
 ## Display Modes
@@ -125,20 +145,22 @@ QuadRoundTabLayout.TabItem(
 
 ### BadgeConfig
 
-| Property          | Type        | Required | Description              |
-|-------------------|-------------|----------|--------------------------|
-| `text`            | `String`    | ✅        | Text to display in badge |
-| `backgroundColor` | `@ColorInt` | ✅        | Badge background color   |
-| `textColor`       | `@ColorInt` | ✅        | Badge text color         |
+| Property             | Type        | Required   | Description                                      |
+|----------------------|-------------|------------|--------------------------------------------------|
+| `text`               | `String`    | ✅          | Text to display in badge                         |
+| `backgroundColor`    | `@ColorInt` | ✅          | Badge background color                           |
+| `textColor`          | `@ColorInt` | ✅          | Badge text color                                 |
+| `currentSelectedTab` | `Int`       | ❌ Optional | Programmatically Select Tab based on Index Given |
 
 ## Methods Reference
 
 ### Public Methods
 
-| Method        | Parameters                                              | Description                   |
-|---------------|---------------------------------------------------------|-------------------------------|
-| `setTabs()`   | `tabItems: List<TabItem>`                               | Set the tabs to display       |
-| `selectTab()` | `position: Int, animate: Boolean = true, item: TabItem` | Programmatically select a tab |
+| Method        | Parameters                                               | Description                                           |
+|---------------|----------------------------------------------------------|-------------------------------------------------------|
+| `setTabs()`   | `tabItems: List<TabItem>`                                | Set the tabs to display                               |
+| `selectTab()` | `position: Int, animate: Boolean = false, item: TabItem` | Programmatically select a tab with custom item to set |
+| `selectTab()` | `position: Int, animate: Boolean = false`                | Programmatically select a tab                         |
 
 ### Usage Examples
 
@@ -150,12 +172,18 @@ tabLayout.setTabs(listOf(
     TabItem("Tab 3")
 ))
 
-// Select specific tab with animation
+// Select specific tab with animation and custom tab item
 tabLayout.selectTab(1, animate = true, tabItems[1])
 
 // Select tab without animation
-tabLayout.selectTab(0, animate = false, tabItems[0])
+tabLayout.selectTab(0, animate = false)
 ```
+
+### Delegate 
+| Function                                                   | Description                                                                                                                                        |
+|------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------|
+| `onPreventSelected(Int,QuadRoundTabView,TabItem): Boolean` | Called before a tab is selected. Return true to block the selection to disable user click. Return false to allow it and proceed to onTabSelected() |
+| `onTabSelected(Int,QuadRoundTabView,TabItem)`              | Called if onPreventSelected() return false . Use this to handle what should happen when a user selects a tab.                                      |
 
 ## Customization Examples
 
