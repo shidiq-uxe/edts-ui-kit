@@ -24,7 +24,7 @@ class CartCouponExtendedFooter @JvmOverloads constructor(
     defStyleAttr: Int = 0
 ) : FrameLayout(ContextThemeWrapper(context, R.style.Theme_EDTS_UIKit), attrs, defStyleAttr) {
 
-    private val binding = ViewCartFooterCouponBinding.inflate(this.context.inflater, this, true)
+    internal val binding = ViewCartFooterCouponBinding.inflate(this.context.inflater, this, true)
 
     var delegate: CartCouponExtendedFooterDelegate? = null
 

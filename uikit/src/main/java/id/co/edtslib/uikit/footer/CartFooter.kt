@@ -130,7 +130,7 @@ open class CartFooter @JvmOverloads constructor(
         binding.btnSubmit.setOnClickListener {
             delegate?.onActionButtonClick()
         }
-        binding.extendedCouponSection.setOnClickListener {
+        binding.extendedCouponSection.binding.root.setOnClickListener {
             delegate?.onCouponSectionClick()
         }
         binding.tvTotal.setOnClickListener {

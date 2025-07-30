@@ -3,6 +3,7 @@ package id.co.edtslib.edtsuikit
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.View
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -14,6 +15,7 @@ import id.co.edtslib.edtsuikit.databinding.ActivityGuidelinesCartBinding
 import id.co.edtslib.edtsuikit.databinding.ItemCartDiscountRedemptionInfoBinding
 import id.co.edtslib.edtsuikit.databinding.ItemCartPlaceholderBinding
 import id.co.edtslib.uikit.adapter.multiTypeAdapter
+import id.co.edtslib.uikit.footer.CartFooterDelegate
 import id.co.edtslib.uikit.infobox.DiscountRedemptionBoxDelegate
 import id.co.edtslib.uikit.utils.MarginItem
 import id.co.edtslib.uikit.utils.TextStyleKey
@@ -40,6 +42,7 @@ class GuidelinesCartActivity : GuidelinesBaseActivity() {
         bindAdapter()
         bindAnimations()
         stimulateDummyLoading()
+        bindDelegate()
     }
 
     private fun bindAnimations() {
@@ -67,6 +70,20 @@ class GuidelinesCartActivity : GuidelinesBaseActivity() {
         binding.discountRedemptionBox.delegate = object : DiscountRedemptionBoxDelegate {
             override fun onInfoBoxClick(view: View) {
                 // Action
+            }
+        }
+
+        binding.footerView.delegate = object : CartFooterDelegate {
+            override fun onCouponSectionClick() {
+                Log.e("Cart Footer", "Coupon Section Clicked")
+            }
+
+            override fun onActionButtonClick() {
+                Log.e("Cart Footer", "Action Button Clicked")
+            }
+
+            override fun onSummaryClick() {
+                Log.e("Cart Footer", "Summary Section Clicked")
             }
         }
     }
