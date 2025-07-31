@@ -62,7 +62,6 @@ class Button @JvmOverloads constructor(
                     }
                     MotionEvent.ACTION_UP -> {
                         this.animate().scaleX(RESET_SCALE_VALUE).scaleY(RESET_SCALE_VALUE).setDuration(100).start()
-                        performClick()
                     }
                     MotionEvent.ACTION_CANCEL -> {
                         this.animate().scaleX(RESET_SCALE_VALUE).scaleY(RESET_SCALE_VALUE).setDuration(100).start()
@@ -74,10 +73,6 @@ class Button @JvmOverloads constructor(
         }
 
         return super.onTouchEvent(event)
-    }
-
-    override fun performClick(): Boolean {
-        return super.performClick()
     }
 
     override fun onDetachedFromWindow() {
