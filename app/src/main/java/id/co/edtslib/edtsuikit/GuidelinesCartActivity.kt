@@ -72,7 +72,20 @@ class GuidelinesCartActivity : GuidelinesBaseActivity() {
                 // Action
             }
 
-            ˆ
+            override fun onScrolled(
+                rv: RecyclerView,
+                dx: Int,
+                dy: Int
+            ) {
+
+            }
+
+            override fun onScrollStateChanged(
+                rv: RecyclerView,
+                newState: Int
+            ) {
+
+            }
         }
 
         binding.footerView.totalText
