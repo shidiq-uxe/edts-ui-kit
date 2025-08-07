@@ -71,7 +71,11 @@ class GuidelinesCartActivity : GuidelinesBaseActivity() {
             override fun onInfoBoxClick(view: View) {
                 // Action
             }
+
+            ˆ
         }
+
+        binding.footerView.totalText
 
         binding.footerView.delegate = object : CartFooterDelegate {
             override fun onCouponSectionClick() {
@@ -94,7 +98,6 @@ class GuidelinesCartActivity : GuidelinesBaseActivity() {
 
         Handler(Looper.getMainLooper()).postDelayed({
             binding.footerView.isLoading = false
-            binding.footerView.isButtonEnabled = false
 
         }, 3000L)
 

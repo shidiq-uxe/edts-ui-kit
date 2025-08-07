@@ -1,6 +1,7 @@
 package id.co.edtslib.edtsuikit
 
 import android.os.Bundle
+import android.util.Log
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import id.co.edtslib.edtsuikit.databinding.ActivityButtonBinding
@@ -21,6 +22,10 @@ class GuidelinesButtonActivity : GuidelinesBaseActivity() {
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
+        }
+
+        binding.btnFilled.setOnClickListener {
+            Log.e("Button Debug", "Check for Double Click")
         }
 
         Ribbon(this).apply {

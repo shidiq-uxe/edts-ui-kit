@@ -180,6 +180,11 @@ class DiscountRedemptionBox @JvmOverloads constructor(
         }
     }
 
+    var scrollListener: RecyclerView.OnScrollListener? = null
+        private set
+
+    private var attachedRecyclerView: RecyclerView? = null
+
     fun attachToRecyclerView(
         recyclerView: RecyclerView,
         targetAdapterPosition: Int,
@@ -187,12 +192,16 @@ class DiscountRedemptionBox @JvmOverloads constructor(
         var isSticky = false
         var shouldStick = false
 
-        val scrollListener = object : RecyclerView.OnScrollListener() {
+        attachedRecyclerView = recyclerView
+
+        scrollListener = object : RecyclerView.OnScrollListener() {
             override fun onScrolled(rv: RecyclerView, dx: Int, dy: Int) {
+                delegate?.onScrolled(rv, dx, dy)
+
                 val viewHolder = rv.findViewHolderForAdapterPosition(targetAdapterPosition)
                 val bottomOfTheBox = viewHolder?.itemView?.bottom ?: 0
 
-                shouldStick = bottomOfTheBox <= rv.top
+                shouldStick = bottomOfTheBox <= rv.top.plus(rv.paddingTop)
 
                 if (!shouldStick && isSticky) {
                     isSticky = false
@@ -201,6 +210,8 @@ class DiscountRedemptionBox @JvmOverloads constructor(
             }
 
             override fun onScrollStateChanged(rv: RecyclerView, newState: Int) {
+                delegate?.onScrollStateChanged(rv, newState)
+
                 when (newState) {
                     RecyclerView.SCROLL_STATE_IDLE -> {
                         if (shouldStick && !isSticky) {
@@ -219,7 +230,16 @@ class DiscountRedemptionBox @JvmOverloads constructor(
             }
         }
 
-        recyclerView.addOnScrollListener(scrollListener)
+        scrollListener?.let { attachedRecyclerView?.addOnScrollListener(it) }
+    }
+
+    fun detachFromRecyclerView() {
+        scrollListener?.let { listener ->
+            attachedRecyclerView?.removeOnScrollListener(listener)
+        }
+
+        scrollListener = null
+        attachedRecyclerView = null
     }
 
     companion object {
