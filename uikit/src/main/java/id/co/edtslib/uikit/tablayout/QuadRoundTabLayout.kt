@@ -611,8 +611,12 @@ class QuadRoundTabLayout @JvmOverloads constructor(
 
             updateTabPadding(isSelected)
 
-            item.badge?.let {
-                showBadge(it)
+            item.badge?.let { badge ->
+                if (badge.text.isNotEmpty()) {
+                    showBadge(badge)
+                } else {
+                    hideBadge()
+                }
             } ?: hideBadge()
 
 
