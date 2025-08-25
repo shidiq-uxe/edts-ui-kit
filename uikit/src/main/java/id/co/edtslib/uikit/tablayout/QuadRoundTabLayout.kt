@@ -6,11 +6,9 @@ import android.content.res.ColorStateList
 import android.graphics.Outline
 import android.graphics.Path
 import android.os.Build
-import android.text.Layout
 import android.text.TextPaint
 import android.text.TextUtils
 import android.util.AttributeSet
-import android.util.Log
 import android.view.Gravity
 import android.view.MotionEvent
 import android.view.View
@@ -35,6 +33,7 @@ import com.google.android.material.shape.ShapeAppearanceModel
 import id.co.edtslib.uikit.R
 import id.co.edtslib.uikit.badge.Badge
 import id.co.edtslib.uikit.utils.color
+import id.co.edtslib.uikit.utils.colorStateList
 import id.co.edtslib.uikit.utils.deviceWidth
 import id.co.edtslib.uikit.utils.dimen
 import id.co.edtslib.uikit.utils.dp
@@ -63,9 +62,9 @@ class QuadRoundTabLayout @JvmOverloads constructor(
     var containerBackgroundColor = context.color(R.color.support_selected)
 
     var tabBackgroundColor = context.color(R.color.support_selected)
-    var activeTabBackgroundColor = context.color(R.color.white)
+    var selectedTabBackgroundColor = context.color(R.color.white)
 
-    var activeBadgeBackgroundColor = context.color(R.color.primary_30)
+    var selectedBadgeBackgroundColor: Int = context.color(R.color.primary_30)
 
     var defaultTabHeight = context.dimen(R.dimen.m3)
         private set
@@ -182,7 +181,7 @@ class QuadRoundTabLayout @JvmOverloads constructor(
         selectedDrawable = QuadRoundTabBackgroundDrawable(
             width = 0,
             height = defaultActiveTabHeight.toInt(),
-            tabColor = activeTabBackgroundColor
+            tabColor = selectedTabBackgroundColor
         ).apply {
             // Todo : Trace the performance Later
             this.initializeElevationOverlay(context)
@@ -347,12 +346,17 @@ class QuadRoundTabLayout @JvmOverloads constructor(
         val targetHeight = selectedDrawable.intrinsicHeight
         val targetX = targetTab.left - selectedDrawable.containerSubtract()
 
+        val selectedBackgroundColor = item.badge?.backgroundColor?.getColorForState(
+            intArrayOf(android.R.attr.state_selected),
+            item.badge.backgroundColor.defaultColor
+        ) ?: selectedBadgeBackgroundColor
+
         activeIndicatorContainer.bind(
             item = TabItem(
                 title = item.title,
                 iconRes = item.iconRes,
                 badge = item.badge?.copy(
-                    backgroundColor = activeBadgeBackgroundColor
+                    backgroundColor = ColorStateList.valueOf(selectedBackgroundColor)
                 )
             ),
             isSelected = true,
@@ -631,7 +635,7 @@ class QuadRoundTabLayout @JvmOverloads constructor(
         fun showBadge(config: BadgeConfig) {
             badgeView.apply {
                 text = config.text
-                badgeColor = config.backgroundColor
+                badgeColor = config.backgroundColor.defaultColor
                 textColor = config.textColor
             }
 
@@ -657,9 +661,10 @@ class QuadRoundTabLayout @JvmOverloads constructor(
 
     data class BadgeConfig(
         val text: String,
-        @ColorInt val backgroundColor: Int,
-        @ColorInt val textColor: Int
+        val backgroundColor: ColorStateList,
+        val textColor: Int
     )
+
 
     companion object {
         const val MODE_SCROLLABLE = 0

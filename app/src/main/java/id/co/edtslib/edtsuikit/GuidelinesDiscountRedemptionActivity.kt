@@ -28,6 +28,7 @@ import id.co.edtslib.uikit.utils.setSystemBarStyle
 import androidx.core.graphics.drawable.toDrawable
 import com.google.android.material.tabs.TabLayoutMediator
 import id.co.edtslib.uikit.tablayout.QuadRoundTabLayoutDelegate
+import id.co.edtslib.uikit.utils.colorStateList
 
 class GuidelinesDiscountRedemptionActivity : GuidelinesBaseActivity() {
 
@@ -78,7 +79,7 @@ class GuidelinesDiscountRedemptionActivity : GuidelinesBaseActivity() {
                     badge = QuadRoundTabLayout.BadgeConfig(
                         text = "3",
                         textColor = color(R.color.white),
-                        backgroundColor = color(id.co.edtslib.uikit.R.color.black_40)
+                        backgroundColor = colorStateList(id.co.edtslib.uikit.R.color.slr_badge_bg)
                     )
                 ),
                 QuadRoundTabLayout.TabItem(
@@ -86,7 +87,7 @@ class GuidelinesDiscountRedemptionActivity : GuidelinesBaseActivity() {
                     badge = QuadRoundTabLayout.BadgeConfig(
                         text = "2",
                         textColor = color(R.color.white),
-                        backgroundColor = color(id.co.edtslib.uikit.R.color.black_40)
+                        backgroundColor = colorStateList(id.co.edtslib.uikit.R.color.slr_badge_bg)
                     )
                 ),
                 QuadRoundTabLayout.TabItem(
@@ -94,7 +95,7 @@ class GuidelinesDiscountRedemptionActivity : GuidelinesBaseActivity() {
                     badge = QuadRoundTabLayout.BadgeConfig(
                         text = "1",
                         textColor = color(R.color.white),
-                        backgroundColor = color(id.co.edtslib.uikit.R.color.black_40)
+                        backgroundColor = colorStateList(id.co.edtslib.uikit.R.color.slr_badge_bg)
                     )
                 ),
                 QuadRoundTabLayout.TabItem(
@@ -102,7 +103,7 @@ class GuidelinesDiscountRedemptionActivity : GuidelinesBaseActivity() {
                     badge = QuadRoundTabLayout.BadgeConfig(
                         text = "1",
                         textColor = color(R.color.white),
-                        backgroundColor = color(id.co.edtslib.uikit.R.color.black_40)
+                        backgroundColor = colorStateList(id.co.edtslib.uikit.R.color.slr_badge_bg)
                     )
                 ),
                 QuadRoundTabLayout.TabItem(
@@ -110,7 +111,7 @@ class GuidelinesDiscountRedemptionActivity : GuidelinesBaseActivity() {
                     badge = QuadRoundTabLayout.BadgeConfig(
                         text = "1",
                         textColor = color(R.color.white),
-                        backgroundColor = color(id.co.edtslib.uikit.R.color.black_40)
+                        backgroundColor = colorStateList(id.co.edtslib.uikit.R.color.slr_badge_bg)
                     )
                 ),
             )

@@ -13,6 +13,7 @@ import android.text.TextUtils
 import android.util.TypedValue
 import android.view.LayoutInflater
 import androidx.annotation.ArrayRes
+import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
 import androidx.annotation.DimenRes
 import androidx.annotation.DrawableRes
@@ -68,9 +69,9 @@ fun Context?.color(@ColorRes colorRes: Int) =
  * Return Gradient/ColorStateList from res directory, will return null when [Context] is Null
  * @return [ColorStateList]
  */
-fun Context?.colorStateList(@ColorRes colorRes: Int) =
+fun Context?.colorStateList(@ColorRes colorRes: Int, @ColorInt fallbackColor: Int = Color.TRANSPARENT) =
     this?.let { ContextCompat.getColorStateList(it, colorRes) }
-        ?: ColorStateList.valueOf(Color.TRANSPARENT)
+        ?: ColorStateList.valueOf(fallbackColor)
 
 /**
  * Return Dimension from res directory, will return null when [Context] is Null
