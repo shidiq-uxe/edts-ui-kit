@@ -58,9 +58,7 @@ class DiscountRedemptionBox @JvmOverloads constructor(
                     fontStyles = mapOf("b" to fontManager.boldStyle(Color.BLACK))
                 )
 
-                binding.chipInfo
-                    .applyHtmlConfig(HtmlListConfig())
-                    .renderHtml(value.toString(), HtmlRenderer(config, fontManager))
+                binding.chipInfo.renderHtml(value.toString(), HtmlRenderer(config, fontManager))
             } else {
                 binding.chipInfo.text = value
             }
@@ -98,7 +96,6 @@ class DiscountRedemptionBox @JvmOverloads constructor(
                 )
 
                 binding.chipInfo
-                    .applyHtmlConfig(HtmlListConfig())
                     .renderHtml(infoText.toString(), HtmlRenderer(config, fontManager))
             } else {
                 binding.chipInfo.text = infoText
