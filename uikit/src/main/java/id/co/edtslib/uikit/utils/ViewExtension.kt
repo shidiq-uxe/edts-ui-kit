@@ -1,5 +1,6 @@
 package id.co.edtslib.uikit.utils
 
+import android.graphics.drawable.GradientDrawable
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewGroup.MarginLayoutParams
@@ -74,5 +75,18 @@ fun ShimmerFrameLayout.detachShimmerEffect(): View? {
     parent.addView(originalView, index)
 
     return originalView
+}
+
+fun View.setGradientBackground(
+    colors: IntArray,
+    orientation: GradientDrawable.Orientation = GradientDrawable.Orientation.LEFT_RIGHT,
+    cornerRadiusDp: Float = 0f
+) {
+    val radiusPx = cornerRadiusDp * resources.displayMetrics.density
+    val gd = GradientDrawable(orientation, colors).apply {
+        cornerRadius = radiusPx
+        gradientType = GradientDrawable.LINEAR_GRADIENT
+    }
+    background = gd
 }
 

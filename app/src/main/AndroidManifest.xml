@@ -15,6 +15,9 @@
         android:theme="@style/Theme.EDTS.UIKit.ActionBar"
         tools:targetApi="31">
         <activity
+            android:name=".HTMLTag"
+            android:exported="false" />
+        <activity
             android:name=".GuidelinesAnimatedCardViewActivity"
             android:exported="false" />
         <activity
@@ -111,6 +114,9 @@
             android:theme="@style/Theme.EDTS.UIKit.ActionBar" />
         <activity
             android:name=".BoardingPlaygroundActivity"
+            android:exported="false" />
+        <activity
+            android:name=".HtmlListDemoActivity"
             android:exported="false" />
         <activity
             android:name=".SpotlightTrialsActivity"

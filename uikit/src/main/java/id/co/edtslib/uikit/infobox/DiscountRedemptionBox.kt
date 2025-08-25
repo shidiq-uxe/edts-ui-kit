@@ -2,6 +2,7 @@ package id.co.edtslib.uikit.infobox
 
 import android.content.Context
 import android.content.res.ColorStateList
+import android.graphics.Color
 import android.util.AttributeSet
 import android.widget.FrameLayout
 import androidx.appcompat.view.ContextThemeWrapper
@@ -20,7 +21,16 @@ import id.co.edtslib.uikit.R
 import id.co.edtslib.uikit.databinding.ViewDiscountRedemptionBinding
 import id.co.edtslib.uikit.utils.color
 import id.co.edtslib.uikit.utils.dp
+import id.co.edtslib.uikit.utils.html.FontManager
+import id.co.edtslib.uikit.utils.html.HtmlListConfig
+import id.co.edtslib.uikit.utils.html.HtmlRenderer
+import id.co.edtslib.uikit.utils.html.HtmlRendererConfig
+import id.co.edtslib.uikit.utils.html.ListStyles
+import id.co.edtslib.uikit.utils.html.applyHtmlConfig
+import id.co.edtslib.uikit.utils.html.boldStyle
+import id.co.edtslib.uikit.utils.html.renderHtml
 import id.co.edtslib.uikit.utils.inflater
+import kotlin.toString
 
 class DiscountRedemptionBox @JvmOverloads constructor(
     context: Context,
@@ -41,7 +51,19 @@ class DiscountRedemptionBox @JvmOverloads constructor(
     var infoText: CharSequence? = null
         set(value) {
             field = value
-            binding.chipInfo.text = if (isHtml) value.toString().parseAsHtml() else value
+
+            if (isHtml) {
+                val fontManager = FontManager(context)
+                val config = HtmlRendererConfig(
+                    fontStyles = mapOf("b" to fontManager.boldStyle(Color.BLACK))
+                )
+
+                binding.chipInfo
+                    .applyHtmlConfig(HtmlListConfig())
+                    .renderHtml(value.toString(), HtmlRenderer(config, fontManager))
+            } else {
+                binding.chipInfo.text = value
+            }
         }
 
     var boxBackgroundColor: Int = this.context.color(R.color.primary_30)
@@ -69,7 +91,24 @@ class DiscountRedemptionBox @JvmOverloads constructor(
     var isHtml: Boolean = false
         set(value) {
             field = value
-            binding.chipInfo.text = if (value) infoText.toString().parseAsHtml() else infoText
+            if(value) {
+                val fontManager = FontManager(context)
+                val config = HtmlRendererConfig(
+                    fontStyles = mapOf("b" to fontManager.boldStyle(Color.BLACK))
+                )
+
+                binding.chipInfo
+                    .applyHtmlConfig(HtmlListConfig())
+                    .renderHtml(infoText.toString(), HtmlRenderer(config, fontManager))
+            } else {
+                binding.chipInfo.text = infoText
+            }
+        }
+
+    var promoTextAppearance = R.style.TextAppearance_Inter_Regular_B4
+        set(value) {
+            field = value
+            binding.chipInfo.setTextAppearance(context, value)
         }
 
     private var shimmerFrameLayout: ShimmerFrameLayout? = null

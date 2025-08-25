@@ -21,6 +21,8 @@
     <color name="red_20">#FD474A</color>
     <color name="red_10">#FFEDEE</color>
 
+    <color name="green_50">#578F21</color>
+
     <!--Neutral-->
     <color name="black_70">#151823</color>
     <color name="black_60">#434755</color>
@@ -61,6 +63,7 @@
     <color name="support_extra">#439E25</color>
     <color name="support_fab">#F9CA24</color>
     <color name="support_selected">#E7F2FB</color>
+    <color name="support_gradient">#D6EDFF</color>
     <color name="transparent">#00000000</color>
     <color name="alert_link">#EFF5FD</color>
 

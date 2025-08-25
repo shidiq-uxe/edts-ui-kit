@@ -77,7 +77,7 @@ class GuidelinesCartActivity : GuidelinesBaseActivity() {
                 dx: Int,
                 dy: Int
             ) {
-
+                // Add Another Function when scrolling
             }
 
             override fun onScrollStateChanged(
@@ -165,12 +165,15 @@ class GuidelinesCartActivity : GuidelinesBaseActivity() {
                     (itemBinding as ItemCartDiscountRedemptionInfoBinding).root.apply {
                         infoText = buildHighlightedMessage(
                             context = this@GuidelinesCartActivity,
-                            message = "Tambah Rp50.000 untuk dapat promo",
-                            highlightedMessages = listOf("Rp50.000"),
+                            message = "Kamu sudah ambil 1 dari 3 promo",
+                            highlightedMessages = listOf("1 dari 3 promo"),
                             highlightedTextAppearance = listOf(
-                                TextStyleKey.B4_SEMIBOLD.get(context, UIKitR.color.black_70)
+                                TextStyleKey.B4_BOLD.get(context, UIKitR.color.black_70)
                             )
                         )
+
+                        /*isHtml = true
+                        infoText = "Kamu sudah ambil <b>1 dari 3 promo</b>"*/
                     }
                 }
             )
