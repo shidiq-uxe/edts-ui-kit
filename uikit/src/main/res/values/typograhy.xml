@@ -62,8 +62,8 @@
     </style>
 
     <style name="TextAppearance.Inter.Regular.B1" parent="Base.TextAppearance.AppCompat">
-        <item name="fontFamily">@font/inter</item>
-        <item name="android:fontFamily">@font/inter</item>
+        <item name="fontFamily">@font/inter_fallback</item>
+        <item name="android:fontFamily">@font/inter_fallback</item>
         <item name="android:textSize">@dimen/b1_text_size</item>
         <item name="lineHeight">@dimen/dimen_18</item>
     </style>
@@ -90,8 +90,8 @@
     </style>
 
     <style name="TextAppearance.Inter.Regular.B2" parent="Base.TextAppearance.AppCompat">
-        <item name="fontFamily">@font/inter</item>
-        <item name="android:fontFamily">@font/inter</item>
+        <item name="fontFamily">@font/inter_fallback</item>
+        <item name="android:fontFamily">@font/inter_fallback</item>
         <item name="android:textSize">@dimen/b2_text_size</item>
         <item name="lineHeight">@dimen/dimen_16</item>
     </style>
@@ -111,15 +111,15 @@
     </style>
 
     <style name="TextAppearance.Inter.Medium.B3" parent="Base.TextAppearance.AppCompat">
-        <item name="fontFamily">@font/inter</item>
-        <item name="android:fontFamily">@font/inter</item>
+        <item name="fontFamily">@font/inter_fallback</item>
+        <item name="android:fontFamily">@font/inter_fallback</item>
         <item name="android:textSize">@dimen/b3_text_size</item>
         <item name="lineHeight">@dimen/dimen_16</item>
     </style>
 
     <style name="TextAppearance.Inter.Regular.B3" parent="Base.TextAppearance.AppCompat">
-        <item name="fontFamily">@font/inter</item>
-        <item name="android:fontFamily">@font/inter</item>
+        <item name="fontFamily">@font/inter_fallback</item>
+        <item name="android:fontFamily">@font/inter_fallback</item>
         <item name="android:textSize">@dimen/b3_text_size</item>
         <item name="lineHeight">@dimen/dimen_16</item>
     </style>
@@ -146,8 +146,8 @@
     </style>
 
     <style name="TextAppearance.Inter.Regular.B4" parent="Base.TextAppearance.AppCompat">
-        <item name="fontFamily">@font/inter</item>
-        <item name="android:fontFamily">@font/inter</item>
+        <item name="fontFamily">@font/inter_fallback</item>
+        <item name="android:fontFamily">@font/inter_fallback</item>
         <item name="android:textSize">@dimen/b4_text_size</item>
         <item name="lineHeight">@dimen/dimen_14</item>
     </style>
@@ -161,8 +161,8 @@
     </style>
 
     <style name="TextAppearance.Inter.Regular.P1" parent="Base.TextAppearance.AppCompat">
-        <item name="fontFamily">@font/inter</item>
-        <item name="android:fontFamily">@font/inter</item>
+        <item name="fontFamily">@font/inter_fallback</item>
+        <item name="android:fontFamily">@font/inter_fallback</item>
         <item name="android:textSize">@dimen/p1_text_size</item>
         <item name="lineHeight">@dimen/dimen_20</item>
     </style>
@@ -175,8 +175,8 @@
     </style>
 
     <style name="TextAppearance.Inter.Regular.P2" parent="Base.TextAppearance.AppCompat">
-        <item name="fontFamily">@font/inter</item>
-        <item name="android:fontFamily">@font/inter</item>
+        <item name="fontFamily">@font/inter_fallback</item>
+        <item name="android:fontFamily">@font/inter_fallback</item>
         <item name="android:textSize">@dimen/p2_text_size</item>
         <item name="lineHeight">@dimen/dimen_16</item>
     </style>
@@ -212,16 +212,16 @@
 
     <!--Other-->
     <style name="TextAppearance.Inter.Regular.Error" parent="TextAppearance.Design.Error">
-        <item name="fontFamily">@font/inter</item>
-        <item name="android:fontFamily">@font/inter</item>
+        <item name="fontFamily">@font/inter_fallback</item>
+        <item name="android:fontFamily">@font/inter_fallback</item>
         <item name="android:textSize">@dimen/b3_text_size</item>
         <item name="lineHeight">@dimen/dimen_18</item>
         <item name="android:textColor">@color/red_30</item>
     </style>
 
     <style name="TextAppearance.Inter.Regular.Error.Black" parent="Base.TextAppearance.AppCompat">
-        <item name="fontFamily">@font/inter</item>
-        <item name="android:fontFamily">@font/inter</item>
+        <item name="fontFamily">@font/inter_fallback</item>
+        <item name="android:fontFamily">@font/inter_fallback</item>
         <item name="android:textSize">@dimen/b3_text_size</item>
         <item name="lineHeight">@dimen/dimen_18</item>
     </style>

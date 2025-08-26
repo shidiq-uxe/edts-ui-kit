@@ -19,14 +19,15 @@ import androidx.annotation.DimenRes
 import androidx.annotation.DrawableRes
 import androidx.annotation.FontRes
 import androidx.core.content.ContextCompat
-import androidx.core.content.res.ResourcesCompat
 import androidx.core.text.HtmlCompat
 import androidx.fragment.app.Fragment
+import id.co.edtslib.uikit.utils.typography.FontUtils.loadFont
+import androidx.core.graphics.toColorInt
 
 /**
  * Convert [String] to HexColor of [Int]
  */
-val String.asColor: Int get() = Color.parseColor(this)
+val String.asColor: Int get() = this.toColorInt()
 
 /**
  * Return Device Width Pixels of [Int], will return null when [Context] is Null
@@ -48,8 +49,10 @@ val Context.inflater: LayoutInflater
  * Return Font/Typeface from res directory, will return null when [Context] is Null
  * @return [Typeface]
  */
-fun Context?.font(@FontRes fontRes: Int) =
-    this?.let { ResourcesCompat.getFont(it, fontRes) }
+
+fun Context?.font(@FontRes fontRes: Int): Typeface =
+    this.loadFont(fontRes)
+
 
 /**
  * Return Image/Drawable from res directory, will return null when [Context] is Null

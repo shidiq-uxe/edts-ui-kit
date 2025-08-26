@@ -69,7 +69,7 @@ fun FontManager.interBlack(): Typeface? = loadFont(R.font.inter_black)
 fun FontManager.interBold(): Typeface? = loadFont(R.font.inter_bold)
 fun FontManager.interSemiBold(): Typeface? = loadFont(R.font.inter_semibold)
 fun FontManager.interMedium(): Typeface? = loadFont(R.font.inter_medium)
-fun FontManager.interRegular(): Typeface? = loadFont(R.font.inter)
+fun FontManager.interRegular(): Typeface? = loadFont(R.font.inter_fallback)
 
 // Extension functions for creating font styles
 fun FontManager.mediumStyle(color: Int? = null): FontStyle = FontStyle(
