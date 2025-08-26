@@ -163,17 +163,17 @@ class GuidelinesCartActivity : GuidelinesBaseActivity() {
                 },
                 bind = { position, itemBinding, item ->
                     (itemBinding as ItemCartDiscountRedemptionInfoBinding).root.apply {
-                        infoText = buildHighlightedMessage(
+                        /*infoText = buildHighlightedMessage(
                             context = this@GuidelinesCartActivity,
                             message = "Kamu sudah ambil 1 dari 3 promo",
                             highlightedMessages = listOf("1 dari 3 promo"),
                             highlightedTextAppearance = listOf(
                                 TextStyleKey.B4_BOLD.get(context, UIKitR.color.black_70)
                             )
-                        )
+                        )*/
 
-                        /*isHtml = true
-                        infoText = "Kamu sudah ambil <b>1 dari 3 promo</b>"*/
+                        isHtml = true
+                        infoText = "Kamu sudah ambil <b>1 dari 3 promo</b>"
                     }
                 }
             )

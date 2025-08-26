@@ -17,7 +17,6 @@ import android.view.ViewOutlineProvider
 import android.widget.FrameLayout
 import android.widget.HorizontalScrollView
 import android.widget.LinearLayout
-import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
 import androidx.appcompat.view.ContextThemeWrapper
 import androidx.appcompat.widget.AppCompatImageView
@@ -33,7 +32,6 @@ import com.google.android.material.shape.ShapeAppearanceModel
 import id.co.edtslib.uikit.R
 import id.co.edtslib.uikit.badge.Badge
 import id.co.edtslib.uikit.utils.color
-import id.co.edtslib.uikit.utils.colorStateList
 import id.co.edtslib.uikit.utils.deviceWidth
 import id.co.edtslib.uikit.utils.dimen
 import id.co.edtslib.uikit.utils.dp
@@ -66,6 +64,8 @@ class QuadRoundTabLayout @JvmOverloads constructor(
 
     var selectedBadgeBackgroundColor: Int = context.color(R.color.primary_30)
 
+    var selectedBadgeTextColor: Int = context.color(R.color.white)
+
     var defaultTabHeight = context.dimen(R.dimen.m3)
         private set
     var defaultActiveTabHeight = context.dimen(R.dimen.l)
@@ -79,7 +79,7 @@ class QuadRoundTabLayout @JvmOverloads constructor(
     var tabTextAppearance = R.style.TextAppearance_Inter_Medium_B4
     var activeTextAppearance = R.style.TextAppearance_Inter_Semibold_H3
     var tabTextColor = context.color(R.color.black_40)
-    var activeTextColor = context.color(R.color.primary_30)
+    var selectedTextColor = context.color(R.color.primary_30)
 
     var badgeSize = context.dimen(R.dimen.s)
 
@@ -351,12 +351,18 @@ class QuadRoundTabLayout @JvmOverloads constructor(
             item.badge.backgroundColor.defaultColor
         ) ?: selectedBadgeBackgroundColor
 
+        val selectedTextColor = item.badge?.textColor?.getColorForState(
+            intArrayOf(android.R.attr.state_selected),
+            item.badge.textColor.defaultColor
+        ) ?: selectedBadgeTextColor
+
         activeIndicatorContainer.bind(
             item = TabItem(
                 title = item.title,
                 iconRes = item.iconRes,
                 badge = item.badge?.copy(
-                    backgroundColor = ColorStateList.valueOf(selectedBackgroundColor)
+                    backgroundColor = ColorStateList.valueOf(selectedBackgroundColor),
+                    textColor = ColorStateList.valueOf(selectedTextColor)
                 )
             ),
             isSelected = true,
@@ -629,14 +635,14 @@ class QuadRoundTabLayout @JvmOverloads constructor(
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 textView.setTextAppearance(if (isSelected) activeTextAppearance else tabTextAppearance)
             }
-            textView.setTextColor(if (isSelected) activeTextColor else tabTextColor)
+            textView.setTextColor(if (isSelected) selectedTextColor else tabTextColor)
         }
 
         fun showBadge(config: BadgeConfig) {
             badgeView.apply {
                 text = config.text
                 badgeColor = config.backgroundColor.defaultColor
-                textColor = config.textColor
+                textColor = config.textColor.defaultColor
             }
 
             badgeView.isVisible = true
@@ -662,7 +668,7 @@ class QuadRoundTabLayout @JvmOverloads constructor(
     data class BadgeConfig(
         val text: String,
         val backgroundColor: ColorStateList,
-        val textColor: Int
+        val textColor: ColorStateList
     )
 
 

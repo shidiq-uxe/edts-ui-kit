@@ -29,6 +29,8 @@ import id.co.edtslib.uikit.utils.html.ListStyles
 import id.co.edtslib.uikit.utils.html.applyHtmlConfig
 import id.co.edtslib.uikit.utils.html.boldStyle
 import id.co.edtslib.uikit.utils.html.renderHtml
+import id.co.edtslib.uikit.utils.html.semiBoldStyle
+import id.co.edtslib.uikit.utils.html.strongStyle
 import id.co.edtslib.uikit.utils.inflater
 import kotlin.toString
 
@@ -46,22 +48,6 @@ class DiscountRedemptionBox @JvmOverloads constructor(
         set(value) {
             field = value
             binding.tvTitle.text = value
-        }
-
-    var infoText: CharSequence? = null
-        set(value) {
-            field = value
-
-            if (isHtml) {
-                val fontManager = FontManager(context)
-                val config = HtmlRendererConfig(
-                    fontStyles = mapOf("b" to fontManager.boldStyle(Color.BLACK))
-                )
-
-                binding.chipInfo.renderHtml(value.toString(), HtmlRenderer(config, fontManager))
-            } else {
-                binding.chipInfo.text = value
-            }
         }
 
     var boxBackgroundColor: Int = this.context.color(R.color.primary_30)
@@ -86,13 +72,29 @@ class DiscountRedemptionBox @JvmOverloads constructor(
             }
         }
 
+    var infoText: CharSequence? = null
+        set(value) {
+            field = value
+
+            if (isHtml) {
+                val fontManager = FontManager(context)
+                val config = HtmlRendererConfig(
+                    fontStyles = mapOf("myb" to fontManager.semiBoldStyle(Color.BLACK))
+                )
+
+                binding.chipInfo.renderHtml(value.toString(), HtmlRenderer(config, fontManager))
+            } else {
+                binding.chipInfo.text = value
+            }
+        }
+
     var isHtml: Boolean = false
         set(value) {
             field = value
             if(value) {
                 val fontManager = FontManager(context)
                 val config = HtmlRendererConfig(
-                    fontStyles = mapOf("b" to fontManager.boldStyle(Color.BLACK))
+                    fontStyles = mapOf("myb" to fontManager.semiBoldStyle(Color.BLACK))
                 )
 
                 binding.chipInfo

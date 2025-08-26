@@ -341,7 +341,7 @@ class CoachMarkOverlay @JvmOverloads constructor(
             .start()
     }
 
-    override fun dispatchDraw(canvas: Canvas?) {
+    override fun dispatchDraw(canvas: Canvas) {
         val saveCount = canvas?.saveLayer(0f, 0f, width.toFloat(), height.toFloat(), null)
         canvas?.drawRect(0f, 0f, width.toFloat(), height.toFloat(), overlayPaint)
         targetRect?.let { rect ->

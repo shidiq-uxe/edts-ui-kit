@@ -1,5 +1,6 @@
 package id.co.edtslib.edtsuikit
 
+import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -78,7 +79,7 @@ class GuidelinesDiscountRedemptionActivity : GuidelinesBaseActivity() {
                     title = "Hadiah Produk",
                     badge = QuadRoundTabLayout.BadgeConfig(
                         text = "3",
-                        textColor = color(R.color.white),
+                        textColor = ColorStateList.valueOf(Color.WHITE),
                         backgroundColor = colorStateList(id.co.edtslib.uikit.R.color.slr_badge_bg)
                     )
                 ),
@@ -86,7 +87,7 @@ class GuidelinesDiscountRedemptionActivity : GuidelinesBaseActivity() {
                     title = "Tebus Murah",
                     badge = QuadRoundTabLayout.BadgeConfig(
                         text = "2",
-                        textColor = color(R.color.white),
+                        textColor = ColorStateList.valueOf(Color.WHITE),
                         backgroundColor = colorStateList(id.co.edtslib.uikit.R.color.slr_badge_bg)
                     )
                 ),
@@ -94,7 +95,7 @@ class GuidelinesDiscountRedemptionActivity : GuidelinesBaseActivity() {
                     title = "Clearance Sale",
                     badge = QuadRoundTabLayout.BadgeConfig(
                         text = "1",
-                        textColor = color(R.color.white),
+                        textColor = ColorStateList.valueOf(Color.WHITE),
                         backgroundColor = colorStateList(id.co.edtslib.uikit.R.color.slr_badge_bg)
                     )
                 ),
@@ -102,7 +103,7 @@ class GuidelinesDiscountRedemptionActivity : GuidelinesBaseActivity() {
                     title = "Event Sale",
                     badge = QuadRoundTabLayout.BadgeConfig(
                         text = "1",
-                        textColor = color(R.color.white),
+                        textColor = ColorStateList.valueOf(Color.WHITE),
                         backgroundColor = colorStateList(id.co.edtslib.uikit.R.color.slr_badge_bg)
                     )
                 ),
@@ -110,7 +111,7 @@ class GuidelinesDiscountRedemptionActivity : GuidelinesBaseActivity() {
                     title = "Flash Sale",
                     badge = QuadRoundTabLayout.BadgeConfig(
                         text = "1",
-                        textColor = color(R.color.white),
+                        textColor = ColorStateList.valueOf(Color.WHITE),
                         backgroundColor = colorStateList(id.co.edtslib.uikit.R.color.slr_badge_bg)
                     )
                 ),

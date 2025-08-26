@@ -13,6 +13,7 @@ import android.text.style.BulletSpan
 import android.text.style.ForegroundColorSpan
 import android.text.style.LeadingMarginSpan
 import android.text.style.MetricAffectingSpan
+import android.util.Log
 import android.util.TypedValue
 import android.widget.TextView
 import androidx.annotation.FontRes
@@ -66,9 +67,23 @@ class FontManager(private val context: Context) {
 // Extension functions for common fonts
 fun FontManager.interBlack(): Typeface? = loadFont(R.font.inter_black)
 fun FontManager.interBold(): Typeface? = loadFont(R.font.inter_bold)
+fun FontManager.interSemiBold(): Typeface? = loadFont(R.font.inter_semibold)
+fun FontManager.interMedium(): Typeface? = loadFont(R.font.inter_medium)
 fun FontManager.interRegular(): Typeface? = loadFont(R.font.inter)
 
 // Extension functions for creating font styles
+fun FontManager.mediumStyle(color: Int? = null): FontStyle = FontStyle(
+    fontFamily = interMedium(),
+    textColor = color,
+    style = Typeface.BOLD
+)
+
+fun FontManager.semiBoldStyle(color: Int? = null): FontStyle = FontStyle(
+    fontFamily = interSemiBold(),
+    textColor = color,
+    style = Typeface.BOLD
+)
+
 fun FontManager.boldStyle(color: Int? = null): FontStyle = FontStyle(
     fontFamily = interBold(),
     textColor = color,
@@ -111,7 +126,9 @@ fun String.preprocessListTags(): String {
         "<ol>" to "<myol>",
         "</ol>" to "</myol>",
         "<li>" to "<myli>",
-        "</li>" to "</myli>"
+        "</li>" to "</myli>",
+        "<b>" to "<myb>",
+        "</b>" to "</myb>"
     )
 
     return mappings.entries.fold(this) { html, (original, replacement) ->
@@ -223,6 +240,7 @@ class TagHandler(
 
     private fun handleFontTag(opening: Boolean, tag: String, output: Editable) {
         val fontStyle = config.fontStyles[tag.lowercase()]
+        Log.e("HandleFontTag", "Font Tag : $tag & ${config.fontStyles}")
         if (fontStyle != null) {
             if (opening) {
                 fontTagStack.push(tag.lowercase() to output.length)
