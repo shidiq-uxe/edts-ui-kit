@@ -1,22 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<font-family xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-
-    <!-- Primary: Your existing downloadable font (API 26+) -->
-    <font
+<font-family xmlns:app="http://schemas.android.com/apk/res-auto"
         app:fontProviderAuthority="com.google.android.gms.fonts"
         app:fontProviderPackage="com.google.android.gms"
         app:fontProviderQuery="name=Inter&amp;weight=600"
-        app:fontProviderCerts="@array/com_google_android_gms_fonts_certs"
-        android:fontStyle="normal"
-        android:fontWeight="600"
-        tools:targetApi="26" />
-
-    <!-- Fallback: Local TTF file (All APIs) -->
-    <font
-        android:font="@font/inter_semibold_fallback"
-        android:fontStyle="normal"
-        android:fontWeight="600"
-        tools:targetApi="26" />
+        app:fontProviderCerts="@array/com_google_android_gms_fonts_certs">
 </font-family>

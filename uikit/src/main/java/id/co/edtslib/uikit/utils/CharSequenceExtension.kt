@@ -82,26 +82,26 @@ object TextStyleProvider {
             TextStyleKey.H3_SEMIBOLD -> create(context, colorRes, R.font.inter_semibold, R.dimen.h3_text_size, R.dimen.dimen_14)
 
             TextStyleKey.B1_SEMIBOLD -> create(context, colorRes, R.font.inter_semibold, R.dimen.b1_text_size, R.dimen.dimen_18)
-            TextStyleKey.B1 -> create(context, colorRes, R.font.inter_fallback, R.dimen.b1_text_size, R.dimen.dimen_18)
+            TextStyleKey.B1 -> create(context, colorRes, R.font.inter, R.dimen.b1_text_size, R.dimen.dimen_18)
 
             TextStyleKey.B2_BOLD -> create(context, colorRes, R.font.inter_bold, R.dimen.b2_text_size, R.dimen.dimen_16)
             TextStyleKey.B2_MEDIUM -> create(context, colorRes, R.font.inter_medium, R.dimen.b2_text_size, R.dimen.dimen_16)
-            TextStyleKey.B2 -> create(context, colorRes, R.font.inter_fallback, R.dimen.b2_text_size, R.dimen.dimen_16)
+            TextStyleKey.B2 -> create(context, colorRes, R.font.inter, R.dimen.b2_text_size, R.dimen.dimen_16)
 
             TextStyleKey.B3_BOLD -> create(context, colorRes, R.font.inter_bold, R.dimen.b3_text_size, R.dimen.dimen_16)
             TextStyleKey.B3_SEMIBOLD -> create(context, colorRes, R.font.inter_semibold, R.dimen.b3_text_size, R.dimen.dimen_16)
             TextStyleKey.B3_MEDIUM -> create(context, colorRes, R.font.inter_medium, R.dimen.b3_text_size, R.dimen.dimen_16)
-            TextStyleKey.B3 -> create(context, colorRes, R.font.inter_fallback, R.dimen.b3_text_size, R.dimen.dimen_16)
+            TextStyleKey.B3 -> create(context, colorRes, R.font.inter, R.dimen.b3_text_size, R.dimen.dimen_16)
 
             TextStyleKey.B4_BOLD -> create(context, colorRes, R.font.inter_bold, R.dimen.b4_text_size, R.dimen.dimen_14)
             TextStyleKey.B4_SEMIBOLD -> create(context, colorRes, R.font.inter_semibold, R.dimen.b4_text_size, R.dimen.dimen_14)
             TextStyleKey.B4_MEDIUM -> create(context, colorRes, R.font.inter_medium, R.dimen.b4_text_size, R.dimen.dimen_14)
-            TextStyleKey.B4 -> create(context, colorRes, R.font.inter_fallback, R.dimen.b4_text_size, R.dimen.dimen_14)
+            TextStyleKey.B4 -> create(context, colorRes, R.font.inter, R.dimen.b4_text_size, R.dimen.dimen_14)
 
             TextStyleKey.P1_SEMIBOLD -> create(context, colorRes, R.font.inter_semibold, R.dimen.p1_text_size, R.dimen.dimen_20)
-            TextStyleKey.P1 -> create(context, colorRes, R.font.inter_fallback, R.dimen.p1_text_size, R.dimen.dimen_20)
+            TextStyleKey.P1 -> create(context, colorRes, R.font.inter, R.dimen.p1_text_size, R.dimen.dimen_20)
             TextStyleKey.P2_SEMIBOLD -> create(context, colorRes, R.font.inter_semibold, R.dimen.p2_text_size, R.dimen.dimen_16)
-            TextStyleKey.P2 -> create(context, colorRes, R.font.inter_fallback, R.dimen.p2_text_size, R.dimen.dimen_16)
+            TextStyleKey.P2 -> create(context, colorRes, R.font.inter, R.dimen.p2_text_size, R.dimen.dimen_16)
 
             TextStyleKey.BUTTON_EXTRA_LARGE -> create(context, colorRes, R.font.inter_semibold, R.dimen.button_text_extra_large, R.dimen.dimen_24)
             TextStyleKey.BUTTON_LARGE -> create(context, colorRes, R.font.inter_semibold, R.dimen.button_text_large, R.dimen.dimen_24)

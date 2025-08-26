@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.res.Resources
 import android.graphics.Typeface
 import android.os.Build
+import android.util.Log
 import androidx.annotation.FontRes
 import androidx.core.content.res.ResourcesCompat
 
@@ -11,10 +12,6 @@ object FontUtils {
 
     private val fontCache = mutableMapOf<Int, Typeface>()
 
-    /**
-     * Loads font with fallback mechanism - guaranteed crash-free
-     * ResourcesCompat already handles async loading internally
-     */
     fun Context?.loadFont(@FontRes fontRes: Int): Typeface {
         if (this == null) return Typeface.DEFAULT
 
@@ -27,11 +24,7 @@ object FontUtils {
 
     private fun loadFontWithFallback(context: Context, @FontRes fontRes: Int): Typeface {
         return try {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                ResourcesCompat.getFont(context, fontRes) ?: loadLocalFontSafely(context, fontRes)
-            } else {
-                loadLocalFontSafely(context, fontRes)
-            }
+            ResourcesCompat.getFont(context, fontRes) ?: loadLocalFontSafely(context, fontRes)
         } catch (e: Resources.NotFoundException) {
             loadLocalFontSafely(context, fontRes)
         } catch (e: Exception) {
@@ -42,7 +35,6 @@ object FontUtils {
     private fun loadLocalFontSafely(context: Context, @FontRes fontRes: Int): Typeface {
         return try {
             val fontName = context.resources.getResourceEntryName(fontRes)
-
             val fallbackFontRes = when (fontName) {
                 "inter_semibold" -> getLocalFontRes(context, "inter_semibold_fallback")
                 "inter_medium" -> getLocalFontRes(context, "inter_medium_fallback")
