@@ -103,11 +103,25 @@
                     app:layout_constraintTop_toBottomOf="@id/tvTotalTitle"
                     tools:text="Rp0"/>
 
-                <include
+                <com.google.android.material.chip.Chip
                     android:id="@+id/discountBadge"
-                    layout="@layout/view_badge"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    tools:text="Total Hemat Rp81rb"
+                    android:paddingVertical="@dimen/dimen_2"
+                    app:chipMinHeight="@dimen/dimen_0"
+                    app:chipStartPadding="@dimen/dimen_0"
+                    app:chipEndPadding="@dimen/dimen_0"
+                    app:textStartPadding="@dimen/xxxs"
+                    app:textEndPadding="@dimen/xxxs"
+                    app:ensureMinTouchTargetSize="false"
+                    app:chipMinTouchTargetSize="@dimen/dimen_0"
+                    app:chipBackgroundColor="@color/success_background"
+                    app:chipStrokeWidth="@dimen/dimen_0"
+                    android:ellipsize="end"
+                    app:chipCornerRadius="@dimen/xxxs"
+                    android:textColor="@color/green_50"
+                    android:textAppearance="?b4SemiBold"
                     android:layout_marginStart="@dimen/xxxs"
                     app:layout_constraintStart_toEndOf="@id/tvTotal"
                     app:layout_constraintTop_toTopOf="@id/tvTotal"

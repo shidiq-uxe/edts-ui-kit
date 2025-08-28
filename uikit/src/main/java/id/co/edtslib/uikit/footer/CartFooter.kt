@@ -117,13 +117,13 @@ open class CartFooter @JvmOverloads constructor(
     var isDiscountBadgeVisible: Boolean = false
         set(value) {
             field = value
-            binding.discountBadge.root.isVisible = value
+            binding.discountBadge.isVisible = value
         }
 
     var discountBadgeText: CharSequence? = null
         set(value) {
             field = value
-            binding.discountBadge.root.text = value
+            binding.discountBadge.text = value
         }
 
     var gradientColors = intArrayOf(context.color(R.color.white), context.color(R.color.support_gradient))
@@ -143,7 +143,7 @@ open class CartFooter @JvmOverloads constructor(
             )
 
             binding.btnSubmit.isInvisible = value
-            binding.discountBadge.root.isVisible = !value
+            binding.discountBadge.isVisible = !value
             binding.extendedCouponSection.binding.tvInfo.isInvisible = value
 
             skeletonLoaders.forEach {

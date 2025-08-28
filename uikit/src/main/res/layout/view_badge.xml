@@ -16,5 +16,6 @@
     app:chipBackgroundColor="@color/success_background"
     app:chipStrokeWidth="@dimen/dimen_0"
     android:ellipsize="end"
+    app:chipCornerRadius="@dimen/xxxs"
     android:textColor="@color/green_50"
     android:textAppearance="?b4SemiBold"/>
