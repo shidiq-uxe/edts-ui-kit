@@ -46,7 +46,7 @@ class GuidelinesCartActivity : GuidelinesBaseActivity() {
     }
 
     private fun bindAnimations() {
-        binding.footerView.extendedFooter.hideCouponWithY(false)
+        // binding.footerView.extendedFooter.hideCouponWithY(false)
 
         binding.footerView.attachToRecyclerView(binding.rvCart)
         binding.discountRedemptionBox.attachToRecyclerView(binding.rvCart, DISCOUNT_REDEMPTION_BOX_ADAPTER_POSITION)
@@ -88,15 +88,19 @@ class GuidelinesCartActivity : GuidelinesBaseActivity() {
             }
         }
 
-        binding.footerView.totalText
+        binding.footerView.discountBadgeText = "Total Hemat Rp81rb"
 
+        binding.footerView.isHtml = true
         binding.footerView.delegate = object : CartFooterDelegate {
             override fun onCouponSectionClick() {
-                Log.e("Cart Footer", "Coupon Section Clicked")
+                binding.footerView.isHtml = true
+                binding.footerView.infoText = "Diskon <b>Rp15.000</b> Terpakai"
+
+                binding.footerView.playPreLoadedAnimations()
             }
 
             override fun onActionButtonClick() {
-                Log.e("Cart Footer", "Action Button Clicked")
+                binding.footerView.isConfettiBackgroundVisible = false
             }
 
             override fun onSummaryClick() {

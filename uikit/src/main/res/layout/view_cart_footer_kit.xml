@@ -31,6 +31,7 @@
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:contentPadding="-2dp"
             app:cardBackgroundColor="@color/white"
             app:shapeAppearance="@style/ShapeAppearance.EDTS.UIKit.Flat.Corner.Bottom.12">
 
@@ -68,6 +69,27 @@
 
                 </com.facebook.shimmer.ShimmerFrameLayout>
 
+                <com.facebook.shimmer.ShimmerFrameLayout
+                    android:id="@+id/shimmerDiscountBadge"
+                    android:layout_width="@dimen/xxxl"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/xxxs"
+                    android:layout_marginHorizontal="@dimen/xxs"
+                    android:visibility="gone"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toEndOf="@id/shimmerTotal"
+                    app:layout_constraintTop_toBottomOf="@id/tvTotalTitle"
+                    app:layout_constraintEnd_toStartOf="@id/btnSubmit">
+
+                    <!--Todo: Fix background-->
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="?b1SemiBold"
+                        android:layout_width="@dimen/xxxl"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_skeleton_shimmer_6" />
+
+                </com.facebook.shimmer.ShimmerFrameLayout>
+
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tvTotal"
                     style="?b1SemiBold"
@@ -80,6 +102,18 @@
                     app:layout_constraintStart_toStartOf="@id/tvTotalTitle"
                     app:layout_constraintTop_toBottomOf="@id/tvTotalTitle"
                     tools:text="Rp0"/>
+
+                <include
+                    android:id="@+id/discountBadge"
+                    layout="@layout/view_badge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/xxxs"
+                    app:layout_constraintStart_toEndOf="@id/tvTotal"
+                    app:layout_constraintTop_toTopOf="@id/tvTotal"
+                    app:layout_constraintBottom_toBottomOf="@id/tvTotal"
+                    app:layout_constraintEnd_toEndOf="@id/btnSubmit"
+                    app:layout_constraintHorizontal_bias="0.0"/>
 
                 <id.co.edtslib.uikit.button.Button
                     android:id="@+id/btnSubmit"
@@ -110,6 +144,28 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:background="@drawable/bg_skeleton_shimmer_6" />
+
+                </com.facebook.shimmer.ShimmerFrameLayout>
+
+                <com.facebook.shimmer.ShimmerFrameLayout
+                    android:id="@+id/shimmerCashback"
+                    android:layout_width="@dimen/dimen_0"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/xxs"
+                    android:layout_marginHorizontal="@dimen/xs"
+                    android:layout_marginBottom="@dimen/m2"
+                    android:visibility="gone"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/btnSubmit"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent">
+
+                    <!--Todo: Fix background-->
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/m3"
                         android:background="@drawable/bg_skeleton_shimmer_6" />
 
                 </com.facebook.shimmer.ShimmerFrameLayout>
