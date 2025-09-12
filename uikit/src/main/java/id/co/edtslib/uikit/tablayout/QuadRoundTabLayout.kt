@@ -35,6 +35,7 @@ import id.co.edtslib.uikit.utils.color
 import id.co.edtslib.uikit.utils.deviceWidth
 import id.co.edtslib.uikit.utils.dimen
 import id.co.edtslib.uikit.utils.dp
+import id.co.edtslib.uikit.utils.path.pathToConvexPath
 
 class QuadRoundTabLayout @JvmOverloads constructor(
     context: Context,
@@ -597,10 +598,12 @@ class QuadRoundTabLayout @JvmOverloads constructor(
                     val path = selectedDrawable.getPath()
                     val paddedPath = Path(path)
 
+
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
                         outline.setPath(paddedPath)
                     } else {
-                        outline.setConvexPath(paddedPath)
+                        val convexPath = pathToConvexPath(paddedPath, 4f)
+                        outline.setConvexPath(convexPath)
                     }
                 }
             }
