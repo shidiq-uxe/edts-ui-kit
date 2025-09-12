@@ -151,7 +151,7 @@ open class CartFooter @JvmOverloads constructor(
             )
 
             binding.btnSubmit.isInvisible = value
-            binding.discountBadge.isVisible = !value
+            binding.discountBadge.isVisible = !value && !discountBadgeText.isNullOrEmpty()
             binding.extendedCouponSection.binding.tvInfo.isInvisible = value
             binding.flCashbackBadge.isVisible = !value
 
