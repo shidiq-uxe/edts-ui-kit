@@ -2,16 +2,12 @@ package id.co.edtslib.uikit.footer
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
-import android.animation.ValueAnimator
 import android.content.Context
-import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
 import android.util.AttributeSet
-import android.util.Log
+import android.view.View
 import android.view.animation.AccelerateDecelerateInterpolator
-import android.view.animation.AccelerateInterpolator
-import android.view.animation.DecelerateInterpolator
 import android.widget.FrameLayout
 import androidx.annotation.RawRes
 import androidx.appcompat.view.ContextThemeWrapper
@@ -22,7 +18,6 @@ import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import androidx.core.view.updatePadding
 import androidx.recyclerview.widget.RecyclerView
-import com.airbnb.lottie.LottieDrawable
 import id.co.edtslib.uikit.R
 import id.co.edtslib.uikit.databinding.ViewCartFooterKitBinding
 import id.co.edtslib.uikit.utils.color
@@ -30,14 +25,10 @@ import id.co.edtslib.uikit.utils.drawable
 import id.co.edtslib.uikit.utils.html.FontManager
 import id.co.edtslib.uikit.utils.html.HtmlRenderer
 import id.co.edtslib.uikit.utils.html.HtmlRendererConfig
-import id.co.edtslib.uikit.utils.html.boldStyle
-import id.co.edtslib.uikit.utils.html.renderHtml
 import id.co.edtslib.uikit.utils.html.semiBoldStyle
 import id.co.edtslib.uikit.utils.inflater
-import id.co.edtslib.uikit.utils.interpolator.EaseInterpolator
 import id.co.edtslib.uikit.utils.setDrawable
 import id.co.edtslib.uikit.utils.setGradientBackground
-import kotlinx.coroutines.flow.combine
 
 open class CartFooter @JvmOverloads constructor(
     context: Context,
@@ -106,13 +97,29 @@ open class CartFooter @JvmOverloads constructor(
     var isConfettiBackgroundVisible: Boolean = true
         set(value) {
             field = value
-            binding.extendedCouponSection.binding.ivConfetti.isVisible = value
-            binding.extendedCouponSection.binding.lottieLayer.isVisible = value
+
+            val confettiView = binding.extendedCouponSection.binding.ivConfetti
+            val lottieView = binding.extendedCouponSection.binding.lottieLayer
+
+            if (!value) {
+                confettiView.animate()
+                    .alpha(0f)
+                    .setDuration(500)
+                    .setInterpolator(AccelerateDecelerateInterpolator())
+                    .withEndAction {
+                        confettiView.isVisible = false
+                        lottieView.isVisible = false
+                    }
+            } else {
+                confettiView.isVisible = true
+                lottieView.isVisible = true
+            }
 
             binding.extendedCouponSection.binding.tvInfo.setDrawable(
                 drawableLeft = context.drawable(R.drawable.ic_voucher_16)
             )
         }
+
 
     var isDiscountBadgeVisible: Boolean = false
         set(value) {
@@ -123,6 +130,7 @@ open class CartFooter @JvmOverloads constructor(
     var discountBadgeText: CharSequence? = null
         set(value) {
             field = value
+            isDiscountBadgeVisible = !value.isNullOrEmpty()
             binding.discountBadge.text = value
         }
 
@@ -145,6 +153,7 @@ open class CartFooter @JvmOverloads constructor(
             binding.btnSubmit.isInvisible = value
             binding.discountBadge.isVisible = !value
             binding.extendedCouponSection.binding.tvInfo.isInvisible = value
+            binding.flCashbackBadge.isVisible = !value
 
             skeletonLoaders.forEach {
                 it.isVisible = value
@@ -184,9 +193,8 @@ open class CartFooter @JvmOverloads constructor(
         }
 
 
-
     @RawRes
-    var defaultAnimation: Int = R.raw.applied_coupon_confetti
+    var animationRawRes: Int = R.raw.applied_coupon_confetti
 
     init {
         initAttrs(attrs)
@@ -211,10 +219,12 @@ open class CartFooter @JvmOverloads constructor(
             var currentLoop = 0
             var shouldTrigger = false
 
-            isConfettiBackgroundVisible = true
+            if (!isConfettiBackgroundVisible) {
+                isConfettiBackgroundVisible = true
+            }
 
             lottieLayer.apply {
-                setAnimation(defaultAnimation)
+                setAnimation(animationRawRes)
                 repeatCount = 1
                 playAnimation()
             }
@@ -258,11 +268,13 @@ open class CartFooter @JvmOverloads constructor(
         binding.btnSubmit.setOnClickListener {
             delegate?.onActionButtonClick()
         }
-        binding.extendedCouponSection.binding.root.setOnClickListener {
-            delegate?.onCouponSectionClick()
-        }
         binding.tvTotal.setOnClickListener {
             delegate?.onSummaryClick()
+        }
+        extendedFooter.delegate = object : CartCouponExtendedFooterDelegate {
+            override fun onFooterClick(view: View) {
+                delegate?.onCouponSectionClick()
+            }
         }
     }
 
