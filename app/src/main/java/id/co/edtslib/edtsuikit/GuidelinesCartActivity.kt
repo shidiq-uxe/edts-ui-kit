@@ -15,6 +15,7 @@ import id.co.edtslib.edtsuikit.databinding.ActivityGuidelinesCartBinding
 import id.co.edtslib.edtsuikit.databinding.ItemCartDiscountRedemptionInfoBinding
 import id.co.edtslib.edtsuikit.databinding.ItemCartPlaceholderBinding
 import id.co.edtslib.uikit.adapter.multiTypeAdapter
+import id.co.edtslib.uikit.footer.CartFooter
 import id.co.edtslib.uikit.footer.CartFooterDelegate
 import id.co.edtslib.uikit.infobox.DiscountRedemptionBoxDelegate
 import id.co.edtslib.uikit.utils.MarginItem
@@ -88,15 +89,13 @@ class GuidelinesCartActivity : GuidelinesBaseActivity() {
             }
         }
 
-        binding.footerView.discountBadgeText = "Total Hemat Rp81rb"
-
         binding.footerView.isHtml = true
         binding.footerView.delegate = object : CartFooterDelegate {
             override fun onCouponSectionClick() {
+                binding.footerView.playPreLoadedAnimations()
+
                 binding.footerView.isHtml = true
                 binding.footerView.infoText = "Diskon <b>Rp15.000</b> Terpakai"
-
-                binding.footerView.playPreLoadedAnimations()
             }
 
             override fun onActionButtonClick() {
@@ -104,13 +103,24 @@ class GuidelinesCartActivity : GuidelinesBaseActivity() {
             }
 
             override fun onSummaryClick() {
-                Log.e("Cart Footer", "Summary Section Clicked")
+                if (binding.footerView.currentState == CartFooter.State.DEFAULT) {
+                    binding.footerView.isConfettiBackgroundVisible = false
+                    binding.footerView.setState(
+                        CartFooter.State.WARNING
+                    )
+                } else {
+                    binding.footerView.setState(
+                        CartFooter.State.DEFAULT
+                    )
+                }
+
             }
         }
     }
 
     private fun stimulateDummyLoading() {
         binding.footerView.totalText = "Rp120.000"
+        binding.footerView.discountBadgeText = "Total Hemat Rp81rb"
         binding.footerView.isLoading = true
 
         Handler(Looper.getMainLooper()).postDelayed({

@@ -46,8 +46,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/xs"
                     android:layout_marginTop="@dimen/xs"
+                    android:gravity="center"
                     android:text="Total Pembayaran"
                     android:textColor="@color/black_50"
+                    app:drawableEndCompat="@drawable/ic_chevron_down_16"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -96,9 +98,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/xxxs"
-                    android:drawablePadding="@dimen/xxxs"
                     android:textColor="@color/black_70"
-                    app:drawableEndCompat="@drawable/ic_chevron_up_16"
                     app:layout_constraintStart_toStartOf="@id/tvTotalTitle"
                     app:layout_constraintTop_toBottomOf="@id/tvTotalTitle"
                     tools:text="Rp0"/>

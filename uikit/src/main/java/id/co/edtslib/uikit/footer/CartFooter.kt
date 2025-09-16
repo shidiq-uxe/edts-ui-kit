@@ -3,6 +3,8 @@ package id.co.edtslib.uikit.footer
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.content.Context
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
 import android.util.AttributeSet
@@ -66,12 +68,20 @@ open class CartFooter @JvmOverloads constructor(
 
         }
 
+    var infoIcon: Drawable = context.drawable(R.drawable.ic_voucher_16)
+        set(value) {
+            field = value
+            binding.extendedCouponSection.binding.tvInfo.setDrawable(
+                drawableLeft = value
+            )
+        }
+
     var totalText: CharSequence? = null
         set(value) {
             field = value
             binding.tvTotal.text = value
-            binding.tvTotal.setDrawable(
-                drawableRight = if (value.isNullOrEmpty()) null else context.drawable(R.drawable.ic_chevron_up_16)
+            binding.tvTotalTitle.setDrawable(
+                drawableRight = if (value.isNullOrEmpty()) null else context.drawable(R.drawable.ic_chevron_down_16)
             )
         }
 
@@ -134,7 +144,9 @@ open class CartFooter @JvmOverloads constructor(
             binding.discountBadge.text = value
         }
 
-    var gradientColors = intArrayOf(context.color(R.color.white), context.color(R.color.support_gradient))
+    private var defaultGradientColors = intArrayOf(context.color(R.color.white), context.color(R.color.support_gradient))
+
+    var gradientColors = defaultGradientColors
         set(value) {
             field = value
             setGradientBackground(value)
@@ -146,12 +158,13 @@ open class CartFooter @JvmOverloads constructor(
             binding.btnSubmit.isEnabled = !value
             binding.btnSubmit.text = if (value) null else buttonText
             binding.tvTotal.text = if (value) "" else totalText
-            binding.tvTotal.setDrawable(
-                drawableRight = if (value) null else context.drawable(R.drawable.ic_chevron_up_16)
+            binding.discountBadge.text = if (value) "" else discountBadgeText
+            binding.tvTotalTitle.setDrawable(
+                drawableRight = if (value) null else context.drawable(R.drawable.ic_chevron_down_16)
             )
 
             binding.btnSubmit.isInvisible = value
-            binding.discountBadge.isVisible = !value && !discountBadgeText.isNullOrEmpty()
+            isDiscountBadgeVisible = !value && !binding.discountBadge.text.isNullOrEmpty()
             binding.extendedCouponSection.binding.tvInfo.isInvisible = value
             binding.flCashbackBadge.isVisible = !value
 
@@ -192,6 +205,8 @@ open class CartFooter @JvmOverloads constructor(
             binding.btnSubmit.isEnabled = value
         }
 
+    var currentState = State.DEFAULT
+        private set
 
     @RawRes
     var animationRawRes: Int = R.raw.applied_coupon_confetti
@@ -213,6 +228,8 @@ open class CartFooter @JvmOverloads constructor(
 
     fun playPreLoadedAnimations() {
         with(binding.extendedCouponSection.binding) {
+            setState(State.DEFAULT)
+
             this.ivConfetti.alpha = 0f
 
             val fadeThreshold = 0.45f
@@ -268,7 +285,7 @@ open class CartFooter @JvmOverloads constructor(
         binding.btnSubmit.setOnClickListener {
             delegate?.onActionButtonClick()
         }
-        binding.tvTotal.setOnClickListener {
+        binding.tvTotalTitle.setOnClickListener {
             delegate?.onSummaryClick()
         }
         extendedFooter.delegate = object : CartCouponExtendedFooterDelegate {
@@ -276,6 +293,22 @@ open class CartFooter @JvmOverloads constructor(
                 delegate?.onCouponSectionClick()
             }
         }
+    }
+
+    fun setState(state: State, infoText: String? = null) {
+        currentState = state
+
+        val strokeColor = context.color(if (state == State.WARNING) R.color.warning_border else R.color.primary_30)
+        val backgroundColor = context.color(if (state == State.WARNING) R.color.warning_background else R.color.info_background)
+
+        this.infoText = if (infoText.isNullOrEmpty()) state.defaultInfo else infoText
+        this.infoIcon = if (state == State.WARNING) context.drawable(R.drawable.ic_warning_16) else context.drawable(R.drawable.ic_voucher_16)
+
+        binding.extendedCouponSection.infoStrokeColor = strokeColor
+        binding.extendedCouponSection.infoBackgroundColor = backgroundColor
+        binding.extendedCouponSection.binding.actionIndicator.buttonTintList = ColorStateList.valueOf(strokeColor)
+
+        gradientColors = if (state == State.WARNING) intArrayOf(Color.TRANSPARENT, Color.TRANSPARENT) else defaultGradientColors
     }
 
     fun setGradientBackground(
@@ -292,14 +325,21 @@ open class CartFooter @JvmOverloads constructor(
         recyclerView: RecyclerView,
         includePadding: Boolean = true,
     ) {
-        binding.extendedCouponSection.attachToRecyclerView(recyclerView)
-
         if (includePadding) {
             recyclerView.clipToPadding = false
             doOnLayout {
                 recyclerView.updatePadding(bottom = height.plus(recyclerView.paddingBottom))
             }
         }
+
+        binding.extendedCouponSection.attachToRecyclerView(recyclerView)
+    }
+
+    enum class State(
+        val defaultInfo: String,
+    ){
+        DEFAULT("Cek promo atau tukar kupon di sini"),
+        WARNING("Ada promo tidak bisa dipakai")
     }
 
 }

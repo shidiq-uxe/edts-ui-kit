@@ -1,10 +1,10 @@
 
-| Visual                                                                                                                             | Description                                                              |
-|------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------|
-| <img src="https://res.cloudinary.com/dmduc9apd/image/upload/v1756885083/Screenshot_2025-09-03_at_14.36.12_gpaiep.png" width="360"> | **Expanded State** <br> `isInfoSectionVisible = true // true by default` |
-| <img src="https://res.cloudinary.com/dmduc9apd/image/upload/v1756885231/Screenshot_2025-09-03_at_14.40.05_zbdy7j.png" width="360"> | **Shrink State** <br> `isInfoSectionVisible = false`                     |
-| <img src="https://res.cloudinary.com/dmduc9apd/image/upload/v1756885428/Screenshot_2025-09-03_at_14.43.34_szoyxo.png" width="360"> | **Scrolling State** <br> `attachToRecyclerView(recyclerView)`            |
-| N/A (Next Release)                                                                                                                 | **Coupon Not Applied State** <br> N/A                                    |
+| Visual                                                                                                                             | Description                                                                 |
+|------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------|
+| <img src="https://res.cloudinary.com/dmduc9apd/image/upload/v1756885083/Screenshot_2025-09-03_at_14.36.12_gpaiep.png" width="360"> | **Expanded State** <br> `isInfoSectionVisible = true // true by default`    |
+| <img src="https://res.cloudinary.com/dmduc9apd/image/upload/v1756885231/Screenshot_2025-09-03_at_14.40.05_zbdy7j.png" width="360"> | **Shrink State** <br> `isInfoSectionVisible = false`                        |
+| <img src="https://res.cloudinary.com/dmduc9apd/image/upload/v1756885428/Screenshot_2025-09-03_at_14.43.34_szoyxo.png" width="360"> | **Scrolling State** <br> `attachToRecyclerView(recyclerView)`               |
+| <img src="https://res.cloudinary.com/dmduc9apd/image/upload/v1758009579/7148333e-1d83-430f-a0f7-8233cf5fd713.png" width="360">     | **Coupon Can't Be Applied State** <br> `setState(CartFooter.State.WARNING)` |
 
 
 | Loading                                                                                                 | Scrolling                                                                                                   | Lottie                                                                                                |
@@ -21,7 +21,7 @@
     android:id="@+id/cartFooter"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:infoText="Masukan kode kupon di sini"
+    app:infoText="Cek promo atau tukar kupon di sini"
     app:buttonText="Beli"
     app:isExpanded="true" />
 ```
@@ -32,7 +32,7 @@
 binding.cartFooter.apply {
     // Basic content setup
     totalText = "Rp120.000"
-    infoText = "Masukan Kode Kupon disini"
+    infoText = "Cek promo atau tukar kupon di sini"
     buttonText = "Beli"
     
     // Visibility controls
@@ -44,6 +44,8 @@ binding.cartFooter.apply {
     isLoading = false
     isButtonEnabled = true
     isCouponSectionExpanded = true
+    // Coupon can't be applied
+    setState(CartFooter.State.WARNING) // or Default
     
     // Cashback configuration
     cashbackBadgeText = "Berpotensi mendapat Poin Cash / Poin Loyalty / Stamp"
@@ -102,11 +104,12 @@ binding.cartFooter.apply {
 | `isConfettiBackgroundVisible` | `Boolean` | Controls confetti background image/placeholder visibility with smooth fade transition | `true`  |
 
 ### State Management
-| Property          | Type      | Description                                             | Default |
-|-------------------|-----------|---------------------------------------------------------|---------|
-| `isLoading`       | `Boolean` | Enables shimmer loading state and disables interactions | `false` |
-| `isButtonEnabled` | `Boolean` | Controls button enabled/disabled state                  | `false` |
-| `isHtml`          | `Boolean` | Enables HTML parsing for cashback badge text            | `false` |
+| Property          | Type               | Description                                             | Default                    |
+|-------------------|--------------------|---------------------------------------------------------|----------------------------|
+| `isLoading`       | `Boolean`          | Enables shimmer loading state and disables interactions | `false`                    |
+| `isButtonEnabled` | `Boolean`          | Controls button enabled/disabled state                  | `false`                    |
+| `isHtml`          | `Boolean`          | Enables HTML parsing for cashback badge text            | `false`                    |
+| `setState()`      | `CartFooter.State` | Controls Coupon Section default/warning state           | `CartFooter.State.Default` |
 
 ### Customization Properties
 | Property            | Type       | Description                                            | Default                     |
