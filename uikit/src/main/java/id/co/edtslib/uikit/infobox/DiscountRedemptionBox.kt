@@ -34,7 +34,7 @@ import id.co.edtslib.uikit.utils.html.strongStyle
 import id.co.edtslib.uikit.utils.inflater
 import kotlin.toString
 
-class DiscountRedemptionBox @JvmOverloads constructor(
+open class DiscountRedemptionBox @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
@@ -75,33 +75,13 @@ class DiscountRedemptionBox @JvmOverloads constructor(
     var infoText: CharSequence? = null
         set(value) {
             field = value
-
-            if (isHtml) {
-                val fontManager = FontManager(context)
-                val config = HtmlRendererConfig(
-                    fontStyles = mapOf("myb" to fontManager.semiBoldStyle(Color.BLACK))
-                )
-
-                binding.chipInfo.renderHtml(value.toString(), HtmlRenderer(config, fontManager))
-            } else {
-                binding.chipInfo.text = value
-            }
+            updateInfoText(isHtml, value)
         }
 
     var isHtml: Boolean = false
         set(value) {
             field = value
-            if(value) {
-                val fontManager = FontManager(context)
-                val config = HtmlRendererConfig(
-                    fontStyles = mapOf("myb" to fontManager.semiBoldStyle(Color.BLACK))
-                )
-
-                binding.chipInfo
-                    .renderHtml(infoText.toString(), HtmlRenderer(config, fontManager))
-            } else {
-                binding.chipInfo.text = infoText
-            }
+            updateInfoText(value, infoText)
         }
 
     var promoTextAppearance = R.style.TextAppearance_Inter_Regular_B4
@@ -155,6 +135,18 @@ class DiscountRedemptionBox @JvmOverloads constructor(
     private fun adjustChipTextPadding() {
         binding.iconButton.doOnLayout {
             binding.chipInfo.textEndPadding = it.width.plus(it.marginEnd).plus(it.marginStart).toFloat()
+        }
+    }
+
+    private fun updateInfoText(isHtml: Boolean, text: CharSequence?) {
+        if (isHtml && text != null) {
+            val fontManager = FontManager(context)
+            val config = HtmlRendererConfig(
+                fontStyles = mapOf("myb" to fontManager.semiBoldStyle(Color.BLACK))
+            )
+            binding.chipInfo.renderHtml(text.toString(), HtmlRenderer(config, fontManager))
+        } else {
+            binding.chipInfo.text = text
         }
     }
 
@@ -223,12 +215,14 @@ class DiscountRedemptionBox @JvmOverloads constructor(
 
     private var attachedRecyclerView: RecyclerView? = null
 
+    private var isSticky = false
+    private var shouldStick = false
+
     fun attachToRecyclerView(
         recyclerView: RecyclerView,
         targetAdapterPosition: Int,
     ) {
-        var isSticky = false
-        var shouldStick = false
+        detachFromRecyclerView()
 
         attachedRecyclerView = recyclerView
 
@@ -236,8 +230,20 @@ class DiscountRedemptionBox @JvmOverloads constructor(
             override fun onScrolled(rv: RecyclerView, dx: Int, dy: Int) {
                 delegate?.onScrolled(rv, dx, dy)
 
+                val adapter = rv.adapter
+                if (adapter == null || targetAdapterPosition < 0 || targetAdapterPosition >= adapter.itemCount) {
+                    // Reset sticky state when target position is invalid
+                    if (isSticky) {
+                        isSticky = false
+                        hideOnShrinkState()
+                    }
+                    return
+                }
+
                 val viewHolder = rv.findViewHolderForAdapterPosition(targetAdapterPosition)
-                val bottomOfTheBox = viewHolder?.itemView?.bottom ?: 0
+                val bottomOfTheBox = viewHolder?.itemView?.bottom ?: run {
+                    return
+                }
 
                 shouldStick = bottomOfTheBox <= rv.top.plus(rv.paddingTop)
 
@@ -249,6 +255,11 @@ class DiscountRedemptionBox @JvmOverloads constructor(
 
             override fun onScrollStateChanged(rv: RecyclerView, newState: Int) {
                 delegate?.onScrollStateChanged(rv, newState)
+
+                val adapter = rv.adapter
+                if (adapter == null || targetAdapterPosition < 0 || targetAdapterPosition >= adapter.itemCount) {
+                    return
+                }
 
                 when (newState) {
                     RecyclerView.SCROLL_STATE_IDLE -> {
