@@ -215,14 +215,14 @@ open class DiscountRedemptionBox @JvmOverloads constructor(
 
     private var attachedRecyclerView: RecyclerView? = null
 
-    private var isSticky = false
-    private var shouldStick = false
-
     fun attachToRecyclerView(
         recyclerView: RecyclerView,
         targetAdapterPosition: Int,
     ) {
         detachFromRecyclerView()
+
+        var isSticky = false
+        var shouldStick = false
 
         attachedRecyclerView = recyclerView
 
@@ -231,7 +231,7 @@ open class DiscountRedemptionBox @JvmOverloads constructor(
                 delegate?.onScrolled(rv, dx, dy)
 
                 val adapter = rv.adapter
-                if (adapter == null || targetAdapterPosition < 0 || targetAdapterPosition >= adapter.itemCount) {
+                if (adapter == null || targetAdapterPosition < 0) {
                     // Reset sticky state when target position is invalid
                     if (isSticky) {
                         isSticky = false
@@ -241,9 +241,7 @@ open class DiscountRedemptionBox @JvmOverloads constructor(
                 }
 
                 val viewHolder = rv.findViewHolderForAdapterPosition(targetAdapterPosition)
-                val bottomOfTheBox = viewHolder?.itemView?.bottom ?: run {
-                    return
-                }
+                val bottomOfTheBox = viewHolder?.itemView?.bottom ?: run { return }
 
                 shouldStick = bottomOfTheBox <= rv.top.plus(rv.paddingTop)
 
@@ -255,11 +253,6 @@ open class DiscountRedemptionBox @JvmOverloads constructor(
 
             override fun onScrollStateChanged(rv: RecyclerView, newState: Int) {
                 delegate?.onScrollStateChanged(rv, newState)
-
-                val adapter = rv.adapter
-                if (adapter == null || targetAdapterPosition < 0 || targetAdapterPosition >= adapter.itemCount) {
-                    return
-                }
 
                 when (newState) {
                     RecyclerView.SCROLL_STATE_IDLE -> {

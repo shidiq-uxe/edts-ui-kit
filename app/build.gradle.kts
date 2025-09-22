@@ -53,6 +53,7 @@ dependencies {
     implementation(libs.androidx.appcompat)
     implementation(libs.shimmer)
     implementation(libs.glide)
+    implementation(libs.androidx.swipeRefresh)
     kapt(libs.glide.compiler)
 
     implementation(libs.material)
