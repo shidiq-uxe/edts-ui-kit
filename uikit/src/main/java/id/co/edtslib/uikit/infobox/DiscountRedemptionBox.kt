@@ -215,14 +215,14 @@ open class DiscountRedemptionBox @JvmOverloads constructor(
 
     private var attachedRecyclerView: RecyclerView? = null
 
+    var isSticky = false
+    var shouldStick = false
+
     fun attachToRecyclerView(
         recyclerView: RecyclerView,
         targetAdapterPosition: Int,
     ) {
         detachFromRecyclerView()
-
-        var isSticky = false
-        var shouldStick = false
 
         attachedRecyclerView = recyclerView
 
@@ -230,20 +230,7 @@ open class DiscountRedemptionBox @JvmOverloads constructor(
             override fun onScrolled(rv: RecyclerView, dx: Int, dy: Int) {
                 delegate?.onScrolled(rv, dx, dy)
 
-                val adapter = rv.adapter
-                if (adapter == null || targetAdapterPosition < 0) {
-                    // Reset sticky state when target position is invalid
-                    if (isSticky) {
-                        isSticky = false
-                        hideOnShrinkState()
-                    }
-                    return
-                }
-
-                val viewHolder = rv.findViewHolderForAdapterPosition(targetAdapterPosition)
-                val bottomOfTheBox = viewHolder?.itemView?.bottom ?: run { return }
-
-                shouldStick = bottomOfTheBox <= rv.top.plus(rv.paddingTop)
+                shouldStick = isTargetBottomLessThanRecyclerView(targetAdapterPosition, rv)
 
                 if (!shouldStick && isSticky) {
                     isSticky = false
@@ -282,6 +269,18 @@ open class DiscountRedemptionBox @JvmOverloads constructor(
 
         scrollListener = null
         attachedRecyclerView = null
+    }
+
+    fun isTargetBottomLessThanRecyclerView(
+        targetAdapterPosition: Int,
+        rv: RecyclerView? = null,
+    ):  Boolean {
+        val recyclerView = rv ?: attachedRecyclerView ?: return false
+
+        val viewHolder = recyclerView.findViewHolderForAdapterPosition(targetAdapterPosition)
+        val bottomOfTheBox = viewHolder?.itemView?.bottom ?: 0
+
+        return bottomOfTheBox <= recyclerView.top.plus(recyclerView.paddingTop)
     }
 
     companion object {
