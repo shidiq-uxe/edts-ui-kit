@@ -49,6 +49,8 @@ class GuidelinesCartActivity : GuidelinesBaseActivity() {
     private fun bindAnimations() {
         // binding.footerView.extendedFooter.hideCouponWithY(false)
 
+        binding.discountRedemptionBox.shouldBeHidden = false
+
         binding.footerView.attachToRecyclerView(binding.rvCart)
         binding.discountRedemptionBox.attachToRecyclerView(binding.rvCart, DISCOUNT_REDEMPTION_BOX_ADAPTER_POSITION)
     }
