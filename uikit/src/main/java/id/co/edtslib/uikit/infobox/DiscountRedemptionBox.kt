@@ -107,6 +107,11 @@ open class DiscountRedemptionBox @JvmOverloads constructor(
             }
         }
 
+    var shouldBeHidden = false
+
+    var isAnimating = false
+        private set
+
     private var boxHeight = 0
 
     init {
@@ -185,8 +190,12 @@ open class DiscountRedemptionBox @JvmOverloads constructor(
             this.animate()
                 .translationY(-boxHeight.toFloat())
                 .setDuration(TRANSLATE_DURATION)
+                .withStartAction {
+                    this.isAnimating = true
+                }
                 .withEndAction {
                     this.isVisible = false
+                    this.isAnimating = false
                 }
                 .start()
         } else {
@@ -203,6 +212,9 @@ open class DiscountRedemptionBox @JvmOverloads constructor(
                 .withStartAction {
                     this.translationY = -boxHeight.toFloat()
                     this.isVisible = true
+                    this.isAnimating = true
+                }.withEndAction {
+                    this.isAnimating = false
                 }
                 .start()
         } else {
@@ -215,8 +227,8 @@ open class DiscountRedemptionBox @JvmOverloads constructor(
 
     private var attachedRecyclerView: RecyclerView? = null
 
-    var isSticky = false
-    var shouldStick = false
+    private var isSticky = false
+    private var shouldStick = false
 
     fun attachToRecyclerView(
         recyclerView: RecyclerView,
@@ -230,9 +242,9 @@ open class DiscountRedemptionBox @JvmOverloads constructor(
             override fun onScrolled(rv: RecyclerView, dx: Int, dy: Int) {
                 delegate?.onScrolled(rv, dx, dy)
 
-                shouldStick = isTargetBottomLessThanRecyclerView(targetAdapterPosition, rv)
+                shouldStick = isTargetBottomLessThanRecyclerView(targetAdapterPosition, rv) && !shouldBeHidden
 
-                if (!shouldStick && isSticky) {
+                if ((!shouldStick && isSticky)) {
                     isSticky = false
                     hideOnShrinkState()
                 }
