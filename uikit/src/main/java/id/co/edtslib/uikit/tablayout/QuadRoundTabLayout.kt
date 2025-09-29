@@ -9,6 +9,7 @@ import android.os.Build
 import android.text.TextPaint
 import android.text.TextUtils
 import android.util.AttributeSet
+import android.util.Log
 import android.view.Gravity
 import android.view.MotionEvent
 import android.view.View
@@ -395,7 +396,12 @@ class QuadRoundTabLayout @JvmOverloads constructor(
         isOnLastIndex: Boolean = false,
         items: List<TabItem>,
     ): QuadRoundTabView {
-        return tabPool.acquire() ?: QuadRoundTabView(context).apply {
+        val isFromPool = tabPool.acquire() != null
+        val tab = tabPool.acquire() ?: QuadRoundTabView(context)
+
+        Log.e("QuadRoundTabLayout","Tab acquired - fromPool: $isFromPool, isStart: $isOnStartIndex, isEnd: $isOnLastIndex")
+
+        return tab.apply {
             val isOnFixedMode = scrollMode == MODE_FIXED
             val desiredWidth = if (isOnFixedMode) 0 else LayoutParams.WRAP_CONTENT
 
@@ -408,7 +414,6 @@ class QuadRoundTabLayout @JvmOverloads constructor(
                     top = 4.dp.toInt(),
                 )
             }
-
 
             val startDrawableModel = startTabModel.build()
             val endDrawableModel = endTabModel.build()
@@ -659,6 +664,7 @@ class QuadRoundTabLayout @JvmOverloads constructor(
             textView.text = null
             iconView.setImageDrawable(null)
             hideBadge()
+            this.background = null
         }
     }
 
