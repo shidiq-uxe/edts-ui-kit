@@ -11,7 +11,7 @@ plugins {
 }
 
 group = "id.co.edtslib.uikit"
-version = "0.16.5-rev2"
+version = "0.16.9-rev1"
 
 afterEvaluate {
 
@@ -21,7 +21,7 @@ afterEvaluate {
                 from(components["release"])
                 groupId = "id.co.edtslib.uikit"
                 artifactId = "uikit"
-                version = "0.16.5-rev2"
+                version = "0.16.9-rev1"
 
                 pom {
                     name.set("EDTS UI Kit")
@@ -93,6 +93,7 @@ dependencies {
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.swipeRefresh)
     implementation(libs.shimmer)
+    implementation(libs.lottie)
 
     implementation(libs.material)
     implementation(libs.glide)

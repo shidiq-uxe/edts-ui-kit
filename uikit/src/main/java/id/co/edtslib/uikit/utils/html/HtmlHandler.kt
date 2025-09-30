@@ -240,7 +240,6 @@ class TagHandler(
 
     private fun handleFontTag(opening: Boolean, tag: String, output: Editable) {
         val fontStyle = config.fontStyles[tag.lowercase()]
-        Log.e("HandleFontTag", "Font Tag : $tag & ${config.fontStyles}")
         if (fontStyle != null) {
             if (opening) {
                 fontTagStack.push(tag.lowercase() to output.length)
@@ -394,4 +393,14 @@ class HtmlRenderer(
         val tagHandler = TagHandler(textView, config, fontManager)
         return processedHtml.toSpanned(tagHandler)
     }
+}
+
+fun TextView.setHtmlText(value: CharSequence?, context: Context) {
+    val fontManager = FontManager(context)
+    val config = HtmlRendererConfig(
+        fontStyles = mapOf("myb" to fontManager.semiBoldStyle())
+    )
+    val htmlRenderer = HtmlRenderer(config, fontManager)
+
+    text = htmlRenderer.render(value.toString(), this)
 }

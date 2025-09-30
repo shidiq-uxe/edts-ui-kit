@@ -2,6 +2,7 @@ package id.co.edtslib.uikit.footer
 
 import android.animation.ValueAnimator
 import android.content.Context
+import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.widget.FrameLayout
 import androidx.appcompat.view.ContextThemeWrapper
@@ -14,9 +15,12 @@ import androidx.core.view.updateMargins
 import androidx.recyclerview.widget.RecyclerView
 import id.co.edtslib.uikit.R
 import id.co.edtslib.uikit.databinding.ViewCartFooterCouponBinding
+import id.co.edtslib.uikit.utils.color
 import id.co.edtslib.uikit.utils.dp
+import id.co.edtslib.uikit.utils.drawable
 import id.co.edtslib.uikit.utils.fade
 import id.co.edtslib.uikit.utils.inflater
+import id.co.edtslib.uikit.utils.setDrawable
 
 class CartCouponExtendedFooter @JvmOverloads constructor(
     context: Context,
@@ -44,6 +48,19 @@ class CartCouponExtendedFooter @JvmOverloads constructor(
             binding.tvInfo.text = value
         }
 
+    var infoBackgroundColor = context.color(R.color.info_background)
+        set(value) {
+            field = value
+            binding.root.setCardBackgroundColor(value)
+        }
+
+    var infoStrokeColor = context.color(R.color.primary_30)
+        set(value) {
+            field = value
+            binding.root.strokeColor = value
+        }
+
+
     init {
         initAttrs(attrs)
         bindClickAction()
@@ -64,12 +81,9 @@ class CartCouponExtendedFooter @JvmOverloads constructor(
 
     fun hideCouponWithY(shouldAnimate: Boolean = true) {
         if (shouldAnimate) {
-            if (!isVisible) return
-
             val distance = height.toFloat()
             animate().translationY(distance)
                 .setDuration(TRANSLATE_DURATION)
-                .withEndAction { isVisible = false }
                 .start()
         } else {
             isVisible = false
@@ -78,10 +92,7 @@ class CartCouponExtendedFooter @JvmOverloads constructor(
 
     fun showCouponWithY(shouldAnimate: Boolean = true) {
         if (shouldAnimate) {
-            if (isVisible) return
-
             translationY = height.toFloat()
-            isVisible = true
 
             animate().translationY(0f)
                 .setDuration(TRANSLATE_DURATION)

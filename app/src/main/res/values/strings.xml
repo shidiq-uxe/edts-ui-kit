@@ -8,6 +8,6 @@
     <string name="discount_redemption_box_title">Tebus Murah dan Hadiah</string>
     <string name="discount_redemption_box_info">Lihat semua promo yang tersedia, yuk</string>
     <!--Footer-->
-    <string name="coupon_footer_info_text">Masukkan kode kupon di sini</string>
+    <string name="coupon_footer_info_text">Cek promo atau tukar kupon di sini</string>
 
 </resources>
