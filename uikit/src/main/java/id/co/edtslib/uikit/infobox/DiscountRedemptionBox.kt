@@ -108,14 +108,6 @@ open class DiscountRedemptionBox @JvmOverloads constructor(
         }
 
     var shouldBeHidden = false
-        set(value) {
-            field = value
-            if (isVisible && value) {
-                hideOnShrinkState()
-            } else {
-                showOnShrinkState()
-            }
-        }
 
     var isAnimating = false
         private set
