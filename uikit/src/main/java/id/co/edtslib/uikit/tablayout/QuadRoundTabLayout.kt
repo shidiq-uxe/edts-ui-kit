@@ -395,7 +395,10 @@ class QuadRoundTabLayout @JvmOverloads constructor(
         isOnLastIndex: Boolean = false,
         items: List<TabItem>,
     ): QuadRoundTabView {
-        return tabPool.acquire() ?: QuadRoundTabView(context).apply {
+        val isFromPool = tabPool.acquire() != null
+        val tab = tabPool.acquire() ?: QuadRoundTabView(context)
+
+        return tab.apply {
             val isOnFixedMode = scrollMode == MODE_FIXED
             val desiredWidth = if (isOnFixedMode) 0 else LayoutParams.WRAP_CONTENT
 
@@ -408,7 +411,6 @@ class QuadRoundTabLayout @JvmOverloads constructor(
                     top = 4.dp.toInt(),
                 )
             }
-
 
             val startDrawableModel = startTabModel.build()
             val endDrawableModel = endTabModel.build()
@@ -659,6 +661,7 @@ class QuadRoundTabLayout @JvmOverloads constructor(
             textView.text = null
             iconView.setImageDrawable(null)
             hideBadge()
+            this.background = null
         }
     }
 
