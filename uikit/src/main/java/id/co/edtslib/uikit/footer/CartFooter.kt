@@ -152,4 +152,10 @@ open class CartFooter @JvmOverloads constructor(
         }
     }
 
+    fun detachFromRecyclerView(
+        recyclerView: RecyclerView
+    ) {
+        binding.extendedCouponSection.detachFromRecyclerView(recyclerView)
+    }
+
 }

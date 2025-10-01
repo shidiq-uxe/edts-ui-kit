@@ -91,12 +91,13 @@ class CartCouponExtendedFooter @JvmOverloads constructor(
         }
     }
 
+    internal var isSticky = true
+    internal var hasUserScrolled = false
+
+    var scrollListener: RecyclerView.OnScrollListener? = null
 
     fun attachToRecyclerView(recyclerView: RecyclerView) {
-        var isSticky = true
-        var hasUserScrolled = false
-
-        val scrollListener = object : RecyclerView.OnScrollListener() {
+        scrollListener = object : RecyclerView.OnScrollListener() {
             override fun onScrolled(rv: RecyclerView, dx: Int, dy: Int) {
                 if (!hasUserScrolled) return
 
@@ -117,6 +118,7 @@ class CartCouponExtendedFooter @JvmOverloads constructor(
                     }
 
                     RecyclerView.SCROLL_STATE_IDLE -> {
+                        hasUserScrolled = false
                         if (!isSticky) {
                             isSticky = true
                             showCouponWithY()
@@ -126,7 +128,13 @@ class CartCouponExtendedFooter @JvmOverloads constructor(
             }
         }
 
-        recyclerView.addOnScrollListener(scrollListener)
+        scrollListener?.let { recyclerView.addOnScrollListener(it) }
+    }
+
+    fun detachFromRecyclerView(recyclerView: RecyclerView) {
+        scrollListener?.let {
+            recyclerView.removeOnScrollListener(it)
+        }
     }
 
     companion object {
