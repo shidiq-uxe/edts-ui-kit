@@ -240,7 +240,6 @@ class TagHandler(
 
     private fun handleFontTag(opening: Boolean, tag: String, output: Editable) {
         val fontStyle = config.fontStyles[tag.lowercase()]
-        Log.e("HandleFontTag", "Font Tag : $tag & ${config.fontStyles}")
         if (fontStyle != null) {
             if (opening) {
                 fontTagStack.push(tag.lowercase() to output.length)

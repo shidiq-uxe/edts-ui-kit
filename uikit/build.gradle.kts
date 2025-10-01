@@ -11,17 +11,16 @@ plugins {
 }
 
 group = "id.co.edtslib.uikit"
-version = "0.16.5-rev3"
+version = "0.16.5-rev4"
 
 afterEvaluate {
-
     publishing {
         publications {
             create<MavenPublication>("release") {
                 from(components["release"])
                 groupId = "id.co.edtslib.uikit"
                 artifactId = "uikit"
-                version = "0.16.5-rev3"
+                version = "0.16.5-rev4"
 
                 pom {
                     name.set("EDTS UI Kit")

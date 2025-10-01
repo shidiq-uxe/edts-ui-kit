@@ -3,6 +3,7 @@ package id.co.edtslib.uikit.footer
 import android.animation.ValueAnimator
 import android.content.Context
 import android.util.AttributeSet
+import android.util.Log
 import android.widget.FrameLayout
 import androidx.appcompat.view.ContextThemeWrapper
 import androidx.core.animation.doOnEnd
@@ -64,12 +65,9 @@ class CartCouponExtendedFooter @JvmOverloads constructor(
 
     fun hideCouponWithY(shouldAnimate: Boolean = true) {
         if (shouldAnimate) {
-            if (!isVisible) return
-
             val distance = height.toFloat()
             animate().translationY(distance)
                 .setDuration(TRANSLATE_DURATION)
-                .withEndAction { isVisible = false }
                 .start()
         } else {
             isVisible = false
@@ -78,10 +76,7 @@ class CartCouponExtendedFooter @JvmOverloads constructor(
 
     fun showCouponWithY(shouldAnimate: Boolean = true) {
         if (shouldAnimate) {
-            if (isVisible) return
-
             translationY = height.toFloat()
-            isVisible = true
 
             animate().translationY(0f)
                 .setDuration(TRANSLATE_DURATION)
@@ -92,25 +87,14 @@ class CartCouponExtendedFooter @JvmOverloads constructor(
     }
 
     internal var isSticky = true
-    internal var hasUserScrolled = false
 
     var scrollListener: RecyclerView.OnScrollListener? = null
 
     fun attachToRecyclerView(recyclerView: RecyclerView) {
         scrollListener = object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(rv: RecyclerView, dx: Int, dy: Int) {
-                if (!hasUserScrolled) return
-
-                if (isSticky) {
-                    isSticky = false
-                    hideCouponWithY()
-                }
-            }
-
             override fun onScrollStateChanged(rv: RecyclerView, newState: Int) {
-                when (newState) {
+               when (newState) {
                     RecyclerView.SCROLL_STATE_DRAGGING, RecyclerView.SCROLL_STATE_SETTLING -> {
-                        hasUserScrolled = true
                         if (isSticky) {
                             isSticky = false
                             hideCouponWithY()
@@ -118,7 +102,6 @@ class CartCouponExtendedFooter @JvmOverloads constructor(
                     }
 
                     RecyclerView.SCROLL_STATE_IDLE -> {
-                        hasUserScrolled = false
                         if (!isSticky) {
                             isSticky = true
                             showCouponWithY()
