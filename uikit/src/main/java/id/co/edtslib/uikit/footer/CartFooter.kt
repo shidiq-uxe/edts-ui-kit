@@ -9,6 +9,7 @@ import androidx.appcompat.view.ContextThemeWrapper
 import androidx.core.content.withStyledAttributes
 import androidx.core.text.parseAsHtml
 import androidx.core.view.doOnLayout
+import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import androidx.core.view.updatePadding
 import androidx.recyclerview.widget.RecyclerView
@@ -26,7 +27,13 @@ open class CartFooter @JvmOverloads constructor(
 
     private val binding = ViewCartFooterKitBinding.inflate(this.context.inflater, this, true)
 
-    private val skeletonLoaders = listOf(binding.shimmerTotal, binding.shimmerButton)
+    private val skeletonLoaders = listOf(
+        binding.shimmerTotal,
+        binding.shimmerButton,
+        binding.shimmerCashback,
+        binding.extendedCouponSection.binding.shimmerCoupon1,
+        binding.extendedCouponSection.binding.shimmerCoupon2
+    )
 
     var delegate: CartFooterDelegate? = null
 
@@ -75,6 +82,12 @@ open class CartFooter @JvmOverloads constructor(
             binding.tvTotal.setDrawable(
                 drawableRight = if (value) null else context.drawable(R.drawable.ic_chevron_up_16)
             )
+
+            binding.btnSubmit.isInvisible = value
+            binding.btnSubmit.isClickable = !value
+            extendedFooter.binding.tvInfo.isInvisible = value
+            extendedFooter.binding.root.isClickable = !value
+
             skeletonLoaders.forEach {
                 it.isVisible = value
             }

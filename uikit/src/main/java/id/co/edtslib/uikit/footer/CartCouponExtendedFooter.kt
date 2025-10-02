@@ -87,8 +87,8 @@ class CartCouponExtendedFooter @JvmOverloads constructor(
     }
 
     internal var isSticky = true
-
-    var scrollListener: RecyclerView.OnScrollListener? = null
+    internal var scrollListener: RecyclerView.OnScrollListener? = null
+        private set
 
     fun attachToRecyclerView(recyclerView: RecyclerView) {
         scrollListener = object : RecyclerView.OnScrollListener() {
