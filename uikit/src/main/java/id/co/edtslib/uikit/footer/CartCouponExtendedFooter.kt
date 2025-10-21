@@ -77,6 +77,10 @@ class CartCouponExtendedFooter @JvmOverloads constructor(
         binding.root.setOnClickListener {
             delegate?.onFooterClick(it)
         }
+
+        binding.actionIndicator.setOnClickListener {
+            delegate?.onFooterClick(it)
+        }
     }
 
     fun hideCouponWithY(shouldAnimate: Boolean = true) {
@@ -102,25 +106,15 @@ class CartCouponExtendedFooter @JvmOverloads constructor(
         }
     }
 
+    internal var isSticky = true
+    internal var scrollListener: RecyclerView.OnScrollListener? = null
+        private set
 
     fun attachToRecyclerView(recyclerView: RecyclerView) {
-        var isSticky = true
-        var hasUserScrolled = false
-
-        val scrollListener = object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(rv: RecyclerView, dx: Int, dy: Int) {
-                if (!hasUserScrolled) return
-
-                if (isSticky) {
-                    isSticky = false
-                    hideCouponWithY()
-                }
-            }
-
+        scrollListener = object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(rv: RecyclerView, newState: Int) {
                 when (newState) {
                     RecyclerView.SCROLL_STATE_DRAGGING, RecyclerView.SCROLL_STATE_SETTLING -> {
-                        hasUserScrolled = true
                         if (isSticky) {
                             isSticky = false
                             hideCouponWithY()
@@ -137,7 +131,13 @@ class CartCouponExtendedFooter @JvmOverloads constructor(
             }
         }
 
-        recyclerView.addOnScrollListener(scrollListener)
+        scrollListener?.let { recyclerView.addOnScrollListener(it) }
+    }
+
+    fun detachFromRecyclerView(recyclerView: RecyclerView) {
+        scrollListener?.let {
+            recyclerView.removeOnScrollListener(it)
+        }
     }
 
     companion object {

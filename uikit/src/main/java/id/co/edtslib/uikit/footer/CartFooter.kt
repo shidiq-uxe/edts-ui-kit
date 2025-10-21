@@ -121,6 +121,7 @@ open class CartFooter @JvmOverloads constructor(
                         lottieView.isVisible = false
                     }
             } else {
+                confettiView.alpha = 1f
                 confettiView.isVisible = true
                 lottieView.isVisible = true
             }
@@ -164,9 +165,10 @@ open class CartFooter @JvmOverloads constructor(
             )
 
             binding.btnSubmit.isInvisible = value
+            binding.btnSubmit.isClickable = !value
             isDiscountBadgeVisible = !value && !binding.discountBadge.text.isNullOrEmpty()
-            binding.extendedCouponSection.binding.tvInfo.isInvisible = value
-            binding.flCashbackBadge.isVisible = !value
+            extendedFooter.binding.tvInfo.isInvisible = value
+            extendedFooter.binding.root.isClickable = !value
 
             skeletonLoaders.forEach {
                 it.isVisible = value
@@ -237,7 +239,8 @@ open class CartFooter @JvmOverloads constructor(
             var shouldTrigger = false
 
             if (!isConfettiBackgroundVisible) {
-                isConfettiBackgroundVisible = true
+                this.ivConfetti.isVisible = true
+                this.lottieLayer.isVisible = true
             }
 
             lottieLayer.apply {
