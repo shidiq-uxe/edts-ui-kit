@@ -114,16 +114,12 @@ open class CartFooter @JvmOverloads constructor(
             if (!value) {
                 confettiView.animate()
                     .alpha(0f)
-                    .setDuration(400)
+                    .setDuration(500)
                     .setInterpolator(AccelerateDecelerateInterpolator())
                     .withEndAction {
                         confettiView.isVisible = false
                         lottieView.isVisible = false
                     }
-
-                if (lottieView.isAnimating) {
-                    lottieView.cancelAnimation()
-                }
             } else {
                 confettiView.alpha = 1f
                 confettiView.isVisible = true
@@ -170,12 +166,9 @@ open class CartFooter @JvmOverloads constructor(
 
             binding.btnSubmit.isInvisible = value
             binding.btnSubmit.isClickable = !value
-            isDiscountBadgeVisible = !value && !binding.discountBadge.text.isNullOrEmpty()
+            isDiscountBadgeVisible = !value
             extendedFooter.binding.tvInfo.isInvisible = value
             extendedFooter.binding.root.isClickable = !value
-
-            setState(State.DEFAULT)
-            isConfettiBackgroundVisible = false
 
             skeletonLoaders.forEach {
                 it.isVisible = value
@@ -296,6 +289,12 @@ open class CartFooter @JvmOverloads constructor(
             delegate?.onActionButtonClick()
         }
         binding.tvTotalTitle.setOnClickListener {
+            delegate?.onSummaryClick()
+        }
+        binding.discountBadge.setOnClickListener {
+            delegate?.onSummaryClick()
+        }
+        binding.clickableSummaryArea.setOnClickListener {
             delegate?.onSummaryClick()
         }
         extendedFooter.delegate = object : CartCouponExtendedFooterDelegate {
