@@ -141,7 +141,7 @@ open class CartFooter @JvmOverloads constructor(
     var discountBadgeText: CharSequence? = null
         set(value) {
             field = value
-            isDiscountBadgeVisible = !value.isNullOrEmpty()
+            isDiscountBadgeVisible = !value.isNullOrEmpty() && !isLoading
             binding.discountBadge.text = value
         }
 
