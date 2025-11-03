@@ -248,10 +248,15 @@ open class CartFooter @JvmOverloads constructor(
                 this.lottieLayer.isVisible = true
             }
 
+            // # Experiment 2
             lottieLayer.apply {
-                // Experiment #1
                 cancelAnimation()
+                removeAllAnimatorListeners()
+                removeAllUpdateListeners()
+                removeAllLottieOnCompositionLoadedListener()
+            }
 
+            lottieLayer.apply {
                 repeatCount = 1
                 playAnimation()
             }
