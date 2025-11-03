@@ -216,6 +216,7 @@ open class CartFooter @JvmOverloads constructor(
     init {
         initAttrs(attrs)
         bindClickAction()
+        preloadAnimation()
     }
 
     private fun initAttrs(attrs: AttributeSet?) {
@@ -228,9 +229,13 @@ open class CartFooter @JvmOverloads constructor(
         setGradientBackground(gradientColors)
     }
 
+    private fun preloadAnimation() {
+        extendedFooter.binding.lottieLayer.setAnimation(animationRawRes)
+    }
+
     fun playPreLoadedAnimations() {
         with(binding.extendedCouponSection.binding) {
-            setState(State.DEFAULT)
+            setState(State.DEFAULT, infoText?.toString())
 
             this.ivConfetti.alpha = 0f
 
@@ -244,7 +249,9 @@ open class CartFooter @JvmOverloads constructor(
             }
 
             lottieLayer.apply {
-                setAnimation(animationRawRes)
+                // Experiment #1
+                cancelAnimation()
+
                 repeatCount = 1
                 playAnimation()
             }
