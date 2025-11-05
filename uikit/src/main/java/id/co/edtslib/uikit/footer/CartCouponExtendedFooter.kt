@@ -28,7 +28,7 @@ class CartCouponExtendedFooter @JvmOverloads constructor(
     defStyleAttr: Int = 0
 ) : FrameLayout(ContextThemeWrapper(context, R.style.Theme_EDTS_UIKit), attrs, defStyleAttr) {
 
-    val binding = ViewCartFooterCouponBinding.inflate(this.context.inflater, this, true)
+    internal val binding = ViewCartFooterCouponBinding.inflate(this.context.inflater, this, true)
 
     var delegate: CartCouponExtendedFooterDelegate? = null
 
@@ -36,6 +36,12 @@ class CartCouponExtendedFooter @JvmOverloads constructor(
         set(value) {
             field = value
             binding.tvInfo.updateLayoutParams<MarginLayoutParams> {
+                updateMargins(
+                    bottom = if (value) 24.dp.toInt() else 12.dp.toInt()
+                )
+            }
+
+            binding.icCouponMarker.updateLayoutParams<MarginLayoutParams> {
                 updateMargins(
                     bottom = if (value) 24.dp.toInt() else 12.dp.toInt()
                 )

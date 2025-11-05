@@ -42,6 +42,19 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintWidth_percent="0.55" />
 
+        <ImageView
+            android:id="@+id/icCouponMarker"
+            android:layout_width="@dimen/s"
+            android:layout_height="@dimen/s"
+            android:layout_marginTop="@dimen/xs"
+            android:layout_marginHorizontal="@dimen/xs"
+            android:layout_marginBottom="@dimen/m2"
+            android:src="@drawable/ic_voucher_16"
+            android:contentDescription="@null"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tvInfo"
             style="?attr/b2Regular"
@@ -82,14 +95,14 @@
             android:visibility="gone"
             app:layout_constraintWidth_percent="0.2"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="@id/icCouponMarker"
             app:layout_constraintBottom_toBottomOf="parent">
 
             <View
                 style="?b1SemiBold"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/b2_text_size"
-                android:background="@drawable/bg_skeleton_shimmer_6" />
+                android:layout_height="@dimen/s"
+                android:background="@drawable/bg_skeleton_shimmer_4" />
 
         </com.facebook.shimmer.ShimmerFrameLayout>
 
@@ -110,8 +123,8 @@
             <View
                 style="?b1SemiBold"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/b2_text_size"
-                android:background="@drawable/bg_skeleton_shimmer_6" />
+                android:layout_height="@dimen/s"
+                android:background="@drawable/bg_skeleton_shimmer_4" />
 
         </com.facebook.shimmer.ShimmerFrameLayout>
 

@@ -40,18 +40,19 @@ open class CartFooter @JvmOverloads constructor(
 
     private val binding = ViewCartFooterKitBinding.inflate(this.context.inflater, this, true)
 
+    val extendedFooter = binding.extendedCouponSection
+
     private val skeletonLoaders = listOf(
         binding.shimmerTotal,
         binding.shimmerButton,
         binding.shimmerDiscountBadge,
         binding.shimmerCashback,
-        binding.extendedCouponSection.binding.shimmerCoupon1,
-        binding.extendedCouponSection.binding.shimmerCoupon2
+        extendedFooter.binding.shimmerCoupon1,
+        extendedFooter.binding.shimmerCoupon2,
+        extendedFooter.binding.icCouponMarker,
     )
 
     var delegate: CartFooterDelegate? = null
-
-    val extendedFooter = binding.extendedCouponSection
 
     var infoText: CharSequence? = null
         set(value) {
@@ -166,9 +167,12 @@ open class CartFooter @JvmOverloads constructor(
 
             binding.btnSubmit.isInvisible = value
             binding.btnSubmit.isClickable = !value
+            binding.clickableSummaryArea.isClickable = !value
+            binding.tvTotalTitle.isClickable = !value
             isDiscountBadgeVisible = !value && discountBadgeText.isNullOrEmpty().not()
             extendedFooter.binding.tvInfo.isInvisible = value
             extendedFooter.binding.root.isClickable = !value
+            extendedFooter.binding.actionIndicator.isVisible = !value
 
             skeletonLoaders.forEach {
                 it.isVisible = value
