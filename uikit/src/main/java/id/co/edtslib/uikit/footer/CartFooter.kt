@@ -128,7 +128,7 @@ open class CartFooter @JvmOverloads constructor(
             }
 
             binding.extendedCouponSection.binding.tvInfo.setDrawable(
-                drawableLeft = context.drawable(R.drawable.ic_voucher_16)
+                drawableLeft = infoIcon
             )
         }
 
