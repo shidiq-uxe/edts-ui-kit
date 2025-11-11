@@ -101,6 +101,7 @@
     <attr name="shouldAnimate" format="boolean"/>
 
     <attr name="buttonText" format="string"/>
+    <attr name="buttonColor" format="color"/>
     <attr name="isButtonVisible" format="boolean"/>
 
     <attr name="isStartIconVisible" format="boolean"/>
@@ -432,6 +433,58 @@
         <attr name="isExpanded"/>
         <attr name="infoText"/>
         <attr name="buttonText"/>
+        <attr name="buttonColor"/>
+    </declare-styleable>
+
+    <declare-styleable name="GreyScaleConstraintLayout">
+        <attr name="disabled" format="boolean" />
+        <attr name="enableAnimation" format="boolean" />
+        <attr name="animationDuration" format="integer" />
+        <attr name="autoDisableTouch" format="boolean" />
+        <attr name="exemptViewIds" format="string" />
+    </declare-styleable>
+
+    <declare-styleable name="HtmlTextView">
+        <!-- Heading Styles -->
+        <attr name="h1TextAppearance" format="reference" />
+        <attr name="h2TextAppearance" format="reference" />
+        <attr name="h3TextAppearance" format="reference" />
+        <attr name="h4TextAppearance" format="reference" />
+        <attr name="h5TextAppearance" format="reference" />
+        <attr name="h6TextAppearance" format="reference" />
+
+        <!-- Paragraph Style -->
+        <attr name="pTextAppearance" format="reference" />
+
+        <!-- Text Formatting - Bold -->
+        <attr name="bTextAppearance" format="reference" />
+        <attr name="strongTextAppearance" format="reference" />
+
+        <!-- Text Formatting - Italic -->
+        <attr name="iTextAppearance" format="reference" />
+        <attr name="emTextAppearance" format="reference" />
+
+        <!-- Text Formatting - Underline -->
+        <attr name="uTextAppearance" format="reference" />
+
+        <!-- Links -->
+        <attr name="aTextAppearance" format="reference" />
+
+        <!-- List Styling - Unordered -->
+        <attr name="bulletChar" format="string" />
+        <attr name="bulletColor" format="color" />
+        <attr name="bulletGap" format="dimension" />
+
+        <!-- List Styling - Ordered -->
+        <attr name="orderedFormat" format="string" />
+        <attr name="orderedColor" format="color" />
+
+        <!-- List Common -->
+        <attr name="listIndent" format="dimension" />
+
+        <!-- HTML Rendering Config -->
+        <attr name="htmlLineSpacing" format="float" />
+        <attr name="htmlPadding" format="dimension" />
     </declare-styleable>
 
 </resources>

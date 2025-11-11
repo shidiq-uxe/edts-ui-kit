@@ -86,6 +86,12 @@ open class CartFooter @JvmOverloads constructor(
             )
         }
 
+    var buttonColor: Int = context.color(R.color.primary_30)
+        set(value) {
+            field = value
+            binding.btnSubmit.setBackgroundColor(value)
+        }
+
     var buttonText: CharSequence? = null
         set(value) {
             field = value
@@ -227,6 +233,7 @@ open class CartFooter @JvmOverloads constructor(
         this.context.withStyledAttributes(attrs, R.styleable.CartFooter) {
             infoText = getString(R.styleable.CartFooter_infoText)
             buttonText = getString(R.styleable.CartFooter_buttonText)
+            buttonColor = getColor(R.styleable.CartFooter_buttonColor, buttonColor)
             isCouponSectionExpanded = getBoolean(R.styleable.CartFooter_isExpanded, isCouponSectionExpanded)
         }
 
@@ -252,7 +259,6 @@ open class CartFooter @JvmOverloads constructor(
                 this.lottieLayer.isVisible = true
             }
 
-            // # Experiment 2
             lottieLayer.apply {
                 cancelAnimation()
                 removeAllAnimatorListeners()
