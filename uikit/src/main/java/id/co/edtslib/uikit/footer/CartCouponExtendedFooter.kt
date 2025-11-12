@@ -20,6 +20,11 @@ import id.co.edtslib.uikit.utils.dp
 import id.co.edtslib.uikit.utils.drawable
 import id.co.edtslib.uikit.utils.fade
 import id.co.edtslib.uikit.utils.inflater
+import id.co.edtslib.uikit.utils.isLowEndDevice
+import id.co.edtslib.uikit.utils.isLowRamDevice
+import id.co.edtslib.uikit.utils.loadRes
+import id.co.edtslib.uikit.utils.lowPerfOptions
+import id.co.edtslib.uikit.utils.normalOptions
 import id.co.edtslib.uikit.utils.setDrawable
 
 class CartCouponExtendedFooter @JvmOverloads constructor(
@@ -77,6 +82,14 @@ class CartCouponExtendedFooter @JvmOverloads constructor(
             isExpanded = it.getBoolean(R.styleable.CartCouponExtendedFooter_isExpanded, isExpanded)
             infoText = it.getString(R.styleable.CartCouponExtendedFooter_infoText)
         }
+
+        val isOnLowPerformance = isLowRamDevice(context) || isLowEndDevice(context)
+        val requestOption = if (isOnLowPerformance) lowPerfOptions(true) else normalOptions
+
+        binding.ivConfetti.loadRes(
+            resId = R.drawable.confetti_voucher,
+            requestOptions = requestOption
+        )
     }
 
     private fun bindClickAction() {

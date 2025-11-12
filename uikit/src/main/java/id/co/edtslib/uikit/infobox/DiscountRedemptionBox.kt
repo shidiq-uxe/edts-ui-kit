@@ -39,6 +39,7 @@ import id.co.edtslib.uikit.utils.isLowPerformanceDevice
 import id.co.edtslib.uikit.utils.isLowRamDevice
 import id.co.edtslib.uikit.utils.loadRes
 import id.co.edtslib.uikit.utils.lowPerfOptions
+import id.co.edtslib.uikit.utils.normalOptions
 import kotlin.toString
 
 open class DiscountRedemptionBox @JvmOverloads constructor(
@@ -137,25 +138,18 @@ open class DiscountRedemptionBox @JvmOverloads constructor(
             }
         }
 
-        if (isLowRamDevice(context) || isLowEndDevice(context)) {
-            binding.ivDecorativeIllustrationBackground.loadRes(
-                resId = R.drawable.bg_ill_gradient_redemption_box,
-                requestOptions = lowPerfOptions()
-            )
+        val isOnLowPerformance = isLowRamDevice(context) || isLowEndDevice(context)
+        val requestOption = if (isOnLowPerformance) lowPerfOptions() else normalOptions
 
-            binding.ivDecorativeIllustration.loadRes(
-                resId =  R.drawable.ill_redemption_box,
-                requestOptions = lowPerfOptions(true)
-            )
-        } else {
-            binding.ivDecorativeIllustrationBackground.loadRes(
-                resId = R.drawable.bg_ill_gradient_redemption_box
-            )
+        binding.ivDecorativeIllustrationBackground.loadRes(
+            resId = R.drawable.bg_ill_gradient_redemption_box,
+            requestOptions = requestOption
+        )
 
-            binding.ivDecorativeIllustration.loadRes(
-                resId =  R.drawable.ill_redemption_box
-            )
-        }
+        binding.ivDecorativeIllustration.loadRes(
+            resId =  R.drawable.ill_redemption_box,
+            requestOptions = if (isOnLowPerformance) lowPerfOptions(true) else normalOptions
+        )
     }
 
     private fun bindClickAction() {

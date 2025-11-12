@@ -20,7 +20,6 @@
             android:id="@+id/iv_confetti"
             android:layout_width="@dimen/dimen_0"
             android:layout_height="@dimen/dimen_0"
-            android:src="@drawable/confetti_voucher"
             android:contentDescription="@null"
             android:scaleType="fitXY"
             android:alpha="0"
@@ -29,7 +28,8 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:src="@drawable/confetti_voucher"/>
 
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/lottieLayer"
