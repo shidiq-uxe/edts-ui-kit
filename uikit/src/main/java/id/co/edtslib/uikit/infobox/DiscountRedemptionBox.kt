@@ -215,6 +215,7 @@ open class DiscountRedemptionBox @JvmOverloads constructor(
                     this.isAnimating = true
                 }
                 .withEndAction {
+                    this.isVisible = false
                     this.isAnimating = false
                 }
                 .start()
@@ -231,6 +232,7 @@ open class DiscountRedemptionBox @JvmOverloads constructor(
                 .setDuration(TRANSLATE_DURATION)
                 .withStartAction {
                     this.translationY = -boxHeight.toFloat()
+                    this.isVisible = true
                     this.isAnimating = true
                 }.withEndAction {
                     this.isAnimating = false
@@ -262,6 +264,11 @@ open class DiscountRedemptionBox @JvmOverloads constructor(
                 delegate?.onScrolled(rv, dx, dy)
 
                 shouldStick = isTargetBottomLessThanRecyclerView(targetAdapterPosition, rv) && !shouldBeHidden
+
+                if ((!shouldStick && isSticky)) {
+                    isSticky = false
+                    hideOnShrinkState()
+                }
             }
 
             override fun onScrollStateChanged(rv: RecyclerView, newState: Int) {
