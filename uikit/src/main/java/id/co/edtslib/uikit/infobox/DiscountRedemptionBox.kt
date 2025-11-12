@@ -15,6 +15,8 @@ import androidx.core.view.marginStart
 import androidx.core.view.updateLayoutParams
 import androidx.core.view.updateMargins
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.google.android.material.card.MaterialCardView
 import id.co.edtslib.uikit.R
@@ -32,6 +34,11 @@ import id.co.edtslib.uikit.utils.html.renderHtml
 import id.co.edtslib.uikit.utils.html.semiBoldStyle
 import id.co.edtslib.uikit.utils.html.strongStyle
 import id.co.edtslib.uikit.utils.inflater
+import id.co.edtslib.uikit.utils.isLowEndDevice
+import id.co.edtslib.uikit.utils.isLowPerformanceDevice
+import id.co.edtslib.uikit.utils.isLowRamDevice
+import id.co.edtslib.uikit.utils.loadRes
+import id.co.edtslib.uikit.utils.lowPerfOptions
 import kotlin.toString
 
 open class DiscountRedemptionBox @JvmOverloads constructor(
@@ -129,6 +136,26 @@ open class DiscountRedemptionBox @JvmOverloads constructor(
                 isHtml = it.getBoolean(R.styleable.DiscountRedemptionBox_isHtml, isHtml)
             }
         }
+
+        if (isLowRamDevice(context) || isLowEndDevice(context)) {
+            binding.ivDecorativeIllustrationBackground.loadRes(
+                resId = R.drawable.bg_ill_gradient_redemption_box,
+                requestOptions = lowPerfOptions()
+            )
+
+            binding.ivDecorativeIllustration.loadRes(
+                resId =  R.drawable.ill_redemption_box,
+                requestOptions = lowPerfOptions(true)
+            )
+        } else {
+            binding.ivDecorativeIllustrationBackground.loadRes(
+                resId = R.drawable.bg_ill_gradient_redemption_box
+            )
+
+            binding.ivDecorativeIllustration.loadRes(
+                resId =  R.drawable.ill_redemption_box
+            )
+        }
     }
 
     private fun bindClickAction() {
@@ -194,7 +221,6 @@ open class DiscountRedemptionBox @JvmOverloads constructor(
                     this.isAnimating = true
                 }
                 .withEndAction {
-                    this.isVisible = false
                     this.isAnimating = false
                 }
                 .start()
@@ -211,7 +237,6 @@ open class DiscountRedemptionBox @JvmOverloads constructor(
                 .setDuration(TRANSLATE_DURATION)
                 .withStartAction {
                     this.translationY = -boxHeight.toFloat()
-                    this.isVisible = true
                     this.isAnimating = true
                 }.withEndAction {
                     this.isAnimating = false
@@ -243,11 +268,6 @@ open class DiscountRedemptionBox @JvmOverloads constructor(
                 delegate?.onScrolled(rv, dx, dy)
 
                 shouldStick = isTargetBottomLessThanRecyclerView(targetAdapterPosition, rv) && !shouldBeHidden
-
-                if ((!shouldStick && isSticky)) {
-                    isSticky = false
-                    hideOnShrinkState()
-                }
             }
 
             override fun onScrollStateChanged(rv: RecyclerView, newState: Int) {

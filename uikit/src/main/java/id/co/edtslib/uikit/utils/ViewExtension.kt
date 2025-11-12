@@ -5,8 +5,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.ViewGroup.MarginLayoutParams
 import android.widget.FrameLayout
+import android.widget.ImageView
+import androidx.annotation.DrawableRes
 import androidx.core.view.setMargins
 import androidx.core.view.updateLayoutParams
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DecodeFormat
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.load.resource.bitmap.DownsampleStrategy
+import com.bumptech.glide.request.RequestOptions
 import com.facebook.shimmer.Shimmer
 import com.facebook.shimmer.ShimmerFrameLayout
 
@@ -90,3 +97,29 @@ fun View.setGradientBackground(
     background = gd
 }
 
+
+fun ImageView.loadRes(
+    @DrawableRes resId: Int,
+    requestOptions: RequestOptions? = normalOptions,
+) {
+    val glide = Glide.with(this)
+        .load(resId)
+
+    requestOptions?.let { glide.apply(it) }
+
+    glide.into(this)
+}
+
+/**
+ *
+ * @param lowerDecoding reduce memory per-pixel but don't use it with transparency
+ */
+fun lowPerfOptions(lowerDecoding: Boolean = false) = RequestOptions()
+    .downsample(DownsampleStrategy.AT_MOST)
+    .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+    .encodeQuality(85)
+    .format(if (lowerDecoding) DecodeFormat.PREFER_RGB_565 else DecodeFormat.PREFER_ARGB_8888)
+
+val normalOptions = RequestOptions()
+    .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+    .format(DecodeFormat.PREFER_ARGB_8888)
