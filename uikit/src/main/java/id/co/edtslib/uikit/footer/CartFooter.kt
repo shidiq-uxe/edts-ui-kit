@@ -8,6 +8,7 @@ import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
 import android.util.AttributeSet
+import android.util.Log
 import android.view.View
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.widget.FrameLayout
@@ -273,9 +274,16 @@ open class CartFooter @JvmOverloads constructor(
             lottieLayer.apply {
                 repeatCount = 1
                 playAnimation()
+                binding.extendedCouponSection.binding.tvInfo.setDrawable(
+                    drawableLeft = context.drawable(R.drawable.ic_voucher_applied_16)
+                )
             }
 
             lottieLayer.addAnimatorListener(object : AnimatorListenerAdapter() {
+                override fun onAnimationStart(animation: Animator) {
+                    // Somehow Calling this won't trigger the block
+                }
+
                 override fun onAnimationRepeat(animation: Animator) {
                     currentLoop++
                 }
@@ -299,11 +307,6 @@ open class CartFooter @JvmOverloads constructor(
                         .alpha(1f)
                         .setInterpolator(AccelerateDecelerateInterpolator())
                         .setDuration(500)
-                        .withStartAction {
-                            binding.extendedCouponSection.binding.tvInfo.setDrawable(
-                                drawableLeft = context.drawable(R.drawable.ic_voucher_applied_16)
-                            )
-                        }
                         .start()
                 }
             }
