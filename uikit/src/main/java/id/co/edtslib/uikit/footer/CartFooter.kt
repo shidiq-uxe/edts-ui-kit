@@ -118,6 +118,10 @@ open class CartFooter @JvmOverloads constructor(
             val confettiView = binding.extendedCouponSection.binding.ivConfetti
             val lottieView = binding.extendedCouponSection.binding.lottieLayer
 
+            binding.extendedCouponSection.binding.tvInfo.setDrawable(
+                drawableLeft = infoIcon
+            )
+
             if (!value) {
                 confettiView.animate()
                     .alpha(0f)
@@ -131,11 +135,11 @@ open class CartFooter @JvmOverloads constructor(
                 confettiView.alpha = 1f
                 confettiView.isVisible = true
                 lottieView.isVisible = true
-            }
 
-            binding.extendedCouponSection.binding.tvInfo.setDrawable(
-                drawableLeft = infoIcon
-            )
+                binding.extendedCouponSection.binding.tvInfo.setDrawable(
+                    drawableLeft = context.drawable(R.drawable.ic_voucher_applied_16)
+                )
+            }
         }
 
 
