@@ -102,6 +102,7 @@
 
     <attr name="buttonText" format="string"/>
     <attr name="buttonColor" format="color"/>
+    <attr name="buttonColorList" format="reference"/>
     <attr name="isButtonVisible" format="boolean"/>
 
     <attr name="isStartIconVisible" format="boolean"/>
@@ -433,7 +434,7 @@
         <attr name="isExpanded"/>
         <attr name="infoText"/>
         <attr name="buttonText"/>
-        <attr name="buttonColor"/>
+        <attr name="buttonColorList"/>
     </declare-styleable>
 
     <declare-styleable name="GreyScaleConstraintLayout">
