@@ -24,6 +24,7 @@ import androidx.recyclerview.widget.RecyclerView
 import id.co.edtslib.uikit.R
 import id.co.edtslib.uikit.databinding.ViewCartFooterKitBinding
 import id.co.edtslib.uikit.utils.color
+import id.co.edtslib.uikit.utils.colorStateList
 import id.co.edtslib.uikit.utils.drawable
 import id.co.edtslib.uikit.utils.html.FontManager
 import id.co.edtslib.uikit.utils.html.HtmlRenderer
@@ -87,10 +88,10 @@ open class CartFooter @JvmOverloads constructor(
             )
         }
 
-    var buttonColor: Int = context.color(R.color.primary_30)
+    var buttonColor: ColorStateList = context.colorStateList(R.color.slr_button_filled_bg)
         set(value) {
             field = value
-            binding.btnSubmit.setBackgroundColor(value)
+            binding.btnSubmit.backgroundTintList = value
         }
 
     var buttonText: CharSequence? = null
@@ -238,7 +239,7 @@ open class CartFooter @JvmOverloads constructor(
         this.context.withStyledAttributes(attrs, R.styleable.CartFooter) {
             infoText = getString(R.styleable.CartFooter_infoText)
             buttonText = getString(R.styleable.CartFooter_buttonText)
-            buttonColor = getColor(R.styleable.CartFooter_buttonColor, buttonColor)
+            buttonColor = getColorStateList(R.styleable.CartFooter_buttonColorList) ?: buttonColor
             isCouponSectionExpanded = getBoolean(R.styleable.CartFooter_isExpanded, isCouponSectionExpanded)
         }
 
