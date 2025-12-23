@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:cardElevation="@dimen/xs"
+    app:cardCornerRadius="@dimen/dimen_0"
+    app:strokeColor="@color/black_30"
+    app:strokeWidth="@dimen/dimen_0"
+    android:outlineAmbientShadowColor="@color/black_50"
+    android:outlineSpotShadowColor="@color/black_50"
+    tools:targetApi="28">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.divider.MaterialDivider
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:dividerThickness="@dimen/dimen_1"
+            app:dividerColor="@color/black_20"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/ctaCart"
+            android:layout_width="@dimen/dimen_0"
+            android:layout_height="@dimen/dimen_0"
+            android:minWidth="@dimen/xl"
+            android:minHeight="@dimen/xl"
+            android:layout_marginTop="@dimen/s"
+            android:layout_marginStart="@dimen/s"
+            android:layout_marginBottom="@dimen/xxs"
+            app:cardCornerRadius="@dimen/xxxs"
+            app:strokeColor="@color/primary_30"
+            android:focusable="true"
+            android:clickable="true"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/clCtaCart"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/ivCTAIcon"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="@dimen/xxs"
+                    android:contentDescription="actionToCart"
+                    android:src="@drawable/ic_cart"/>
+
+                <id.co.edtslib.uikit.badge.Badge
+                    android:id="@+id/qtyBadge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/xxs"
+                    app:backgroundColor="@color/red_30"
+                    app:badgeTextColor="@color/white"
+                    app:badgeTextAppearance="@style/TextAppearance.Inter.SemiBold.B4"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvHelperTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/xxs"
+            android:textAppearance="@style/TextAppearance.Inter.Regular.P2"
+            android:text="Subtotal Item"
+            app:layout_constraintTop_toTopOf="@id/ctaCart"
+            app:layout_constraintStart_toEndOf="@id/ctaCart"
+            app:layout_constraintBottom_toTopOf="@id/tvPrice"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/xxxs"
+            android:layout_marginStart="@dimen/xxs"
+            android:textAppearance="@style/TextAppearance.Inter.Semibold.H2"
+            app:layout_constraintTop_toBottomOf="@id/tvHelperTitle"
+            app:layout_constraintStart_toEndOf="@id/ctaCart"
+            app:layout_constraintBottom_toBottomOf="@id/ctaCart"
+            android:text="Rp2.000"/>
+
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:id="@+id/btnDelete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/xs"
+            android:text="@null"
+            app:buttonTint="@null"
+            android:button="@drawable/ic_trash"
+            app:layout_constraintTop_toTopOf="@id/ctaCart"
+            app:layout_constraintEnd_toStartOf="@id/sbQuantity"
+            app:layout_constraintBottom_toBottomOf="@id/ctaCart"/>
+
+        <!--MARK: Destination Button - Step Finale-->
+        <id.co.edtslib.uikit.stepper.StepperButton
+            android:id="@+id/sbQuantity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/s"
+            app:layout_constraintTop_toTopOf="@id/ctaCart"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/ctaCart"/>
+
+        <!--MARK: Origin Button - Step 1-->
+        <id.co.edtslib.uikit.button.Button
+            android:id="@+id/btnAddToCart"
+            android:layout_width="@dimen/dimen_0"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/s"
+            android:layout_marginStart="@dimen/xxs"
+            android:layout_marginEnd="@dimen/s"
+            android:layout_marginBottom="@dimen/xxs"
+            android:text="Keranjang"
+            android:visibility="visible"
+            app:icon="@drawable/ic_plus"
+            app:iconPadding="@dimen/xxs"
+            app:iconGravity="textStart"
+            app:buttonType="filledMedium"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/ctaCart"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

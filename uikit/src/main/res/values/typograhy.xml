@@ -111,8 +111,8 @@
     </style>
 
     <style name="TextAppearance.Inter.Medium.B3" parent="Base.TextAppearance.AppCompat">
-        <item name="fontFamily">@font/inter</item>
-        <item name="android:fontFamily">@font/inter</item>
+        <item name="fontFamily">@font/inter_medium</item>
+        <item name="android:fontFamily">@font/inter_medium</item>
         <item name="android:textSize">@dimen/b3_text_size</item>
         <item name="lineHeight">@dimen/dimen_16</item>
     </style>

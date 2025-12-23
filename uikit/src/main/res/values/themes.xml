@@ -9,8 +9,10 @@
         <item name="colorOnPrimary">@color/white</item>
 
         <!--Secondary Color-->
-        <item name="colorSecondary">@color/secondary_30</item>
-        <item name="colorSecondaryVariant">@color/secondary_40</item>
+        <!--Todo : Research more on color theming Especially for Default Ripple color & Selectable-->
+        <!--Mark: Secondary Orange-->
+        <item name="colorSecondary">@color/primary_10</item>
+        <item name="colorSecondaryVariant">@color/primary_40</item>
         <item name="colorOnSecondary">@color/white</item>
 
         <!--Surface Color-->

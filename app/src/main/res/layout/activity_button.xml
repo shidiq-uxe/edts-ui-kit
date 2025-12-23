@@ -141,4 +141,22 @@
         app:layout_constraintTop_toTopOf="@id/btnSecondaryOutlinedMedium"
         app:layout_constraintStart_toStartOf="@id/btnTextButton"/>
 
+    <id.co.edtslib.uikit.stepper.StepperView
+        android:id="@+id/stepperView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/s"
+        app:layout_constraintTop_toBottomOf="@id/btnIconButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <id.co.edtslib.uikit.stepper.StepperButton
+        android:id="@+id/stepperButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/s"
+        app:layout_constraintTop_toBottomOf="@id/stepperView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

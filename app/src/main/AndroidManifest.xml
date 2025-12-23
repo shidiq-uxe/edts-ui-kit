@@ -15,6 +15,28 @@
         android:theme="@style/Theme.EDTS.UIKit.ActionBar"
         tools:targetApi="31">
         <activity
+            android:name=".GuidelinesCouponPromotionActivity"
+            android:exported="false"
+            android:theme="@style/Theme.EDTS.UIKit"/>
+        <activity
+            android:name=".GuidelinesPDPEntryActivity"
+            android:exported="true"/>
+        <activity
+            android:name=".GuidelinesSearchProductActivity"
+            android:exported="false"
+            android:theme="@style/Theme.EDTS.UIKit" />
+        <activity
+            android:name=".GuidelinePDPActivity"
+            android:exported="false"
+            android:theme="@style/Theme.EDTS.UIKit" />
+        <activity
+            android:name=".GuidelinesHTMLTextViewActivity"
+            android:exported="false" />
+        <activity
+            android:name=".GuidelinesGreyScaleViewGroupActivity"
+            android:exported="false"
+            android:label="GreyScale ViewGroup" />
+        <activity
             android:name=".HTMLTag"
             android:exported="false" />
         <activity

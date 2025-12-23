@@ -22,6 +22,7 @@
         app:tabIndicator="@drawable/tabs_rounded_indicator"
         app:tabInlineLabel="true"
         app:tabIndicatorAnimationMode="linear"
+        app:tabIndicatorFullWidth="false"
         app:tabTextAppearance="@style/Widget.EDTS.UIKit.Tab.Text.SingleLine"
         app:tabTextColor="@color/slr_tab_text_tint"
         android:paddingHorizontal="@dimen/s"

@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvProductTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/xs"
+        android:layout_marginHorizontal="@dimen/s"
+        android:text="Cari Toko yang Menjual"
+        android:textColor="@color/primary_30"
+        android:textAppearance="@style/TextAppearance.Inter.SemiBold.B3"
+        android:drawableStart="@drawable/ic_location_mark_12"
+        android:drawablePadding="@dimen/xxxs"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvProductName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/xs"
+        android:layout_marginHorizontal="@dimen/s"
+        android:text="Aqua Air Mineral 600ml"
+        android:textColor="@color/black_70"
+        android:textAppearance="@style/TextAppearance.Inter.Semibold.H1"
+        app:layout_constraintTop_toBottomOf="@id/tvProductTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvProductPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/xxxs"
+        android:layout_marginHorizontal="@dimen/s"
+        android:text="Rp2.000"
+        android:textColor="@color/black_70"
+        android:textAppearance="@style/TextAppearance.Inter.Bold.B2"
+        android:textSize="@dimen/d4_text_size"
+        android:lineHeight="@dimen/m3"
+        app:layout_constraintTop_toBottomOf="@id/tvProductName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"/>
+
+    <com.google.android.material.chip.Chip
+        android:id="@+id/discountBadge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/s"
+        android:paddingVertical="@dimen/dimen_2"
+        app:chipMinHeight="@dimen/dimen_0"
+        app:chipStartPadding="@dimen/dimen_0"
+        app:chipEndPadding="@dimen/dimen_0"
+        app:textStartPadding="@dimen/xxxs"
+        app:textEndPadding="@dimen/xxxs"
+        app:ensureMinTouchTargetSize="false"
+        app:chipMinTouchTargetSize="@dimen/dimen_0"
+        app:chipBackgroundColor="@color/red_10"
+        app:chipStrokeWidth="@dimen/dimen_0"
+        android:ellipsize="end"
+        app:chipCornerRadius="@dimen/xxxs"
+        android:textColor="@color/red_30"
+        android:textAppearance="?b4SemiBold"
+        app:layout_constrainedWidth="true"
+        app:layout_constraintTop_toTopOf="@id/tvProductPriceCutOff"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/tvProductPriceCutOff"
+        app:layout_constraintHorizontal_bias="0.0"
+        android:text="50%"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvProductPriceCutOff"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/xxxs"
+        android:layout_marginHorizontal="@dimen/xxxs"
+        android:text="Rp4.000"
+        android:textColor="@color/black_40"
+        android:textAppearance="@style/TextAppearance.Inter.SemiBold.B3"
+        app:layout_constraintTop_toBottomOf="@id/tvProductPrice"
+        app:layout_constraintStart_toEndOf="@id/discountBadge"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"/>
+
+    <id.co.edtslib.edtsuikit.helper.PDPSelectionGroup
+        android:id="@+id/pdpSelectionGroup"
+        android:layout_width="@dimen/dimen_0"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="@dimen/xxs"
+        app:strokeColor="@color/black_30"
+        android:checkable="true"
+        android:clickable="true"
+        android:focusable="true"
+        android:layout_marginTop="@dimen/xs"
+        android:layout_marginHorizontal="@dimen/s"
+        android:clipToPadding="false"
+        app:layout_constraintTop_toBottomOf="@id/tvProductPriceCutOff"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"/>
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/ivPromotionSectionPlaceholder"
+        android:layout_width="@dimen/dimen_0"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/s"
+        app:srcCompat="@drawable/pdp_promotion_section_placeholder"
+        app:layout_constraintTop_toBottomOf="@id/pdpSelectionGroup"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <com.google.android.material.divider.MaterialDivider
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/xxs"
+        android:layout_marginHorizontal="@dimen/s"
+        app:dividerColor="@color/black_30"
+        app:dividerThickness="@dimen/dimen_1"
+        app:layout_constraintTop_toBottomOf="@id/ivPromotionSectionPlaceholder"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

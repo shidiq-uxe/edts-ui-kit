@@ -5,9 +5,11 @@ import android.util.Log
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import id.co.edtslib.edtsuikit.databinding.ActivityButtonBinding
+import id.co.edtslib.edtsuikit.helper.GuidelineItem
 import id.co.edtslib.uikit.ribbon.Ribbon
 import id.co.edtslib.uikit.utils.dp
 import id.co.edtslib.uikit.utils.setLightStatusBar
+import id.co.edtslib.uikit.utils.snack
 
 class GuidelinesButtonActivity : GuidelinesBaseActivity() {
 
@@ -28,6 +30,12 @@ class GuidelinesButtonActivity : GuidelinesBaseActivity() {
             Log.e("Button Debug", "Check for Double Click")
         }
 
+        binding.stepperButton.setOnCountChangeListener {
+            binding.root.snack("Count Changed to $it")
+
+            binding.stepperButton.setPlusButtonEnabled(it < 5)
+        }
+
         Ribbon(this).apply {
             ribbonText = "Ribbon"
             gravity = Ribbon.Gravity.START
@@ -37,5 +45,6 @@ class GuidelinesButtonActivity : GuidelinesBaseActivity() {
                 targetView = binding.btnSecondaryOutlined,
                 verticalAlignment = Ribbon.VerticalAlignment.Center
             )
+
         }
 }

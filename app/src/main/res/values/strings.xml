@@ -10,4 +10,55 @@
     <!--Footer-->
     <string name="coupon_footer_info_text">Cek promo atau tukar kupon di sini</string>
 
+    <!--HTML Text-->
+    <string name="html_text_option1"><![CDATA[This <b>text</b> is bold]]></string>
+
+
+    <!-- Basic Components -->
+    <string name="guidelines_typography">Typography</string>
+    <string name="guidelines_button">Button</string>
+    <string name="guidelines_textfield">Text Field</string>
+    <string name="guidelines_color">Color</string>
+
+    <!-- Input Components -->
+    <string name="guidelines_otp">OTP</string>
+    <string name="guidelines_searchbar">Search Bar</string>
+
+    <!-- Feedback Components -->
+    <string name="guidelines_alert_box">Alert Box</string>
+    <string name="guidelines_snackbar">Snackbar</string>
+    <string name="guidelines_popup">Popup</string>
+
+    <!-- Layout Components -->
+    <string name="guidelines_boarding">Boarding</string>
+    <string name="guidelines_list_item">List Item</string>
+    <string name="guidelines_bottom_tray">Bottom Tray</string>
+    <string name="guidelines_segmented_tab">Segmented Tab Layout</string>
+
+    <!-- Progress & Loading -->
+    <string name="guidelines_progress_bar">Progress Bar</string>
+
+    <!-- Navigation & Home -->
+    <string name="guidelines_home_switcher">Home Switcher</string>
+    <string name="guidelines_homepage_exploration">Homepage Exploration</string>
+
+    <!-- User Guidance -->
+    <string name="guidelines_coachmark">Coachmark</string>
+
+    <!-- Shopping Features -->
+    <string name="guidelines_cart">Cart</string>
+    <string name="guidelines_discount_redemption">Discount Redemption</string>
+
+    <!-- Advanced Components -->
+    <string name="guidelines_animated_card">Animated Card View</string>
+    <string name="guidelines_greyscale_viewgroup">GreyScale ViewGroup</string>
+    <string name="guidelines_html_textview">HTML TextView</string>
+
+    <!-- Research & Demo -->
+    <string name="guidelines_research">Poinku Research</string>
+    <string name="guidelines_html_list_demo">HTML List Demo</string>
+    <string name="guidelines_search_product_demo">Search Product Demo</string>
+    <string name="guidelines_pdp">Product Detail Page</string>
+    <string name="guidelines_coupon_ongkir_promotion">Promo Ongkir</string>
+
 </resources>
