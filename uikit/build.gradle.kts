@@ -58,6 +58,8 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
+        renderscriptTargetApi = 31
+        renderscriptSupportModeEnabled = true
     }
 
     buildTypes {
@@ -94,6 +96,8 @@ dependencies {
     implementation(libs.androidx.swipeRefresh)
     implementation(libs.shimmer)
     implementation(libs.lottie)
+//    implementation(libs.blurView)
+    implementation("com.github.Dimezis:BlurView:version-3.2.0")
 
     implementation(libs.material)
     implementation(libs.glide)

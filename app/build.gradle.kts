@@ -55,6 +55,8 @@ dependencies {
     implementation(libs.glide)
     implementation(libs.androidx.swipeRefresh)
     kapt(libs.glide.compiler)
+//    implementation(libs.blurView)
+    implementation("com.github.Dimezis:BlurView:version-3.2.0")
 
     implementation(libs.material)
     implementation(libs.androidx.activity)

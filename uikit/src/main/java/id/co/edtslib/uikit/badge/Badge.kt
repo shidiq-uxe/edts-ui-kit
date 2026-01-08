@@ -5,15 +5,11 @@ import android.content.res.ColorStateList
 import android.os.Build
 import android.util.AttributeSet
 import android.view.Gravity
-import android.view.View
 import android.widget.FrameLayout
 import android.widget.TextView
 import androidx.annotation.ColorInt
 import androidx.annotation.StyleRes
 import androidx.appcompat.view.ContextThemeWrapper
-import androidx.core.content.res.use
-import androidx.core.view.doOnLayout
-import androidx.core.view.setPadding
 import androidx.core.view.updatePadding
 import com.google.android.material.shape.MaterialShapeDrawable
 import com.google.android.material.shape.RelativeCornerSize
@@ -22,7 +18,7 @@ import id.co.edtslib.uikit.R
 import id.co.edtslib.uikit.utils.color
 import id.co.edtslib.uikit.utils.dimen
 import id.co.edtslib.uikit.utils.dp
-import kotlin.text.toInt
+import id.co.edtslib.uikit.utils.font
 
 // Todo : Research More about Material Badge Drawable
 class Badge @JvmOverloads constructor(
@@ -76,7 +72,6 @@ class Badge @JvmOverloads constructor(
             requestLayout()
         }
 
-
     var includeStroke = false
         set(value) {
             invalidate()
@@ -92,7 +87,23 @@ class Badge @JvmOverloads constructor(
         set(value) {
             field = value
             textView.setTextAppearance(value)
+            invalidate()
         }
+
+    // Todo : Font weight fallback
+    var fontFamily = context.font(R.font.inter_semibold)
+        set(value) {
+            field = value
+            textView.setTypeface(value)
+        }
+
+    private var extraPaddingLeft = 0
+    private var extraPaddingTop = 0
+    private var extraPaddingRight = 0
+    private var extraPaddingBottom = 0
+
+    private val baseHorizontalPadding = 2.dp.toInt()
+    private val baseVerticalPadding = 1.dp.toInt()
 
     internal val badgeShapeModel = ShapeAppearanceModel()
         .toBuilder()
@@ -103,7 +114,8 @@ class Badge @JvmOverloads constructor(
         setTint(badgeColor)
         strokeWidth = if (includeStroke) this@Badge.strokeWidth else 0f
         strokeColor = ColorStateList.valueOf(context.color(R.color.white))
-        setPadding(strokeWidth.toInt())
+        val stroke = strokeWidth.toInt()
+        setPadding(stroke, stroke, stroke, stroke)
     }
 
     private val textView: TextView = TextView(this.context).apply {
@@ -115,6 +127,7 @@ class Badge @JvmOverloads constructor(
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             setTextAppearance(badgeTextAppearance)
         }
+        setTypeface(fontFamily)
         setTextColor(textColor)
     }
 
@@ -126,11 +139,6 @@ class Badge @JvmOverloads constructor(
         background = badgeDrawable
         addView(textView)
 
-        this.updatePadding(
-            left = 2.dp.toInt(),
-            right = 2.dp.toInt(),
-        )
-
         /*context.obtainStyledAttributes(attrs, R.styleable.Badge).use {
             if(it.hasValue(R.styleable.Badge_text)) {
                 text = it.getString(R.styleable.Badge_text)
@@ -138,25 +146,58 @@ class Badge @JvmOverloads constructor(
         }*/
     }
 
+    fun extraPadding(left: Int = 0, top: Int = 0, right: Int = 0, bottom: Int = 0) {
+        extraPaddingLeft = left
+        extraPaddingTop = top
+        extraPaddingRight = right
+        extraPaddingBottom = bottom
+        requestLayout()
+    }
+
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
 
-        val currentText = text
-        if (currentText?.length == 1) {
-            // For single character, make it circular
-            val size = maxOf(measuredWidth, measuredHeight)
-            setMeasuredDimension(size, size)
+        val currentText = text.orEmpty()
 
-            // Adjust padding to center the text
-            val textWidth = textView.measuredWidth
-            val textHeight = textView.measuredHeight
-            updatePadding(
-                left = (size - textWidth) / 2,
-                right = (size - textWidth) / 2,
-                top = (size - textHeight) / 2,
-                bottom = (size - textHeight) / 2
-            )
+        val finalWidth: Int
+        val finalHeight: Int
+
+        if (currentText.length == 1) {
+            val size = maxOf(measuredWidth, measuredHeight)
+            finalWidth = size
+            finalHeight = size
+            setMeasuredDimension(size, size)
+        } else {
+            finalWidth = measuredWidth
+            finalHeight = measuredHeight
         }
-        // For multi-character text, super.onMeasure already handled it correctly
+
+        val textWidth = textView.measuredWidth
+        val textHeight = textView.measuredHeight
+
+        val baseLeft: Int
+        val baseTop: Int
+        val baseRight: Int
+        val baseBottom: Int
+
+        if (currentText.length == 1) {
+            // center text in circle
+            baseLeft = (finalWidth - textWidth) / 2
+            baseRight = baseLeft
+            baseTop = (finalHeight - textHeight) / 2
+            baseBottom = baseTop
+        } else {
+            baseLeft = baseHorizontalPadding
+            baseRight = baseHorizontalPadding
+            baseTop = baseVerticalPadding
+            baseBottom = baseVerticalPadding
+        }
+
+        updatePadding(
+            left = baseLeft + extraPaddingLeft,
+            top = baseTop + extraPaddingTop,
+            right = baseRight + extraPaddingRight,
+            bottom = baseBottom + extraPaddingBottom
+        )
     }
 }

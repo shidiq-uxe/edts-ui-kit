@@ -488,4 +488,13 @@
         <attr name="htmlPadding" format="dimension" />
     </declare-styleable>
 
+    <declare-styleable name="LiquidGlassCouponCard">
+        <attr name="titleText" />
+        <attr name="subTitleText" />
+        <attr name="badgeText" format="string" />
+        <attr name="startIcon" />
+        <attr name="endIcon" />
+        <attr name="endIconVisible" />
+    </declare-styleable>
+
 </resources>
