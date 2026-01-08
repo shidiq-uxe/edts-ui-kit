@@ -138,7 +138,7 @@ fun linearMarginItemDecoration(
             val childCount = parent.adapter?.itemCount ?: 0
             val childAdapterPosition = parent.getChildAdapterPosition(view)
 
-            val isOnStartIndex = margin.first != startIndex && childAdapterPosition == startIndex
+            val isOnStartIndex = childAdapterPosition == startIndex
             val isOnLastIndex =
                 margin.last != startIndex && childAdapterPosition == childCount.minus(1)
 

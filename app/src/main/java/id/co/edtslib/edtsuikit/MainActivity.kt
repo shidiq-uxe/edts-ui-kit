@@ -42,9 +42,7 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun refreshing() {
-                // Perform your refresh logic here
                 Handler(Looper.getMainLooper()).postDelayed({
-                    // Stop refresh animation after the operation is complete
                     binding.root.finishRefreshing()
                 }, 2000)
             }

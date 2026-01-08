@@ -54,6 +54,12 @@ dependencies {
     implementation(libs.shimmer)
     implementation(libs.glide)
     implementation(libs.androidx.swipeRefresh)
+
+    // Todo : Implement Separate Smart Refresh Layout
+    implementation("io.github.scwang90:refresh-layout-kernel:3.0.0-alpha")
+    implementation("io.github.scwang90:refresh-header-classics:3.0.0-alpha")
+
+
     kapt(libs.glide.compiler)
 
     implementation(libs.material)

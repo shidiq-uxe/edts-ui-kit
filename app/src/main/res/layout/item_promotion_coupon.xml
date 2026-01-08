@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="@dimen/xs"
+    app:strokeWidth="@dimen/dimen_0"
+    android:outlineSpotShadowColor="@color/black_40"
+    android:outlineAmbientShadowColor="@color/black_40"
+    app:cardElevation="@dimen/dimen_2">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/xs">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/ivCouponImage"
+            android:layout_width="@dimen/dimen_0"
+            android:layout_height="@dimen/dimen_0"
+            android:adjustViewBounds="true"
+            app:srcCompat="@drawable/coupon_image_placeholder"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintWidth_percent="0.18"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/couponTypeBadge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/xxs"
+            android:paddingVertical="@dimen/dimen_2"
+            app:chipMinHeight="@dimen/dimen_0"
+            app:chipStartPadding="@dimen/dimen_0"
+            app:chipEndPadding="@dimen/dimen_0"
+            app:textStartPadding="@dimen/xxxs"
+            app:textEndPadding="@dimen/xxxs"
+            app:ensureMinTouchTargetSize="false"
+            app:chipMinTouchTargetSize="@dimen/dimen_0"
+            app:chipBackgroundColor="@color/support_selected"
+            app:chipStrokeWidth="@dimen/dimen_0"
+            android:ellipsize="end"
+            app:chipCornerRadius="@dimen/xxxs"
+            android:textColor="@color/primary_30"
+            android:textAppearance="?b4SemiBold"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/ivCouponImage"
+            app:layout_constraintHorizontal_bias="0.0"
+            android:text="i-Kupon"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvProductName"
+            android:layout_width="@dimen/dimen_0"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/xxs"
+            android:maxLines="2"
+            android:ellipsize="end"
+            android:textAppearance="@style/TextAppearance.Inter.Medium.B2"
+            android:textColor="@color/black_70"
+            app:layout_constraintTop_toBottomOf="@id/couponTypeBadge"
+            app:layout_constraintStart_toEndOf="@id/ivCouponImage"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:text="Diskon Ongkir Rp10.000 Pakai \nInstan"/>
+
+        <FrameLayout
+            android:id="@+id/flItem1"
+            android:layout_width="@dimen/dimen_0"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/xs"
+            app:layout_constraintTop_toBottomOf="@id/ivCouponImage"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+            
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tvStart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Minimum Transaksi"
+                    android:textAppearance="@style/TextAppearance.Inter.Medium.B4"
+                    android:textColor="@color/black_40"
+                    app:layout_constraintHorizontal_chainStyle="spread_inside"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/tvEnd"/>
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tvEnd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Rp30.000"
+                    android:textAppearance="@style/TextAppearance.Inter.SemiBold.B4"
+                    android:textColor="@color/black_60"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/tvStart"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/flItem2"
+            android:layout_width="@dimen/dimen_0"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/xxxs"
+            app:layout_constraintTop_toBottomOf="@id/flItem1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tvStart2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Service"
+                    android:textAppearance="@style/TextAppearance.Inter.Medium.B4"
+                    android:textColor="@color/black_40"
+                    app:layout_constraintHorizontal_chainStyle="spread_inside"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/tvEnd2"/>
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tvEnd2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Xpress,Xtra"
+                    android:textAppearance="@style/TextAppearance.Inter.SemiBold.B4"
+                    android:textColor="@color/black_60"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/tvStart2"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/flItem3"
+            android:layout_width="@dimen/dimen_0"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/xxxs"
+            app:layout_constraintTop_toBottomOf="@id/flItem2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tvStart3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Periode"
+                    android:textAppearance="@style/TextAppearance.Inter.Medium.B4"
+                    android:textColor="@color/black_40"
+                    app:layout_constraintHorizontal_chainStyle="spread_inside"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/tvEnd3"/>
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tvEnd3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1 Des 2025 - 31 Jan 2026"
+                    android:textAppearance="@style/TextAppearance.Inter.SemiBold.B4"
+                    android:textColor="@color/black_60"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/tvStart3"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </FrameLayout>
+
+        <com.google.android.material.divider.MaterialDivider
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/s"
+            app:layout_constraintTop_toBottomOf="@id/flItem3"/>
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/couponCode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingVertical="@dimen/dimen_2"
+            app:chipMinHeight="@dimen/dimen_0"
+            app:chipStartPadding="@dimen/dimen_0"
+            app:chipEndPadding="@dimen/dimen_0"
+            app:textStartPadding="@dimen/xxxs"
+            app:textEndPadding="@dimen/xxxs"
+            app:ensureMinTouchTargetSize="false"
+            app:chipMinTouchTargetSize="@dimen/dimen_0"
+            app:chipBackgroundColor="@color/black_20"
+            app:chipStrokeWidth="@dimen/dimen_0"
+            android:ellipsize="end"
+            app:chipCornerRadius="@dimen/xxxs"
+            android:textColor="@color/black_50"
+            android:textAppearance="?b4SemiBold"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintTop_toTopOf="@id/btnRedeem"
+            app:layout_constraintBottom_toBottomOf="@id/btnRedeem"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            android:text="Kode: BARUINSTAN10RB***"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvDetailCTA"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/s"
+            android:text="Detail"
+            android:textAppearance="@style/TextAppearance.Inter.SemiBold.Button.Text.Small"
+            android:textColor="@color/primary_30"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintTop_toTopOf="@id/couponCode"
+            app:layout_constraintStart_toEndOf="@id/couponCode"
+            app:layout_constraintBottom_toBottomOf="@id/couponCode"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnRedeem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minHeight="@dimen/dimen_0"
+            android:insetTop="@dimen/dimen_0"
+            android:insetBottom="@dimen/dimen_0"
+            android:layout_marginTop="@dimen/s"
+            android:insetLeft="0dp"
+            android:insetRight="0dp"
+            app:backgroundTint="@null"
+            android:minWidth="0dp"
+            android:paddingHorizontal="@dimen/s"
+            android:background="@drawable/bg_skyblue_gradient"
+            app:cornerRadius="@dimen/xxxs"
+            android:text="Tukar"
+            android:textAppearance="@style/TextAppearance.Inter.SemiBold.Button.Text.Small"
+            app:strokeColor="@color/red"
+            app:strokeWidth="12dp"
+            android:textColor="@color/white"
+            app:layout_constraintTop_toBottomOf="@id/divider"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

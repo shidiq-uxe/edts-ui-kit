@@ -51,6 +51,7 @@ class Badge @JvmOverloads constructor(
             textView.text = value
             visibility = if (value.isNullOrEmpty()) GONE else VISIBLE
 
+
             // Immediately update layout based on text length
             if (!value.isNullOrEmpty()) {
                 if (value.length == 1) {
@@ -103,7 +104,7 @@ class Badge @JvmOverloads constructor(
         setTint(badgeColor)
         strokeWidth = if (includeStroke) this@Badge.strokeWidth else 0f
         strokeColor = ColorStateList.valueOf(context.color(R.color.white))
-        setPadding(strokeWidth.toInt())
+        this.setPadding(strokeWidth.toInt(), strokeWidth.toInt(), strokeWidth.toInt(), strokeWidth.toInt())
     }
 
     private val textView: TextView = TextView(this.context).apply {
