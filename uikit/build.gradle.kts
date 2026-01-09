@@ -96,8 +96,7 @@ dependencies {
     implementation(libs.androidx.swipeRefresh)
     implementation(libs.shimmer)
     implementation(libs.lottie)
-//    implementation(libs.blurView)
-    implementation("com.github.Dimezis:BlurView:version-3.2.0")
+    implementation(libs.blurView)
 
     implementation(libs.material)
     implementation(libs.glide)

@@ -3,7 +3,6 @@ package id.co.edtslib.uikit.card.liquidglass
 import android.app.Activity
 import android.content.Context
 import android.graphics.Canvas
-import android.graphics.Color
 import android.graphics.LinearGradient
 import android.graphics.Paint
 import android.graphics.Path
@@ -48,15 +47,24 @@ class LiquidGlassCouponCard @JvmOverloads constructor(
         set(value) {
             field = value
             binding.couponCardBadge.text = value
+            binding.couponCardBadge.visibility =
+                if (isBadgeVisible && !value.isNullOrEmpty()) View.VISIBLE else View.GONE
         }
 
-    var startIconRes: Int? = R.drawable.ic_coupon_star_24
+    var isBadgeVisible: Boolean = true
+        set(value) {
+            field = value
+            binding.couponCardBadge.visibility =
+                if (value && !badgeText.isNullOrEmpty()) View.VISIBLE else View.GONE
+        }
+
+    var startIconRes: Int? = 0
         set(value) {
             field = value
             value?.let { binding.ivStartIcon.setImageResource(it) }
         }
 
-    var endIconRes: Int? = R.drawable.ic_chevron_right_16
+    var endIconRes: Int? = 0
         set(value) {
             field = value
             value?.let { binding.ivEndIcon.setImageResource(it) }
@@ -79,24 +87,30 @@ class LiquidGlassCouponCard @JvmOverloads constructor(
     private fun initAttrs(attrs: AttributeSet?) {
         attrs?.let {
             context.obtainStyledAttributes(it, R.styleable.LiquidGlassCouponCard).apply {
-                title = getString(R.styleable.LiquidGlassCouponCard_titleText)
-                subtitle = getString(R.styleable.LiquidGlassCouponCard_subTitleText)
+                title = getString(R.styleable.LiquidGlassCouponCard_titleText) ?: title
+                subtitle = getString(R.styleable.LiquidGlassCouponCard_subTitleText) ?: subtitle
                 badgeText = getString(R.styleable.LiquidGlassCouponCard_badgeText)
+
+                isBadgeVisible = getBoolean(
+                    R.styleable.LiquidGlassCouponCard_badgeVisible,
+                    true
+                )
 
                 startIconRes = getResourceId(
                     R.styleable.LiquidGlassCouponCard_startIcon,
-                    0
-                ).takeIf { it != 0 }
+                    R.drawable.ic_coupon_star_24
+                )
 
                 endIconRes = getResourceId(
                     R.styleable.LiquidGlassCouponCard_endIcon,
-                    0
-                ).takeIf { it != 0 }
+                    R.drawable.ic_chevron_right_16
+                )
 
                 isEndIconVisible = getBoolean(
                     R.styleable.LiquidGlassCouponCard_endIconVisible,
                     true
                 )
+
                 recycle()
             }
         }
@@ -104,7 +118,7 @@ class LiquidGlassCouponCard @JvmOverloads constructor(
 
     private fun setupMaterialCard() {
         radius = 8f.dp
-        setCardBackgroundColor(Color.TRANSPARENT)
+        setCardBackgroundColor(getResources().getColor(R.color.transparent))
         cardElevation = 0f.dp
 
         isClickable = true
@@ -121,10 +135,10 @@ class LiquidGlassCouponCard @JvmOverloads constructor(
         val decorView = activity.window.decorView
         val windowBackground = decorView.background
 
-        binding.blurView.setupWith(target)
+        binding.blurView.setupWith(target, 1f, false)
             .setFrameClearDrawable(windowBackground)
             .setOverlayColor(getResources().getColor(R.color.liquidGlassBackground))
-            .setBlurRadius(24f)
+            .setBlurRadius(30f)
     }
 
     private fun setupBadge() {
@@ -173,8 +187,8 @@ class LiquidGlassCouponCard @JvmOverloads constructor(
                 0f,
                 intArrayOf(
                     ContextCompat.getColor(context, R.color.liquidGlassRim),
-                    ContextCompat.getColor(context, R.color.white_transparent),
-                    ContextCompat.getColor(context, R.color.white_transparent),
+                    ContextCompat.getColor(context, R.color.transparent),
+                    ContextCompat.getColor(context, R.color.transparent),
                     ContextCompat.getColor(context, R.color.liquidGlassRim)
                 ),
                 floatArrayOf(

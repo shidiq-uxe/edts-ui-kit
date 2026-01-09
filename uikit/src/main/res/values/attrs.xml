@@ -492,6 +492,7 @@
         <attr name="titleText" />
         <attr name="subTitleText" />
         <attr name="badgeText" format="string" />
+        <attr name="badgeVisible" format="boolean" />
         <attr name="startIcon" />
         <attr name="endIcon" />
         <attr name="endIconVisible" />

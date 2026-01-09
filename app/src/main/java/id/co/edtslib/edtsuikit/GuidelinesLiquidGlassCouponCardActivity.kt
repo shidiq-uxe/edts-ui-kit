@@ -18,15 +18,14 @@ class GuidelinesLiquidGlassCouponCardActivity : GuidelinesBaseActivity() {
         setContentView(binding.root)
 
         val target = binding.blurTarget
-        val card = binding.liquidGlassCard1
+        val card1 = binding.liquidGlassCard1
+        val card2 = binding.liquidGlassCard2
+        val card3 = binding.liquidGlassCard3
+        val card4 = binding.liquidGlassCard4
 
-        card.setupBlur(this, target)
-//        binding.liquidGlassCard1.apply {
-//            title = "Test Title"
-//            subtitle = "Test Subtitle"
-//            badgeText = "10+"
-//            startIconRes = R.drawable.ic_coupon_star_24
-//            isEndIconVisible = false
-//        }
+        card1.setupBlur(this, target)
+        card2.setupBlur(this, target)
+        card3.setupBlur(this, target)
+        card4.setupBlur(this, target)
     }
 }

@@ -14,7 +14,7 @@ glide = "4.13.2"
 spotlight = "2.0.5"
 shimmer = "0.5.0"
 lottie = "6.4.0"
-blurView = "3.2.0"
+blurView = "version-3.2.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
