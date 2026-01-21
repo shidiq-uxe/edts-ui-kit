@@ -46,29 +46,6 @@ class Badge @JvmOverloads constructor(
             field = value
             textView.text = value
             visibility = if (value.isNullOrEmpty()) GONE else VISIBLE
-
-            // Immediately update layout based on text length
-            if (!value.isNullOrEmpty()) {
-                if (value.length == 1) {
-                    // Will be sized in onMeasure
-                    layoutParams = layoutParams?.apply {
-                        width = LayoutParams.WRAP_CONTENT
-                        height = LayoutParams.WRAP_CONTENT
-                    }
-                } else {
-                    // Multi-character: ensure WRAP_CONTENT
-                    layoutParams = layoutParams?.apply {
-                        width = LayoutParams.WRAP_CONTENT
-                        height = LayoutParams.WRAP_CONTENT
-                    }
-                    updatePadding(
-                        left = 2.dp.toInt(),
-                        right = 2.dp.toInt(),
-                        top = 0,
-                        bottom = 0
-                    )
-                }
-            }
             requestLayout()
         }
 
@@ -155,49 +132,31 @@ class Badge @JvmOverloads constructor(
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+        val currentText = text.orEmpty()
+        val isSingleChar = currentText.length == 1
+
+        if (currentText.isEmpty()) {
+            super.onMeasure(widthMeasureSpec, heightMeasureSpec)
+            return
+        }
+
+        val horizontalPadding =
+            if (isSingleChar) 0 else baseHorizontalPadding
+        val verticalPadding =
+            if (isSingleChar) 0 else baseVerticalPadding
+
+        setPadding(
+            horizontalPadding + extraPaddingLeft,
+            verticalPadding + extraPaddingTop,
+            horizontalPadding + extraPaddingRight,
+            verticalPadding + extraPaddingBottom
+        )
+
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
 
-        val currentText = text.orEmpty()
-
-        val finalWidth: Int
-        val finalHeight: Int
-
-        if (currentText.length == 1) {
+        if (isSingleChar) {
             val size = maxOf(measuredWidth, measuredHeight)
-            finalWidth = size
-            finalHeight = size
             setMeasuredDimension(size, size)
-        } else {
-            finalWidth = measuredWidth
-            finalHeight = measuredHeight
         }
-
-        val textWidth = textView.measuredWidth
-        val textHeight = textView.measuredHeight
-
-        val baseLeft: Int
-        val baseTop: Int
-        val baseRight: Int
-        val baseBottom: Int
-
-        if (currentText.length == 1) {
-            // center text in circle
-            baseLeft = (finalWidth - textWidth) / 2
-            baseRight = baseLeft
-            baseTop = (finalHeight - textHeight) / 2
-            baseBottom = baseTop
-        } else {
-            baseLeft = baseHorizontalPadding
-            baseRight = baseHorizontalPadding
-            baseTop = baseVerticalPadding
-            baseBottom = baseVerticalPadding
-        }
-
-        updatePadding(
-            left = baseLeft + extraPaddingLeft,
-            top = baseTop + extraPaddingTop,
-            right = baseRight + extraPaddingRight,
-            bottom = baseBottom + extraPaddingBottom
-        )
     }
 }
