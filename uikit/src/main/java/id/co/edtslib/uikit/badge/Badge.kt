@@ -10,7 +10,6 @@ import android.widget.TextView
 import androidx.annotation.ColorInt
 import androidx.annotation.StyleRes
 import androidx.appcompat.view.ContextThemeWrapper
-import androidx.core.view.updatePadding
 import com.google.android.material.shape.MaterialShapeDrawable
 import com.google.android.material.shape.RelativeCornerSize
 import com.google.android.material.shape.ShapeAppearanceModel
@@ -123,7 +122,7 @@ class Badge @JvmOverloads constructor(
         }*/
     }
 
-    fun extraPadding(left: Int = 0, top: Int = 0, right: Int = 0, bottom: Int = 0) {
+    fun setExtraPadding(left: Int = 0, top: Int = 0, right: Int = 0, bottom: Int = 0) {
         extraPaddingLeft = left
         extraPaddingTop = top
         extraPaddingRight = right

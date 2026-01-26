@@ -10,16 +10,18 @@ import android.graphics.RectF
 import android.graphics.Shader
 import android.util.AttributeSet
 import android.view.MotionEvent
-import android.view.View
 import android.view.ViewOutlineProvider
 import androidx.appcompat.view.ContextThemeWrapper
-import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import com.google.android.material.card.MaterialCardView
 import eightbitlab.com.blurview.BlurTarget
 import id.co.edtslib.uikit.R
 import id.co.edtslib.uikit.databinding.ViewLiquidGlassCouponCardBinding
+import id.co.edtslib.uikit.utils.color
+import id.co.edtslib.uikit.utils.dimen
 import id.co.edtslib.uikit.utils.dp
 import id.co.edtslib.uikit.utils.inflater
+import kotlin.text.isNullOrEmpty
 
 class LiquidGlassCouponCard @JvmOverloads constructor(
     context: Context,
@@ -47,15 +49,14 @@ class LiquidGlassCouponCard @JvmOverloads constructor(
         set(value) {
             field = value
             binding.couponCardBadge.text = value
-            binding.couponCardBadge.visibility =
-                if (isBadgeVisible && !value.isNullOrEmpty()) View.VISIBLE else View.GONE
+            binding.couponCardBadge.isVisible = isBadgeVisible && !value.isNullOrEmpty()
+
         }
 
     var isBadgeVisible: Boolean = true
         set(value) {
             field = value
-            binding.couponCardBadge.visibility =
-                if (value && !badgeText.isNullOrEmpty()) View.VISIBLE else View.GONE
+            binding.couponCardBadge.isVisible = value && !badgeText.isNullOrEmpty()
         }
 
     var startIconRes: Int? = 0
@@ -73,8 +74,7 @@ class LiquidGlassCouponCard @JvmOverloads constructor(
     var isEndIconVisible: Boolean = true
         set(value) {
             field = value
-            binding.ivEndIcon.visibility =
-                if (value) View.VISIBLE else View.GONE
+            binding.ivEndIcon.isVisible = value
         }
 
     init {
@@ -118,7 +118,7 @@ class LiquidGlassCouponCard @JvmOverloads constructor(
 
     private fun setupMaterialCard() {
         radius = 8f.dp
-        setCardBackgroundColor(getResources().getColor(R.color.transparent))
+        setCardBackgroundColor(context.color(R.color.transparent))
         cardElevation = 0f.dp
 
         isClickable = true
@@ -137,21 +137,21 @@ class LiquidGlassCouponCard @JvmOverloads constructor(
 
         binding.blurView.setupWith(target, 1f, false)
             .setFrameClearDrawable(windowBackground)
-            .setOverlayColor(getResources().getColor(R.color.liquidGlassBackground))
+            .setOverlayColor(context.color(R.color.liquidGlassBackground))
             .setBlurRadius(30f)
     }
 
     private fun setupBadge() {
         binding.couponCardBadge.apply {
-            badgeColor = context.getColor(R.color.red_30)
+            badgeColor = context.color(R.color.red_30)
             includeStroke = true
-            badgeDrawable.strokeWidth = resources.getDimension(R.dimen.dimen_1)
-            extraPadding(
+            badgeDrawable.strokeWidth = context.dimen(R.dimen.dimen_1)
+            setExtraPadding(
                 left = 2.dp.toInt(),
                 top = 1.dp.toInt(),
                 right = 2.dp.toInt(),
                 bottom = 1.dp.toInt())
-            textColor = context.getColor(R.color.white)
+            textColor = context.color(R.color.white)
         }
     }
 
@@ -179,17 +179,17 @@ class LiquidGlassCouponCard @JvmOverloads constructor(
         // --- RIM EDGE: VERTICAL GLOSS ---
         val sideGlowPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
             style = Paint.Style.STROKE
-            strokeWidth = resources.getDimension(R.dimen.dimen_2)
+            strokeWidth = context.dimen(R.dimen.dimen_2)
             shader = LinearGradient(
                 0f,
                 0f,
                 widthF,
                 0f,
                 intArrayOf(
-                    ContextCompat.getColor(context, R.color.liquidGlassRim),
-                    ContextCompat.getColor(context, R.color.transparent),
-                    ContextCompat.getColor(context, R.color.transparent),
-                    ContextCompat.getColor(context, R.color.liquidGlassRim)
+                    context.color(R.color.liquidGlassRim),
+                    context.color(R.color.transparent),
+                    context.color(R.color.transparent),
+                    context.color(R.color.liquidGlassRim)
                 ),
                 floatArrayOf(
                     0f,
@@ -209,7 +209,6 @@ class LiquidGlassCouponCard @JvmOverloads constructor(
     override fun onTouchEvent(event: MotionEvent): Boolean {
         when (event.action) {
             MotionEvent.ACTION_DOWN -> {
-                delegate?.onCardPressed(this)
                 animate()
                     .scaleX(0.97f)
                     .scaleY(0.97f)
@@ -218,7 +217,6 @@ class LiquidGlassCouponCard @JvmOverloads constructor(
             }
 
             MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
-                delegate?.onCardReleased(this)
                 animate()
                     .scaleX(1f)
                     .scaleY(1f)
