@@ -15,7 +15,6 @@
 - **XML Attribute Support**: Configure properties directly in XML layouts.
 
 ## Preview
-<!-- Add your preview GIF/image here -->
 ![LiquidGlassCouponCard Preview](https://res.cloudinary.com/dpdbzlnhr/image/upload/c_scale,w_600/v1767947070/liquidglass-ezgif.com-optimize_hgr0jm.gif)
 
 ## Installation
@@ -117,7 +116,7 @@ interface LiquidGlassCouponCardDelegate {
 The glassmorphism effect requires setting up the blur effect. Call `setupBlur()` after the view is attached:
 
 ```kotlin
-// In your Activity
+// In  Activity
 couponCard.setupBlur(
     activity = this,
     target = binding.rootView
