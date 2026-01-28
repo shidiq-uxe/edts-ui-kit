@@ -5,10 +5,9 @@ import android.animation.ValueAnimator
 import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.Color
+import android.os.Build
 import android.util.AttributeSet
 import android.view.Gravity
-import android.view.View
-import android.view.ViewGroup
 import android.view.animation.DecelerateInterpolator
 import android.widget.LinearLayout
 import com.google.android.material.card.MaterialCardView
@@ -16,8 +15,7 @@ import com.google.android.material.textview.MaterialTextView
 import id.co.edtslib.uikit.R
 import id.co.edtslib.uikit.utils.color
 import id.co.edtslib.uikit.utils.dimen
-import id.co.edtslib.uikit.utils.dimenPixelSize
-import id.co.edtslib.uikit.utils.dp
+import kotlin.math.roundToInt
 
 data class SelectionItem(
     val title: String,
@@ -49,7 +47,7 @@ class PDPSelectionGroup @JvmOverloads constructor(
         context.getColor(R.color.primary_30)
     }
     private val unselectedStrokeColor: Int by lazy {
-        context.getColor(R.color.black_30)
+        context.getColor(R.color.black_20)
     }
     private val disabledStrokeColor: Int by lazy {
         context.getColor(R.color.black_20)
@@ -119,12 +117,18 @@ class PDPSelectionGroup @JvmOverloads constructor(
     private fun createCard(item: SelectionItem, position: Int): MaterialCardView {
         return MaterialCardView(context).apply {
             radius = cardCornerRadius
-            strokeWidth = context.dimen(R.dimen.dimen_1).toInt()
+            strokeWidth = context.dimen(R.dimen.dimen_1).roundToInt()
             isCheckable = false
             checkedIcon = null
             isClickable = false
             isFocusable = false
-            cardElevation = 0f
+            cardElevation = context.dimen(R.dimen.dimen_4)
+            clipToPadding = false
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                outlineAmbientShadowColor = context.color(R.color.selectionCardShadow)
+                outlineSpotShadowColor = context.color(R.color.selectionCardShadow)
+            }
 
             setCardBackgroundColor(context.color(R.color.white))
             rippleColor = ColorStateList.valueOf(Color.TRANSPARENT)

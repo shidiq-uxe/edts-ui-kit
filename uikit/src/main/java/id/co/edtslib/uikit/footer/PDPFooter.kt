@@ -5,7 +5,6 @@ import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
 import android.content.Context
 import android.util.AttributeSet
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,9 +12,10 @@ import android.view.animation.AccelerateInterpolator
 import android.view.animation.DecelerateInterpolator
 import android.widget.FrameLayout
 import androidx.core.animation.doOnEnd
-import androidx.core.view.isVisible
+import id.co.edtslib.uikit.R
 import id.co.edtslib.uikit.databinding.ViewPdpFooterBinding
-import id.co.edtslib.uikit.utils.interpolator.EaseInterpolator
+import id.co.edtslib.uikit.utils.dimen
+import kotlin.math.roundToInt
 
 /**
  * Custom view that morphs between cart button and stepper states
@@ -50,6 +50,7 @@ class PDPFooter @JvmOverloads constructor(
 
     private fun setupView() {
         binding.qtyBadge.includeStroke = true
+        binding.ctaCart.strokeWidth = context.dimen(R.dimen.dimen_1).roundToInt()
     }
 
     private fun setupClickListeners() {

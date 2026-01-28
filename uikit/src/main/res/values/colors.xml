@@ -71,6 +71,7 @@
     <color name="shimmerSkeleton">#E7E5E5</color>
     <color name="liquidGlassRim">#99FFFFFF</color>
     <color name="liquidGlassBackground">#14FFFFFF</color>
+    <color name="selectionCardShadow">#8070727D</color>
 
     <!--Poin Coffee-->
     <color name="poin_coffee_button">#00833E</color>

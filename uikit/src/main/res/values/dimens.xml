@@ -63,6 +63,7 @@
     <dimen name="dimen_1">1dp</dimen>
     <dimen name="dimen_2">2dp</dimen>
     <dimen name="dimen_2.5">2.5dp</dimen>
+    <dimen name="dimen_4">4dp</dimen>
     <dimen name="dimen_6">6dp</dimen>
     <dimen name="dimen_10">10dp</dimen>
     <dimen name="dimen_14">14dp</dimen>
