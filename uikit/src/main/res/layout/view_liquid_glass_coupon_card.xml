@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<eightbitlab.com.blurview.BlurView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/blurView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent" >
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/ivStartIcon"
+            android:layout_width="32dp"
+            android:layout_height="@dimen/dimen_0"
+            android:layout_marginStart="@dimen/xs"
+            android:background="@drawable/bg_circle_radial"
+            app:layout_constraintDimensionRatio="1:1"
+            app:contentPadding="@dimen/xxxs"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:shapeAppearanceOverlay="@style/ShapeAppearance.EDTS.UIKit.CircularComponent" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/xxs"
+            android:layout_marginTop="@dimen/xs"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textAppearance="?b2SemiBold"
+            android:textColor="@color/white"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintBottom_toTopOf="@id/tvSubtitle"
+            app:layout_constraintEnd_toStartOf="@id/couponCardBadge"
+            app:layout_constraintStart_toEndOf="@id/ivStartIcon"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <id.co.edtslib.uikit.badge.Badge
+            android:id="@+id/couponCardBadge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/xxxs"
+            android:layout_marginEnd="@dimen/xxs"
+            app:badgeTextAppearance="?b4SemiBold"
+            app:layout_constraintBottom_toBottomOf="@id/tvTitle"
+            app:layout_constraintEnd_toStartOf="@id/ivEndIcon"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toEndOf="@id/tvTitle"
+            app:layout_constraintTop_toTopOf="@id/tvTitle" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvSubtitle"
+            android:layout_width="@dimen/dimen_0"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/xxs"
+            android:layout_marginBottom="@dimen/xs"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textAppearance="?b3Regular"
+            android:textColor="@color/black_30"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/ivEndIcon"
+            app:layout_constraintStart_toStartOf="@id/tvTitle"
+            app:layout_constraintTop_toBottomOf="@id/tvTitle" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/ivEndIcon"
+            android:layout_width="@dimen/dimen_16"
+            android:layout_height="@dimen/dimen_0"
+            android:layout_marginEnd="@dimen/xs"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</eightbitlab.com.blurview.BlurView>
