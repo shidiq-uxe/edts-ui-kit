@@ -55,6 +55,7 @@ dependencies {
     implementation(libs.glide)
     implementation(libs.androidx.swipeRefresh)
     kapt(libs.glide.compiler)
+    implementation(libs.blurView)
 
     implementation(libs.material)
     implementation(libs.androidx.activity)

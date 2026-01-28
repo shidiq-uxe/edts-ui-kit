@@ -20,6 +20,7 @@ import id.co.edtslib.edtsuikit.GuidelinesGreyScaleViewGroupActivity
 import id.co.edtslib.edtsuikit.GuidelinesHTMLTextViewActivity
 import id.co.edtslib.edtsuikit.GuidelinesHomeSwitcherActivity
 import id.co.edtslib.edtsuikit.GuidelinesHomepageExploration
+import id.co.edtslib.edtsuikit.GuidelinesLiquidGlassCouponCardActivity
 import id.co.edtslib.edtsuikit.GuidelinesListItemActivity
 import id.co.edtslib.edtsuikit.GuidelinesOtpActivity
 import id.co.edtslib.edtsuikit.GuidelinesPopupActivity
@@ -99,6 +100,8 @@ sealed class GuidelineItem(
 
     object CouponPromotion : GuidelineItem(R.string.guidelines_coupon_ongkir_promotion, GuidelinesCouponPromotionActivity::class.java)
 
+    object LiquidGlassCouponCard : GuidelineItem(R.string.guidelines_liquid_glass_coupon_card, GuidelinesLiquidGlassCouponCardActivity::class.java)
+
     companion object {
         fun getAllItems(): List<GuidelineItem> = listOf(
             Typography,
@@ -128,6 +131,7 @@ sealed class GuidelineItem(
             SearchProduct,
             PDP,
             CouponPromotion,
+            LiquidGlassCouponCard
         )
 
         fun getByCategory(): Map<String, List<GuidelineItem>> = mapOf(

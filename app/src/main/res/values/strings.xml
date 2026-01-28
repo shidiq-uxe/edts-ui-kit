@@ -60,5 +60,6 @@
     <string name="guidelines_search_product_demo">Search Product Demo</string>
     <string name="guidelines_pdp">Product Detail Page</string>
     <string name="guidelines_coupon_ongkir_promotion">Promo Ongkir</string>
+    <string name="guidelines_liquid_glass_coupon_card">Liquid Glass Coupon Card</string>
 
 </resources>
