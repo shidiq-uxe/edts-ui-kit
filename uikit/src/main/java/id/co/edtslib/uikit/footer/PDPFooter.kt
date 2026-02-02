@@ -15,7 +15,9 @@ import android.widget.FrameLayout
 import androidx.core.animation.doOnEnd
 import androidx.core.view.isVisible
 import id.co.edtslib.uikit.databinding.ViewPdpFooterBinding
+import id.co.edtslib.uikit.utils.dp
 import id.co.edtslib.uikit.utils.interpolator.EaseInterpolator
+import kotlin.math.roundToInt
 
 /**
  * Custom view that morphs between cart button and stepper states
@@ -32,9 +34,11 @@ class PDPFooter @JvmOverloads constructor(
     private var currentState = CartState.DEFAULT
     private var isAnimating = false
 
+    var defaultQuantity = 1
+
     enum class CartState {
-        DEFAULT,  // Shows btnAddToCart
-        FINALE    // Shows stepper, price, delete button
+        DEFAULT,
+        FINALE
     }
 
     // Callbacks
@@ -50,6 +54,10 @@ class PDPFooter @JvmOverloads constructor(
 
     private fun setupView() {
         binding.qtyBadge.includeStroke = true
+
+        binding.qtyBadge.setExtraPadding(
+            horizontal = 2.dp.roundToInt()
+        )
     }
 
     private fun setupClickListeners() {
@@ -57,7 +65,7 @@ class PDPFooter @JvmOverloads constructor(
             if (!isAnimating) {
                 onAddToCartClick?.invoke()
                 setStateImmediately(PDPFooter.CartState.FINALE)
-                binding.sbQuantity.setCount(1)
+                binding.sbQuantity.setCount(defaultQuantity)
             }
         }
 
@@ -65,6 +73,7 @@ class PDPFooter @JvmOverloads constructor(
             if (!isAnimating) {
                 onDeleteClick?.invoke()
                 setStateImmediately(CartState.DEFAULT)
+                binding.sbQuantity.setCount(0)
             }
         }
 

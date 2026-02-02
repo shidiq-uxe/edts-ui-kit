@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.res.ColorStateList
 import android.os.Build
 import android.util.AttributeSet
+import android.util.Log
 import android.view.Gravity
 import android.widget.FrameLayout
 import android.widget.TextView
@@ -50,6 +51,7 @@ class Badge @JvmOverloads constructor(
 
     var includeStroke = false
         set(value) {
+            field = value
             invalidate()
         }
 
@@ -79,7 +81,7 @@ class Badge @JvmOverloads constructor(
     private var extraPaddingBottom = 0
 
     private val baseHorizontalPadding = 2.dp.toInt()
-    private val baseVerticalPadding = 1.dp.toInt()
+    private val baseVerticalPadding = 0
 
     internal val badgeShapeModel = ShapeAppearanceModel()
         .toBuilder()
@@ -130,6 +132,10 @@ class Badge @JvmOverloads constructor(
         requestLayout()
     }
 
+    fun setExtraPadding(vertical: Int = 0, horizontal: Int = 0) {
+        setExtraPadding(horizontal, vertical, horizontal, vertical)
+    }
+
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         val currentText = text.orEmpty()
         val isSingleChar = currentText.length == 1
@@ -139,10 +145,8 @@ class Badge @JvmOverloads constructor(
             return
         }
 
-        val horizontalPadding =
-            if (isSingleChar) 0 else baseHorizontalPadding
-        val verticalPadding =
-            if (isSingleChar) 0 else baseVerticalPadding
+        val horizontalPadding = baseHorizontalPadding
+        val verticalPadding = baseVerticalPadding
 
         setPadding(
             horizontalPadding + extraPaddingLeft,
@@ -154,7 +158,7 @@ class Badge @JvmOverloads constructor(
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
 
         if (isSingleChar) {
-            val size = maxOf(measuredWidth, measuredHeight)
+            val size = maxOf(measuredWidth.plus(baseVerticalPadding), measuredHeight)
             setMeasuredDimension(size, size)
         }
     }

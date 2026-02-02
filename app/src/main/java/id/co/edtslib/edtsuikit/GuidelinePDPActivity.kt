@@ -225,6 +225,8 @@ class GuidelinePDPActivity : AppCompatActivity() {
                         }
 
                         binding.pdpFooter.binding.sbQuantity.setIncrementalValue(incrementalCount)
+                        binding.pdpFooter.defaultQuantity = incrementalCount
+
 
                         val price = if(quantityType == QuantityType.SINGLE) {
                             SINGLE_ITEM_PRICE
@@ -307,7 +309,6 @@ class GuidelinePDPActivity : AppCompatActivity() {
 
     private fun onBackPressedAction() {
         onBackPressedDispatcher.addCallback(this) {
-
             finish()
         }
 

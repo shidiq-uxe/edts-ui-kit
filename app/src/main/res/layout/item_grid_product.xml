@@ -86,7 +86,7 @@
             android:layout_marginHorizontal="@dimen/xxs"
             android:text="Rp2.000"
             android:textColor="@color/black_70"
-            android:textAppearance="@style/TextAppearance.Inter.Bold.B2"
+            android:textAppearance="@style/TextAppearance.Inter.SemiBold.B2"
             android:textSize="@dimen/d4_text_size"
             android:lineHeight="@dimen/m3"
             app:layout_constraintTop_toBottomOf="@id/tvProductName"

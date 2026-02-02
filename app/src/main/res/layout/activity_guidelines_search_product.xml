@@ -72,7 +72,6 @@
         android:id="@+id/rvProducts"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dimen_0"
-        android:paddingVertical="@dimen/dimen_10"
         android:paddingHorizontal="@dimen/dimen_6"
         android:clipToPadding="false"
         app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
@@ -81,6 +80,17 @@
         app:layout_constraintBottom_toBottomOf="parent"
         tools:itemCount="4"
         tools:listitem="@layout/item_grid_product"/>
+
+    <id.co.edtslib.uikit.button.MultiLineFloatingActionButton
+        android:id="@+id/fabActionCart"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/s"
+        android:layout_marginBottom="@dimen/s"
+        app:titleText="Keranjang"
+        app:supportingText="(%d Barang)"
+        app:highlightText="Rp0"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

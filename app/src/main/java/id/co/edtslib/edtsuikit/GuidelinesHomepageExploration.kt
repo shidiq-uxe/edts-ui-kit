@@ -1,6 +1,9 @@
 package id.co.edtslib.edtsuikit
 
+import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
+import android.view.MotionEvent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -41,19 +44,30 @@ class GuidelinesHomepageExploration : AppCompatActivity() {
 
         setStatusBarColor()
         onSwitcherChange()
+        onClickListener()
 
         binding.sbHome.placeholderAnimationType = SearchBar.PlaceholderAnimationType.TypeWriterWithPrefix
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
+    private fun onClickListener() {
+        binding.sbHome.editText.setOnTouchListener { v, event ->
+            if (event.action == MotionEvent.ACTION_UP) {
+                Intent(this, GuidelinesSearchSuggestionActivity::class.java).also {
+                    startActivity(it)
+                }
+            }
+            return@setOnTouchListener false
+        }
     }
 
     private fun onSwitcherChange() {
         binding.homeSwitcher.delegate = object : HomeSwitcherDelegate {
             override fun onSwitchChangedListener(selectedTab: HomeSwitcher.Tab) {
-                // Set something during tab click
                 switcherSnackbar?.dismiss()
             }
 
             override fun onSwitchAnimationEndListener(selectedTab: HomeSwitcher.Tab) {
-                // Cancelling job to ensure no multiple job created
                 job.cancel()
 
                 job = lifecycleScope.launch {

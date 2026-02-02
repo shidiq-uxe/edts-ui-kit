@@ -62,9 +62,9 @@ class SearchBar @JvmOverloads constructor(
         this.setFactory {
             TextView(context).apply {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    setTextAppearance(R.style.TextAppearance_Inter_Regular_P1)
+                    setTextAppearance(R.style.TextAppearance_Inter_Regular_B3)
                 } else {
-                    setTextAppearance(context, R.style.TextAppearance_Inter_Regular_P1)
+                    setTextAppearance(context, R.style.TextAppearance_Inter_Regular_B3)
                 }
 
                 post {
@@ -363,7 +363,7 @@ class SearchBar @JvmOverloads constructor(
                 fieldInputType = InputType.values()[it.getInt(R.styleable.SearchBar_fieldInputType, 0)]
 
                 prefixText = it.getString(R.styleable.SearchBar_prefixText)
-                placeholderTextAppearance = it.getResourceId(R.styleable.SearchBar_placeholderTextAppearance, placeholderTextAppearance ?: R.style.TextAppearance_Inter_Regular_B2)
+                placeholderTextAppearance = it.getResourceId(R.styleable.SearchBar_placeholderTextAppearance, placeholderTextAppearance ?: R.style.TextAppearance_Inter_Regular_B3)
 
                 val startIconColorRes = it.getResourceId(R.styleable.SearchBar_startIcon, 0)
 

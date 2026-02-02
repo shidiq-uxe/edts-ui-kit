@@ -369,7 +369,6 @@ open class StepperButton @JvmOverloads constructor(
 
     // Public API
     fun setCount(value: Int, animate: Boolean = true) {
-        // Ensure we're on the main thread
         if (Looper.myLooper() != Looper.getMainLooper()) {
             post { setCount(value, animate) }
             return
@@ -377,6 +376,8 @@ open class StepperButton @JvmOverloads constructor(
 
         count = value.coerceIn(minValue, maxValue)
         updateCountDisplay()
+
+        onCountChangeListener?.invoke(value)
 
         if (animate) {
             if (count > 0 && !isExpanded) {

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingVertical="@dimen/xxs"
+    android:paddingHorizontal="@dimen/xs"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <ImageView
+        android:id="@+id/ivIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minHeight="@dimen/m2"
+        android:minWidth="@dimen/m2"
+        android:src="@drawable/ic_cart"
+        android:importantForAccessibility="no"
+        app:tint="@color/black_70"
+        app:layout_constrainedHeight="true"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvTitle"
+        android:layout_width="@dimen/dimen_0"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/xxs"
+        android:textAppearance="@style/TextAppearance.Inter.Semibold.H3"
+        android:textColor="@color/black_70"
+        tools:text="Title Text"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@id/ivIcon"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvSupporting"
+        android:layout_width="@dimen/dimen_0"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/xxs"
+        android:textAppearance="@style/TextAppearance.Inter.Regular.B4"
+        android:textColor="@color/black_70"
+        app:layout_constraintTop_toBottomOf="@id/tvTitle"
+        app:layout_constraintStart_toEndOf="@id/ivIcon"
+        tools:text="Supporting Text" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvHighlightTitle"
+        android:layout_width="@dimen/dimen_0"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/TextAppearance.Inter.Semibold.H3"
+        android:textColor="@color/black_70"
+        tools:text="Highlight"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/tvHighlightSupporting"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvHighlightSupporting"
+        android:layout_width="@dimen/dimen_0"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:textAppearance="@style/TextAppearance.Inter.Regular.B4"
+        android:textColor="@color/black_70"
+        tools:text="Supporting Highlight"
+        app:layout_constraintTop_toBottomOf="@id/tvHighlightTitle"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

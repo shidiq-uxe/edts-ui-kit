@@ -88,6 +88,12 @@
     <attr name="subTitleText" format="string"/>
     <attr name="subtitleTextAppearance" format="reference"/>
     <attr name="subtitleTextColor" format="color"/>
+    <attr name="supportingText" format="string"/>
+    <attr name="supportingTextAppearance" format="reference"/>
+    <attr name="supportingTextColor" format="color"/>
+    <attr name="highlightText" format="string"/>
+    <attr name="highlightTextAppearance" format="reference"/>
+    <attr name="highlightTextColor" format="color"/>
     <attr name="subtitleVisible" format="boolean"/>
     <attr name="infoText" format="string"/>
     <attr name="startIcon" format="reference"/>"
@@ -496,6 +502,15 @@
         <attr name="startIcon" />
         <attr name="endIcon" />
         <attr name="endIconVisible" />
+    </declare-styleable>
+
+    <declare-styleable name="MultiLineFloatingActionButton">
+        <attr name="buttonColor"/>
+        <attr name="cornerSize"/>
+
+        <attr name="titleText" />
+        <attr name="supportingText" />
+        <attr name="highlightText"/>
     </declare-styleable>
 
 </resources>
