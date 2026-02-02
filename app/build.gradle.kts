@@ -61,6 +61,7 @@ dependencies {
 
 
     kapt(libs.glide.compiler)
+    implementation(libs.blurView)
 
     implementation(libs.material)
     implementation(libs.androidx.activity)
