@@ -7,6 +7,7 @@ import android.view.ViewGroup.MarginLayoutParams
 import android.widget.FrameLayout
 import android.widget.ImageView
 import androidx.annotation.DrawableRes
+import androidx.core.graphics.toColorInt
 import androidx.core.view.setMargins
 import androidx.core.view.updateLayoutParams
 import com.bumptech.glide.Glide
@@ -16,6 +17,7 @@ import com.bumptech.glide.load.resource.bitmap.DownsampleStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.facebook.shimmer.Shimmer
 import com.facebook.shimmer.ShimmerFrameLayout
+import id.co.edtslib.uikit.R
 
 /**
  * Adds a pulsing shimmer effect to the target view by wrapping it in a `ShimmerFrameLayout`.
@@ -29,35 +31,52 @@ import com.facebook.shimmer.ShimmerFrameLayout
 fun View.attachShimmerEffect(
     baseAlpha: Float = 1f,
     highlightAlpha: Float = 0.75f,
+    baseColor: Int = context.color(R.color.shimmerSkeleton),
+    highlightColor: Int = context.color(R.color.white),
     shimmerDirection: Int = Shimmer.Direction.LEFT_TO_RIGHT,
-    duration: Long = 3000
+    duration: Long = 3000,
+    shimmerMethod: ShimmerMethod = ShimmerMethod.COLOR_HIGHLIGHT
 ): ShimmerFrameLayout? {
     val parent = this.parent as? ViewGroup ?: return null
 
+    val originalLayoutParams = this.layoutParams
+
     val shimmerFrameLayout = ShimmerFrameLayout(this.context).apply {
-        this@apply.layoutParams = this@attachShimmerEffect.layoutParams
+        layoutParams = originalLayoutParams
     }
 
-    val shimmer = Shimmer.AlphaHighlightBuilder()
-        .setBaseAlpha(baseAlpha)
-        .setHighlightAlpha(highlightAlpha)
-        .setDirection(shimmerDirection)
-        .setAutoStart(true)
-        .setDuration(duration)
-        .build()
+    val shimmer = if (shimmerMethod == ShimmerMethod.ALPHA_HIGHLIGHT) {
+          Shimmer.AlphaHighlightBuilder()
+              .setBaseAlpha(baseAlpha)
+              .setHighlightAlpha(highlightAlpha)
+              .setBaseAlpha(baseAlpha)
+              .setDirection(shimmerDirection)
+              .setAutoStart(true)
+              .setDuration(duration)
+              .build()
+    } else {
+        Shimmer.ColorHighlightBuilder()
+            .setBaseColor(baseColor)
+            .setHighlightColor(highlightColor)
+            .setBaseAlpha(baseAlpha)
+            .setDirection(shimmerDirection)
+            .setAutoStart(true)
+            .setDuration(duration)
+            .build()
+    }
 
     shimmerFrameLayout.setShimmer(shimmer)
 
     val targetIndex = parent.indexOfChild(this)
     parent.removeViewAt(targetIndex)
+
+    this.layoutParams = FrameLayout.LayoutParams(
+        FrameLayout.LayoutParams.WRAP_CONTENT,
+        FrameLayout.LayoutParams.WRAP_CONTENT
+    )
+
     shimmerFrameLayout.addView(this)
     parent.addView(shimmerFrameLayout, targetIndex)
-
-    this.updateLayoutParams<MarginLayoutParams> {
-        // Reset View Margin to Default
-        setMargins(0)
-    }
-
     shimmerFrameLayout.startShimmer()
 
     return shimmerFrameLayout
@@ -78,10 +97,15 @@ fun ShimmerFrameLayout.detachShimmerEffect(): View? {
     originalView.layoutParams = this.layoutParams
 
     this.removeView(originalView)
-    parent.removeViewAt(index)
+    parent.removeViewAt( index)
     parent.addView(originalView, index)
 
     return originalView
+}
+
+enum class ShimmerMethod {
+    COLOR_HIGHLIGHT,
+    ALPHA_HIGHLIGHT
 }
 
 fun View.setGradientBackground(

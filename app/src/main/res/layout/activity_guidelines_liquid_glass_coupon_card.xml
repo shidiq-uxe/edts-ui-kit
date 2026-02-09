@@ -5,13 +5,16 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".GuidelinesLiquidGlassCouponCardActivity"
-    android:background="@color/primary_40">
+    tools:context=".GuidelinesLiquidGlassCouponCardActivity" >
 
     <eightbitlab.com.blurview.BlurTarget
         android:id="@+id/blurTarget"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:background="@color/primary_40"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+    </eightbitlab.com.blurview.BlurTarget>
 
     <id.co.edtslib.uikit.card.liquidglass.LiquidGlassCouponCard
         android:id="@+id/liquidGlassCard1"
@@ -54,5 +57,25 @@
         android:layout_marginHorizontal="@dimen/dimen_16"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/liquidGlassCard3"/>
+
+    <id.co.edtslib.uikit.card.liquidglass.LiquidGlassCouponCard
+        android:id="@+id/liquidGlassCard5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_16"
+        app:badgeText="10+"
+        android:layout_marginHorizontal="@dimen/dimen_16"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/liquidGlassCard4"/>
+
+    <id.co.edtslib.uikit.card.liquidglass.LiquidGlassCouponCard
+        android:id="@+id/liquidGlassCard6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_16"
+        app:badgeText="1"
+        android:layout_marginHorizontal="@dimen/dimen_16"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/liquidGlassCard5"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

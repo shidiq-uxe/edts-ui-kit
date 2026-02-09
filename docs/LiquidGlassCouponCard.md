@@ -87,15 +87,16 @@ couponCard.delegate = object : LiquidGlassCouponCardDelegate {
 
 You can configure title, subtitle, badge, and icons directly in XML using the following attributes:
 
-| Attribute Name    | Description                          | Default Value                     |
-|-------------------|--------------------------------------|-----------------------------------|
-| `titleText`       | Title text for the card              | `"Kupon Saya"`                    |
-| `subTitleText`    | Subtitle text for the card           | `"Kumpulkan kupon yang kamu punya"` |
-| `badgeText`       | Text to display in the badge         | `null`                            |
-| `badgeVisible`    | Toggle badge visibility              | `true`                            |
-| `startIcon`       | Icon displayed on the left side      | `@drawable/ic_coupon_star_24`     |
-| `endIcon`         | Icon displayed on the right side     | `@drawable/ic_chevron_right_16`   |
-| `endIconVisible`  | Toggle end icon visibility           | `true`                            |
+| Attribute Name    | Description                      | Default Value                       |
+|-------------------|----------------------------------|-------------------------------------|
+| `titleText`       | Title text for the card          | `"Kupon Saya"`                      |
+| `subTitleText`    | Subtitle text for the card       | `"Kumpulkan kupon yang kamu punya"` |
+| `badgeText`       | Text to display in the badge     | `null`                              |
+| `badgeVisible`    | Toggle badge visibility          | `true`                              |
+| `isBadgeLoading`  | Toggle badge loading state       | `false`                             |
+| `startIcon`       | Icon displayed on the left side  | `@drawable/ic_coupon_star_24`       |
+| `endIcon`         | Icon displayed on the right side | `@drawable/ic_chevron_right_16`     |
+| `endIconVisible`  | Toggle end icon visibility       | `true`                              |
 
 * * * * *
 
@@ -234,6 +235,10 @@ The rim edge uses a horizontal gradient shader with four color stops:
 - Right edge: `liquidGlassRim` color (visible)
 
 This creates a subtle glow effect on the left and right edges of the card.
+
+### Badge Shimmer skeleton
+
+Badge component handles loading state with a shimmer effect when `isBadgeLoading` is set to true.
 
 * * * * *
 

@@ -13,11 +13,14 @@ import android.view.MotionEvent
 import android.view.ViewOutlineProvider
 import androidx.appcompat.view.ContextThemeWrapper
 import androidx.core.view.isVisible
+import com.facebook.shimmer.ShimmerFrameLayout
 import com.google.android.material.card.MaterialCardView
 import eightbitlab.com.blurview.BlurTarget
 import id.co.edtslib.uikit.R
 import id.co.edtslib.uikit.databinding.ViewLiquidGlassCouponCardBinding
+import id.co.edtslib.uikit.utils.attachShimmerEffect
 import id.co.edtslib.uikit.utils.color
+import id.co.edtslib.uikit.utils.detachShimmerEffect
 import id.co.edtslib.uikit.utils.dimen
 import id.co.edtslib.uikit.utils.dp
 import id.co.edtslib.uikit.utils.inflater
@@ -30,6 +33,8 @@ class LiquidGlassCouponCard @JvmOverloads constructor(
 ) : MaterialCardView(ContextThemeWrapper(context, R.style.Theme_EDTS_UIKit), attrs, defStyleAttr) {
 
     private val binding = ViewLiquidGlassCouponCardBinding.inflate(this.context.inflater, this, true)
+
+    private var badgeShimmerLayout: ShimmerFrameLayout? = null
 
     var delegate: LiquidGlassCouponCardDelegate? = null
 
@@ -57,6 +62,15 @@ class LiquidGlassCouponCard @JvmOverloads constructor(
         set(value) {
             field = value
             binding.couponCardBadge.isVisible = value && !badgeText.isNullOrEmpty()
+        }
+
+    var isBadgeLoading: Boolean = false
+        set(value) {
+            field = value
+            if (value) {
+                badgeShimmerLayout = binding.couponCardBadge.attachShimmerEffect()
+            }
+            else badgeShimmerLayout?.detachShimmerEffect()
         }
 
     var startIconRes: Int? = 0

@@ -58,7 +58,7 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
-        renderscriptTargetApi = 31
+        renderscriptTargetApi = 21
         renderscriptSupportModeEnabled = true
     }
 
