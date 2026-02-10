@@ -19,6 +19,8 @@
     <string name="guidelines_button">Button</string>
     <string name="guidelines_textfield">Text Field</string>
     <string name="guidelines_color">Color</string>
+    <string name="guidelines_radiobutton">Radio Button</string>
+    <string name="guidelines_checkbox">Checkbox</string>
 
     <!-- Input Components -->
     <string name="guidelines_otp">OTP</string>

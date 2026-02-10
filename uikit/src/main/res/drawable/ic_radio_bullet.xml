@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="10dp"
+    android:height="10dp"
+    android:viewportWidth="10"
+    android:viewportHeight="10">
+
+  <group
+      android:name="bullet_group"
+      android:pivotX="5"
+      android:pivotY="5">
+
+    <path
+        android:name="bullet_path"
+        android:pathData="M5,5m-5,0a5,5 0,1,1 10,0a5,5 0,1,1 -10,0"
+        android:fillColor="@color/white"/>
+  </group>
+</vector>
+
+<!--<shape xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    android:shape="oval">-->
+<!--  <solid android:color="@color/white"/>-->
+<!--  <size android:width="10dp" android:height="10dp"/>-->
+<!--</shape>-->

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:left="@dimen/dimen_2" android:top="@dimen/dimen_2" android:right="@dimen/dimen_2" android:bottom="@dimen/dimen_2" android:drawable="@drawable/bg_checkbox"/>
+    <item android:drawable="@drawable/slr_checkbox_icon" android:gravity="center"/>
+</layer-list>

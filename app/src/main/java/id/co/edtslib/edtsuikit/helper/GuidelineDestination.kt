@@ -13,6 +13,7 @@ import id.co.edtslib.edtsuikit.GuidelinesBoardingActivity
 import id.co.edtslib.edtsuikit.GuidelinesBottomTrayActivity
 import id.co.edtslib.edtsuikit.GuidelinesButtonActivity
 import id.co.edtslib.edtsuikit.GuidelinesCartActivity
+import id.co.edtslib.edtsuikit.GuidelinesCheckboxActivity
 import id.co.edtslib.edtsuikit.GuidelinesColorActivity
 import id.co.edtslib.edtsuikit.GuidelinesCouponPromotionActivity
 import id.co.edtslib.edtsuikit.GuidelinesDiscountRedemptionActivity
@@ -25,6 +26,7 @@ import id.co.edtslib.edtsuikit.GuidelinesListItemActivity
 import id.co.edtslib.edtsuikit.GuidelinesOtpActivity
 import id.co.edtslib.edtsuikit.GuidelinesPopupActivity
 import id.co.edtslib.edtsuikit.GuidelinesProgressBarActivity
+import id.co.edtslib.edtsuikit.GuidelinesRadioButtonActivity
 import id.co.edtslib.edtsuikit.GuidelinesSearchProductActivity
 import id.co.edtslib.edtsuikit.GuidelinesSearchbarActivity
 import id.co.edtslib.edtsuikit.GuidelinesSegmentedTabLayoutActivity
@@ -44,6 +46,8 @@ sealed class GuidelineItem(
 
     object Button : GuidelineItem(R.string.guidelines_button, GuidelinesButtonActivity::class.java)
     object Textfield : GuidelineItem(R.string.guidelines_textfield, GuidelinesTextfieldActivity::class.java)
+    object RadioButton : GuidelineItem(R.string.guidelines_radiobutton, GuidelinesRadioButtonActivity::class.java)
+    object Checkbox : GuidelineItem(R.string.guidelines_checkbox, GuidelinesCheckboxActivity::class.java)
 
     object Color : GuidelineItem(R.string.guidelines_color, GuidelinesColorActivity::class.java)
 
@@ -131,7 +135,9 @@ sealed class GuidelineItem(
             SearchProduct,
             PDP,
             CouponPromotion,
-            LiquidGlassCouponCard
+            LiquidGlassCouponCard,
+            RadioButton,
+            Checkbox
         )
 
         fun getByCategory(): Map<String, List<GuidelineItem>> = mapOf(
@@ -139,7 +145,9 @@ sealed class GuidelineItem(
                 Typography,
                 Button,
                 Textfield,
-                Color
+                Color,
+                RadioButton,
+                Checkbox
             ),
             "Input Components" to listOf(
                 Otp,

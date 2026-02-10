@@ -498,4 +498,14 @@
         <attr name="endIconVisible" />
     </declare-styleable>
 
+    <declare-styleable name="Selector">
+        <attr name="selectorType" format="enum">
+            <enum name="checkbox" value="0"/>
+            <enum name="radioButton" value="1"/>
+        </attr>
+        <attr name="titleText"/>
+        <attr name="subTitleText"/>
+        <attr name="titleVisible"/>
+        <attr name="subtitleVisible"/>
+    </declare-styleable>
 </resources>
