@@ -54,6 +54,7 @@ dependencies {
     implementation(libs.shimmer)
     implementation(libs.glide)
     implementation(libs.androidx.swipeRefresh)
+
     kapt(libs.glide.compiler)
     implementation(libs.blurView)
 

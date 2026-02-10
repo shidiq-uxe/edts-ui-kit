@@ -228,10 +228,12 @@ class BaseMultipleTypeAdapter<T : Any, MB : ViewBinding, LB: ViewBinding>(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when(getItemViewType(position)) {
             BaseViewType.LOADING.ordinal -> {
-                holder as BaseAdapter<*, *>.BaseViewHolder
+                holder as BaseMultipleTypeAdapter<*, *, *>.BaseLoadingViewHolder
             }
             BaseViewType.INITIAL.ordinal -> {
-                holder as BaseMultipleTypeAdapter<*, *, *>.BaseMainViewHolder
+                holder as BaseMultipleTypeAdapter<T, MB, LB>.BaseMainViewHolder
+
+                holder.bind(items[position])
             }
         }
     }
@@ -239,6 +241,11 @@ class BaseMultipleTypeAdapter<T : Any, MB : ViewBinding, LB: ViewBinding>(
     override fun getItemCount() = if (viewType == BaseViewType.INITIAL) items.size else register.loadingSize
 
     override fun getItemViewType(position: Int) = viewType.ordinal
+
+    override fun getItemId(position: Int): Long {
+        return items[position].hashCode().toLong()
+    }
+
 
     inner class BaseMainViewHolder(private val viewBinding: MB) : RecyclerView.ViewHolder(viewBinding.root) {
         fun bind(item: T) {

@@ -115,6 +115,9 @@
         <item name="searchBarStyle">@style/Widget.EDTS.UIKit.TextInputLayout.SearchBar</item>
         <item name="inputSearchBarStyle">@style/Widget.EDTS.UIKit.TextInputEditText.SearchBar</item>
 
+        <!--Chip-->
+        <item name="chipFilterStyle">@style/Widget.EDTS.UIKit.Chip.Filter</item>
+
         <!--Tray/BottomSheet Theme-->
         <item name="bottomSheetDialogTheme">@style/ThemeOverlay.EDTS.UIKit.BottomSheetDialog</item>
 

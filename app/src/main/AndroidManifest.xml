@@ -15,20 +15,27 @@
         android:theme="@style/Theme.EDTS.UIKit.ActionBar"
         tools:targetApi="31">
         <activity
+            android:name=".GuidelinesMyCouponActivity"
+            android:exported="false"
+            android:theme="@style/Theme.EDTS.UIKit"/>
+        <activity
             android:name=".GuidelinesLiquidGlassCouponCardActivity"
             android:exported="false"
-            android:theme="@style/Theme.EDTS.UIKit.ActionBar"/>
+            android:theme="@style/Theme.EDTS.UIKit.ActionBar" />
         <activity
             android:name=".GuidelinesCouponPromotionActivity"
-            android:exported="false"
-            android:theme="@style/Theme.EDTS.UIKit" />
+            android:exported="true"
+            android:theme="@style/Theme.EDTS.UIKit">
+
+        </activity>
         <activity
             android:name=".GuidelinesPDPEntryActivity"
             android:exported="true" />
         <activity
             android:name=".GuidelinesSearchProductActivity"
-            android:exported="false"
-            android:theme="@style/Theme.EDTS.UIKit" />
+            android:exported="true"
+            android:theme="@style/Theme.EDTS.UIKit" >
+        </activity>
         <activity
             android:name=".GuidelinePDPActivity"
             android:exported="false"

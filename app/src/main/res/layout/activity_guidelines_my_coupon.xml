@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black_10"
+    tools:context=".GuidelinesMyCouponActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:elevation="1dp"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@color/white">
+
+            <LinearLayout
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/ivBack"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginStart="@dimen/s"
+                    android:src="@drawable/baseline_arrow_back_24"
+                    app:tint="@color/black_50" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/xxs"
+                    android:text="Kupon saya"
+                    android:textColor="@color/black_60"
+                    android:textAppearance="@style/TextAppearance.Inter.Semibold.H1" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/s"
+                    android:text="Tukar Kupon"
+                    android:textColor="@color/primary_30"
+                    android:textAppearance="@style/TextAppearance.Inter.SemiBold.Button.Text.Medium" />
+
+            </LinearLayout>
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tlLevel1"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:paddingHorizontal="@dimen/s"
+                android:clipToPadding="false"
+                app:tabPaddingStart="4dp"
+                app:tabPaddingEnd="8dp"
+                app:tabTextAppearance="@style/TextAppearance.Inter.SemiBold.B3"
+                app:tabTextColor="@color/black_40"
+                app:tabSelectedTextColor="@color/primary_30"
+                app:tabMode="scrollable"
+                app:tabIndicatorFullWidth="true"
+                app:layout_constraintTop_toBottomOf="@id/toolbar">
+
+                <com.google.android.material.tabs.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Diskon Ongkir"/>
+
+                <com.google.android.material.tabs.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Diskon Alat Bayar"/>
+
+                <com.google.android.material.tabs.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Potongan Total"/>
+
+            </com.google.android.material.tabs.TabLayout>
+
+        </LinearLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvTest"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:paddingStart="@dimen/s"
+            android:paddingEnd="@dimen/xs"
+            android:orientation="vertical"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/cgTabLevel2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="@dimen/s"
+            android:paddingVertical="@dimen/xs"
+            android:elevation="1dp"
+            android:background="@color/white"
+            app:selectionRequired="true"
+            app:singleSelection="true"
+            app:layout_constraintTop_toBottomOf="@id/appBar"/>
+
+    </FrameLayout>
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

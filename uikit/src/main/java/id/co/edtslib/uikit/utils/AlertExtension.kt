@@ -6,6 +6,7 @@ import android.os.Build
 import android.text.TextUtils
 import android.view.Gravity
 import android.view.View
+import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.TextView
 import androidx.annotation.ColorInt
@@ -13,6 +14,7 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.StyleRes
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.core.view.isVisible
+import androidx.core.view.updatePadding
 import com.google.android.material.snackbar.Snackbar
 import id.co.edtslib.uikit.R
 import kotlin.math.roundToInt
@@ -36,6 +38,7 @@ fun View?.snack(
     isAnchored: Boolean = false,
     anchoredView: View? = this,
     animationMode: Int = Snackbar.ANIMATION_MODE_FADE,
+    textVerticalPadding: Int? = this?.context.dimenPixelSize(R.dimen.s),
     bottomMargin: Int? = null,
     onViewCreated: (Snackbar) -> Unit = {},
     action: ((View) -> Unit)? = null
@@ -51,6 +54,12 @@ fun View?.snack(
                     params?.bottomMargin = bottomMargin
                     layoutParams = params
                 }
+
+                val contentLayout = (this as? ViewGroup)?.getChildAt(0) as? ViewGroup
+                contentLayout?.updatePadding(
+                    top = (textVerticalPadding ?: 0) + contentLayout.paddingTop,
+                    bottom = (textVerticalPadding ?: 0) + contentLayout.paddingBottom
+                )
 
                 onViewCreated(this@apply)
 
@@ -103,6 +112,7 @@ fun View?.alertSnack(
     alertType: AlertType = AlertType.DEFAULT,
     actionText: CharSequence? = null,
     @DrawableRes startIconRes: Int? = null,
+    textVerticalPadding: Int? = this?.context.dimenPixelSize(R.dimen.s),
     bottomMargin: Int? = null,
     isAnchored: Boolean = false,
     anchoredView: View? = this,
@@ -131,6 +141,7 @@ fun View?.alertSnack(
         messageHasStyle = messageHasStyle,
         actionText = actionText,
         displayLength = Snackbar.LENGTH_LONG,
+        textVerticalPadding = textVerticalPadding,
         bottomMargin = bottomMargin,
         isAnchored = isAnchored,
         anchoredView = anchoredView,

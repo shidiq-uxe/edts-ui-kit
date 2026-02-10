@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--Todo : Add More Chip Styles-->
+    <!--<style name="Widget.EDTS.UIKit.Chip.Assist" parent="Widget.Material3.Chip.Assist">
+        <item name="android:theme">@style/Theme.EDTS.UIKit</item>
+        <item name="ensureMinTouchTargetSize">false</item>
+        <item name="chipMinTouchTargetSize">@dimen/dimen_0</item>
+        <item name="chipBackgroundColor">@color/primary_highlight_weak</item>
+        <item name="chipStrokeColor">@color/primary_highlight_strong</item>
+        <item name="android:textAppearance">@style/TextAppearance.Inter.Medium.B3</item>
+        <item name="android:textColor">@color/primary_30</item>
+        <item name="chipCornerRadius">@dimen/xl</item>
+        <item name="chipMinHeight">@dimen/dimen_0</item>
+        <item name="android:paddingTop">@dimen/dimen_6</item>
+        <item name="android:paddingBottom">@dimen/dimen_6</item>
+        <item name="chipStartPadding">@dimen/xxxs</item>
+        <item name="chipEndPadding">@dimen/xxxs</item>
+        <item name="iconStartPadding">@dimen/xxxs</item>
+    </style>-->
+
+    <style name="Widget.EDTS.UIKit.Chip.Filter" parent="Widget.Material3.Chip.Filter">
+        <item name="android:theme">@style/Theme.EDTS.UIKit</item>
+        <item name="ensureMinTouchTargetSize">false</item>
+        <item name="chipMinTouchTargetSize">@dimen/dimen_0</item>
+        <item name="chipBackgroundColor">@color/slr_chip_filter_background</item>
+        <item name="chipStrokeColor">@color/slr_chip_filter_stroke</item>
+        <item name="android:textAppearance">@style/TextAppearance.Inter.SemiBold.B3</item>
+        <item name="android:textColor">@color/slr_chip_filter_text</item>
+        <item name="chipCornerRadius">@dimen/xl</item>
+        <item name="chipMinHeight">@dimen/dimen_0</item>
+        <item name="android:paddingTop">@dimen/dimen_6</item>
+        <item name="android:paddingBottom">@dimen/dimen_6</item>
+        <item name="chipStartPadding">@dimen/xxxs</item>
+        <item name="chipEndPadding">@dimen/xxxs</item>
+        <item name="checkedIconVisible">false</item>
+    </style>
+</resources>

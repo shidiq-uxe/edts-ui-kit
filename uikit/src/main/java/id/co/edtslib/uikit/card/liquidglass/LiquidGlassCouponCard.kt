@@ -10,6 +10,7 @@ import android.graphics.RectF
 import android.graphics.Shader
 import android.util.AttributeSet
 import android.view.MotionEvent
+import android.view.View
 import android.view.ViewOutlineProvider
 import androidx.appcompat.view.ContextThemeWrapper
 import androidx.core.view.isVisible

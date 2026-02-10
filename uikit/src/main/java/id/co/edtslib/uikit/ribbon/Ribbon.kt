@@ -35,6 +35,7 @@ import id.co.edtslib.uikit.utils.font
 import id.co.edtslib.uikit.utils.px
 import id.co.edtslib.uikit.utils.sp
 import kotlin.div
+import androidx.core.graphics.withSave
 
 class Ribbon @JvmOverloads constructor(
     context: Context,
@@ -96,7 +97,7 @@ class Ribbon @JvmOverloads constructor(
     @Dimension
     var textVerticalPadding = context.dimen(R.dimen.dimen_0)
     @Dimension
-    var textHorizontalPadding = context.dimen(R.dimen.xxxs)
+    var textHorizontalPadding = context.dimen(R.dimen.dimen_2)
 
     @StyleRes
     var textAppearanceRes = R.style.TextAppearance_Inter_Semibold_H3
@@ -204,16 +205,16 @@ class Ribbon @JvmOverloads constructor(
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
 
-        canvas.save()
-        drawContainer(canvas)
-        drawText(canvas)
-        drawTriangle(canvas)
-        canvas.restore()
+        canvas.withSave {
+            drawContainer(this)
+            drawText(this)
+            drawTriangle(this)
+        }
     }
 
     private fun drawText(canvas: Canvas) {
         val x = (textWidth) / 2
-        val y = (textContainerHeight + textHeight) / 2 - textPaint.fontMetrics.descent
+        val y = (textContainerHeight + textHeight) / 2 - textPaint.fontMetrics.descent - 1.dp.toInt()
 
         ribbonText?.let { canvas.drawText(it, x, y, textPaint) }
     }

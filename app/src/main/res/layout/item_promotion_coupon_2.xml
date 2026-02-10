@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clipChildren="false"
+    android:clipToOutline="false"
+    android:clipToPadding="false"
+    android:paddingBottom="@dimen/xs"
+    tools:padding="@dimen/xs"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <id.co.edtslib.edtsuikit.CouponCardView
+        android:id="@+id/card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <id.co.edtslib.uikit.ribbon.Ribbon
+        android:id="@+id/ribbon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/xs"
+        android:layout_marginEnd="-6dp"
+        android:elevation="4dp"
+        app:text="Pengguna Baru"
+        app:textAppearance="@style/TextAppearance.Inter.Medium.B3"
+        app:containerStartColor="#FAC714"
+        app:containerEndColor="#FFA013"
+        app:triangleColor="@color/secondary_50"
+        app:gravity="end"
+        android:layout_gravity="top|end"/>
+
+</FrameLayout>

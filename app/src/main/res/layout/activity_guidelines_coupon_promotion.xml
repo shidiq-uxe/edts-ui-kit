@@ -1,11 +1,200 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<!--Todo : Gradient-->
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/primary_30"
-    tools:context=".GuidelinesCouponPromotionActivity">
+    android:clipChildren="false"
+    android:id="@+id/main"
+    android:background="@color/primary_50">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <eightbitlab.com.blurview.BlurTarget
+        android:id="@+id/blurTarget"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:contentDescription="@null"
+            android:background="@color/primary_50"
+            android:src="@drawable/ill_bg_promo_coupon_decoration_placeholder"/>
+
+    </eightbitlab.com.blurview.BlurTarget>
+
+    <id.co.edtslib.uikit.pulltorefresh.LiteRefreshLayout
+        android:id="@+id/smartRefreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <id.co.edtslib.uikit.header.CircleRefreshHeader
+            android:id="@+id/header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.google.android.material.appbar.AppBarLayout
+                android:id="@+id/appBarLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:clipChildren="false"
+                android:elevation="12dp"
+                app:elevation="12dp">
+
+                <com.google.android.material.appbar.CollapsingToolbarLayout
+                    android:id="@+id/collapsingToolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:contentScrim="@color/white"
+                    app:expandedTitleTextAppearance="@style/TextAppearance.Inter.Semibold.H1"
+                    app:expandedTitleTextColor="@color/white"
+                    app:collapsedTitleTextAppearance="@style/TextAppearance.Inter.Semibold.H1"
+                    app:titleCollapseMode="scale"
+                    app:expandedTitleGravity="top"
+                    app:expandedTitleMarginTop="12dp"
+                    app:expandedTitleMarginStart="60dp"
+                    app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+                    <com.google.android.material.appbar.MaterialToolbar
+                        android:id="@+id/toolbar"
+                        android:layout_width="match_parent"
+                        android:layout_height="44dp"
+                        app:contentInsetStartWithNavigation="0dp"
+                        app:contentInsetStart="0dp"
+                        app:contentInsetEnd="0dp"
+                        app:titleMarginTop="0dp"
+                        app:titleMarginBottom="0dp"
+                        app:navigationIconTint="@color/white"
+                        android:minHeight="@dimen/dimen_0"
+                        app:navigationIcon="@drawable/ic_arrow_left"
+                        app:title="Promo Ongkir"
+                        app:layout_collapseMode="pin"/>
+
+                    <id.co.edtslib.uikit.card.liquidglass.LiquidGlassCouponCard
+                        android:id="@+id/liquidGlassCard1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:titleText="Kupon Saya"
+                        app:subTitleText="Kumpulan kupon yang kamu punya"
+                        android:layout_marginTop="64dp"
+                        android:layout_marginBottom="32dp"
+                        app:badgeText="5"
+                        app:startIcon="@drawable/ic_coupon_star_24"
+                        app:endIcon="@drawable/ic_chevron_right_16"
+                        android:layout_marginHorizontal="@dimen/dimen_16"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_collapseMode="parallax"
+                        app:layout_collapseParallaxMultiplier="1.15"/>
+
+                </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/stickyTabContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:shapeAppearance="@style/ShapeAppearance.EDTS.UIKit.Flat.Corner.Bottom.16"
+                    app:cardElevation="@dimen/dimen_0"
+                    app:strokeWidth="@dimen/dimen_0"
+                    app:strokeColor="@color/white"
+                    android:clipChildren="false"
+                    app:contentPadding="-4dp"
+                    app:cardPreventCornerOverlap="true"
+                    android:background="@color/white"
+                    android:elevation="4dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:clipChildren="false">
+
+                        <com.google.android.material.tabs.TabLayout
+                            android:id="@+id/tlLevel1"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:paddingHorizontal="@dimen/s"
+                            android:background="@color/transparent"
+                            android:clipToPadding="false"
+                            app:tabPaddingStart="4dp"
+                            app:tabPaddingEnd="8dp"
+                            app:tabTextAppearance="@style/TextAppearance.Inter.SemiBold.B3"
+                            app:tabTextColor="@color/black_40"
+                            app:tabSelectedTextColor="@color/primary_30"
+                            app:tabMode="scrollable"
+                            app:tabIndicatorFullWidth="true">
+
+                            <com.google.android.material.tabs.TabItem
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Diskon Ongkir"/>
+
+                            <com.google.android.material.tabs.TabItem
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Potongan Total"/>
+
+                            <com.google.android.material.tabs.TabItem
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Diskon Alat Bayar"/>
+
+                        </com.google.android.material.tabs.TabLayout>
+
+                        <com.google.android.material.divider.MaterialDivider
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:dividerThickness="@dimen/dimen_1"
+                            app:dividerColor="@color/black_30"/>
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+            </com.google.android.material.appbar.AppBarLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/contentContainer"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:disabled="false"
+                app:layout_anchor="@id/appBarLayout"
+                app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvCoupons"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingHorizontal="@dimen/s"
+                    android:background="@color/black_10"
+                    android:clipToPadding="false"
+                    android:clipChildren="false"
+                    android:orientation="vertical"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/item_promotion_coupon" />
+
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/cgTabLevel2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="@dimen/s"
+                    android:paddingVertical="@dimen/xs"
+                    android:background="@color/black_10"
+                    app:selectionRequired="true"
+                    app:singleSelection="true"
+                    android:elevation="0dp"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+    </id.co.edtslib.uikit.pulltorefresh.LiteRefreshLayout>
+
+</FrameLayout>
