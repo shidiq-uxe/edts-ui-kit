@@ -65,6 +65,8 @@
     <attr name="searchBarStyle" format="reference"/>
     <attr name="inputSearchBarStyle" format="reference"/>
 
+    <attr name="chipFilterStyle" format="reference"/>
+
     <attr name="startIconGravity" format="enum">
         <enum name="top" value="0" />
         <enum name="center" value="1" />
@@ -496,6 +498,13 @@
         <attr name="startIcon" />
         <attr name="endIcon" />
         <attr name="endIconVisible" />
+    </declare-styleable>
+
+    <declare-styleable name="CapsuleDividerView">
+        <attr name="dividerColor" format="color" />
+        <attr name="dividerThickness" format="dimension" />
+        <attr name="segmentWidth" format="dimension" />
+        <attr name="gapWidth" format="dimension" />
     </declare-styleable>
 
 </resources>

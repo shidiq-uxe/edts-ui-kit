@@ -10,6 +10,7 @@ import android.graphics.ColorMatrixColorFilter
 import android.graphics.Paint
 import android.util.AttributeSet
 import android.view.MotionEvent
+import android.view.ViewGroup
 import android.view.animation.DecelerateInterpolator
 import androidx.constraintlayout.widget.ConstraintLayout
 import id.co.edtslib.uikit.R
@@ -102,11 +103,21 @@ class GreyScaleConstraintLayout @JvmOverloads constructor(
 
     override fun dispatchDraw(canvas: Canvas) {
         if (grayscaleProgress > 0f && exemptViewIds.isNotEmpty()) {
-            drawExemptViews(canvas, exempt = true)
-
             val layerId = canvas.saveLayer(null, paint)
-            drawExemptViews(canvas, exempt = false)
+            for (i in 0 until childCount) {
+                val child = getChildAt(i)
+                if (!exemptViewIds.contains(child.id)) {
+                    super.drawChild(canvas, child, drawingTime)
+                }
+            }
             canvas.restoreToCount(layerId)
+
+            for (i in 0 until childCount) {
+                val child = getChildAt(i)
+                if (exemptViewIds.contains(child.id)) {
+                    super.drawChild(canvas, child, drawingTime)
+                }
+            }
         } else if (grayscaleProgress > 0f) {
             val layerId = canvas.saveLayer(null, paint)
             super.dispatchDraw(canvas)
@@ -169,7 +180,6 @@ class GreyScaleConstraintLayout @JvmOverloads constructor(
         exemptViewIds = exemptViewIds + viewId
         if (disabled) invalidate()
     }
-
     fun removeExemptView(viewId: Int) {
         exemptViewIds = exemptViewIds - viewId
         if (disabled) invalidate()

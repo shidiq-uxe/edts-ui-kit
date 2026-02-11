@@ -10,6 +10,8 @@ import android.widget.TextView
 import androidx.annotation.ColorInt
 import androidx.annotation.StyleRes
 import androidx.appcompat.view.ContextThemeWrapper
+import androidx.core.view.isVisible
+import androidx.core.view.updatePadding
 import com.google.android.material.shape.MaterialShapeDrawable
 import com.google.android.material.shape.RelativeCornerSize
 import com.google.android.material.shape.ShapeAppearanceModel
@@ -44,7 +46,7 @@ class Badge @JvmOverloads constructor(
         set(value) {
             field = value
             textView.text = value
-            visibility = if (value.isNullOrEmpty()) GONE else VISIBLE
+            isVisible = !value.isNullOrEmpty()
             requestLayout()
         }
 

@@ -35,6 +35,7 @@
             android:layout_marginStart="@dimen/s"
             android:layout_marginBottom="@dimen/xxs"
             app:cardCornerRadius="@dimen/xxxs"
+            app:strokeWidth="@dimen/dimen_1"
             app:strokeColor="@color/primary_30"
             android:focusable="true"
             android:clickable="true"
