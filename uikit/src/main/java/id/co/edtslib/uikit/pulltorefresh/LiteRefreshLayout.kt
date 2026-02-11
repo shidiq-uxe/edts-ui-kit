@@ -129,6 +129,8 @@ class LiteRefreshLayout @JvmOverloads constructor(
         }
     }
 
+
+    // Todo : Remove Handler
     override fun onTouchEvent(event: MotionEvent): Boolean {
         when (event.action) {
             MotionEvent.ACTION_MOVE -> {

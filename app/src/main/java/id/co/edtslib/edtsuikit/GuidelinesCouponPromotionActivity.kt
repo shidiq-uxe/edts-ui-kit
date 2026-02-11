@@ -5,17 +5,14 @@ import android.animation.ValueAnimator
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.res.ColorStateList
-import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.view.HapticFeedbackConstants
 import android.view.MotionEvent
 import android.view.View
 import android.view.View.generateViewId
-import android.view.ViewTreeObserver
 import android.view.animation.DecelerateInterpolator
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -27,22 +24,18 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isNotEmpty
 import androidx.core.view.isVisible
 import androidx.core.view.updatePadding
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.chip.Chip
+import com.google.android.material.snackbar.Snackbar
 import id.co.edtslib.edtsuikit.databinding.ActivityGuidelinesCouponPromotionBinding
 import id.co.edtslib.edtsuikit.databinding.ItemPromotionCoupon2Binding
-import id.co.edtslib.edtsuikit.databinding.ItemPromotionCouponBinding
 import id.co.edtslib.edtsuikit.databinding.ItemPromotionCouponCardBinding
-import id.co.edtslib.uikit.adapter.BaseAdapter
 import id.co.edtslib.uikit.adapter.BaseMultipleTypeAdapter
 import id.co.edtslib.uikit.adapter.BaseViewType
 import id.co.edtslib.uikit.adapter.adapterWithLoadingHolder
-import id.co.edtslib.uikit.adapter.multiTypeAdapter
 import id.co.edtslib.uikit.pulltorefresh.LiteRefreshDelegate
-import id.co.edtslib.uikit.pulltorefresh.LiteRefreshLayout
 import id.co.edtslib.uikit.utils.MarginItem
 import id.co.edtslib.uikit.utils.alertSnack
 import id.co.edtslib.uikit.utils.attachLinearMarginItemDecoration
@@ -55,7 +48,6 @@ import id.co.edtslib.uikit.utils.html.HtmlListConfig
 import id.co.edtslib.uikit.utils.html.HtmlRenderer
 import id.co.edtslib.uikit.utils.html.HtmlRendererConfig
 import id.co.edtslib.uikit.utils.html.applyHtmlConfig
-import id.co.edtslib.uikit.utils.html.boldStyle
 import id.co.edtslib.uikit.utils.html.renderHtml
 import id.co.edtslib.uikit.utils.html.semiBoldStyle
 import id.co.edtslib.uikit.utils.isDeviceStruggling
@@ -112,11 +104,10 @@ class  GuidelinesCouponPromotionActivity : AppCompatActivity(), LiteRefreshDeleg
     override fun onPull(percent: Float, offset: Float) {}
 
     override fun onRefreshing() {
-        adapter?.viewType = BaseViewType.LOADING
+        simulateFakeShimmerLoading(2500)
     }
 
     override fun onFinish() {
-        adapter?.viewType = BaseViewType.INITIAL
     }
 
     var lastScrimIsLight = false
@@ -216,7 +207,7 @@ class  GuidelinesCouponPromotionActivity : AppCompatActivity(), LiteRefreshDeleg
             })
 
             Handler(Looper.getMainLooper()).postDelayed({
-                simulateFakeAdapterLoading()
+                simulateFakeShimmerLoading()
             }, 100)
 
             binding.rvCoupons.smoothScrollToPosition(0)
@@ -224,10 +215,17 @@ class  GuidelinesCouponPromotionActivity : AppCompatActivity(), LiteRefreshDeleg
     }
 
     // Todo : Workaround
-    private fun attachRecyclerViewWithParent() {
-        binding.cgTabLevel2.post {
-            binding.rvCoupons.updatePadding(top = binding.cgTabLevel2.height)
-            binding.rvCoupons.scrollToPosition(0)
+    private fun attachRecyclerViewWithParent(immediatelyAttach: Boolean = false) {
+        if (immediatelyAttach) {
+            binding.cgTabLevel2.post {
+                binding.rvCoupons.updatePadding(top = binding.cgTabLevel2.height)
+                binding.rvCoupons.scrollToPosition(0)
+            }
+        } else {
+            binding.shimmerTL2Container.post {
+                binding.rvCoupons.updatePadding(top = binding.shimmerTL2Container.height)
+                binding.rvCoupons.scrollToPosition(0)
+            }
         }
     }
 
@@ -410,6 +408,10 @@ class  GuidelinesCouponPromotionActivity : AppCompatActivity(), LiteRefreshDeleg
                                 } else {
                                     it.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS)
                                 }
+
+                                Handler(Looper.getMainLooper()).postDelayed({
+                                   simulateFakeShimmerLoading()
+                                }, 200)
                             } else {
                                 it.showFloatingAnimation(
                                     icon = id.co.edtslib.uikit.R.drawable.ic_voucher_applied_16,
@@ -445,15 +447,33 @@ class  GuidelinesCouponPromotionActivity : AppCompatActivity(), LiteRefreshDeleg
             margin = MarginItem(first =  0, top = 0)
         )
 
-        simulateFakeAdapterLoading()
+        simulateFakeShimmerLoading()
     }
 
-    private fun simulateFakeAdapterLoading() {
+    private fun simulateFakeShimmerLoading(
+        duration: Long = 2000L
+    ) {
+        binding.rvCoupons.scrollToPosition(0)
         adapter?.viewType = BaseViewType.LOADING
+
+        binding.shimmerTL1Container.isVisible = true
+        binding.shimmerTL2Container.isVisible = true
+
+        binding.tlLevel1.isVisible = false
+        binding.cgTabLevel2.isVisible = false
 
         Handler(Looper.getMainLooper()).postDelayed( {
             adapter?.viewType = BaseViewType.INITIAL
-        }, 2000 )
+
+            binding.shimmerTL1Container.isVisible = false
+            binding.shimmerTL2Container.isVisible = false
+
+            binding.tlLevel1.isVisible = true
+            binding.cgTabLevel2.isVisible = true
+
+            attachRecyclerViewWithParent(true)
+
+        }, duration )
     }
 
     private var onChipCheckListener: () -> Unit = {}

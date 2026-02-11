@@ -147,6 +147,35 @@
                                 android:text="Diskon Alat Bayar"/>
 
                         </com.google.android.material.tabs.TabLayout>
+                        
+                        <com.facebook.shimmer.ShimmerFrameLayout
+                            android:id="@+id/shimmerTL1Container"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:visibility="gone"
+                            app:shimmer_auto_start="true">
+                            
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:paddingVertical="@dimen/xxs">
+                                
+                                <View
+                                    android:layout_width="57dp"
+                                    android:layout_height="24dp"
+                                    android:layout_marginStart="@dimen/xs"
+                                    android:background="@drawable/bg_skeleton_shimmer_pill_100"/>
+
+                                <View
+                                    android:layout_width="57dp"
+                                    android:layout_height="24dp"
+                                    android:layout_marginStart="@dimen/xxs"
+                                    android:background="@drawable/bg_skeleton_shimmer_pill_100"/>
+                                
+                            </LinearLayout>
+                            
+                        </com.facebook.shimmer.ShimmerFrameLayout>
 
                         <com.google.android.material.divider.MaterialDivider
                             android:layout_width="match_parent"
@@ -190,6 +219,41 @@
                     app:selectionRequired="true"
                     app:singleSelection="true"
                     android:elevation="0dp"/>
+
+                <com.facebook.shimmer.ShimmerFrameLayout
+                    android:id="@+id/shimmerTL2Container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    app:shimmer_auto_start="true">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingVertical="@dimen/xxs">
+
+                        <View
+                            android:layout_width="57dp"
+                            android:layout_height="24dp"
+                            android:layout_marginStart="@dimen/xs"
+                            android:background="@drawable/bg_skeleton_shimmer_pill_100"/>
+
+                        <View
+                            android:layout_width="57dp"
+                            android:layout_height="24dp"
+                            android:layout_marginStart="@dimen/xxs"
+                            android:background="@drawable/bg_skeleton_shimmer_pill_100"/>
+
+                        <View
+                            android:layout_width="57dp"
+                            android:layout_height="24dp"
+                            android:layout_marginStart="@dimen/xxs"
+                            android:background="@drawable/bg_skeleton_shimmer_pill_100"/>
+
+                    </LinearLayout>
+
+                </com.facebook.shimmer.ShimmerFrameLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

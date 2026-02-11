@@ -118,7 +118,8 @@ class FloatingAnimationHelper(private val context: Context) {
         icon: Int? = null,
         text: String = "+1",
         duration: Long = 1500L,
-        floatDistance: Float = 200f
+        floatDistance: Float = 200f,
+        onEnd: () -> Unit = {}
     ) {
         val parent = anchor.rootView as? ViewGroup ?: return
 
@@ -150,6 +151,7 @@ class FloatingAnimationHelper(private val context: Context) {
 
         animateFloating(floatingView, floatDistance, duration) {
             (floatingView.parent as? ViewGroup)?.removeView(floatingView)
+            onEnd.invoke()
         }
     }
 
@@ -226,13 +228,15 @@ fun View.showFloatingAnimation(
     icon: Int? = null,
     text: String = "+1",
     duration: Long = 900L,
-    floatDistance: Float = 200f
+    floatDistance: Float = 200f,
+    onEnd: () -> Unit = {}
 ) {
     FloatingAnimationHelper(context).showFloatingAnimation(
         anchor = this,
         icon = icon,
         text = text,
         duration = duration,
-        floatDistance = floatDistance
+        floatDistance = floatDistance,
+        onEnd = onEnd
     )
 }
