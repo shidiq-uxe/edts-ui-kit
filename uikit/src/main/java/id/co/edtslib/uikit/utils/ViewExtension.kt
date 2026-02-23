@@ -1,10 +1,10 @@
 package id.co.edtslib.uikit.utils
 
+import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewGroup.MarginLayoutParams
-import android.widget.FrameLayout
 import android.widget.ImageView
 import androidx.annotation.DrawableRes
 import androidx.core.view.setMargins
@@ -109,6 +109,35 @@ fun ImageView.loadRes(
 
     glide.into(this)
 }
+
+fun ImageView.loadAny(
+    image: Any?,
+    requestOptions: RequestOptions? = normalOptions,
+) {
+    val source = when (image) {
+        is Int -> image
+        is String -> {
+            if (image.startsWith("http")) {
+                image
+            } else {
+                context.resources.getIdentifier(
+                    image,
+                    "drawable",
+                    context.packageName
+                ).takeIf { it != 0 }
+            }
+        }
+        is Drawable -> image
+        else -> null
+    }
+
+    source?.let {
+        val glide = Glide.with(this).load(it)
+        requestOptions?.let { options -> glide.apply(options) }
+        glide.into(this)
+    }
+}
+
 
 /**
  *

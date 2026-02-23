@@ -3,19 +3,45 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/dialogContainer"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/ivDialogImage"
+        android:layout_width="256dp"
+        android:layout_height="@dimen/dimen_0"
+        android:layout_marginTop="@dimen/s"
+        android:scaleType="centerCrop"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/ivAlertClose"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_close_16"
+        android:layout_marginTop="@dimen/m2"
+        android:layout_marginEnd="@dimen/s"
+        app:buttonTint="@color/black_50"
+        app:layout_constraintTop_toBottomOf="@id/ivDialogImage"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tvTitle"
         android:layout_width="@dimen/dimen_0"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/s"
+        android:layout_marginStart="@dimen/s"
+        android:layout_marginTop="@dimen/m2"
+        android:layout_marginEnd="@dimen/xxxs"
+        app:layout_goneMarginTop="@dimen/s"
         android:textColor="@color/black_70"
         android:textAppearance="@style/TextAppearance.Inter.Semibold.H1"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ivDialogImage"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/ivAlertClose"
         tools:text="Title"/>
 
     <com.google.android.material.textview.MaterialTextView
@@ -32,6 +58,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc condimentum orci sodales eros?"/>
 
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvSupportMessage"
+        android:layout_width="@dimen/dimen_0"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/xxxs"
+        android:layout_marginHorizontal="@dimen/s"
+        android:textColor="@color/black_40"
+        android:textAppearance="@style/TextAppearance.Inter.Regular.P2"
+        app:layout_constraintTop_toBottomOf="@id/tvMessage"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc condimentum orci sodales eros?"/>
+
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnPositive"
         style="@style/Widget.EDTS.UIKit.Button.Filled.Medium"
@@ -42,7 +81,7 @@
         android:layout_marginEnd="@dimen/s"
         android:layout_marginBottom="@dimen/s"
         app:layout_goneMarginStart="@dimen/s"
-        app:layout_constraintTop_toBottomOf="@id/tvMessage"
+        app:layout_constraintTop_toBottomOf="@id/tvSupportMessage"
         app:layout_constraintStart_toEndOf="@id/btnNegative"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -57,7 +96,7 @@
         android:layout_marginStart="@dimen/s"
         android:layout_marginEnd="@dimen/xxxs"
         android:layout_marginBottom="@dimen/s"
-        app:layout_constraintTop_toBottomOf="@id/tvMessage"
+        app:layout_constraintTop_toBottomOf="@id/tvSupportMessage"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/btnPositive"
         app:layout_constraintBottom_toBottomOf="parent"
