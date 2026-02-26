@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animated-selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:state_checked="true"
+        android:state_enabled="false"
+        android:drawable="@drawable/ic_radio_bullet_gray"/>
+
+    <item
+        android:id="@+id/checked"
+        android:state_checked="true"
+        android:drawable="@drawable/ic_radio_bullet"/>
+
+    <item
+        android:id="@+id/unchecked"
+        android:drawable="@android:color/transparent"/>
+
+    <transition
+        android:fromId="@id/unchecked"
+        android:toId="@id/checked"
+        android:drawable="@drawable/anim_radio_button_checked"
+        android:reversible="true" />
+
+</animated-selector>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animated-vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:drawable="@drawable/ic_radio_bullet">
+
+    <target
+        android:name="bullet_group"
+        android:animation="@animator/anim_selector_icon_scale_in"/>
+
+</animated-vector>

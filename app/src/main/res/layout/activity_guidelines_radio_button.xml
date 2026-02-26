@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.google.android.material.radiobutton.MaterialRadioButton
+        android:id="@+id/radioButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_24"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/radioButtonChecked"/>
+
+    <com.google.android.material.radiobutton.MaterialRadioButton
+        android:id="@+id/radioButtonChecked"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:checked="true"
+        app:layout_constraintStart_toEndOf="@id/radioButton"
+        app:layout_constraintTop_toTopOf="@id/radioButton"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <com.google.android.material.radiobutton.MaterialRadioButton
+        android:id="@+id/radioButtonDisabled"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_36"
+        android:enabled="false"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/radioButtonChecked"
+        app:layout_constraintEnd_toStartOf="@id/radioButtonCheckedDisabled"/>
+
+    <com.google.android.material.radiobutton.MaterialRadioButton
+        android:id="@+id/radioButtonCheckedDisabled"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:checked="true"
+        android:enabled="false"
+        app:layout_constraintStart_toEndOf="@id/radioButtonDisabled"
+        app:layout_constraintTop_toTopOf="@id/radioButtonDisabled"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <id.co.edtslib.uikit.selector.Selector
+        android:id="@+id/radioButtonCustom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:selectorType="radioButton"
+        app:titleText="Radio Button Title"
+        app:subTitleText="Radio Button Subtitle"
+        android:layout_marginTop="@dimen/dimen_48"
+        android:layout_marginStart="@dimen/dimen_24"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/radioButtonCheckedDisabled" />
+
+    <id.co.edtslib.uikit.selector.Selector
+        android:id="@+id/radioButtonCustomChecked"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:checked="true"
+        app:selectorType="radioButton"
+        app:titleText="Radio Button Title"
+        app:subTitleText="Radio Button Subtitle"
+        android:layout_marginTop="@dimen/dimen_24"
+        app:layout_constraintStart_toStartOf="@id/radioButtonCustom"
+        app:layout_constraintTop_toBottomOf="@id/radioButtonCustom" />
+
+    <id.co.edtslib.uikit.selector.Selector
+        android:id="@+id/radioButtonCustomDisabled"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:enabled="false"
+        app:selectorType="radioButton"
+        app:titleText="Radio Button Title"
+        app:subTitleText="Radio Button Subtitle"
+        android:layout_marginTop="@dimen/dimen_24"
+        app:layout_constraintStart_toStartOf="@id/radioButtonCustomChecked"
+        app:layout_constraintTop_toBottomOf="@id/radioButtonCustomChecked" />
+
+    <id.co.edtslib.uikit.selector.Selector
+        android:id="@+id/radioButtonCustomCheckedDisabled"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:checked="true"
+        android:enabled="false"
+        app:titleText="Radio Button Title"
+        app:subTitleText="Radio Button Subtitle"
+        app:selectorType="radioButton"
+        android:layout_marginTop="@dimen/dimen_24"
+        app:layout_constraintStart_toStartOf="@id/radioButtonCustomDisabled"
+        app:layout_constraintTop_toBottomOf="@id/radioButtonCustomDisabled" />
+
+    <id.co.edtslib.uikit.selector.Selector
+        android:id="@+id/radioButtonCustomNoSubtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:selectorType="radioButton"
+        app:subTitleText="This radio button has no subtitle"
+        app:titleVisible="false"
+        android:layout_marginTop="@dimen/dimen_24"
+        app:layout_constraintStart_toStartOf="@id/radioButtonCustomCheckedDisabled"
+        app:layout_constraintTop_toBottomOf="@id/radioButtonCustomCheckedDisabled" />
+
+    <id.co.edtslib.uikit.selector.Selector
+        android:id="@+id/radioButtonCustomNoTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:selectorType="radioButton"
+        app:titleText="This radio button has no title"
+        app:subtitleVisible="false"
+        android:layout_marginTop="@dimen/dimen_24"
+        app:layout_constraintStart_toStartOf="@id/radioButtonCustomNoSubtitle"
+        app:layout_constraintTop_toBottomOf="@id/radioButtonCustomNoSubtitle" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
