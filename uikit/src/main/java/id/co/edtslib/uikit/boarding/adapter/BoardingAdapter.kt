@@ -1,7 +1,5 @@
 package id.co.edtslib.uikit.boarding.adapter
 
-import android.graphics.drawable.Drawable
-import android.util.Log
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.FragmentActivity
 import com.bumptech.glide.Glide
@@ -10,7 +8,7 @@ import id.co.edtslib.uikit.boarding.Boarding
 import id.co.edtslib.uikit.boarding.BoardingItemAlignment
 import id.co.edtslib.uikit.databinding.ItemBoardingContentBinding
 import id.co.edtslib.uikit.utils.horizontalBias
-import id.co.edtslib.uikit.utils.resetScale
+import id.co.edtslib.uikit.utils.loadAny
 
 object BoardingAdapter {
 
@@ -87,23 +85,7 @@ object BoardingAdapter {
             return
         }
 
-        val image  = item.image?.let { image ->
-            when(image) {
-                is Int -> context.getDrawable(image)
-                is String -> if (image.startsWith("http")) {
-                    image
-                } else {
-                    context.resources.getIdentifier(
-                        image, "drawable",
-                        context.packageName
-                    )
-                }
-                else -> image
-            }
-        }
-
-        Glide.with(context).load(image).into(ivBoardingIll)
-
+        ivBoardingIll.loadAny(item.image)
         tvBoardingTitle.text = item.title
         tvBoardingDescription.text = item.description
     }

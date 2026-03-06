@@ -10,10 +10,9 @@
 - **Customization Hooks**: Provides lambdas for further customization of the dialog view.
 
 ## Popup Overview
-| Single Button                                                                                        | Double Horizontal Button                                                                             | Double Stacked Button                                                                                |
-|------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------|
-| ![SAB](https://res.cloudinary.com/dmduc9apd/image/upload/v1730968102/Popup/qow3f9cljfeb727pwnae.gif) | ![DHB](https://res.cloudinary.com/dmduc9apd/image/upload/v1730968101/Popup/cs07adpeu3gfr1wvtqjm.gif) | ![DSB](https://res.cloudinary.com/dmduc9apd/image/upload/v1730968102/Popup/eunbctkhwfrbltrmt66g.gif) |
-
+| Single Button                                                                                        | Double Horizontal Button                                                                             | Double Stacked Button                                                                                | With Image                                                                                              |
+|------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------|
+| ![SAB](https://res.cloudinary.com/dmduc9apd/image/upload/v1730968102/Popup/qow3f9cljfeb727pwnae.gif) | ![DHB](https://res.cloudinary.com/dmduc9apd/image/upload/v1730968101/Popup/cs07adpeu3gfr1wvtqjm.gif) | ![DSB](https://res.cloudinary.com/dmduc9apd/image/upload/v1730968102/Popup/eunbctkhwfrbltrmt66g.gif) | ![ID](https://res.cloudinary.com/dpdbzlnhr/image/upload/v1771821988/dialog_with_image_gif_2_fo8ixh.gif) |
 
 ## Method Details
 
@@ -23,12 +22,16 @@ Displays an alert dialog with flexible options for customization.
 **Parameters:**
 - `context` (`Context`): The context in which the dialog should be displayed.
 - `isCentered` (`Boolean`): Determines if the dialog content should be center-aligned.
+- `image` (`Any?`): Optional image displayed at the top of the dialog.
 - `title` (`CharSequence`): The title of the dialog.
-- `displayAsHtml` (`Boolean`): Indicates if the title and message should be rendered as HTML.
+- `isTitleLarge` (`Boolean`): Determines whether the title should use a larger text appearance style.
+- `displayAsHtml` (`Boolean`): Indicates if the title, message, and support message should be rendered as HTML.
 - `message` (`CharSequence`): The message body of the dialog.
+- `supportMessage` (`CharSequence?`): Optional secondary message displayed below the main message.
 - `isFullScreen` (`Boolean`): Specifies if the dialog should be displayed in full-screen mode.
 - `isActionHorizontal` (`Boolean`): Specifies if the Action Button Should be Stacked or Chained Horizontally.
 - `isDismissible` (`Boolean`): Sets whether the dialog can be dismissed by outside touch or back press.
+- `isCloseButtonVisible` (`Boolean`): Determines whether the close (X) button is visible.
 - `positiveButton` (`String?`): The text for the positive button. If `null`, the button will not be shown.
 - `negativeButton` (`String?`): The text for the negative button. If `null`, the button will not be shown.
 - `onBindView` (`(ViewDialogBinding) -> Unit`): A lambda for further binding and customization of the view.
@@ -81,6 +84,25 @@ PopUp.show(
     onPositiveButtonClick = { _, dialog -> dialog.dismiss() },
     onNegativeButtonClick = { _, dialog -> dialog.dismiss() }
 )
+```
+
+**Example Usage of Dialog with Image:**
+- Assign value to `image` parameter, it can be a Drawable or a URL string.
+
+```kotlin
+PopUp.show(
+    context = this,
+    image = R.drawable.ic_close, 
+    title = "Payment Successful",
+    message = "Your transaction has been completed successfully.",
+    supportMessage = "You can view the receipt in your transaction history.",
+    isCloseButtonVisible = true,
+    positiveButton = "Continue",
+    onPositiveButtonClick = { _, dialog ->
+        dialog.dismiss()
+    }
+)
+
 ```
 
 ## Benefits
