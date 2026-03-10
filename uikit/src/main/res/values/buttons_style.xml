@@ -175,16 +175,6 @@
         <item name="iconSize">@dimen/m2</item>
     </style>
 
-    <style name="Widget.EDTS.UIKit.Button.IconButton" parent="Widget.Material3.Button.IconButton">
-        <item name="android:insetTop">@dimen/dimen_0</item>
-        <item name="android:insetBottom">@dimen/dimen_0</item>
-        <item name="android:insetLeft">@dimen/dimen_0</item>
-        <item name="android:insetRight">@dimen/dimen_0</item>
-        <item name="android:minHeight">@dimen/dimen_0</item>
-        <item name="android:minWidth">@dimen/dimen_0</item>
-        <item name="android:tag">@string/button_icon_button_tag</item>
-    </style>
-
     <style name="Widget.EDTS.UIKit.Button.Tab" parent="Widget.Material3.Button.UnelevatedButton">
         <item name="android:insetTop">@dimen/dimen_0</item>
         <item name="android:insetBottom">@dimen/dimen_0</item>

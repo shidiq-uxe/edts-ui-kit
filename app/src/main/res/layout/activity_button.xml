@@ -442,44 +442,6 @@
             app:buttonType="textLarge"
             app:layout_constraintTop_toBottomOf="@id/btnTextButtonMediumDestructive"/>
 
-        <id.co.edtslib.uikit.button.Button
-            android:id="@+id/btnIconButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/s"
-            android:layout_marginHorizontal="@dimen/s"
-            android:text="Icon Button"
-            app:buttonType="filledMedium"
-            app:icon="@drawable/ic_search"
-            app:iconGravity="textStart"
-            app:layout_constraintTop_toBottomOf="@id/btnTextButtonLargeDestructive"/>
-
-        <id.co.edtslib.uikit.button.Button
-            android:id="@+id/btnIconButtonDisabled"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/s"
-            android:layout_marginHorizontal="@dimen/s"
-            android:text="Icon Button"
-            android:enabled="false"
-            app:buttonType="filledMedium"
-            app:icon="@drawable/ic_search"
-            app:iconGravity="textStart"
-            app:layout_constraintTop_toBottomOf="@id/btnIconButton"/>
-
-        <id.co.edtslib.uikit.button.Button
-            android:id="@+id/btnIconButtonDestructive"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/s"
-            android:layout_marginHorizontal="@dimen/s"
-            android:text="Icon Button"
-            app:isDestructive="true"
-            app:buttonType="filledMedium"
-            app:icon="@drawable/ic_search"
-            app:iconGravity="textStart"
-            app:layout_constraintTop_toBottomOf="@id/btnIconButtonDisabled"/>
-
         <id.co.edtslib.uikit.ribbon.Ribbon
             android:id="@+id/ribbon"
             android:layout_width="wrap_content"
@@ -514,7 +476,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/s"
-            app:layout_constraintTop_toBottomOf="@id/btnIconButtonDestructive"
+            app:layout_constraintTop_toBottomOf="@id/btnTextButtonLargeDestructive"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
 
