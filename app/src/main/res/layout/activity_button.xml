@@ -1,162 +1,531 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".GuidelinesButtonActivity">
-
-    <id.co.edtslib.uikit.button.Button
-        android:id="@+id/btnFilled"
-        style="@style/Widget.EDTS.UIKit.Button.Filled"
+    android:layout_height="match_parent" >
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/main"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/s"
-        android:layout_marginHorizontal="@dimen/s"
-        android:text="Filled Button"
-        app:layout_constraintTop_toTopOf="parent"/>
+        android:layout_height="match_parent"
+        tools:context=".GuidelinesButtonActivity">
 
-    <id.co.edtslib.uikit.button.Button
-        android:id="@+id/btnFilledMedium"
-        style="@style/Widget.EDTS.UIKit.Button.Filled.Medium"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/s"
-        android:layout_marginHorizontal="@dimen/s"
-        android:text="Filled Medium Button"
-        app:layout_constraintTop_toBottomOf="@id/btnFilled"/>
+        <id.co.edtslib.uikit.button.Button
+            android:id="@+id/btnFilled"
+            style="@style/Widget.EDTS.UIKit.Button.Filled.Primary.Small"
+            app:buttonType="filled"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/s"
+            android:layout_marginHorizontal="@dimen/s"
+            android:text="Small Primary Button"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
 
-    <id.co.edtslib.uikit.button.Button
-        android:id="@+id/btnVariantFilled"
-        style="@style/Widget.EDTS.UIKit.Button.Filled.Variant"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/s"
-        android:layout_marginHorizontal="@dimen/s"
-        android:text="Variant Filled Button"
-        app:buttonType="variant"
-        app:layout_constraintTop_toBottomOf="@id/btnFilledMedium"/>
+        <id.co.edtslib.uikit.button.Button
+            android:id="@+id/btnFilledMedium"
+            style="@style/Widget.EDTS.UIKit.Button.Filled.Primary.Medium"
+            app:buttonType="filledMedium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/s"
+            android:layout_marginHorizontal="@dimen/s"
+            android:text="Medium Primary Button"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnFilled"/>
 
-    <id.co.edtslib.uikit.button.Button
-        android:id="@+id/btnVariantFilledMedium"
-        style="@style/Widget.EDTS.UIKit.Button.Filled.Variant.Medium"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/s"
-        android:layout_marginHorizontal="@dimen/s"
-        android:text="Variant Medium Filled Button"
-        app:buttonType="variantMedium"
-        app:layout_constraintTop_toBottomOf="@id/btnVariantFilled"/>
+        <id.co.edtslib.uikit.button.Button
+            android:id="@+id/btnFilledLarge"
+            app:buttonType="filledLarge"
+            style="@style/Widget.EDTS.UIKit.Button.Filled.Primary.Large"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/s"
+            android:layout_marginHorizontal="@dimen/s"
+            android:text="Large Primary Button"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnFilledMedium"/>
 
-    <id.co.edtslib.uikit.button.Button
-        android:id="@+id/btnSecondaryOutlined"
-        style="@style/Widget.EDTS.UIKit.Button.Outlined.Secondary"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/s"
-        android:layout_marginHorizontal="@dimen/s"
-        android:text="Secondary Outlined Button"
-        app:buttonType="secondary"
-        app:layout_constraintTop_toBottomOf="@id/btnVariantFilledMedium"/>
+        <id.co.edtslib.uikit.button.Button
+            android:id="@+id/btnFilledDisabled"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/l"
+            android:layout_marginHorizontal="@dimen/s"
+            style="@style/Widget.EDTS.UIKit.Button.Filled.Primary.Small"
+            android:text="Disabled Small Primary Button"
+            android:enabled="false"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnFilledLarge"/>
 
-    <id.co.edtslib.uikit.button.Button
-        android:id="@+id/btnSecondaryOutlinedMedium"
-        style="@style/Widget.EDTS.UIKit.Button.Outlined.Secondary.Medium"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/s"
-        android:layout_marginHorizontal="@dimen/s"
-        android:text="Secondary Medium Outlined Button"
-        app:buttonType="secondaryMedium"
-        app:layout_constraintTop_toBottomOf="@id/btnSecondaryOutlined"/>
+        <id.co.edtslib.uikit.button.Button
+            android:id="@+id/btnFilledMediumDisabled"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/s"
+            android:layout_marginHorizontal="@dimen/s"
+            style="@style/Widget.EDTS.UIKit.Button.Filled.Primary.Medium"
+            android:text="Disabled Medium Primary Button"
+            android:enabled="false"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnFilledDisabled"/>
 
-    <id.co.edtslib.uikit.button.Button
-        android:id="@+id/btnDisabled"
-        style="@style/Widget.EDTS.UIKit.Button.Filled.Medium"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/s"
-        android:layout_marginHorizontal="@dimen/s"
-        android:text="Disabled Button"
-        android:enabled="false"
-        app:layout_constraintTop_toBottomOf="@id/btnSecondaryOutlinedMedium"/>
+        <id.co.edtslib.uikit.button.Button
+            android:id="@+id/btnFilledLargeDisabled"
+            style="@style/Widget.EDTS.UIKit.Button.Filled.Primary.Large"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/s"
+            android:layout_marginHorizontal="@dimen/s"
+            android:text="Disabled Large Primary Button"
+            android:enabled="false"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnFilledMediumDisabled"/>
 
-    <id.co.edtslib.uikit.button.Button
-        android:id="@+id/btnTextButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/s"
-        android:layout_marginTop="8dp"
-        android:text="Text Button"
-        app:buttonType="text"
-        app:layout_constraintTop_toBottomOf="@id/btnDisabled" />
+        <id.co.edtslib.uikit.button.Button
+            android:id="@+id/btnFilledDestructive"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/l"
+            android:layout_marginHorizontal="@dimen/s"
+            style="@style/Widget.EDTS.UIKit.Button.Filled.Primary.Small"
+            android:text="Destructive Small Primary Button"
+            app:isDestructive="true"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnFilledLargeDisabled"/>
 
-    <id.co.edtslib.uikit.button.Button
-        android:id="@+id/btnTextButtonMedium"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/s"
-        android:text="Medium Text Button"
-        app:buttonType="textMedium"
-        app:layout_constraintTop_toBottomOf="@id/btnTextButton"/>
+        <id.co.edtslib.uikit.button.Button
+            android:id="@+id/btnFilledMediumDestructive"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/s"
+            android:layout_marginHorizontal="@dimen/s"
+            style="@style/Widget.EDTS.UIKit.Button.Filled.Primary.Medium"
+            android:text="Destructive Medium Primary Button"
+            app:isDestructive="true"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnFilledDestructive"/>
 
-    <id.co.edtslib.uikit.button.Button
-        android:id="@+id/btnIconButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/s"
-        android:text="Icon Button"
-        app:buttonType="filledMedium"
-        app:icon="@drawable/ic_search"
-        app:iconGravity="textStart"
-        app:layout_constraintTop_toBottomOf="@id/btnTextButtonMedium"/>
+        <id.co.edtslib.uikit.button.Button
+            android:id="@+id/btnFilledLargeDestructive"
+            style="@style/Widget.EDTS.UIKit.Button.Filled.Primary.Large"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/s"
+            android:layout_marginHorizontal="@dimen/s"
+            android:text="Destructive Large Primary Button"
+            app:isDestructive="true"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnFilledMediumDestructive"/>
 
-    <id.co.edtslib.uikit.ribbon.Ribbon
-        android:id="@+id/ribbon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/xxs"
-        android:layout_marginStart="-6dp"
-        android:elevation="@dimen/xxxs"
-        app:gravity="start"
-        app:text="999x"
-        app:textAppearance="@style/TextAppearance.Inter.Semibold.H2"
-        app:layout_constraintTop_toTopOf="@id/btnDisabled"
-        app:layout_constraintStart_toStartOf="@id/btnTextButton"/>
+        <id.co.edtslib.uikit.button.Button
+            android:id="@+id/btnSecondaryOutlined"
+            style="@style/Widget.EDTS.UIKit.Button.Outlined.Secondary.Small"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/l"
+            android:layout_marginHorizontal="@dimen/s"
+            android:text="Small Secondary Button"
+            app:buttonType="secondary"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnFilledLargeDestructive"/>
 
-    <id.co.edtslib.uikit.ribbon.Ribbon
-        android:id="@+id/ribbon2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/xxs"
-        android:layout_marginStart="-6dp"
-        android:elevation="@dimen/xxxs"
-        app:containerStartColor="@color/secondary_10"
-        app:containerEndColor="@color/secondary_30"
-        app:triangleColor="@color/secondary_50"
-        app:gravity="start"
-        app:text="Baru!"
-        app:textAppearance="@style/TextAppearance.Inter.Semibold.H2"
-        app:layout_constraintTop_toTopOf="@id/btnSecondaryOutlinedMedium"
-        app:layout_constraintStart_toStartOf="@id/btnTextButton"/>
+        <id.co.edtslib.uikit.button.Button
+            android:id="@+id/btnSecondaryOutlinedMedium"
+            style="@style/Widget.EDTS.UIKit.Button.Outlined.Secondary.Medium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/s"
+            android:layout_marginHorizontal="@dimen/s"
+            android:text="Medium Secondary Button"
+            app:buttonType="secondaryMedium"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnSecondaryOutlined"/>
 
-    <id.co.edtslib.uikit.stepper.StepperView
-        android:id="@+id/stepperView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/s"
-        app:layout_constraintTop_toBottomOf="@id/btnIconButton"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        <id.co.edtslib.uikit.button.Button
+            android:id="@+id/btnSecondaryOutlinedLarge"
+            style="@style/Widget.EDTS.UIKit.Button.Outlined.Secondary.Large"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/s"
+            android:layout_marginHorizontal="@dimen/s"
+            android:text="Large Secondary Button"
+            app:buttonType="secondaryMedium"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnSecondaryOutlinedMedium"/>
 
-    <id.co.edtslib.uikit.stepper.StepperButton
-        android:id="@+id/stepperButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/s"
-        app:layout_constraintTop_toBottomOf="@id/stepperView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        <id.co.edtslib.uikit.button.Button
+            android:id="@+id/btnSecondaryOutlinedDisabled"
+            style="@style/Widget.EDTS.UIKit.Button.Outlined.Secondary.Small"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/l"
+            android:layout_marginHorizontal="@dimen/s"
+            android:text="Disabled Small Secondary Button"
+            app:buttonType="secondary"
+            android:enabled="false"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnSecondaryOutlinedLarge"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <id.co.edtslib.uikit.button.Button
+            android:id="@+id/btnSecondaryOutlinedMediumDisabled"
+            style="@style/Widget.EDTS.UIKit.Button.Outlined.Secondary.Medium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/s"
+            android:layout_marginHorizontal="@dimen/s"
+            android:text="Disabled Medium Secondary Button"
+            app:buttonType="secondaryMedium"
+            android:enabled="false"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnSecondaryOutlinedDisabled"/>
+
+        <id.co.edtslib.uikit.button.Button
+            android:id="@+id/btnSecondaryOutlinedLargeDisabled"
+            style="@style/Widget.EDTS.UIKit.Button.Outlined.Secondary.Large"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/s"
+            android:layout_marginHorizontal="@dimen/s"
+            android:text="Disabled Large Secondary Button"
+            app:buttonType="secondaryMedium"
+            android:enabled="false"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnSecondaryOutlinedMediumDisabled"/>
+
+        <id.co.edtslib.uikit.button.Button
+            android:id="@+id/btnSecondaryOutlinedDestructive"
+            style="@style/Widget.EDTS.UIKit.Button.Outlined.Secondary.Small"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/l"
+            android:layout_marginHorizontal="@dimen/s"
+            android:text="Destructive Small Secondary Button"
+            app:buttonType="secondary"
+            app:isDestructive="true"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnSecondaryOutlinedLargeDisabled"/>
+
+        <id.co.edtslib.uikit.button.Button
+            android:id="@+id/btnSecondaryOutlinedMediumDestructive"
+            style="@style/Widget.EDTS.UIKit.Button.Outlined.Secondary.Medium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/s"
+            android:layout_marginHorizontal="@dimen/s"
+            android:text="Destructive Medium Secondary Button"
+            app:buttonType="secondaryMedium"
+            app:isDestructive="true"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnSecondaryOutlinedDestructive"/>
+
+        <id.co.edtslib.uikit.button.Button
+            android:id="@+id/btnSecondaryOutlinedLargeDestructive"
+            style="@style/Widget.EDTS.UIKit.Button.Outlined.Secondary.Large"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/s"
+            android:layout_marginHorizontal="@dimen/s"
+            android:text="Destructive Large Secondary Button"
+            app:buttonType="secondaryMedium"
+            app:isDestructive="true"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnSecondaryOutlinedMediumDestructive"/>
+
+        <id.co.edtslib.uikit.button.Button
+            android:id="@+id/btnTertiaryOutlined"
+            style="@style/Widget.EDTS.UIKit.Button.Outlined.Tertiary.Small"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/l"
+            android:layout_marginHorizontal="@dimen/s"
+            android:text="Small Tertiary Button"
+            app:buttonType="secondary"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnSecondaryOutlinedLargeDestructive"/>
+
+        <id.co.edtslib.uikit.button.Button
+            android:id="@+id/btnTertiaryOutlinedMedium"
+            style="@style/Widget.EDTS.UIKit.Button.Outlined.Tertiary.Medium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/s"
+            android:layout_marginHorizontal="@dimen/s"
+            android:text="Secondary Tertiary Medium Button"
+            app:buttonType="secondaryMedium"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnTertiaryOutlined"/>
+
+        <id.co.edtslib.uikit.button.Button
+            android:id="@+id/btnTertiaryOutlinedLarge"
+            style="@style/Widget.EDTS.UIKit.Button.Outlined.Tertiary.Large"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/s"
+            android:layout_marginHorizontal="@dimen/s"
+            android:text="Secondary Large Tertiary Button"
+            app:buttonType="secondaryMedium"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnTertiaryOutlinedMedium"/>
+
+        <id.co.edtslib.uikit.button.Button
+            android:id="@+id/btnTertiaryOutlinedDisabled"
+            style="@style/Widget.EDTS.UIKit.Button.Outlined.Tertiary.Small"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/l"
+            android:layout_marginHorizontal="@dimen/s"
+            android:text="Disabled Small Tertiary Button"
+            app:buttonType="secondary"
+            android:enabled="false"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnTertiaryOutlinedLarge"/>
+
+        <id.co.edtslib.uikit.button.Button
+            android:id="@+id/btnTertiaryOutlinedMediumDisabled"
+            style="@style/Widget.EDTS.UIKit.Button.Outlined.Tertiary.Medium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/s"
+            android:layout_marginHorizontal="@dimen/s"
+            android:text="Disabled Medium Tertiary Button"
+            app:buttonType="secondaryMedium"
+            android:enabled="false"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnTertiaryOutlinedDisabled"/>
+
+        <id.co.edtslib.uikit.button.Button
+            android:id="@+id/btnTertiaryOutlinedLargeDisabled"
+            style="@style/Widget.EDTS.UIKit.Button.Outlined.Tertiary.Large"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/s"
+            android:layout_marginHorizontal="@dimen/s"
+            android:text="Disabled Large Tertiary Button"
+            app:buttonType="secondaryMedium"
+            android:enabled="false"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnTertiaryOutlinedMediumDisabled"/>
+
+        <id.co.edtslib.uikit.button.Button
+            android:id="@+id/btnTertiaryOutlinedDestructive"
+            style="@style/Widget.EDTS.UIKit.Button.Outlined.Tertiary.Small"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/l"
+            android:layout_marginHorizontal="@dimen/s"
+            android:text="Destructive Small Tertiary Button"
+            app:buttonType="secondary"
+            app:isDestructive="true"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnTertiaryOutlinedLargeDisabled"/>
+
+        <id.co.edtslib.uikit.button.Button
+            android:id="@+id/btnTertiaryOutlinedMediumDestructive"
+            style="@style/Widget.EDTS.UIKit.Button.Outlined.Tertiary.Medium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/s"
+            android:layout_marginHorizontal="@dimen/s"
+            android:text="Destructive Medium Tertiary Button"
+            app:buttonType="secondaryMedium"
+            app:isDestructive="true"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnTertiaryOutlinedDestructive"/>
+
+        <id.co.edtslib.uikit.button.Button
+            android:id="@+id/btnTertiaryOutlinedLargeDestructive"
+            style="@style/Widget.EDTS.UIKit.Button.Outlined.Tertiary.Large"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/s"
+            android:layout_marginHorizontal="@dimen/s"
+            android:text="Destructive Large Tertiary Button"
+            app:buttonType="secondaryMedium"
+            app:isDestructive="true"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnTertiaryOutlinedMediumDestructive"/>
+
+        <id.co.edtslib.uikit.button.Button
+            android:id="@+id/btnTextButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/s"
+            android:layout_marginTop="@dimen/dimen_32"
+            android:text="Small Text Button"
+            app:buttonType="text"
+            app:layout_constraintTop_toBottomOf="@id/btnTertiaryOutlinedLargeDestructive" />
+
+        <id.co.edtslib.uikit.button.Button
+            android:id="@+id/btnTextButtonMedium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/s"
+            android:layout_marginHorizontal="@dimen/s"
+            android:text="Medium Text Button"
+            app:buttonType="textMedium"
+            app:layout_constraintTop_toBottomOf="@id/btnTextButton"/>
+
+        <id.co.edtslib.uikit.button.Button
+            android:id="@+id/btnTextButtonLarge"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/s"
+            android:layout_marginHorizontal="@dimen/s"
+            android:text="Large Text Button"
+            app:buttonType="textLarge"
+            app:layout_constraintTop_toBottomOf="@id/btnTextButtonMedium"/>
+
+        <id.co.edtslib.uikit.button.Button
+            android:id="@+id/btnTextButtonDisabled"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/s"
+            android:layout_marginTop="@dimen/dimen_32"
+            android:text="Disabled Small Text Button"
+            android:enabled="false"
+            app:buttonType="text"
+            app:layout_constraintTop_toBottomOf="@id/btnTextButtonLarge" />
+
+        <id.co.edtslib.uikit.button.Button
+            android:id="@+id/btnTextButtonMediumDisabled"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/s"
+            android:layout_marginHorizontal="@dimen/s"
+            android:text="Disabled Medium Text Button"
+            android:enabled="false"
+            app:buttonType="textMedium"
+            app:layout_constraintTop_toBottomOf="@id/btnTextButtonDisabled"/>
+
+        <id.co.edtslib.uikit.button.Button
+            android:id="@+id/btnTextButtonLargeDisabled"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/s"
+            android:layout_marginHorizontal="@dimen/s"
+            android:text="Disabled Large Text Button"
+            android:enabled="false"
+            app:buttonType="textLarge"
+            app:layout_constraintTop_toBottomOf="@id/btnTextButtonMediumDisabled"/>
+
+        <id.co.edtslib.uikit.button.Button
+            android:id="@+id/btnTextButtonDestructive"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/s"
+            android:layout_marginTop="@dimen/dimen_32"
+            android:text="Destructive Small Text Button"
+            app:isDestructive="true"
+            app:buttonType="text"
+            app:layout_constraintTop_toBottomOf="@id/btnTextButtonLargeDisabled" />
+
+        <id.co.edtslib.uikit.button.Button
+            android:id="@+id/btnTextButtonMediumDestructive"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/s"
+            android:layout_marginHorizontal="@dimen/s"
+            android:text="Destructive Medium Text Button"
+            app:isDestructive="true"
+            app:buttonType="textMedium"
+            app:layout_constraintTop_toBottomOf="@id/btnTextButtonDestructive"/>
+
+        <id.co.edtslib.uikit.button.Button
+            android:id="@+id/btnTextButtonLargeDestructive"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/s"
+            android:layout_marginHorizontal="@dimen/s"
+            android:text="Destructive Large Text Button"
+            app:isDestructive="true"
+            app:buttonType="textLarge"
+            app:layout_constraintTop_toBottomOf="@id/btnTextButtonMediumDestructive"/>
+
+        <id.co.edtslib.uikit.button.Button
+            android:id="@+id/btnIconButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/s"
+            android:layout_marginHorizontal="@dimen/s"
+            android:text="Icon Button"
+            app:buttonType="filledMedium"
+            app:icon="@drawable/ic_search"
+            app:iconGravity="textStart"
+            app:layout_constraintTop_toBottomOf="@id/btnTextButtonLargeDestructive"/>
+
+        <id.co.edtslib.uikit.button.Button
+            android:id="@+id/btnIconButtonDisabled"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/s"
+            android:layout_marginHorizontal="@dimen/s"
+            android:text="Icon Button"
+            android:enabled="false"
+            app:buttonType="filledMedium"
+            app:icon="@drawable/ic_search"
+            app:iconGravity="textStart"
+            app:layout_constraintTop_toBottomOf="@id/btnIconButton"/>
+
+        <id.co.edtslib.uikit.button.Button
+            android:id="@+id/btnIconButtonDestructive"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/s"
+            android:layout_marginHorizontal="@dimen/s"
+            android:text="Icon Button"
+            app:isDestructive="true"
+            app:buttonType="filledMedium"
+            app:icon="@drawable/ic_search"
+            app:iconGravity="textStart"
+            app:layout_constraintTop_toBottomOf="@id/btnIconButtonDisabled"/>
+
+        <id.co.edtslib.uikit.ribbon.Ribbon
+            android:id="@+id/ribbon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/xxs"
+            android:layout_marginStart="-6dp"
+            android:elevation="@dimen/xxxs"
+            app:gravity="start"
+            app:text="999x"
+            app:textAppearance="@style/TextAppearance.Inter.Semibold.H2"
+            app:layout_constraintTop_toTopOf="@id/btnSecondaryOutlinedLarge"
+            app:layout_constraintStart_toStartOf="@id/btnTextButton"/>
+
+        <id.co.edtslib.uikit.ribbon.Ribbon
+            android:id="@+id/ribbon2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/xxs"
+            android:layout_marginStart="-6dp"
+            android:elevation="@dimen/xxxs"
+            app:containerStartColor="@color/secondary_10"
+            app:containerEndColor="@color/secondary_30"
+            app:triangleColor="@color/secondary_50"
+            app:gravity="start"
+            app:text="Baru!"
+            app:textAppearance="@style/TextAppearance.Inter.Semibold.H2"
+            app:layout_constraintTop_toTopOf="@id/btnSecondaryOutlinedMedium"
+            app:layout_constraintStart_toStartOf="@id/btnTextButton"/>
+
+        <id.co.edtslib.uikit.stepper.StepperView
+            android:id="@+id/stepperView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/s"
+            app:layout_constraintTop_toBottomOf="@id/btnIconButtonDestructive"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <id.co.edtslib.uikit.stepper.StepperButton
+            android:id="@+id/stepperButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/s"
+            app:layout_constraintTop_toBottomOf="@id/stepperView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

@@ -29,16 +29,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <com.google.android.material.button.MaterialButton
+            <com.google.android.material.checkbox.MaterialCheckBox
                 android:id="@+id/btnNavigation"
-                style="@style/Widget.EDTS.UIKit.Button.IconButton"
                 android:layout_width="@dimen/l"
                 android:layout_height="@dimen/l"
                 android:layout_marginStart="@dimen/xs"
-                app:icon="@drawable/ic_arrow_left"
-                app:iconTint="@color/black_50"
-                app:iconGravity="textEnd"
-                app:iconSize="@dimen/m2"
+                android:button="@drawable/ic_arrow_left"
+                app:buttonTint="@color/black_50"
                 app:layout_constraintTop_toTopOf="@id/tvTitle"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintBottom_toBottomOf="@id/tvTitle"/>
@@ -58,17 +55,13 @@
                 app:layout_goneMarginEnd="@dimen/s"
                 tools:text="This Would Be A Title"/>
 
-            <com.google.android.material.button.MaterialButton
+            <com.google.android.material.checkbox.MaterialCheckBox
                 android:id="@+id/btnClose"
-                style="@style/Widget.EDTS.UIKit.Button.IconButton"
                 android:layout_width="@dimen/l"
                 android:layout_height="@dimen/l"
                 android:layout_marginEnd="@dimen/xs"
-                app:icon="@drawable/ic_cancel_24"
-                app:iconTint="@color/black_50"
-                app:iconGravity="textEnd"
-                app:iconSize="@dimen/m2"
-                app:shapeAppearanceOverlay="@style/ShapeAppearance.EDTS.UIKit.MediumComponent"
+                android:button="@drawable/ic_cancel_24"
+                app:buttonTint="@color/black_50"
                 app:layout_constraintTop_toTopOf="@id/tvTitle"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="@id/tvTitle"/>

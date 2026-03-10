@@ -30,21 +30,21 @@ class GuidelinesButtonActivity : GuidelinesBaseActivity() {
             Log.e("Button Debug", "Check for Double Click")
         }
 
-        binding.stepperButton.setOnCountChangeListener {
-            binding.root.snack("Count Changed to $it")
-
-            binding.stepperButton.setPlusButtonEnabled(it < 5)
-        }
-
-        Ribbon(this).apply {
-            ribbonText = "Ribbon"
-            gravity = Ribbon.Gravity.START
-            elevation = 4.dp
-        }.anchorToView(
-                rootParent = binding.root,
-                targetView = binding.btnSecondaryOutlined,
-                verticalAlignment = Ribbon.VerticalAlignment.Center
-            )
-
+//        binding.stepperButton.setOnCountChangeListener {
+//            binding.root.snack("Count Changed to $it")
+//
+//            binding.stepperButton.setPlusButtonEnabled(it < 5)
+//        }
+//
+//        Ribbon(this).apply {
+//            ribbonText = "Ribbon"
+//            gravity = Ribbon.Gravity.START
+//            elevation = 4.dp
+//        }.anchorToView(
+//                rootParent = binding.main,
+//                targetView = binding.btnSecondaryOutlined,
+//                verticalAlignment = Ribbon.VerticalAlignment.Center
+//            )
+//
         }
 }

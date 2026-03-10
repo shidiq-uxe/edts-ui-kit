@@ -11,25 +11,40 @@
         <item name="android:tag">@string/button_filled_tag</item>
         <item name="android:textColor">@color/slr_button_filled_text</item>
         <item name="backgroundTint">@color/slr_button_filled_bg</item>
-        <item name="iconPadding">@dimen/xxxs</item>
         <item name="iconTint">@color/slr_button_filled_text</item>
+        <item name="iconPadding">@dimen/xxs</item>
         <item name="rippleColor">@color/slr_button_filled_ripple</item>
         <item name="shapeAppearance">@style/ShapeAppearance.EDTS.UIKit.Button</item>
-        <item name="textAppearance">@style/TextAppearance.Inter.Semibold.H3</item>
     </style>
 
-    <style name="Widget.EDTS.UIKit.Button.Filled.Medium" parent="Widget.EDTS.UIKit.Button.Filled">
-        <item name="android:padding">@dimen/xs</item>
-        <item name="android:textAppearance">@style/TextAppearance.Inter.Semibold.H2</item>
+    <style name="Widget.EDTS.UIKit.Button.Filled.Primary.Small" parent="Widget.EDTS.UIKit.Button.Filled">
+        <item name="android:paddingLeft">@dimen/xs</item>
+        <item name="android:paddingTop">@dimen/dimen_6</item>
+        <item name="android:paddingRight">@dimen/xs</item>
+        <item name="android:paddingBottom">@dimen/dimen_6</item>
+        <item name="android:minHeight">@dimen/dimen_28</item>
+        <item name="android:textAppearance">@style/TextAppearance.Inter.SemiBold.Button.Text.Small</item>
         <item name="iconSize">@dimen/s</item>
     </style>
 
-    <style name="Widget.EDTS.UIKit.Button.Filled.Variant" parent="Widget.EDTS.UIKit.Button.Filled">
-        <item name="backgroundTint">@color/slr_button_alternative_filled_bg</item>
+    <style name="Widget.EDTS.UIKit.Button.Filled.Primary.Medium" parent="Widget.EDTS.UIKit.Button.Filled">
+        <item name="android:paddingLeft">@dimen/xs</item>
+        <item name="android:paddingTop">@dimen/xxs</item>
+        <item name="android:paddingRight">@dimen/xs</item>
+        <item name="android:paddingBottom">@dimen/xxs</item>
+        <item name="android:minHeight">@dimen/dimen_32</item>
+        <item name="android:textAppearance">@style/TextAppearance.Inter.SemiBold.Button.Text.Medium</item>
+        <item name="iconSize">@dimen/s</item>
     </style>
 
-    <style name="Widget.EDTS.UIKit.Button.Filled.Variant.Medium" parent="Widget.EDTS.UIKit.Button.Filled.Medium">
-        <item name="backgroundTint">@color/slr_button_alternative_filled_bg</item>
+    <style name="Widget.EDTS.UIKit.Button.Filled.Primary.Large" parent="Widget.EDTS.UIKit.Button.Filled">
+        <item name="android:paddingLeft">@dimen/xs</item>
+        <item name="android:paddingTop">@dimen/xxs</item>
+        <item name="android:paddingRight">@dimen/xs</item>
+        <item name="android:paddingBottom">@dimen/xxs</item>
+        <item name="android:minHeight">@dimen/dimen_40</item>
+        <item name="android:textAppearance">@style/TextAppearance.Inter.SemiBold.Button.Text.Large</item>
+        <item name="iconSize">@dimen/m2</item>
     </style>
 
     <style name="Widget.EDTS.UIKit.Button.Outlined" parent="Widget.Material3.Button.OutlinedButton">
@@ -40,27 +55,87 @@
         <item name="android:minHeight">@dimen/dimen_0</item>
         <item name="android:minWidth">@dimen/dimen_0</item>
         <item name="android:tag">@string/button_outlined_tag</item>
-        <item name="android:textColor">@color/slr_button_outlined_text</item>
         <item name="backgroundTint">@color/transparent</item>
-        <item name="iconPadding">@dimen/xxxs</item>
-        <item name="iconTint">@color/slr_button_outlined_text</item>
-        <item name="rippleColor">@color/slr_button_outlined_ripple</item>
+        <item name="iconPadding">@dimen/xxs</item>
         <item name="shapeAppearance">@style/ShapeAppearance.EDTS.UIKit.Button</item>
-        <item name="strokeColor">@color/slr_button_outlined_stroke</item>
     </style>
 
-    <style name="Widget.EDTS.UIKit.Button.Outlined.Medium" parent="Widget.EDTS.UIKit.Button.Outlined">
-        <item name="android:padding">@dimen/xs</item>
-        <item name="android:textAppearance">@style/TextAppearance.Inter.Semibold.H2</item>
+    <style name="Widget.EDTS.UIKit.Button.Outlined.Small" parent="Widget.EDTS.UIKit.Button.Outlined">
+        <item name="android:paddingLeft">@dimen/s</item>
+        <item name="android:paddingTop">@dimen/dimen_6</item>
+        <item name="android:paddingRight">@dimen/xs</item>
+        <item name="android:paddingBottom">@dimen/dimen_6</item>
+        <item name="android:textAppearance">@style/TextAppearance.Inter.SemiBold.Button.Text.Small</item>
+        <item name="android:minHeight">@dimen/dimen_28</item>
         <item name="iconSize">@dimen/s</item>
     </style>
 
-    <style name="Widget.EDTS.UIKit.Button.Outlined.Secondary" parent="Widget.EDTS.UIKit.Button.Outlined">
+    <style name="Widget.EDTS.UIKit.Button.Outlined.Medium" parent="Widget.EDTS.UIKit.Button.Outlined">
+        <item name="android:paddingLeft">@dimen/xs</item>
+        <item name="android:paddingTop">@dimen/xxs</item>
+        <item name="android:paddingRight">@dimen/xs</item>
+        <item name="android:paddingBottom">@dimen/xxs</item>
+        <item name="android:textAppearance">@style/TextAppearance.Inter.SemiBold.Button.Text.Medium</item>
+        <item name="android:minHeight">@dimen/dimen_32</item>
+        <item name="iconSize">@dimen/s</item>
+    </style>
+
+    <style name="Widget.EDTS.UIKit.Button.Outlined.Large" parent="Widget.EDTS.UIKit.Button.Outlined">
+        <item name="android:paddingLeft">@dimen/xs</item>
+        <item name="android:paddingTop">@dimen/xxs</item>
+        <item name="android:paddingRight">@dimen/xs</item>
+        <item name="android:paddingBottom">@dimen/xxs</item>
+        <item name="android:minHeight">@dimen/dimen_40</item>
+        <item name="android:textAppearance">@style/TextAppearance.Inter.SemiBold.Button.Text.Large</item>
+        <item name="iconSize">@dimen/m2</item>
+    </style>
+
+    <style name="Widget.EDTS.UIKit.Button.Outlined.Secondary.Small" parent="Widget.EDTS.UIKit.Button.Outlined.Small">
+        <item name="iconTint">@color/slr_button_secondary_outlined_text</item>
+        <item name="rippleColor">@color/slr_button_secondary_outlined_ripple</item>
+        <item name="strokeColor">@color/slr_button_secondary_outlined_stroke</item>
+        <item name="android:textColor">@color/slr_button_secondary_outlined_text</item>
         <item name="backgroundTint">@color/slr_button_secondary_outlined_bg</item>
     </style>
 
     <style name="Widget.EDTS.UIKit.Button.Outlined.Secondary.Medium" parent="Widget.EDTS.UIKit.Button.Outlined.Medium">
+        <item name="iconTint">@color/slr_button_secondary_outlined_text</item>
+        <item name="rippleColor">@color/slr_button_secondary_outlined_ripple</item>
+        <item name="strokeColor">@color/slr_button_secondary_outlined_stroke</item>
+        <item name="android:textColor">@color/slr_button_secondary_outlined_text</item>
         <item name="backgroundTint">@color/slr_button_secondary_outlined_bg</item>
+    </style>
+
+    <style name="Widget.EDTS.UIKit.Button.Outlined.Secondary.Large" parent="Widget.EDTS.UIKit.Button.Outlined.Large">
+        <item name="iconTint">@color/slr_button_secondary_outlined_text</item>
+        <item name="rippleColor">@color/slr_button_secondary_outlined_ripple</item>
+        <item name="strokeColor">@color/slr_button_secondary_outlined_stroke</item>
+        <item name="android:textColor">@color/slr_button_secondary_outlined_text</item>
+        <item name="backgroundTint">@color/slr_button_secondary_outlined_bg</item>
+    </style>
+
+    <style name="Widget.EDTS.UIKit.Button.Outlined.Tertiary.Small" parent="Widget.EDTS.UIKit.Button.Outlined.Small">
+        <item name="iconTint">@color/slr_button_tertiary_outlined_text</item>
+        <item name="rippleColor">@color/slr_button_tertiary_outlined_ripple</item>
+        <item name="strokeColor">@color/slr_button_tertiary_outlined_stroke</item>
+        <item name="android:textColor">@color/slr_button_tertiary_outlined_text</item>
+        <item name="backgroundTint">@color/slr_button_tertiary_outlined_bg</item>
+    </style>
+
+    <style name="Widget.EDTS.UIKit.Button.Outlined.Tertiary.Medium" parent="Widget.EDTS.UIKit.Button.Outlined.Secondary.Medium">
+        <item name="iconTint">@color/slr_button_tertiary_outlined_text</item>
+        <item name="rippleColor">@color/slr_button_tertiary_outlined_ripple</item>
+        <item name="strokeColor">@color/slr_button_tertiary_outlined_stroke</item>
+        <item name="android:textColor">@color/slr_button_tertiary_outlined_text</item>
+        <item name="backgroundTint">@color/slr_button_tertiary_outlined_bg</item>
+    </style>
+
+    <style name="Widget.EDTS.UIKit.Button.Outlined.Tertiary.Large" parent="Widget.EDTS.UIKit.Button.Outlined.Large">
+        <item name="iconTint">@color/slr_button_tertiary_outlined_text</item>
+        <item name="rippleColor">@color/slr_button_tertiary_outlined_ripple</item>
+        <item name="strokeColor">@color/slr_button_tertiary_outlined_stroke</item>
+        <item name="android:textColor">@color/slr_button_tertiary_outlined_text</item>
+        <item name="backgroundTint">@color/slr_button_tertiary_outlined_bg</item>
     </style>
 
     <style name="Widget.EDTS.UIKit.Button.TextButton" parent="Widget.Material3.Button.TextButton">
@@ -71,18 +146,33 @@
         <item name="android:minHeight">@dimen/dimen_0</item>
         <item name="android:minWidth">@dimen/dimen_0</item>
         <item name="android:tag">@string/button_text_button_tag</item>
-        <item name="android:textColor">@color/slr_button_outlined_text</item>
+        <item name="android:textColor">@color/slr_button_secondary_outlined_text</item>
         <item name="backgroundTint">@color/transparent</item>
-        <item name="iconPadding">@dimen/xxxs</item>
-        <item name="iconTint">@color/slr_button_outlined_text</item>
-        <item name="rippleColor">@color/slr_button_outlined_ripple</item>
+        <item name="iconPadding">@dimen/xxs</item>
+        <item name="iconTint">@color/slr_button_secondary_outlined_text</item>
+        <item name="rippleColor">@color/slr_button_secondary_outlined_ripple</item>
         <item name="shapeAppearance">@style/ShapeAppearance.EDTS.UIKit.Button</item>
+    </style>
+
+    <style name="Widget.EDTS.UIKit.Button.TextButton.Small" parent="Widget.EDTS.UIKit.Button.TextButton">
+        <item name="android:padding">@dimen/xxs</item>
+        <item name="android:textAppearance">@style/TextAppearance.Inter.SemiBold.Button.Text.Small</item>
+        <item name="android:minHeight">@dimen/dimen_28</item>
+        <item name="iconSize">@dimen/s</item>
     </style>
 
     <style name="Widget.EDTS.UIKit.Button.TextButton.Medium" parent="Widget.EDTS.UIKit.Button.TextButton">
         <item name="android:padding">@dimen/xxs</item>
-        <item name="android:textAppearance">@style/TextAppearance.Inter.Semibold.H2</item>
+        <item name="android:textAppearance">@style/TextAppearance.Inter.SemiBold.Button.Text.Medium</item>
+        <item name="android:minHeight">@dimen/dimen_32</item>
         <item name="iconSize">@dimen/s</item>
+    </style>
+
+    <style name="Widget.EDTS.UIKit.Button.TextButton.Large" parent="Widget.EDTS.UIKit.Button.TextButton">
+        <item name="android:padding">@dimen/xxs</item>
+        <item name="android:textAppearance">@style/TextAppearance.Inter.SemiBold.Button.Text.Large</item>
+        <item name="android:minHeight">@dimen/dimen_40</item>
+        <item name="iconSize">@dimen/m2</item>
     </style>
 
     <style name="Widget.EDTS.UIKit.Button.IconButton" parent="Widget.Material3.Button.IconButton">

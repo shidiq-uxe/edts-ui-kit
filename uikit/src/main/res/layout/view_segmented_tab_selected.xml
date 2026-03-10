@@ -18,7 +18,7 @@
     <com.google.android.material.button.MaterialButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        style="@style/Widget.EDTS.UIKit.Button.TextButton"
+        style="@style/Widget.EDTS.UIKit.Button.TextButton.Small"
         android:text="Tab Test"
         android:paddingVertical="@dimen/xxs"
         app:layout_constraintTop_toTopOf="parent"

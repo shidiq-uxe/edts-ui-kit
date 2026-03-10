@@ -71,7 +71,7 @@
 
     <Button
         android:id="@+id/btnImpl"
-        style="@style/Widget.EDTS.UIKit.Button.Filled.Medium"
+        style="@style/Widget.EDTS.UIKit.Button.Filled.Primary.Medium"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/s"

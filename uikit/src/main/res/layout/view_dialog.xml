@@ -34,7 +34,7 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnPositive"
-        style="@style/Widget.EDTS.UIKit.Button.Filled.Medium"
+        style="@style/Widget.EDTS.UIKit.Button.Filled.Primary.Medium"
         android:layout_width="@dimen/dimen_0"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dimen_36"
