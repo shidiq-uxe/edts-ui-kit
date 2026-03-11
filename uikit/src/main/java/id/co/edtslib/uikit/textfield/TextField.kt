@@ -7,14 +7,10 @@ import android.util.AttributeSet
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
 import androidx.core.content.res.use
-import androidx.core.view.doOnLayout
 import androidx.core.view.doOnNextLayout
-import androidx.core.widget.addTextChangedListener
 import androidx.core.widget.doAfterTextChanged
 import com.google.android.material.textfield.TextInputEditText
 import id.co.edtslib.uikit.R
-import id.co.edtslib.uikit.button.Button.ButtonType
-import id.co.edtslib.uikit.button.ButtonAttrsFactory
 import id.co.edtslib.uikit.textinputlayout.TextInputLayout
 import id.co.edtslib.uikit.utils.buildHighlightedMessage
 import id.co.edtslib.uikit.utils.color
@@ -24,9 +20,7 @@ import id.co.edtslib.uikit.utils.hapticfeedback.HapticFeedback
 import id.co.edtslib.uikit.utils.lineHeight
 import id.co.edtslib.uikit.utils.vibrateAnimation
 import id.co.edtslib.uikit.utils.vibratePhone
-import id.co.edtslib.uikit.utils.TextStyle
 import id.co.edtslib.uikit.utils.TextStyleKey
-import id.co.edtslib.uikit.utils.TextStyleProvider
 import id.co.edtslib.uikit.utils.TextStyleProvider.get
 import android.text.InputType as AndroidTextInputType
 
@@ -218,9 +212,12 @@ open class TextField @JvmOverloads constructor(
                         this.removeView(oldEditText)
                     }
 
+                    val otpEditText = TextInputEditText(context, attrs, R.attr.otpEditTextStyle)
+
                     doOnNextLayout {
-                        val otpEditText = TextInputEditText(context, attrs, R.attr.otpEditTextStyle)
-                        this.addView(otpEditText)
+                        if (editText == null) {
+                            addView(otpEditText)
+                        }
                     }
 
                     Pair(
