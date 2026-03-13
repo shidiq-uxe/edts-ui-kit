@@ -4,17 +4,20 @@ This document outlines the button styles available in the UI Kit. Each button st
 
 ## Button Styles Overview
 
-| Button Style                  | Description                                                                                             | Implementation Details                        | Preview                                                           | Disabled Preview                                                   |
-|-------------------------------|---------------------------------------------------------------------------------------------------------|-----------------------------------------------|-------------------------------------------------------------------|--------------------------------------------------------------------|
-| **Filled Button**             | A solid color button with text and icon color matching the theme. Ideal for primary actions.            | `Widget.EDTS.UIKit.Button.Filled`             | ![Filled Button](assets/Button/filled.jpeg)                       | ![Filled Button Disabled](assets/Button/disabled.jpeg)             |
-| **Filled Button Medium**      | A medium-sized filled button, suitable for secondary actions.                                           | `Widget.EDTS.UIKit.Button.Filled.Medium`      | ![Filled Button Medium](assets/Button/filled_medium.jpeg)         | ![Filled Button Medium Disabled](assets/Button/disabled.jpeg)      |
-| **Filled Button Variant**     | A variant of the filled button with an alternative background color.                                    | `Widget.EDTS.UIKit.Button.Filled.Variant`     | ![Filled Button Variant](assets/Button/variant.jpeg)              | ![Filled Button Variant Disabled](assets/Button/disabled.jpeg)     |
-| **Outlined Button**           | A button with a transparent background and an outlined border. Ideal for secondary or tertiary actions. | `Widget.EDTS.UIKit.Button.Outlined`           | ![Outlined Button](assets/Button/outline_secondary.jpg)           | ![Outlined Button Disabled](assets/Button/disabled.jpeg)           |
-| **Outlined Button Medium**    | A medium-sized outlined button with increased padding.                                                  | `Widget.EDTS.UIKit.Button.Outlined.Medium`    | ![Outlined Button Medium](assets/Button/secondary_medium.jpeg)    | ![Outlined Button Medium Disabled](assets/Button/disabled.jpeg)    |
-| **Outlined Button Secondary** | A secondary variant of the outlined button with a different stroke color.                               | `Widget.EDTS.UIKit.Button.Outlined.Secondary` | ![Outlined Button Secondary](assets/Button/secondary_medium.jpeg) | ![Outlined Button Secondary Disabled](assets/Button/disabled.jpeg) |
-| **Text Button**               | A text-only button with no background, suitable for less prominent actions.                             | `Widget.EDTS.UIKit.Button.TextButton`         | ![Text Button](assets/Button/text_button.jpg)                     | ![Text Button Disabled](assets/Button/disabled.jpeg)               |
-| **Text Button Medium**        | A medium-sized text button with added padding.                                                          | `Widget.EDTS.UIKit.Button.TextButton.Medium`  | ![Medium Text Button](assets/Button/medium_text_button.jpg)       | ![Text Button Medium Disabled](assets/Button/disabled.jpeg)        |
-| **Icon Button**               | A button designed primarily for icons with no text.                                                     | `Widget.EDTS.UIKit.Button.IconButton`         | ![Icon Button](assets/Button/icon_button.jpg)                     | ![Icon Button Disabled](assets/Button/disabled.jpeg)               |
+| Button Style                         | Description                                                                                  | Implementation Details                               | Preview                                                                           | Disabled Preview                                                                                    | Destructive Preview                                                                                       |
+|--------------------------------------|----------------------------------------------------------------------------------------------|------------------------------------------------------|-----------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------|
+| **Filled Primary Button Small**      | A solid color button with text and icon color matching the theme. Ideal for primary actions. | `Widget.EDTS.UIKit.Button.Filled.Primary.Small`      | ![Filled Primary Button Small](assets/Button/filled_primary_small.webp)           | ![Filled Primary Button Small Disabled](assets/Button/filled_primary_small_disabled.webp)           | ![Filled Primary Button Small Destructive](assets/Button/filled_primary_small_destructive.webp)           | 
+| **Filled Primary Button Medium**     | A medium-sized filled button, suitable for secondary actions.                                | `Widget.EDTS.UIKit.Button.Filled.Primary.Medium`     | ![Filled PrimaryButton Medium](assets/Button/filled_primary_medium.webp)          | ![Filled Primary Button Medium Disabled](assets/Button/filled_primary_medium_disabled.webp)         | ![Filled Primary Button Medium Destructive](assets/Button/filled_primary_medium_destructive.webp)         |
+| **Filled Primary Button Large**      | A large-sized filled button, suitable for prominent actions.                                 | `Widget.EDTS.UIKit.Button.Filled.Primary.Large`      | ![Filled Primary Button Large](assets/Button/filled_primary_large.webp)           | ![Filled Primary Button Large Disabled](assets/Button/filled_primary_large_disabled.webp)           | ![Filled Primary Button Large Destructive](assets/Button/filled_primary_large_destructive.webp)           |
+| **Outlined Secondary Button Small**  | A button with a white background and an outlined border. Ideal for secondary actions.        | `Widget.EDTS.UIKit.Button.Outlined.Secondary.Small`  | ![Outlined Secondary Button Small](assets/Button/outlined_secondary_small.webp)   | ![Outlined Secondary Button Small Disabled](assets/Button/outlined_secondary_small_disabled.webp)   | ![Outlined Secondary Button Small Destructive](assets/Button/outlined_secondary_small_destructive.webp)   |
+| **Outlined Secondary Button Medium** | A medium-sized outlined button with increased padding.                                       | `Widget.EDTS.UIKit.Button.Outlined.Secondary.Medium` | ![Outlined Secondary Button Medium](assets/Button/outlined_secondary_medium.webp) | ![Outlined Secondary Button Medium Disabled](assets/Button/outlined_secondary_medium_disabled.webp) | ![Outlined Secondary Button Medium Destructive](assets/Button/outlined_secondary_medium_destructive.webp) |
+| **Outlined Secondary Button Large**  | A large-sized outlined button with increased icon size.                                      | `Widget.EDTS.UIKit.Button.Outlined.Secondary.Large`  | ![Outlined Secondary Button Large](assets/Button/outlined_secondary_large.webp)   | ![Outlined Secondary Button Large Disabled](assets/Button/outlined_secondary_large_disabled.webp)   | ![Outlined Secondary Button Large Destructive](assets/Button/outlined_secondary_large_destructive.webp)   |
+| **Outlined Tertiary Button Small**   | A variant of the outlined button with a different stroke color. Ideal for tertiary actions.  | `Widget.EDTS.UIKit.Button.Outlined.Tertiary.Small`   | ![Outlined Button Tertiary Small](assets/Button/outlined_tertiary_small.webp)     | ![Outlined Tertiary Button Small Disabled](assets/Button/outlined_tertiary_small_disabled.webp)     | ![Outlined Tertiary Button Small Destructive](assets/Button/outlined_tertiary_small_destructive.webp)     |
+| **Outlined Tertiary Button Medium**  | A medium-sized tertiaty button with increased padding.                                       | `Widget.EDTS.UIKit.Button.Outlined.Tertiary.Small`   | ![Outlined Button Tertiary Medium](assets/Button/outlined_tertiary_medium.webp)   | ![Outlined Tertiary Button Medium Disabled](assets/Button/outlined_tertiary_medium_disabled.webp)   | ![Outlined Tertiary Button Medium Destructive](assets/Button/outlined_tertiary_medium_destructive.webp)   |
+| **Outlined Tertiary Button Large**   | A large-sized tertiaty button with increased padding.                                        | `Widget.EDTS.UIKit.Button.Outlined.Tertiary.Small`   | ![Outlined Button Tertiary Large](assets/Button/outlined_tertiary_large.webp)     | ![Outlined Tertiary Button Large Disabled](assets/Button/outlined_tertiary_large_disabled.webp)     | ![Outlined Tertiary Button Large Destructive](assets/Button/outlined_tertiary_large_destructive.webp)     |
+| **Text Button Small**                | A text-only button with no background, suitable for less prominent actions.                  | `Widget.EDTS.UIKit.Button.TextButton.Small`          | ![Text Button](assets/Button/text_button_small.webp)                              | ![Text Button Disabled](assets/Button/text_button_small_disabled.webp)                              | ![Filled Button Medium Destructive](assets/Button/text_button_small_destructive.webp)                     |
+| **Text Button Medium**               | A medium-sized text button with increased text size.                                         | `Widget.EDTS.UIKit.Button.TextButton.Medium`         | ![Medium Text Button](assets/Button/text_button_medium.webp)                      | ![Text Button Medium Disabled](assets/Button/text_button_medium_disabled.webp)                      | ![Filled Button Medium Destructive](assets/Button/text_button_medium_destructive.webp)                    |
+| **Text Button Large**                | A large-sized text button with increased padding.                                            | `Widget.EDTS.UIKit.Button.TextButton.Large`          | ![Large Text Button](assets/Button/text_button_large.webp)                        | ![Text Button Large Disabled](assets/Button/text_button_large_disabled.webp)                        | ![Filled Button Large Destructive](assets/Button/text_button_large_destructive.webp)                      |
 
 **Implementation**:
 ```xml
@@ -72,22 +75,26 @@ This repository provides an implementation of a custom `Button` class for Androi
 -   **`shimmerFrameLayout`**: An optional `ShimmerFrameLayout` instance that manages the shimmer effect when `shouldShowShimmer` is `true`.
 -   **`buttonType`**: An Enum Options that manages the Button Styles.
 -   **`pressedScale`**: A `Float` that determines hover effect down scale.
+-   **`isDestructive`**: A `Boolean` that toggles the destructive visual state of the button (e.g., red/danger styling). Triggers a drawable state refresh to apply the correct color selectors.
 
 ## Usage
 1.  **Include the `Button` class in your project.**
 2.  Set `shouldShowShimmer` to `true` to activate the shimmer effect.
 3. Use `pressedScale` from `0` to `1.0` to adjust hover effect.
+4. Set `isDestructive` to `true` to trigger destructive visual state.
 
 ```xml
 <id.co.edtslib.uikit.button.Button
     app:shouldShowShimmer="true"
     app:pressedScale="0.9"
+    app:isDestructive="true"
 />
 ```
 Or
 ```kotlin
 edtsButton.shouldShowShimmer = true
 edtsButton.pressedScale = 0.9f
+edtsButton.isDestructive = true
 ```
 
 ## Dependencies
