@@ -1,7 +1,7 @@
 package id.co.edtslib.uikit.coachmark
 
 interface CoachmarkDelegate {
-    fun onNextClickClickListener()
-    fun onSkipClickListener()
+    fun onNextClickClickListener(currentIndex: Int)
+    fun onSkipClickListener(currentIndex: Int)
     fun onDismissListener()
 }

@@ -53,22 +53,21 @@
             
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tvTiTle"
-                style="?h1SemiBold"
+                style="@style/TextAppearance.Inter.Semibold.H1"
                 android:layout_width="@dimen/dimen_0"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/s"
                 android:layout_marginHorizontal="@dimen/s"
-                android:text="Total Stamp yang Kamu Punya"
                 android:textColor="@color/black_70"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toEndOf="@id/iconContainer"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/ctaClose"
                 app:layout_constraintHorizontal_bias="0.0"
                 tools:text="Title would shown here"/>
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tvDescription"
-                style="?p2Regular"
+                style="@style/TextAppearance.Inter.Regular.P2"
                 android:layout_width="@dimen/dimen_0"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/xxs"
@@ -79,6 +78,19 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 tools:text="This is Description of the coachMark that will be shown along with Spotlight"/>
+
+            <com.google.android.material.checkbox.MaterialCheckBox
+                android:id="@+id/ctaClose"
+                android:layout_width="@dimen/s"
+                android:layout_height="@dimen/s"
+                android:minWidth="0dp"
+                android:minHeight="0dp"
+                android:visibility="gone"
+                android:layout_margin="@dimen/s"
+                android:button="@drawable/ic_cancel"
+                app:buttonTint="@color/black_50"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
 
             <com.google.android.material.divider.MaterialDivider
                 android:id="@+id/divider"
@@ -92,51 +104,59 @@
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tvCoachmarkCount"
-                style="?b4Bold"
+                style="@style/TextAppearance.Inter.Bold.B4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/xxs"
-                android:layout_marginHorizontal="@dimen/s"
-                android:layout_marginBottom="@dimen/xs"
+                android:layout_marginStart="@dimen/s"
                 android:text="1 dari 1"
-                android:textColor="@color/black_50"
+                android:textColor="@color/black_60"
+                app:layout_constraintBottom_toBottomOf="@id/btnNext"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/btnNext"
-                app:layout_constraintEnd_toStartOf="@id/btnSkip"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintBottom_toBottomOf="@id/btnNext"/>
+                app:layout_constraintTop_toTopOf="@id/btnNext" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnSkip"
                 style="@style/Widget.EDTS.UIKit.Button.TextButton.Small"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/s"
-                android:layout_marginEnd="@dimen/xs"
-                android:layout_marginBottom="@dimen/s"
-                android:paddingVertical="@dimen/dimen_6"
-                android:paddingHorizontal="@dimen/xxs"
                 android:text="Lewati"
-                app:layout_constraintVertical_bias="0.0"
-                app:layout_constraintTop_toBottomOf="@id/divider"
+                android:layout_marginEnd="@dimen/xxs"
+                app:layout_constraintBottom_toBottomOf="@id/btnNext"
                 app:layout_constraintEnd_toStartOf="@id/btnNext"
-                app:layout_constraintBottom_toBottomOf="parent"/>
+                app:layout_constraintTop_toTopOf="@id/btnNext" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnNext"
                 style="@style/Widget.EDTS.UIKit.Button.Filled.Primary.Small"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/s"
                 android:layout_marginTop="@dimen/s"
-                android:layout_marginEnd="@dimen/xs"
+                android:layout_marginEnd="@dimen/s"
                 android:layout_marginBottom="@dimen/s"
-                android:paddingVertical="@dimen/dimen_6"
-                android:paddingHorizontal="@dimen/xxs"
                 android:text="Berikutnya"
-                app:layout_constraintVertical_bias="0.0"
-                app:layout_constraintTop_toBottomOf="@id/divider"
+                app:layout_constrainedWidth="true"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent" />
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toEndOf="@id/tvCoachmarkCount"
+                app:layout_constraintTop_toBottomOf="@id/divider" />
+
+            <id.co.edtslib.uikit.button.Button
+                android:id="@+id/btnSingleAction"
+                android:layout_width="@dimen/dimen_0"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/s"
+                android:layout_marginHorizontal="@dimen/s"
+                android:layout_marginBottom="@dimen/s"
+                app:buttonType="filled"
+                android:text="Tutup"
+                android:visibility="gone"
+                app:layout_constraintVertical_bias="0.0"
+                app:layout_constraintTop_toBottomOf="@id/tvDescription"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
