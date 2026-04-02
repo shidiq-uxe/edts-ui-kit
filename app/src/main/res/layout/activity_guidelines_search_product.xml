@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".GuidelinesSearchProductActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingVertical="@dimen/xs"
+        android:background="@color/white"
+        android:elevation="@dimen/dimen_4dp"
+        app:layoutDescription="@xml/view_search_toolbar_scene"
+        android:theme="@style/Theme.EDTS.UIKit"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:id="@+id/ivBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/s"
+            android:minWidth="0dp"
+            android:minHeight="0dp"
+            android:button="@drawable/ic_arrow_left"
+            app:buttonTint="@color/black_50"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <id.co.edtslib.uikit.searchbar.SearchBar
+            android:id="@+id/sbSearchProduct"
+            android:layout_width="@dimen/dimen_0"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/xs"
+            android:layout_marginEnd="@dimen/s"
+            app:startIcon="@drawable/ic_search"
+            app:prefixText="Aqua"
+            app:layout_constraintStart_toEndOf="@id/ivBack"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ImageView
+        android:id="@+id/tabPlaceholder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/xpress_xtra_tab_placeholder"
+        android:adjustViewBounds="true"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"/>
+
+    <ImageView
+        android:id="@+id/ivAlertBoxPlaceholder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:src="@drawable/search_alerbox_placeholder"
+        app:layout_constraintTop_toBottomOf="@id/tabPlaceholder"/>
+
+    <ImageView
+        android:id="@+id/ivQuickFilterPlaceholder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:src="@drawable/search_quick_filter_placeholder"
+        app:layout_constraintTop_toBottomOf="@id/ivAlertBoxPlaceholder"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvProducts"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_0"
+        android:paddingVertical="@dimen/dimen_10"
+        android:paddingHorizontal="@dimen/dimen_6"
+        android:clipToPadding="false"
+        app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
+        app:spanCount="2"
+        app:layout_constraintTop_toBottomOf="@id/ivQuickFilterPlaceholder"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:itemCount="4"
+        tools:listitem="@layout/item_grid_product"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

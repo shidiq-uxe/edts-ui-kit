@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animated-selector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item app:state_indeterminate="true"
+        android:state_enabled="false"
+        android:drawable="@drawable/ic_dash_gray"/>
+
+    <item android:state_checked="true"
+        android:state_enabled="false"
+        android:drawable="@drawable/ic_check_gray"/>
+
+    <item
+        android:id="@+id/indeterminate"
+        app:state_indeterminate="true"
+        android:drawable="@drawable/ic_dash" />
+
+    <item
+        android:id="@+id/checked"
+        android:state_checked="true"
+        android:drawable="@drawable/ic_check" />
+
+    <item
+        android:id="@+id/unchecked"
+        android:drawable="@android:color/transparent"/>
+
+    <transition
+        android:fromId="@id/unchecked"
+        android:toId="@id/checked"
+        android:drawable="@drawable/anim_checkbox_unchecked_checked"
+        android:reversible="true"/>
+
+    <transition
+        android:fromId="@id/unchecked"
+        android:toId="@id/indeterminate"
+        android:drawable="@drawable/anim_checkbox_unchecked_indeterminate"
+        android:reversible="true"/>
+
+    <transition
+        android:fromId="@id/checked"
+        android:toId="@id/indeterminate"
+        android:drawable="@drawable/anim_checkbox_checked_indeterminate"/>
+
+    <transition
+        android:fromId="@id/indeterminate"
+        android:toId="@id/checked"
+        android:drawable="@drawable/anim_checkbox_indeterminate_checked" />
+
+</animated-selector>

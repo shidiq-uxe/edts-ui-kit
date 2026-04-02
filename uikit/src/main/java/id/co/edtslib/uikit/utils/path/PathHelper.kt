@@ -64,7 +64,6 @@ fun pathToConvexPath(path: Path, sampleStep: Float = 4f): Path {
     hull.addAll(lower)
     hull.addAll(upper)
 
-    // 3) build convex Path
     val convex = Path()
     hull.firstOrNull()?.let {
         convex.moveTo(it.x, it.y)

@@ -1,41 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="array_guidelines_title">
-        <item>Typography</item>
-        <item>Button</item>
-        <item>Text Fields</item>
-        <item>Colors</item>
-        <item>OTP</item>
-        <item>Searchbar</item>
-        <item>AlertBox</item>
-        <item>BoardingView</item>
-        <item>List</item>
-        <item>Snackbar</item>
-        <item>Bottom Tray</item>
-        <item>Poinku List</item>
-        <item>Progress Bar</item>
-        <item>Popup</item>
-        <item>Home Tab Layout</item>
-        <item>Home Switcher</item>
-        <item>Homepage Exploration</item>
-        <item>Coachmark</item>
-        <item>Cart</item>
-        <item>Listing Tebus Murah</item>
-        <item>Animated CardView</item>
-        <item>Checkbox</item>
-        <item>Radio Button</item>
-        <item>Switch</item>
-        <item>Chips</item>
-        <item>Slider</item>
-        <item>Shape</item>
-        <item>Dialogs</item>
-        <item>Date Picker</item>
-        <item>Textarea</item>––––
-        <item>Dropdown</item>
-        <item>Top Bar</item>
-        <item>Dots Indicator</item>
-    </string-array>
-
     <string-array name="array_guidelines_font">
         <!--Light-->
         <item>TextAppearance.Inter.Semibold.D1</item>

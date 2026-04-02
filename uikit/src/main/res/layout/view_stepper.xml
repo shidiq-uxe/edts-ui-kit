@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/stepper_container"
+        android:layout_width="@dimen/l"
+        android:layout_height="@dimen/l"
+        android:layout_gravity="center"
+        app:cardCornerRadius="@dimen/l"
+        app:cardElevation="0dp"
+        app:strokeWidth="@dimen/dimen_1"
+        app:strokeColor="@color/black_30"
+        app:cardBackgroundColor="@color/white">
+
+        <!-- Single Plus Button (Collapsed State) -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/single_plus_button"
+            style="@style/Widget.EDTS.UIKit.Button.Outlined"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:insetLeft="0dp"
+            android:insetRight="0dp"
+            app:icon="@drawable/ic_plus_stepper"
+            app:iconGravity="textStart"
+            app:iconPadding="0dp"
+            app:iconTint="@color/primary_30"
+            app:cornerRadius="30dp"
+            android:contentDescription="Add item" />
+
+        <!-- Expanded State Layout -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <!-- Minus Button -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/minus_button"
+                android:layout_width="@dimen/m2"
+                android:layout_height="@dimen/m2"
+                android:layout_marginStart="@dimen/xxxs"
+                android:visibility="gone"
+                android:alpha="0"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:insetLeft="0dp"
+                android:insetRight="0dp"
+                app:icon="@drawable/ic_minus_stepper"
+                app:iconGravity="textStart"
+                app:iconPadding="0dp"
+                app:iconTint="@color/primary_30"
+                app:backgroundTint="@android:color/transparent"
+                app:cornerRadius="@dimen/l"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:contentDescription="Remove item" />
+
+            <!-- Count TextView (Non-editable) -->
+            <TextView
+                android:id="@+id/count_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:textColor="@color/black_70"
+                android:textAppearance="@style/TextAppearance.Inter.SemiBold.B2"
+                android:gravity="center"
+                android:visibility="gone"
+                android:alpha="0"
+                app:layout_constraintStart_toEndOf="@id/minus_button"
+                app:layout_constraintEnd_toStartOf="@id/plus_button"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
+
+            <!-- Count EditText (Editable) -->
+            <EditText
+                android:id="@+id/count_edit_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:textAppearance="@style/TextAppearance.Inter.SemiBold.B2"
+                android:gravity="center"
+                android:background="@android:color/transparent"
+                android:inputType="number"
+                android:maxLength="5"
+                android:visibility="gone"
+                android:alpha="0"
+                app:layout_constraintStart_toEndOf="@id/minus_button"
+                app:layout_constraintEnd_toStartOf="@id/plus_button"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:importantForAutofill="no"
+                android:contentDescription="Item count" />
+
+            <!-- Plus Button -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/plus_button"
+                android:layout_width="@dimen/m2"
+                android:layout_height="@dimen/m2"
+                android:layout_marginEnd="@dimen/xxxs"
+                android:visibility="gone"
+                android:alpha="0"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:insetLeft="0dp"
+                android:insetRight="0dp"
+                app:icon="@drawable/ic_plus_stepper"
+                app:iconGravity="textStart"
+                app:iconPadding="0dp"
+                app:iconTint="@color/white"
+                app:backgroundTint="@color/primary_30"
+                app:cornerRadius="@dimen/l"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:contentDescription="Add item" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</merge>

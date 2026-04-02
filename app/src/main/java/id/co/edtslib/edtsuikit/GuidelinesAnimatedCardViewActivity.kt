@@ -7,7 +7,7 @@ import androidx.core.view.WindowInsetsCompat
 import id.co.edtslib.edtsuikit.databinding.ActivityGuidelinesAnimatedCardViewBinding
 import id.co.edtslib.uikit.viewgroup.AnimatedCardView
 
-class GuidelinesAnimatedCardViewActivity : AppCompatActivity() {
+class GuidelinesAnimatedCardViewActivity : GuidelinesBaseActivity() {
 
     private val binding by viewBinding<ActivityGuidelinesAnimatedCardViewBinding>()
 

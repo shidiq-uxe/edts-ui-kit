@@ -72,6 +72,14 @@
         <item name="cornerSizeTopLeft">@dimen/xxxs</item>
     </style>
 
+    <style name="ShapeAppearance.EDTS.UIKit.Rounded.Corner.Bottom.End.8" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeBottomRight">@dimen/xxs</item>
+        <item name="cornerSizeBottomLeft">@dimen/dimen_0</item>
+        <item name="cornerSizeTopRight">@dimen/dimen_0</item>
+        <item name="cornerSizeTopLeft">@dimen/dimen_0</item>
+    </style>
+
     <style name="ShapeAppearance.EDTS.UIKit.Flat.Corner.Bottom.12" parent="">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSizeBottomRight">@dimen/dimen_0</item>

@@ -115,7 +115,7 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnUseCoupon"
-                style="@style/Widget.EDTS.UIKit.Button.Filled"
+                style="@style/Widget.EDTS.UIKit.Button.Filled.Primary.Small"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/xxs"

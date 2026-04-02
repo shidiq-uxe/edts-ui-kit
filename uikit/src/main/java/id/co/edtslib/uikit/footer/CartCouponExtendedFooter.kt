@@ -42,13 +42,13 @@ class CartCouponExtendedFooter @JvmOverloads constructor(
             field = value
             binding.tvInfo.updateLayoutParams<MarginLayoutParams> {
                 updateMargins(
-                    bottom = if (value) 24.dp.toInt() else 12.dp.toInt()
+                    bottom = if (value) 22.dp.toInt() else 12.dp.toInt()
                 )
             }
 
             binding.icCouponMarker.updateLayoutParams<MarginLayoutParams> {
                 updateMargins(
-                    bottom = if (value) 24.dp.toInt() else 12.dp.toInt()
+                    bottom = if (value) 22.dp.toInt() else 12.dp.toInt()
                 )
             }
         }

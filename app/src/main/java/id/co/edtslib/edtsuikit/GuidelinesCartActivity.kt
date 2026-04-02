@@ -7,6 +7,8 @@ import android.util.Log
 import android.view.View
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.doOnLayout
+import androidx.core.view.isVisible
 import androidx.core.view.updateLayoutParams
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView
 import id.co.edtslib.edtsuikit.databinding.ActivityGuidelinesCartBinding
 import id.co.edtslib.edtsuikit.databinding.ItemCartDiscountRedemptionInfoBinding
 import id.co.edtslib.edtsuikit.databinding.ItemCartPlaceholderBinding
+import id.co.edtslib.edtsuikit.databinding.ItemCartProductContentSectionBinding
 import id.co.edtslib.uikit.adapter.multiTypeAdapter
 import id.co.edtslib.uikit.footer.CartFooter
 import id.co.edtslib.uikit.footer.CartFooterDelegate
@@ -23,13 +26,25 @@ import id.co.edtslib.uikit.utils.TextStyleKey
 import id.co.edtslib.uikit.utils.TextStyleProvider.get
 import id.co.edtslib.uikit.utils.attachLinearMarginItemDecoration
 import id.co.edtslib.uikit.utils.buildHighlightedMessage
+import id.co.edtslib.uikit.utils.color
 import id.co.edtslib.uikit.utils.dp
 import id.co.edtslib.uikit.utils.drawable
+import java.text.NumberFormat
+import java.util.Locale
+import kotlin.math.roundToInt
 import id.co.edtslib.uikit.R as UIKitR
 
 class GuidelinesCartActivity : GuidelinesBaseActivity() {
 
     private val binding by viewBinding<ActivityGuidelinesCartBinding>()
+
+    private var currentProductPrice = PRICE_BEFORE_DISCOUNT
+    private var currentQuantity = 0
+    private val itemsPerDozen = 24
+
+    private val previousQuantity by lazy {
+        intent.getIntExtra(GuidelinesSearchProductActivity.Companion.QUANTITY_KEY, 0)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -92,16 +107,20 @@ class GuidelinesCartActivity : GuidelinesBaseActivity() {
         }
 
         binding.footerView.isHtml = true
+        binding.footerView.buttonText = "Pilih Pembayaran"
+        // binding.footerView.buttonColor = color(id.co.edtslib.uikit.R.color.poin_coffee_button)
+        // binding.footerView.extendedFooter.isVisible = false
         binding.footerView.delegate = object : CartFooterDelegate {
             override fun onCouponSectionClick() {
                 binding.footerView.playPreLoadedAnimations()
 
                 binding.footerView.isHtml = true
                 binding.footerView.infoText = "Diskon <b>Rp15.000</b> Terpakai"
+
             }
 
             override fun onActionButtonClick() {
-                binding.footerView.isConfettiBackgroundVisible = false
+                stimulateDummyLoading()
             }
 
             override fun onSummaryClick() {
@@ -122,11 +141,11 @@ class GuidelinesCartActivity : GuidelinesBaseActivity() {
 
     private fun stimulateDummyLoading() {
         binding.footerView.totalText = "Rp120.000"
-        binding.footerView.discountBadgeText = "Total Hemat Rp81rb"
         binding.footerView.isLoading = true
 
         Handler(Looper.getMainLooper()).postDelayed({
             binding.footerView.isLoading = false
+            // binding.footerView.isButtonEnabled = false
 
         }, 3000L)
 
@@ -149,9 +168,6 @@ class GuidelinesCartActivity : GuidelinesBaseActivity() {
                 },
                 bind = { position, itemBinding, item ->
                     (itemBinding as ItemCartPlaceholderBinding).root.apply {
-                        updateLayoutParams {
-                            this.height = 300.dp.toInt()
-                        }
                         setImageDrawable(drawable(R.drawable.placeholder_order_type))
                     }
                 }
@@ -164,9 +180,6 @@ class GuidelinesCartActivity : GuidelinesBaseActivity() {
                 },
                 bind = { position, itemBinding, item ->
                     (itemBinding as ItemCartPlaceholderBinding).root.apply {
-                        updateLayoutParams {
-                            this.height = 70.dp.toInt()
-                        }
                         setImageDrawable(drawable(R.drawable.placeholder_service_switcher))
                     }
                 }
@@ -197,14 +210,46 @@ class GuidelinesCartActivity : GuidelinesBaseActivity() {
             registerViewType(
                 viewType = CartItem.CartContent.layoutType,
                 bindingInflater = { layoutInflater, viewGroup, attachToParent ->
-                    ItemCartPlaceholderBinding.inflate(layoutInflater, viewGroup, attachToParent)
+                    ItemCartProductContentSectionBinding.inflate(layoutInflater, viewGroup, attachToParent)
                 },
                 bind = { position, itemBinding, item ->
-                    (itemBinding as ItemCartPlaceholderBinding).root.apply {
-                        updateLayoutParams {
-                            this.height = 485.dp.toInt()
+                    (itemBinding as ItemCartProductContentSectionBinding).apply {
+                        this.productCartItem.ivProductImage.setImageDrawable(
+                            drawable(R.drawable.pdp_aqua_placeholder)
+                        )
+
+                        this.cbDeleteAction.isChecked = true
+                        this.productCartItem.cbSelection.isChecked = true
+
+                        this.productCartItem.sbQuantity.setOnCountChangeListener {
+                            currentQuantity = it
+
+                            val totalPrice = calculateTotalPrice(currentQuantity)
+                            val averagePrice = calculateAveragePrice(currentQuantity, totalPrice)
+                            val discountPercent = calculateDiscountPercent(PRICE_BEFORE_DISCOUNT, averagePrice)
+
+                            this.productCartItem.tvProductPrice.text = averagePrice.toCurrency()
+                            this.productCartItem.discountBadge.text = "${discountPercent.toInt()}%"
+
+                            this.tvSubtotalPrice.text = totalPrice.toCurrency()
+                            binding.footerView.totalText = totalPrice.toCurrency()
                         }
-                        setImageDrawable(drawable(R.drawable.placeholder_cart_content))
+
+                        root.doOnLayout {
+                            currentQuantity = previousQuantity
+                            this.productCartItem.sbQuantity.setCount(currentQuantity)
+
+                            val totalPrice = calculateTotalPrice(currentQuantity)
+                            val averagePrice = calculateAveragePrice(currentQuantity, totalPrice)
+                            val discountPercent = calculateDiscountPercent(PRICE_BEFORE_DISCOUNT, averagePrice)
+
+
+                            this.productCartItem.tvProductPrice.text = averagePrice.toCurrency()
+                            this.productCartItem.discountBadge.text = "${discountPercent.roundToInt()}%"
+
+                            this.tvSubtotalPrice.text = totalPrice.toCurrency()
+                            binding.footerView.totalText = totalPrice.toCurrency()
+                        }
                     }
                 }
             )
@@ -216,9 +261,6 @@ class GuidelinesCartActivity : GuidelinesBaseActivity() {
                 },
                 bind = { position, itemBinding, item ->
                     (itemBinding as ItemCartPlaceholderBinding).root.apply {
-                        updateLayoutParams {
-                            this.height = 380.dp.toInt()
-                        }
                         setImageDrawable(drawable(R.drawable.placeholder_discount_redemption_content))
                     }
                 }
@@ -231,9 +273,6 @@ class GuidelinesCartActivity : GuidelinesBaseActivity() {
                 },
                 bind = { position, itemBinding, item ->
                     (itemBinding as ItemCartPlaceholderBinding).root.apply {
-                        updateLayoutParams {
-                            this.height = 285.dp.toInt()
-                        }
                         setImageDrawable(drawable(R.drawable.placeholder_fair_promo))
                     }
                 }
@@ -247,15 +286,53 @@ class GuidelinesCartActivity : GuidelinesBaseActivity() {
                 },
                 bind = { position, itemBinding, item ->
                     (itemBinding as ItemCartPlaceholderBinding).root.apply {
-                        updateLayoutParams {
-                            this.height = 330.dp.toInt()
-                        }
                         setImageDrawable(drawable(R.drawable.placeholder_frequently_bought_together))
                     }
                 }
             )
         }
     )
+
+    private fun calculateTotalPrice(
+        totalItems: Int,
+        itemsPerDozen: Int = 24,
+        dozenItemPrice: Int = DOZEN_ITEM_PRICE,
+        singleItemPrice: Int = SINGLE_ITEM_PRICE
+    ): Int {
+        val dozenCount = totalItems / itemsPerDozen
+        val remainingPieces = totalItems % itemsPerDozen
+
+        return (dozenCount * itemsPerDozen * dozenItemPrice) +
+                (remainingPieces * singleItemPrice)
+    }
+
+    private fun calculateAveragePrice(
+        totalItems: Int,
+        totalPrice: Int,
+    ): Int {
+        return totalItems
+            .takeIf { it > 0 }
+            ?.let { totalPrice / it }
+            ?: 0
+    }
+
+    fun calculateDiscountPercent(
+        originalPrice: Int,
+        discountedPrice: Int
+    ): Double {
+        return ((originalPrice - discountedPrice).toDouble() / originalPrice) * 100
+    }
+
+    private fun Number.toCurrency(
+        locale: Locale = Locale("id", "ID"),
+        showDecimals: Boolean = false
+    ): String {
+        val formatter = NumberFormat.getCurrencyInstance(locale).apply {
+            minimumFractionDigits = if (showDecimals) 2 else 0
+            maximumFractionDigits = if (showDecimals) 2 else 0
+        }
+        return formatter.format(this)
+    }
 
     private val cartItems = listOf<CartItem>(
         CartItem.OrderType,
@@ -289,5 +366,10 @@ class GuidelinesCartActivity : GuidelinesBaseActivity() {
 
     companion object {
         private const val DISCOUNT_REDEMPTION_BOX_ADAPTER_POSITION = 2
+        private val DOZEN_ITEM_PRICE = 1800
+        private val SINGLE_ITEM_PRICE = 2000
+        private val PRICE_BEFORE_DISCOUNT = 4000
+        private val SINGLE_PRODUCT_COUNT = 1
+        private val DOZEN_PRODUCT_COUNT = 24
     }
 }

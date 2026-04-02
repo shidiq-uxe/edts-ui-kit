@@ -150,7 +150,7 @@
 
                 <id.co.edtslib.uikit.button.Button
                     android:id="@+id/btnSubmit"
-                    style="@style/Widget.EDTS.UIKit.Button.Filled.Medium"
+                    style="@style/Widget.EDTS.UIKit.Button.Filled.Primary.Medium"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/xs"

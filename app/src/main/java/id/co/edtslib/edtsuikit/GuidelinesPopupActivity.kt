@@ -36,6 +36,10 @@ class GuidelinesPopupActivity : GuidelinesBaseActivity() {
         binding.btnHorizontalButtonDialog.setOnClickListener {
             showStackedButton()
         }
+
+        binding.btnWithImageDialog.setOnClickListener {
+            showDialogWithImage()
+        }
     }
 
     private fun showOneButtonDialog() {
@@ -44,6 +48,7 @@ class GuidelinesPopupActivity : GuidelinesBaseActivity() {
             isCentered = true,
             title = "Dialog Title",
             message = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc condimentum orci sodales eros? ",
+            isCloseButtonVisible = true,
             positiveButton = "Action Button",
             onBindView = {
 
@@ -60,6 +65,7 @@ class GuidelinesPopupActivity : GuidelinesBaseActivity() {
             isCentered = true,
             title = "Dialog Title",
             message = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc condimentum orci sodales eros? ",
+            isCloseButtonVisible = true,
             positiveButton = "Positive Button",
             negativeButton = "Negative Button",
             onBindView = {
@@ -80,6 +86,30 @@ class GuidelinesPopupActivity : GuidelinesBaseActivity() {
             isCentered = false,
             title = "Dialog Title",
             message = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc condimentum orci sodales eros? ",
+            isActionHorizontal = false,
+            isCloseButtonVisible = true,
+            positiveButton = "Positive Button",
+            negativeButton = "Negative Button",
+            onBindView = {
+
+            },
+            onPositiveButtonClick = { _, dialog ->
+                dialog.dismiss()
+            },
+            onNegativeButtonClick = { _, dialog ->
+                dialog.dismiss()
+            }
+        )
+    }
+
+    private fun showDialogWithImage() {
+        PopUp.show(
+            context = this,
+            isCentered = true,
+            image = id.co.edtslib.uikit.R.drawable.ill_redemption_box,
+            title = "Dialog Title",
+            message = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc condimentum orci sodales eros? ",
+            supportMessage = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc condimentum orci sodales eros? ",
             isActionHorizontal = false,
             positiveButton = "Positive Button",
             negativeButton = "Negative Button",

@@ -66,7 +66,7 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnSkip"
-                style="@style/Widget.EDTS.UIKit.Button.TextButton"
+                style="@style/Widget.EDTS.UIKit.Button.TextButton.Small"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/xxs"
@@ -82,7 +82,7 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnNext"
-                style="@style/Widget.EDTS.UIKit.Button.Filled"
+                style="@style/Widget.EDTS.UIKit.Button.Filled.Primary.Small"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/xxs"

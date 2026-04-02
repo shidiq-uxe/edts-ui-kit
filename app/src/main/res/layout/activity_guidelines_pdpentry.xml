@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".GuidelinesPDPEntryActivity">
+
+    <id.co.edtslib.uikit.button.Button
+        android:id="@+id/btnProductSearchPage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/m1"
+        android:layout_marginHorizontal="@dimen/s"
+        app:buttonType="secondaryMedium"
+        android:text="Product Search Page"/>
+
+    <id.co.edtslib.uikit.button.Button
+        android:id="@+id/btnPDPNormalEntry"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/m1"
+        android:layout_marginHorizontal="@dimen/s"
+        app:buttonType="secondaryMedium"
+        android:text="PDP Normal Entry"/>
+
+    <id.co.edtslib.uikit.button.Button
+        android:id="@+id/btnPDPDisabledVariant"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/m1"
+        android:layout_marginHorizontal="@dimen/s"
+        app:buttonType="secondaryMedium"
+        android:text="PDP Kartonan Disabled"/>
+
+    <id.co.edtslib.uikit.button.Button
+        android:id="@+id/btnPDPToast"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/m1"
+        android:layout_marginHorizontal="@dimen/s"
+        app:buttonType="secondaryMedium"
+        android:text="PDP with Toast if QTY>48"/>
+
+</LinearLayout>

@@ -104,6 +104,7 @@
     <attr name="buttonColor" format="color"/>
     <attr name="buttonColorList" format="reference"/>
     <attr name="isButtonVisible" format="boolean"/>
+    <attr name="state_destructive" format="boolean"/>
 
     <attr name="isStartIconVisible" format="boolean"/>
     <attr name="isCloseIconVisible" format="boolean"/>
@@ -140,15 +141,20 @@
         <attr name="buttonType" format="enum">
             <enum name="filled" value="0" />
             <enum name="filledMedium" value="1" />
-            <enum name="secondary" value="2" />
-            <enum name="secondaryMedium" value="3" />
-            <enum name="variant" value="4" />
-            <enum name="variantMedium" value="5" />
-            <enum name="text" value="6" />
-            <enum name="textMedium" value="7" />
+            <enum name="filledLarge" value="2" />
+            <enum name="secondary" value="3" />
+            <enum name="secondaryMedium" value="4" />
+            <enum name="secondaryLarge" value="5" />
+            <enum name="tertiary" value="6" />
+            <enum name="tertiaryMedium" value="7" />
+            <enum name="tertiaryLarge" value="8" />
+            <enum name="text" value="9" />
+            <enum name="textMedium" value="10" />
+            <enum name="textLarge" value="11" />
         </attr>
         <attr name="shouldShowShimmer" format="boolean"/>
         <attr name="pressedScale" format="float"/>
+        <attr name="isDestructive" format="boolean"/>
     </declare-styleable>
 
     <declare-styleable name="Ribbon">
@@ -488,4 +494,24 @@
         <attr name="htmlPadding" format="dimension" />
     </declare-styleable>
 
+    <declare-styleable name="LiquidGlassCouponCard">
+        <attr name="titleText" />
+        <attr name="subTitleText" />
+        <attr name="badgeText" format="string" />
+        <attr name="badgeVisible" format="boolean" />
+        <attr name="startIcon" />
+        <attr name="endIcon" />
+        <attr name="endIconVisible" />
+    </declare-styleable>
+
+    <declare-styleable name="Selector">
+        <attr name="selectorType" format="enum">
+            <enum name="checkbox" value="0"/>
+            <enum name="radioButton" value="1"/>
+        </attr>
+        <attr name="titleText"/>
+        <attr name="subTitleText"/>
+        <attr name="titleVisible"/>
+        <attr name="subtitleVisible"/>
+    </declare-styleable>
 </resources>

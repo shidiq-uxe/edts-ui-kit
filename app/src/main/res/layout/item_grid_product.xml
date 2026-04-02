@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="@dimen/xxs"
+    app:cardElevation="@dimen/dimen_0"
+    app:strokeColor="@color/black_30"
+    android:clickable="true"
+    android:focusable="true"
+    android:layout_margin="@dimen/dimen_6"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:layout_width="175dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/xxs">
+
+        <ImageView
+            android:id="@+id/ivCouponImage"
+            android:layout_width="@dimen/dimen_0"
+            android:layout_height="@dimen/dimen_0"
+            android:contentDescription="Coupon Image"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:src="@drawable/ic_placeholder_medium_24"/>
+
+        <id.co.edtslib.uikit.stepper.StepperButton
+            android:id="@+id/sbQuantity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/xxs"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/badgePromotion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constrainedWidth="true"
+            app:strokeColor="@color/transparent"
+            app:contentPadding="-2dp"
+            app:shapeAppearance="@style/ShapeAppearance.EDTS.UIKit.Rounded.Corner.Bottom.End.8"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintTop_toBottomOf="@id/ivCouponImage"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="@dimen/xxxs"
+                android:paddingVertical="@dimen/dimen_2"
+                android:background="@drawable/gradient_badge_green"
+                android:text="Gratis Hadiah"
+                android:textAppearance="@style/TextAppearance.Inter.SemiBold.B4"
+                android:textColor="@color/white"
+                app:drawableStartCompat="@drawable/ic_gift_12"
+                android:drawablePadding="@dimen/dimen_2"/>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvProductName"
+            android:layout_width="@dimen/dimen_0"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/xxs"
+            android:maxLines="2"
+            android:ellipsize="end"
+            android:textAppearance="@style/TextAppearance.Inter.Regular.B2"
+            android:textColor="@color/black_70"
+            app:layout_constraintTop_toBottomOf="@id/badgePromotion"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:text="Aqua Air Mineral 600ml"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvProductPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/xxxs"
+            android:layout_marginHorizontal="@dimen/xxs"
+            android:text="Rp2.000"
+            android:textColor="@color/black_70"
+            android:textAppearance="@style/TextAppearance.Inter.Bold.B2"
+            android:textSize="@dimen/d4_text_size"
+            android:lineHeight="@dimen/m3"
+            app:layout_constraintTop_toBottomOf="@id/tvProductName"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"/>
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/discountBadge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/xxs"
+            android:paddingVertical="@dimen/dimen_2"
+            app:chipMinHeight="@dimen/dimen_0"
+            app:chipStartPadding="@dimen/dimen_0"
+            app:chipEndPadding="@dimen/dimen_0"
+            app:textStartPadding="@dimen/xxxs"
+            app:textEndPadding="@dimen/xxxs"
+            app:ensureMinTouchTargetSize="false"
+            app:chipMinTouchTargetSize="@dimen/dimen_0"
+            app:chipBackgroundColor="@color/red_10"
+            app:chipStrokeWidth="@dimen/dimen_0"
+            android:ellipsize="end"
+            app:chipCornerRadius="@dimen/xxxs"
+            android:textColor="@color/red_30"
+            android:textAppearance="?b4SemiBold"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintTop_toTopOf="@id/tvProductPriceCutOff"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/tvProductPriceCutOff"
+            app:layout_constraintHorizontal_bias="0.0"
+            android:text="50%"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvProductPriceCutOff"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/xxxs"
+            android:layout_marginHorizontal="@dimen/xxxs"
+            android:text="Rp4.000"
+            android:textColor="@color/black_40"
+            android:textAppearance="@style/TextAppearance.Inter.SemiBold.B3"
+            app:layout_constraintTop_toBottomOf="@id/tvProductPrice"
+            app:layout_constraintStart_toEndOf="@id/discountBadge"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"/>
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/extraPromotionBadge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/xxxs"
+            android:layout_marginStart="@dimen/xxs"
+            android:paddingVertical="@dimen/dimen_2"
+            app:chipMinHeight="@dimen/dimen_0"
+            app:chipStartPadding="@dimen/dimen_0"
+            app:chipEndPadding="@dimen/dimen_0"
+            app:textStartPadding="@dimen/xxxs"
+            app:textEndPadding="@dimen/xxxs"
+            app:ensureMinTouchTargetSize="false"
+            app:chipMinTouchTargetSize="@dimen/dimen_0"
+            app:chipBackgroundColor="@color/red_10"
+            app:chipStrokeWidth="@dimen/dimen_0"
+            android:ellipsize="end"
+            app:chipCornerRadius="@dimen/xxxs"
+            android:textColor="@color/red_30"
+            android:textAppearance="?b4SemiBold"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintTop_toBottomOf="@id/tvProductPriceCutOff"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            android:text="Banyak Lebih Hemat"/>
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/extraPromotionBadge2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/xxxs"
+            android:layout_marginStart="@dimen/xxs"
+            android:paddingVertical="@dimen/dimen_2"
+            app:chipMinHeight="@dimen/dimen_0"
+            app:chipStartPadding="@dimen/dimen_0"
+            app:chipEndPadding="@dimen/dimen_0"
+            app:textStartPadding="@dimen/xxxs"
+            app:textEndPadding="@dimen/xxxs"
+            app:ensureMinTouchTargetSize="false"
+            app:chipMinTouchTargetSize="@dimen/dimen_0"
+            app:chipBackgroundColor="@color/warning_background"
+            app:chipStrokeWidth="@dimen/dimen_0"
+            android:ellipsize="end"
+            app:chipCornerRadius="@dimen/xxxs"
+            android:textColor="@color/warning_primary"
+            android:textAppearance="?b4SemiBold"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintTop_toBottomOf="@id/extraPromotionBadge"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            android:text="Paket Bundling"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

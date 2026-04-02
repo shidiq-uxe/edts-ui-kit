@@ -16,7 +16,7 @@
         android:id="@+id/btnBoardingView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="@style/Widget.EDTS.UIKit.Button.Filled.Medium"
+        style="@style/Widget.EDTS.UIKit.Button.Filled.Primary.Medium"
         android:text="@string/test_button_text"
         app:layout_constraintBottom_toBottomOf="parent"/>
 

@@ -194,11 +194,11 @@ class BottomSheetTray : BottomSheetDialogFragment() {
         }}
         titleTextColor?.let { binding.tvTitle.setTextColor(context.color(it)) }
 
-        binding.btnNavigation.icon = navigationIcon?.let { context?.drawable(it) }
-        binding.btnNavigation.iconTint = navigationIconTint?.let { context?.colorStateList(it) }
+        binding.btnNavigation.buttonDrawable = navigationIcon?.let { context?.drawable(it) }
+        binding.btnNavigation.buttonTintList = navigationIconTint?.let { context?.colorStateList(it) }
 
-        binding.btnClose.icon = endIcon?.let { context?.drawable(it) }
-        binding.btnClose.iconTint = endIconTint?.let { context?.colorStateList(it) }
+        binding.btnClose.buttonDrawable = endIcon?.let { context?.drawable(it) }
+        binding.btnClose.buttonTintList = endIconTint?.let { context?.colorStateList(it) }
 
         binding.btnClose.text = endIconText?.let { context?.getString(it) }
     }

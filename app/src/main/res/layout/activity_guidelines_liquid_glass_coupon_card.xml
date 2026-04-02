@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".GuidelinesLiquidGlassCouponCardActivity"
+    android:background="@color/primary_40">
+
+    <eightbitlab.com.blurview.BlurTarget
+        android:id="@+id/blurTarget"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <id.co.edtslib.uikit.card.liquidglass.LiquidGlassCouponCard
+        android:id="@+id/liquidGlassCard1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        app:badgeText="10+"
+        android:layout_marginHorizontal="@dimen/dimen_16"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <id.co.edtslib.uikit.card.liquidglass.LiquidGlassCouponCard
+        android:id="@+id/liquidGlassCard2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_16"
+        app:badgeVisible="false"
+        android:layout_marginHorizontal="@dimen/dimen_16"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/liquidGlassCard1"/>
+
+    <id.co.edtslib.uikit.card.liquidglass.LiquidGlassCouponCard
+        android:id="@+id/liquidGlassCard3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_16"
+        app:badgeText="10+"
+        app:endIconVisible="false"
+        android:layout_marginHorizontal="@dimen/dimen_16"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/liquidGlassCard2"/>
+
+    <id.co.edtslib.uikit.card.liquidglass.LiquidGlassCouponCard
+        android:id="@+id/liquidGlassCard4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_16"
+        app:endIconVisible="false"
+        app:badgeVisible="false"
+        android:layout_marginHorizontal="@dimen/dimen_16"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/liquidGlassCard3"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

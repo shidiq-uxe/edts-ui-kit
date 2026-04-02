@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".GuidelinesCheckboxActivity">
+
+    <com.google.android.material.checkbox.MaterialCheckBox
+        android:id="@+id/checkbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_24"
+        android:layout_marginStart="@dimen/dimen_72"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/checkboxChecked"/>
+
+    <com.google.android.material.checkbox.MaterialCheckBox
+        android:id="@+id/checkboxChecked"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:checked="true"
+        app:layout_constraintStart_toEndOf="@id/checkbox"
+        app:layout_constraintTop_toTopOf="@id/checkbox"
+        app:layout_constraintEnd_toStartOf="@id/checkboxIndeterminate"/>
+
+    <com.google.android.material.checkbox.MaterialCheckBox
+        android:id="@+id/checkboxIndeterminate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:checkedState="indeterminate"
+        app:layout_constraintStart_toEndOf="@id/checkboxChecked"
+        app:layout_constraintTop_toTopOf="@id/checkboxChecked"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <com.google.android.material.checkbox.MaterialCheckBox
+        android:id="@+id/checkboxDisabled"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_36"
+        android:enabled="false"
+        app:layout_constraintStart_toStartOf="@id/checkbox"
+        app:layout_constraintTop_toBottomOf="@id/checkbox"
+        app:layout_constraintEnd_toStartOf="@id/checkboxDisabled"/>
+
+    <com.google.android.material.checkbox.MaterialCheckBox
+        android:id="@+id/checkboxCheckedDisabled"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:checked="true"
+        android:enabled="false"
+        app:layout_constraintStart_toEndOf="@id/checkboxDisabled"
+        app:layout_constraintTop_toTopOf="@id/checkboxDisabled"
+        app:layout_constraintEnd_toStartOf="@id/checkboxIndeterminateDisabled"/>
+
+    <com.google.android.material.checkbox.MaterialCheckBox
+        android:id="@+id/checkboxIndeterminateDisabled"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:checkedState="indeterminate"
+        android:enabled="false"
+        app:layout_constraintStart_toEndOf="@id/checkboxCheckedDisabled"
+        app:layout_constraintTop_toTopOf="@id/checkboxCheckedDisabled"
+        app:layout_constraintEnd_toEndOf="parent"/>
+    
+    <id.co.edtslib.uikit.selector.Selector
+        android:id="@+id/checkboxCustom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:selectorType="checkbox"
+        app:titleText="Title checkboxes"
+        app:subTitleText="Body text goes here"
+        android:layout_marginTop="@dimen/dimen_48"
+        android:layout_marginStart="@dimen/dimen_24"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/checkboxIndeterminateDisabled" />
+
+    <id.co.edtslib.uikit.selector.Selector
+        android:id="@+id/checkboxCustomChecked"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:checked="true"
+        app:selectorType="checkbox"
+        app:titleText="Title checkboxes"
+        app:subTitleText="Body text goes here"
+        android:layout_marginTop="@dimen/dimen_24"
+        app:layout_constraintStart_toStartOf="@id/checkboxCustom"
+        app:layout_constraintTop_toBottomOf="@id/checkboxCustom" />
+
+    <id.co.edtslib.uikit.selector.Selector
+        android:id="@+id/checkboxCustomIndeterminate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:checkedState="indeterminate"
+        app:selectorType="checkbox"
+        app:titleText="Title checkboxes"
+        app:subTitleText="Body text goes here"
+        android:layout_marginTop="@dimen/dimen_24"
+        app:layout_constraintStart_toStartOf="@id/checkboxCustomChecked"
+        app:layout_constraintTop_toBottomOf="@id/checkboxCustomChecked" />
+
+    <id.co.edtslib.uikit.selector.Selector
+        android:id="@+id/checkboxCustomDisabled"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:enabled="false"
+        app:selectorType="checkbox"
+        app:titleText="Title checkboxes"
+        app:subTitleText="Body text goes here"
+        android:layout_marginTop="@dimen/dimen_24"
+        app:layout_constraintStart_toStartOf="@id/checkboxCustomIndeterminate"
+        app:layout_constraintTop_toBottomOf="@id/checkboxCustomIndeterminate" />
+
+    <id.co.edtslib.uikit.selector.Selector
+        android:id="@+id/checkboxCustomCheckedDisabled"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:checked="true"
+        android:enabled="false"
+        app:titleText="Title checkboxes"
+        app:selectorType="checkbox"
+        android:layout_marginTop="@dimen/dimen_24"
+        app:layout_constraintStart_toStartOf="@id/checkboxCustomDisabled"
+        app:layout_constraintTop_toBottomOf="@id/checkboxCustomDisabled" />
+
+    <id.co.edtslib.uikit.selector.Selector
+        android:id="@+id/checkboxCustomIndeterminateDisabled"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_24"
+        app:titleText="Title checkboxes"
+        app:subTitleText="Body text goes here"
+        app:checkedState="indeterminate"
+        android:enabled="false"
+        app:selectorType="checkbox"
+        app:layout_constraintStart_toStartOf="@id/checkboxCustomCheckedDisabled"
+        app:layout_constraintTop_toBottomOf="@id/checkboxCustomCheckedDisabled" />
+
+    <id.co.edtslib.uikit.selector.Selector
+        android:id="@+id/checkboxCustomNoSubtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_24"
+        app:titleText="This checkbox has no subtitle"
+        app:selectorType="checkbox"
+        app:subtitleVisible="false"
+        app:layout_constraintStart_toStartOf="@id/checkboxCustomIndeterminateDisabled"
+        app:layout_constraintTop_toBottomOf="@id/checkboxCustomIndeterminateDisabled" />
+
+    <id.co.edtslib.uikit.selector.Selector
+        android:id="@+id/checkboxCustomNotitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_24"
+        app:subTitleText="This checkbox has no title"
+        app:selectorType="checkbox"
+        app:titleVisible="false"
+        app:layout_constraintStart_toStartOf="@id/checkboxCustomNoSubtitle"
+        app:layout_constraintTop_toBottomOf="@id/checkboxCustomNoSubtitle" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

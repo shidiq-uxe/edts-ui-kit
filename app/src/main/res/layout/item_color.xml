@@ -21,13 +21,14 @@
             app:shapeAppearanceOverlay="@style/ShapeAppearance.EDTS.UIKit.Flat.Corner.End"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintWidth_percent="0.33"
-            app:layout_constraintDimensionRatio="4:3"
+            app:layout_constraintDimensionRatio="16:9"
             tools:background="@color/primary_50"/>
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tvColorName"
             android:layout_width="@dimen/dimen_0"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/xs"
             android:layout_marginStart="@dimen/s"
             android:layout_marginEnd="@dimen/s"
             android:textColor="@color/black_70"
@@ -42,10 +43,13 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dimen_6"
             android:layout_marginStart="@dimen/s"
+            android:layout_marginBottom="@dimen/xs"
             android:textColor="@color/black_50"
             android:textAppearance="@style/TextAppearance.Inter.Regular.B2"
             app:layout_constraintTop_toBottomOf="@id/tvColorName"
             app:layout_constraintStart_toEndOf="@id/ivColor"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintVertical_bias="0.0"
             tools:text="Color Code"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

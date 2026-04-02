@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="@dimen/s"
+    android:background="@color/white"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/xs"
+        android:layout_marginHorizontal="@dimen/s"
+        android:text="Dikirim Dari"
+        android:textColor="@color/black_50"
+        android:textAppearance="@style/TextAppearance.Inter.SemiBold.B3"
+        android:drawablePadding="@dimen/xxxs"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvAddressSummary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/xxxs"
+        android:layout_marginHorizontal="@dimen/s"
+        android:text="(T985) FRESH BENHIL 3 (1.06km)"
+        android:textColor="@color/black_70"
+        android:textAppearance="@style/TextAppearance.Inter.SemiBold.B2"
+        app:layout_constraintTop_toBottomOf="@id/tvTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"/>
+
+    <com.google.android.material.chip.Chip
+        android:id="@+id/productAvailableBadge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/xxs"
+        android:layout_marginStart="@dimen/s"
+        android:paddingVertical="@dimen/xxxs"
+        app:chipMinHeight="@dimen/dimen_0"
+        app:chipStartPadding="@dimen/dimen_0"
+        app:chipEndPadding="@dimen/dimen_0"
+        app:textStartPadding="@dimen/xxs"
+        app:textEndPadding="@dimen/xxs"
+        app:ensureMinTouchTargetSize="false"
+        app:chipMinTouchTargetSize="@dimen/dimen_0"
+        app:chipBackgroundColor="@color/black_20"
+        app:chipStrokeWidth="@dimen/dimen_0"
+        android:ellipsize="end"
+        app:chipCornerRadius="@dimen/xxs"
+        android:textColor="@color/primary_30"
+        android:textAppearance="?b4SemiBold"
+        app:layout_constrainedWidth="true"
+        app:layout_constraintTop_toBottomOf="@id/tvAddressSummary"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        android:text="1/1 Produk Tersedia"/>
+
+    <com.google.android.material.divider.MaterialDivider
+        android:id="@+id/divider1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/xs"
+        android:layout_marginHorizontal="@dimen/s"
+        app:dividerColor="@color/black_30"
+        app:dividerThickness="@dimen/dimen_1"
+        app:layout_constraintTop_toBottomOf="@id/productAvailableBadge"/>
+
+    <com.google.android.material.checkbox.MaterialCheckBox
+        android:id="@+id/cbDeleteAction"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/s"
+        android:text="Pilih semua"
+        android:textColor="@color/black_60"
+        android:textAppearance="@style/TextAppearance.Inter.Medium.B2"
+        app:layout_constraintTop_toBottomOf="@id/divider1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"/>
+
+    <id.co.edtslib.uikit.button.Button
+        android:id="@+id/tvDeleteAll"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/s"
+        android:paddingHorizontal="0dp"
+        android:paddingVertical="1dp"
+        android:text="Hapus"
+        android:textAppearance="@style/TextAppearance.Inter.SemiBold.Button.Text.Medium"
+        android:textColor="@color/black_70"
+        app:buttonType="text"
+        app:layout_constraintTop_toTopOf="@id/cbDeleteAction"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/cbDeleteAction"
+        app:layout_constraintHorizontal_bias="0.0"/>
+
+    <com.google.android.material.divider.MaterialDivider
+        android:id="@+id/divider2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/xs"
+        android:layout_marginHorizontal="@dimen/s"
+        app:dividerColor="@color/black_30"
+        app:dividerThickness="@dimen/dimen_1"
+        app:layout_constraintTop_toBottomOf="@id/cbDeleteAction"/>
+
+    <include
+        android:id="@+id/productCartItem"
+        layout="@layout/item_cart_product"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/divider2"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvSubtotalTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/s"
+        android:text="Pilih semua"
+        android:textColor="@color/black_70"
+        android:textAppearance="@style/TextAppearance.Inter.SemiBold.B2"
+        app:layout_constraintTop_toBottomOf="@id/productCartItem"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvSubtotalPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/s"
+        android:text="Rp20.000"
+        android:textColor="@color/black_70"
+        android:textAppearance="@style/TextAppearance.Inter.SemiBold.B2"
+        app:layout_constraintTop_toBottomOf="@id/productCartItem"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

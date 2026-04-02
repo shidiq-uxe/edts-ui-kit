@@ -50,8 +50,6 @@ data class FontStyle(
     val style: Int = Typeface.NORMAL
 )
 
-// ===== Font Manager with Extension Functions =====
-
 class FontManager(private val context: Context) {
     fun loadFont(@FontRes fontRes: Int): Typeface? {
         return context.font(fontRes)
@@ -64,14 +62,12 @@ class FontManager(private val context: Context) {
     }
 }
 
-// Extension functions for common fonts
 fun FontManager.interBlack(): Typeface? = loadFont(R.font.inter_black)
 fun FontManager.interBold(): Typeface? = loadFont(R.font.inter_bold)
 fun FontManager.interSemiBold(): Typeface? = loadFont(R.font.inter_semibold)
 fun FontManager.interMedium(): Typeface? = loadFont(R.font.inter_medium)
 fun FontManager.interRegular(): Typeface? = loadFont(R.font.inter)
 
-// Extension functions for creating font styles
 fun FontManager.mediumStyle(color: Int? = null): FontStyle = FontStyle(
     fontFamily = interMedium(),
     textColor = color,
@@ -96,13 +92,12 @@ fun FontManager.strongStyle(color: Int? = null): FontStyle = FontStyle(
     style = Typeface.BOLD
 )
 
-// Extension functions for creating list styles
+
 fun ListStyle.withCustomBullet(bullet: String): ListStyle = copy(bulletChar = bullet)
 fun ListStyle.withColor(color: Int): ListStyle = copy(textColor = color)
 fun ListStyle.withIndent(dp: Int): ListStyle = copy(indentDp = dp)
 fun ListStyle.withGap(dp: Int): ListStyle = copy(gapDp = dp)
 
-// Predefined list styles
 object ListStyles {
     val default = ListStyle()
     val arrow = ListStyle(bulletChar = "→")
@@ -116,9 +111,6 @@ object ListStyles {
     fun red() = default.withColor("#D32F2F".toColorInt())
 }
 
-// ===== HTML Processing Extensions =====
-
-// Extension function for HTML preprocessing
 fun String.preprocessListTags(): String {
     val mappings = mapOf(
         "<ul>" to "<myul>",
@@ -136,22 +128,17 @@ fun String.preprocessListTags(): String {
     }
 }
 
-// Extension function for custom tag mappings
 fun String.withCustomTags(mappings: Map<String, String>): String {
     return mappings.entries.fold(this) { html, (original, replacement) ->
         html.replace(original, replacement, ignoreCase = true)
     }
 }
 
-// Extension function for HTML parsing
 fun String.toSpanned(
     tagHandler: Html.TagHandler? = null,
     flags: Int = HtmlCompat.FROM_HTML_MODE_LEGACY
 ): Spanned = this.parseAsHtml(flags, null, tagHandler)
 
-// ===== TextView Extensions =====
-
-// Extension functions for TextView configuration
 fun TextView.applyHtmlConfig(config: HtmlListConfig): TextView = apply {
     setLineSpacing(0f, config.lineSpacing)
     textSize = config.textSizeSp
@@ -165,7 +152,6 @@ fun TextView.renderHtml(
     text = renderer.render(html, this)
 }
 
-// Utility extension
 fun TextView.dpToPx(dp: Int): Int =
     TypedValue.applyDimension(
         TypedValue.COMPLEX_UNIT_DIP,
@@ -180,7 +166,6 @@ class HtmlRendererConfig(
     val fontStyles: Map<String, FontStyle> = emptyMap(),
     val customTagMappings: Map<String, String> = emptyMap()
 ) {
-    // Factory methods for common configurations
     companion object {
         fun minimal() = HtmlRendererConfig()
 
@@ -197,8 +182,6 @@ class HtmlRendererConfig(
         )
     }
 }
-
-// ===== Simplified Tag Handler =====
 
 class TagHandler(
     private val textView: TextView,
@@ -325,8 +308,6 @@ class TagHandler(
         return current
     }
 }
-
-// ===== Editable Extensions for Span Application =====
 
 fun Editable.applyIndentSpan(start: Int, end: Int, indent: Int) {
     setSpan(

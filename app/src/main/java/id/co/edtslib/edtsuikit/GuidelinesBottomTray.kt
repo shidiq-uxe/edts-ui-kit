@@ -60,7 +60,7 @@ class GuidelinesBottomTray(
             isCancelableOnTouchOutside = true
             dragHandleVisibility = true
 
-            shouldShowNavigation = false
+            shouldShowNavigation = true
             titleDividerVisibility = true
             shouldShowClose = true
 

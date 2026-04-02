@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@color/slr_checkbox_bg"/>
+    <stroke android:width="@dimen/dimen_1" android:color="@color/slr_checkbox_stroke"/>
+    <corners android:radius="@dimen/xxxs"/>
+    <size android:width="20dp" android:height="20dp" />
+</shape>
