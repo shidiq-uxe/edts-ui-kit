@@ -47,6 +47,7 @@ import kotlin.math.max
 import androidx.core.graphics.toColorInt
 import androidx.core.view.doOnPreDraw
 import androidx.core.view.updateMargins
+import id.co.edtslib.uikit.utils.color
 
 class CoachMarkOverlay @JvmOverloads constructor(
     rawContext: Context,
@@ -80,7 +81,7 @@ class CoachMarkOverlay @JvmOverloads constructor(
 
 
     private val overlayPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-        color = "#B3000000".toColorInt()
+        color = context.color(R.color.coachmark_overlay_color)
     }
 
     private val clearPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {

@@ -72,6 +72,9 @@
     <color name="liquidGlassRim">#99FFFFFF</color>
     <color name="liquidGlassBackground">#14FFFFFF</color>
 
+    <!--Coachmark-->
+    <color name="coachmark_overlay_color">#B3000000</color>
+
     <!--Poin Coffee-->
     <color name="poin_coffee_button">#00833E</color>
 
