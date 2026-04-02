@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/coachMarkSpacer"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="@dimen/xxs"
+    android:clipToPadding="false"
+    android:clipChildren="false"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintBottom_toBottomOf="parent"
+    android:theme="@style/Theme.EDTS.UIKit">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/s"
+        android:layout_marginHorizontal="@dimen/s"
+        app:shapeAppearance="@style/ShapeAppearance.EDTS.UIKit.MediumComponent"
+        app:cardBackgroundColor="@color/white"
+        app:cardElevation="@dimen/xxxs"
+        app:strokeWidth="@dimen/dimen_0">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/s">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvTiTle"
+            style="?h1SemiBold"
+            android:layout_width="@dimen/dimen_0"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/s"
+            android:layout_marginHorizontal="@dimen/s"
+            android:text="Total Stamp yang Kamu Punya"
+            android:textColor="@color/black_70"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/ctaClose"
+            app:layout_constraintHorizontal_bias="0.0"
+            tools:text="Title would shown here"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvDescription"
+            style="?p2Regular"
+            android:layout_width="@dimen/dimen_0"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/xxs"
+            android:layout_marginHorizontal="@dimen/s"
+            android:textColor="@color/black_70"
+            app:layout_constraintTop_toBottomOf="@id/tvTiTle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            tools:text="This is Description of the coachMark that will be shown along with Spotlight"/>
+
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:id="@+id/ctaClose"
+            android:layout_width="@dimen/s"
+            android:layout_height="@dimen/s"
+            android:minWidth="0dp"
+            android:minHeight="0dp"
+            android:layout_margin="@dimen/s"
+            android:button="@drawable/ic_cancel"
+            app:buttonTint="@color/black_50"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <id.co.edtslib.uikit.button.Button
+            android:id="@+id/btnAction"
+            android:layout_width="@dimen/dimen_0"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/s"
+            android:layout_marginHorizontal="@dimen/s"
+            app:buttonType="filled"
+            android:text="Button"
+            app:layout_constraintTop_toBottomOf="@id/tvDescription"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>
+
+</FrameLayout>

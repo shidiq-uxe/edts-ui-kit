@@ -57,11 +57,11 @@ class GuidelineCoachmarkActivity : AppCompatActivity() {
             )
 
             coachMarkOverlay.coachMarkDelegate = object : CoachmarkDelegate {
-                override fun onNextClickClickListener() {
+                override fun onNextClickClickListener(currentIndex: Int) {
 
                 }
 
-                override fun onSkipClickListener() {}
+                override fun onSkipClickListener(currentIndex: Int) {}
 
                 override fun onDismissListener() {
 
