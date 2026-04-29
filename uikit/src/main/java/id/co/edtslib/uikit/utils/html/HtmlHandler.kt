@@ -13,13 +13,11 @@ import android.text.style.BulletSpan
 import android.text.style.ForegroundColorSpan
 import android.text.style.LeadingMarginSpan
 import android.text.style.MetricAffectingSpan
-import android.util.Log
 import android.util.TypedValue
 import android.widget.TextView
 import androidx.annotation.FontRes
 import androidx.core.text.HtmlCompat
 import androidx.core.text.parseAsHtml
-import androidx.core.graphics.toColorInt
 import id.co.edtslib.uikit.R
 import id.co.edtslib.uikit.utils.font
 import id.co.edtslib.uikit.utils.span.OrderedSpan
@@ -106,9 +104,9 @@ object ListStyles {
     val parenthesized = ListStyle(numberFormat = "(%d)")
     val romanNumerals = ListStyle(numberFormat = "%s.") // Custom handling needed
 
-    fun green() = default.withColor("#2E7D32".toColorInt())
-    fun blue() = default.withColor("#1565C0".toColorInt())
-    fun red() = default.withColor("#D32F2F".toColorInt())
+    fun green() = default.withColor(R.color.html_list_style_green)
+    fun blue() = default.withColor(R.color.html_list_style_blue)
+    fun red() = default.withColor(R.color.html_list_style_red)
 }
 
 fun String.preprocessListTags(): String {
@@ -170,14 +168,14 @@ class HtmlRendererConfig(
         fun minimal() = HtmlRendererConfig()
 
         fun styled() = HtmlRendererConfig(
-            unorderedStyle = ListStyles.arrow.withColor("#2E7D32".toColorInt()),
-            orderedStyle = ListStyles.parenthesized.withColor("#1565C0".toColorInt())
+            unorderedStyle = ListStyles.arrow.withColor(R.color.html_list_style_green),
+            orderedStyle = ListStyles.parenthesized.withColor(R.color.html_list_style_blue)
         )
 
         fun withCustomFonts(fontManager: FontManager) = HtmlRendererConfig(
             fontStyles = mapOf(
-                "b" to fontManager.boldStyle("#D32F2F".toColorInt()),
-                "strong" to fontManager.strongStyle("#7B1FA2".toColorInt())
+                "b" to fontManager.boldStyle(R.color.html_list_style_red),
+                "strong" to fontManager.strongStyle(R.color.html_list_style_purple)
             )
         )
     }
@@ -285,7 +283,7 @@ class TagHandler(
         val gap = textView.dpToPx(style.gapDp)
 
         output.applyIndentSpan(start, end, baseIndent)
-        output.applyBulletSpan(start, end, gap)
+        output.applyOrderedSpan(style.bulletChar, textView.textSize, start, end, gap)
         output.applyListColors(start, end, style)
     }
 
