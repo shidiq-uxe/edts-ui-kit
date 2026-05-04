@@ -206,27 +206,6 @@ fontManager.strongStyle(color)    // Inter Black + bold flag
 
 ---
 
-## Installation
-
-Add the Material Components dependency to `build.gradle`:
-
-```gradle
-implementation 'com.google.android.material:material:1.9.0'
-```
-
-Ensure Inter font files are present in `res/font/`:
-
-```
-res/font/
-├── inter.xml
-├── inter_medium.xml
-├── inter_semibold.xml
-├── inter_bold.xml
-└── inter_black.xml
-```
-
----
-
 ## Usage
 
 ### Basic Usage
@@ -350,5 +329,3 @@ class TypefaceSpan(private val typeface: Typeface) : MetricAffectingSpan() {
 ```gradle
 implementation 'com.google.android.material:material:1.9.0'
 ```
-
-Requires Inter font resources under `res/font/` (see [Installation](#installation)).
