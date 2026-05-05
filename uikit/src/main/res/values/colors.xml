@@ -78,4 +78,10 @@
     <!--Poin Coffee-->
     <color name="poin_coffee_button">#00833E</color>
 
+    <!--HTML Handler-->
+    <color name="html_list_style_green">#2E7D32</color>
+    <color name="html_list_style_blue">#1565C0</color>
+    <color name="html_list_style_red">#D32F2F</color>
+    <color name="html_list_style_purple">#7B1FA2</color>
+
 </resources>
