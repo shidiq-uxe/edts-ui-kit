@@ -321,11 +321,3 @@ class TypefaceSpan(private val typeface: Typeface) : MetricAffectingSpan() {
     override fun updateMeasureState(paint: TextPaint) { paint.typeface = typeface }
 }
 ```
-
----
-
-## Dependencies
-
-```gradle
-implementation 'com.google.android.material:material:1.9.0'
-```
