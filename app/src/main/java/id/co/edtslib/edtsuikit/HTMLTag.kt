@@ -1,6 +1,7 @@
 package id.co.edtslib.edtsuikit
 
 import android.graphics.Color
+import android.graphics.Typeface
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -22,6 +23,9 @@ import id.co.edtslib.uikit.utils.html.withColor
 import id.co.edtslib.uikit.utils.html.withGap
 import id.co.edtslib.uikit.utils.html.withIndent
 import androidx.core.graphics.toColorInt
+import id.co.edtslib.uikit.utils.html.FontStyle
+import id.co.edtslib.uikit.utils.html.interRegular
+import id.co.edtslib.uikit.utils.html.interSemiBold
 
 class HTMLTag : GuidelinesBaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,6 +51,7 @@ class HtmlListDemoActivity : AppCompatActivity() {
 
         val rawHtml = """
             <p>This is a paragraph with an emoji 😊. It can be a short intro.</p>
+            <a href="https://google.com">Link Text</a><br>
 
             <p>Unordered list with bullet point:</p>
             <ul>
@@ -96,17 +101,25 @@ class HtmlListDemoActivity : AppCompatActivity() {
             orderedStyle = orderedStyle,
             fontStyles = mapOf(
                 "b"      to fontManager.boldStyle(Color.BLUE),
+                "myb"    to fontManager.boldStyle(Color.BLACK),
                 "strong" to fontManager.strongStyle(Color.YELLOW),
                 "mystrong" to fontManager.strongStyle(Color.BLACK),
-                "em"     to fontManager.semiBoldStyle(Color.GREEN),
-                "myem"     to fontManager.semiBoldStyle(Color.RED),
-                "myb"    to fontManager.mediumStyle(Color.MAGENTA)
+                "em" to FontStyle(
+                    textColor = Color.GREEN,
+                    style = Typeface.ITALIC
+                ),
+                "myem" to FontStyle(
+                    textColor = Color.RED,
+                    style = Typeface.ITALIC
+                )
             ),
             customTagMappings = mapOf(
                 "<em>"  to "<myem>",
                 "</em>" to "</myem>",
                 "<strong>"  to "<mystrong>",
-                "</strong>" to "</mystrong>"
+                "</strong>" to "</mystrong>",
+                "<b>"  to "<myb>",
+                "</b>" to "</myb>"
             )
         )
 

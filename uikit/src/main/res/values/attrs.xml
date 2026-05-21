@@ -492,6 +492,7 @@
         <!-- HTML Rendering Config -->
         <attr name="htmlLineSpacing" format="float" />
         <attr name="htmlPadding" format="dimension" />
+        <attr name="htmlTextViewStyle" format="reference" />
     </declare-styleable>
 
     <declare-styleable name="LiquidGlassCouponCard">
