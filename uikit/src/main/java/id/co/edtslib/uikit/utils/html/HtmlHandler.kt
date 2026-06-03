@@ -5,22 +5,32 @@ import android.content.Context
 import android.graphics.Typeface
 import android.text.Editable
 import android.text.Html
+import android.text.Spannable
 import android.text.Spanned
 import android.text.TextPaint
+import android.text.method.LinkMovementMethod
 import android.text.style.AbsoluteSizeSpan
 import android.text.style.BackgroundColorSpan
 import android.text.style.BulletSpan
+import android.text.style.CharacterStyle
 import android.text.style.ForegroundColorSpan
 import android.text.style.LeadingMarginSpan
 import android.text.style.MetricAffectingSpan
+import android.text.style.StyleSpan
+import android.text.style.TextAppearanceSpan
+import android.text.style.URLSpan
+import android.text.style.UpdateAppearance
 import android.util.Log
 import android.util.TypedValue
 import android.widget.TextView
 import androidx.annotation.FontRes
+import androidx.annotation.StyleRes
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.text.HtmlCompat
 import androidx.core.text.parseAsHtml
-import androidx.core.graphics.toColorInt
 import id.co.edtslib.uikit.R
+import id.co.edtslib.uikit.textview.HtmlStyleConfig
+import id.co.edtslib.uikit.utils.colorAttr
 import id.co.edtslib.uikit.utils.font
 import id.co.edtslib.uikit.utils.span.OrderedSpan
 import org.xml.sax.XMLReader
@@ -106,9 +116,9 @@ object ListStyles {
     val parenthesized = ListStyle(numberFormat = "(%d)")
     val romanNumerals = ListStyle(numberFormat = "%s.") // Custom handling needed
 
-    fun green() = default.withColor("#2E7D32".toColorInt())
-    fun blue() = default.withColor("#1565C0".toColorInt())
-    fun red() = default.withColor("#D32F2F".toColorInt())
+    fun green() = default.withColor(R.color.html_list_style_green)
+    fun blue() = default.withColor(R.color.html_list_style_blue)
+    fun red() = default.withColor(R.color.html_list_style_red)
 }
 
 fun String.preprocessListTags(): String {
@@ -118,9 +128,7 @@ fun String.preprocessListTags(): String {
         "<ol>" to "<myol>",
         "</ol>" to "</myol>",
         "<li>" to "<myli>",
-        "</li>" to "</myli>",
-        "<b>" to "<myb>",
-        "</b>" to "</myb>"
+        "</li>" to "</myli>"
     )
 
     return mappings.entries.fold(this) { html, (original, replacement) ->
@@ -150,6 +158,8 @@ fun TextView.renderHtml(
     renderer: HtmlRenderer
 ): TextView = apply {
     text = renderer.render(html, this)
+    movementMethod = LinkMovementMethod.getInstance()
+    linksClickable = true
 }
 
 fun TextView.dpToPx(dp: Int): Int =
@@ -164,20 +174,22 @@ class HtmlRendererConfig(
     val unorderedStyle: ListStyle = ListStyles.default,
     val orderedStyle: ListStyle = ListStyles.default,
     val fontStyles: Map<String, FontStyle> = emptyMap(),
-    val customTagMappings: Map<String, String> = emptyMap()
+    val customTagMappings: Map<String, String> = emptyMap(),
+    val styleConfig: HtmlStyleConfig = HtmlStyleConfig(),
+    val context: Context? = null
 ) {
     companion object {
         fun minimal() = HtmlRendererConfig()
 
         fun styled() = HtmlRendererConfig(
-            unorderedStyle = ListStyles.arrow.withColor("#2E7D32".toColorInt()),
-            orderedStyle = ListStyles.parenthesized.withColor("#1565C0".toColorInt())
+            unorderedStyle = ListStyles.arrow.withColor(R.color.html_list_style_green),
+            orderedStyle = ListStyles.parenthesized.withColor(R.color.html_list_style_blue)
         )
 
         fun withCustomFonts(fontManager: FontManager) = HtmlRendererConfig(
             fontStyles = mapOf(
-                "b" to fontManager.boldStyle("#D32F2F".toColorInt()),
-                "strong" to fontManager.strongStyle("#7B1FA2".toColorInt())
+                "b" to fontManager.boldStyle(R.color.html_list_style_red),
+                "strong" to fontManager.strongStyle(R.color.html_list_style_purple)
             )
         )
     }
@@ -222,41 +234,94 @@ class TagHandler(
     }
 
     private fun handleFontTag(opening: Boolean, tag: String, output: Editable) {
-        val fontStyle = config.fontStyles[tag.lowercase()]
-        if (fontStyle != null) {
-            if (opening) {
-                fontTagStack.push(tag.lowercase() to output.length)
-            } else {
-                applyFontSpan(output, fontStyle)
+        val normalizedTag = tag.lowercase()
+        val originalTag = normalizedTag.removePrefix("my")
+        val appearanceRes = config.styleConfig.getAppearanceForTag(originalTag)
+
+        if (appearanceRes != 0 && config.context != null) {
+            val isBlockTag = originalTag in listOf("h1","h2","h3","h4","h5","h6","p")
+            if (isBlockTag) {
+                if (opening) fontTagStack.push(normalizedTag to output.length)
+                else applyAppearanceSpan(output, normalizedTag, appearanceRes)
+                return
             }
+        }
+
+        if (opening) {
+            fontTagStack.push(normalizedTag to output.length)
+        } else {
+            val fontStyle = config.fontStyles[normalizedTag]
+            if (fontStyle != null) applyFontSpan(output, fontStyle, normalizedTag)
+            else popStackFor(normalizedTag)
         }
     }
 
-    private fun applyFontSpan(output: Editable, fontStyle: FontStyle) {
-        if (fontTagStack.isEmpty()) return
+    private fun applyAppearanceSpan(output: Editable, tag: String, @StyleRes appearanceRes: Int) {
+        val ctx = config.context ?: return
+        val start = popStackFor(tag) ?: return
+        val end = output.length
 
-        val (_, start) = fontTagStack.pop()
+        Log.d("TagHandler", "tag=$tag appearanceRes=$appearanceRes start=$start end=$end")
+
+        output.setSpan(
+            TextAppearanceSpan(ctx, appearanceRes),
+            start, end,
+            Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+
+        config.fontStyles[tag]?.fontFamily?.let { tf ->
+            Log.d("TagHandler", "applying typeface=$tf for tag=$tag")
+            output.setSpan(
+                object : MetricAffectingSpan() {
+                    override fun updateDrawState(textPaint: TextPaint) {
+                        apply(textPaint)
+                    }
+
+                    override fun updateMeasureState(textPaint: TextPaint) {
+                        apply(textPaint)
+                    }
+
+                    private fun apply(textPaint: TextPaint) {
+                        val oldStyle = textPaint.typeface?.style ?: Typeface.NORMAL
+
+                        textPaint.typeface = Typeface.create(tf, oldStyle)
+
+                        if ((oldStyle and Typeface.BOLD) != 0) {
+                            textPaint.isFakeBoldText = true
+                        }
+                    }
+                },
+                start,
+                end,
+                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+            )
+        }
+    }
+
+    private fun popStackFor(tag: String): Int? {
+        val index = fontTagStack.indexOfLast { it.first == tag }
+        if (index == -1) return null
+        return fontTagStack.removeAt(index).second
+    }
+
+    private fun applyFontSpan(output: Editable, fontStyle: FontStyle, tag: String) {
+        val start = popStackFor(tag) ?: return
         val end = output.length
 
         fontStyle.fontFamily?.let { typeface ->
-            output.setSpan(
-                TypefaceSpan(typeface),
-                start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-            )
+            output.setSpan(TypefaceSpan(typeface), start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        }
+
+        if (fontStyle.fontFamily == null && fontStyle.style != Typeface.NORMAL) {
+            output.setSpan(StyleSpan(fontStyle.style), start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
         }
 
         fontStyle.textColor?.let { color ->
-            output.setSpan(
-                ForegroundColorSpan(color),
-                start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-            )
+            output.setSpan(ForegroundColorSpan(color), start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
         }
 
         fontStyle.textSize?.let { size ->
-            output.setSpan(
-                AbsoluteSizeSpan(size.toInt(), true),
-                start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-            )
+            output.setSpan(AbsoluteSizeSpan(size.toInt(), false), start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
         }
     }
 
@@ -285,7 +350,7 @@ class TagHandler(
         val gap = textView.dpToPx(style.gapDp)
 
         output.applyIndentSpan(start, end, baseIndent)
-        output.applyBulletSpan(start, end, gap)
+        output.applyOrderedSpan(style.bulletChar, textView.textSize, start, end, gap)
         output.applyListColors(start, end, style)
     }
 
@@ -372,14 +437,46 @@ class HtmlRenderer(
             .withCustomTags(config.customTagMappings)
 
         val tagHandler = TagHandler(textView, config, fontManager)
-        return processedHtml.toSpanned(tagHandler)
+        val spanned = processedHtml.toSpanned(tagHandler)
+        val linkTextAppearance = config.styleConfig.getAppearanceForTag("a")
+
+        return applyLinkStyle(spanned, textView.context, linkTextAppearance)
+    }
+
+    private fun applyLinkStyle(spanned: Spanned, context: Context, @StyleRes appearanceRes: Int): Spanned {
+
+        if (spanned !is Spannable) return spanned
+
+        val color = context.colorAttr(com.google.android.material.R.attr.colorPrimary)
+        val linkTypeface = ResourcesCompat.getFont(context, R.font.inter_semibold)
+        val spans = spanned.getSpans(0, spanned.length, URLSpan::class.java)
+
+        spans.forEach { span ->
+            val start = spanned.getSpanStart(span)
+            val end = spanned.getSpanEnd(span)
+
+            spanned.setSpan(
+                object : CharacterStyle(), UpdateAppearance {
+                    override fun updateDrawState(textPaint: TextPaint) {
+                        textPaint.color = color
+                        textPaint.isUnderlineText = true
+                        linkTypeface?.let { textPaint.typeface = it }
+                    }
+                },
+                start,
+                end,
+                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+            )
+        }
+
+        return spanned
     }
 }
 
 fun TextView.setHtmlText(value: CharSequence?, context: Context) {
     val fontManager = FontManager(context)
     val config = HtmlRendererConfig(
-        fontStyles = mapOf("myb" to fontManager.semiBoldStyle())
+        fontStyles = mapOf("myb" to fontManager.boldStyle())
     )
     val htmlRenderer = HtmlRenderer(config, fontManager)
 

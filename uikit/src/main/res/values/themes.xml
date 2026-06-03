@@ -122,6 +122,9 @@
         <item name="snackbarStyle">@style/Widget.EDTS.UIKit.Snackbar</item>
         <item name="snackbarButtonStyle">@style/Widget.EDTS.UIKit.SnackbarButton</item>
         <item name="snackbarTextViewStyle">@style/Widget.EDTS.UIKit.Snackbar.TextView</item>
+
+        <!--HTML Text View Style-->
+        <item name="htmlTextViewStyle">@style/Theme.EDTS.UIKit.HtmlTextView</item>
     </style>
 
     <style name="Theme.EDTS.UIKit.ActionBar.NoElevation" parent="Theme.EDTS.UIKit.ActionBar">
@@ -131,6 +134,15 @@
     <style name="Theme.EDTS.UIKit" parent="Theme.EDTS.UIKit.ActionBar">
         <item name="windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
+    </style>
+
+    <style name="Theme.EDTS.UIKit.HtmlTextView">
+        <item name="h1TextAppearance">@style/TextAppearance.Inter.Semibold.H1</item>
+        <item name="h2TextAppearance">@style/TextAppearance.Inter.Semibold.H2</item>
+        <item name="h3TextAppearance">@style/TextAppearance.Inter.Semibold.H3</item>
+        <item name="h4TextAppearance">@style/TextAppearance.Inter.Regular.P1</item>
+        <item name="h5TextAppearance">@style/TextAppearance.Inter.Regular.P1</item>
+        <item name="h6TextAppearance">@style/TextAppearance.Inter.Regular.P1</item>
     </style>
 
 </resources>

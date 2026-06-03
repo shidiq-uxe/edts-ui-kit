@@ -100,11 +100,12 @@ class CountdownTextView @JvmOverloads constructor(
                 val remainingMillis = intervalInMillis - elapsedMillis
                 val remainingSeconds = remainingMillis.inSeconds
 
-                if (remainingSeconds > 0) {
+                if (remainingMillis > 0) {
                     updateTextDisplay(remainingSeconds)
                     delay(1.seconds)
                 } else {
                     // When countdown finishes
+                    updateTextDisplay(0)
                     expired()
                     break
                 }

@@ -18,6 +18,7 @@ import androidx.annotation.ColorRes
 import androidx.annotation.DimenRes
 import androidx.annotation.DrawableRes
 import androidx.annotation.FontRes
+import androidx.annotation.StyleRes
 import androidx.core.content.ContextCompat
 import androidx.core.text.HtmlCompat
 import androidx.fragment.app.Fragment
@@ -52,6 +53,20 @@ val Context.inflater: LayoutInflater
 
 fun Context?.font(@FontRes fontRes: Int): Typeface =
     this.loadFont(fontRes)
+
+/**
+ * Resolves and returns a [Typeface] from a given [TextAppearance] style resource.
+ * Reads the [android.R.attr.fontFamily] attribute from the style and loads the corresponding font.
+ * @param appearanceRes the [StyleRes] resource ID of the TextAppearance style
+ * @return [Typeface] if the font resource is found, null otherwise
+ */
+fun Context.typefaceFromAppearance(@StyleRes appearanceRes: Int): Typeface? {
+    val ta = obtainStyledAttributes(appearanceRes, intArrayOf(android.R.attr.fontFamily))
+    val fontResId = ta.getResourceId(0, 0)
+    val typeface = if (fontResId != 0) font(fontResId) else null
+    ta.recycle()
+    return typeface
+}
 
 
 /**

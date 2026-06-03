@@ -1,31 +1,26 @@
 package id.co.edtslib.uikit.textview
 
 import android.content.Context
-import android.text.Editable
-import android.text.Html
-import android.text.Spanned
-import android.text.style.TextAppearanceSpan
+import android.graphics.Typeface
+import android.text.method.LinkMovementMethod
 import android.util.AttributeSet
-import android.util.TypedValue
+import androidx.annotation.StyleRes
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.content.res.use
 import id.co.edtslib.uikit.R
-import id.co.edtslib.uikit.utils.dp
 import id.co.edtslib.uikit.utils.html.FontManager
 import id.co.edtslib.uikit.utils.html.FontStyle
 import id.co.edtslib.uikit.utils.html.HtmlListConfig
 import id.co.edtslib.uikit.utils.html.HtmlRenderer
 import id.co.edtslib.uikit.utils.html.HtmlRendererConfig
 import id.co.edtslib.uikit.utils.html.ListStyle
-import id.co.edtslib.uikit.utils.html.toSpanned
-import id.co.edtslib.uikit.utils.px
-import org.xml.sax.XMLReader
-import java.util.*
+import id.co.edtslib.uikit.utils.html.boldStyle
+import id.co.edtslib.uikit.utils.html.strongStyle
 
 class HtmlTextView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
-    defStyleAttr: Int = android.R.attr.textViewStyle
+    defStyleAttr: Int = R.attr.htmlTextViewStyle
 ) : AppCompatTextView(context, attrs, defStyleAttr) {
 
     private val styleConfig = HtmlStyleConfig()
@@ -39,6 +34,7 @@ class HtmlTextView @JvmOverloads constructor(
         fontManager = FontManager(context)
         parseAttributes(attrs, defStyleAttr)
         setupRenderer()
+        movementMethod = LinkMovementMethod.getInstance()
     }
 
     private fun parseAttributes(attrs: AttributeSet?, defStyleAttr: Int) {
@@ -68,20 +64,20 @@ class HtmlTextView @JvmOverloads constructor(
                 a.getColor(R.styleable.HtmlTextView_bulletColor, currentTextColor)
             } else null
 
-            val bulletGapPx = a.getDimensionPixelSize(R.styleable.HtmlTextView_bulletGap, 8.px.toInt())
+            val bulletGapDp = a.getDimensionPixelSize(R.styleable.HtmlTextView_bulletGap, 8)
             val orderedFormat = a.getString(R.styleable.HtmlTextView_orderedFormat) ?: "%d."
             val orderedColor = if (a.hasValue(R.styleable.HtmlTextView_orderedColor)) {
                 a.getColor(R.styleable.HtmlTextView_orderedColor, currentTextColor)
             } else null
 
-            val listIndentPx = a.getDimensionPixelSize(R.styleable.HtmlTextView_listIndent, 16.px.toInt())
+            val listIndentDp = a.getDimensionPixelSize(R.styleable.HtmlTextView_listIndent, 16)
             val lineSpacing = a.getFloat(R.styleable.HtmlTextView_htmlLineSpacing, 1.15f)
             val padding = a.getDimensionPixelSize(R.styleable.HtmlTextView_htmlPadding, 0)
 
             // Create ListConfig
             listConfig = HtmlListConfig(
-                indentDp = listIndentPx.px.toInt(),
-                bulletGapDp = bulletGapPx.px.toInt(),
+                indentDp = listIndentDp,
+                bulletGapDp = bulletGapDp,
                 lineSpacing = lineSpacing,
                 padding = padding
             )
@@ -89,20 +85,28 @@ class HtmlTextView @JvmOverloads constructor(
             // Create ListStyles
             styleConfig.unorderedStyle = ListStyle(
                 bulletChar = bulletChar,
-                indentDp = listIndentPx.px.toInt(),
-                gapDp = bulletGapPx.px.toInt(),
+                indentDp = listIndentDp,
+                gapDp = bulletGapDp,
                 textColor = bulletColor
             )
 
             styleConfig.orderedStyle = ListStyle(
                 numberFormat = orderedFormat,
-                indentDp = listIndentPx.px.toInt(),
-                gapDp = bulletGapPx.px.toInt(),
+                indentDp = listIndentDp,
+                gapDp = bulletGapDp,
                 textColor = orderedColor
             )
         }
 
-        // Apply config
+        attrs?.let {
+            val textAttrs = context.obtainStyledAttributes(it, intArrayOf(android.R.attr.text))
+            val xmlText = textAttrs.getString(0)
+            textAttrs.recycle()
+            if (!xmlText.isNullOrEmpty()) {
+                rawHtmlText = xmlText
+            }
+        }
+
         if (listConfig.padding > 0) {
             setPadding(listConfig.padding, listConfig.padding, listConfig.padding, listConfig.padding)
         }
@@ -110,40 +114,84 @@ class HtmlTextView @JvmOverloads constructor(
     }
 
     private fun setupRenderer() {
-        // Use your existing HtmlRendererConfig with additional styleConfig
         val rendererConfig = HtmlRendererConfig(
             listConfig = listConfig,
             unorderedStyle = styleConfig.unorderedStyle,
             orderedStyle = styleConfig.orderedStyle,
-            fontStyles = emptyMap(),
+            fontStyles = buildFontStyles(),
             customTagMappings = emptyMap(),
-            /*styleConfig = styleConfig, // Pass styleConfig to existing config
-            context = context // Pass context for TextAppearanceSpan*/
+            styleConfig = styleConfig,
+            context = context
         )
-
-        // Use your existing HtmlRenderer
         htmlRenderer = HtmlRenderer(rendererConfig, fontManager)
     }
 
+    private fun buildFontStyles(): Map<String, FontStyle> {
+        return mutableMapOf<String, FontStyle>().apply {
+            put("myb",      fontManager.boldStyle())
+            put("mystrong", fontManager.strongStyle())
+
+            listOf("h1", "h2", "h3", "h4", "h5", "h6", "p").forEach { tag ->
+                val appearanceRes = styleConfig.getAppearanceForTag(tag)
+                if (appearanceRes != 0) {
+                    put("my$tag", resolveFontStyleFromAppearance(appearanceRes))
+                }
+            }
+        }
+    }
+
+    private fun resolveFontStyleFromAppearance(@StyleRes resId: Int): FontStyle {
+        val ta = context.obtainStyledAttributes(resId, intArrayOf(
+            android.R.attr.textSize,
+            android.R.attr.textColor,
+            android.R.attr.textStyle,
+            android.R.attr.fontFamily,
+        ))
+
+        val textSize = if (ta.hasValue(0)) ta.getDimensionPixelSize(0, 0).toFloat() else null
+        val textColor = if (ta.hasValue(1)) ta.getColor(1, 0) else null
+        val textStyle = ta.getInt(2, Typeface.NORMAL)
+        val typeface = if (ta.hasValue(3)) {
+            val fontResId = ta.getResourceId(3, 0)
+            if (fontResId != 0) fontManager.loadFont(fontResId) else null
+        } else null
+
+        ta.recycle()
+
+        return FontStyle(
+            fontFamily = typeface,
+            textColor = textColor,
+            textSize = textSize,
+            style = textStyle
+        )
+    }
+
     override fun setText(text: CharSequence?, type: BufferType?) {
-        if (text.isNullOrEmpty()) {
+        if (!text.isNullOrEmpty()) {
+            rawHtmlText = text.toString()
+        }
+
+        if (rawHtmlText.isEmpty() || htmlRenderer == null) {
+            if (text.isNullOrEmpty()) return
             super.setText(text, type)
             return
         }
 
-        rawHtmlText = text.toString()
-
-        // Preprocess HTML tags
         val processedHtml = rawHtmlText.preprocessHtmlTags()
-
-        // Use your existing renderer - it will call TagHandler internally
         val spanned = htmlRenderer?.render(processedHtml, this) ?: text
-
         super.setText(spanned, BufferType.SPANNABLE)
     }
 
+    override fun onFinishInflate() {
+        super.onFinishInflate()
+        if (rawHtmlText.isNotEmpty()) {
+            setHtmlText(rawHtmlText)
+        }
+    }
+
     private fun String.preprocessHtmlTags(): String {
-        val tags = listOf("h1", "h2", "h3", "h4", "h5", "h6", "p", "b", "strong", "i", "em", "u", "a")
+        val tags = listOf("h1", "h2", "h3", "h4", "h5", "h6", "p", "strong")
+
 
         var result = this
         tags.forEach { tag ->
