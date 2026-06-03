@@ -17,6 +17,7 @@ The system is built around three main layers:
 - **Composable Configuration**: Combine list styles, font styles, and tag mappings in a single `HtmlRendererConfig`.
 - **Inter Font Family Support**: Prebuilt helpers for Inter font weights via `FontManager`.
 - **`TextView` Extension Functions**: Utility extensions for clean, idiomatic integration.
+- **Link Parse** automatically styles parsed links (URLSpan) when an appearance is defined for the `<a>` tag in `HtmlStyleConfig`.
 
 ---
 
@@ -281,7 +282,6 @@ Before the HTML is passed to Android's `Html.fromHtml()`, the renderer automatic
 | `<ul>` / `</ul>` | `<myul>` / `</myul>` |
 | `<ol>` / `</ol>` | `<myol>` / `</myol>` |
 | `<li>` / `</li>` | `<myli>` / `</myli>` |
-| `<b>` / `</b>` | `<myb>` / `</myb>` |
 
 > **Important:** When defining `fontStyles` in the config, use the **remapped** tag names (e.g. `"myb"` instead of `"b"`).
 
