@@ -58,6 +58,9 @@
     <!--OTP Box-->
     <dimen name="box_height">50dp</dimen>
 
+    <!--Text Badge-->
+    <dimen name="text_badge_size">8sp</dimen>
+
     <!--Numeric-->
     <dimen name="dimen_0">0dp</dimen>
     <dimen name="dimen_1">1dp</dimen>

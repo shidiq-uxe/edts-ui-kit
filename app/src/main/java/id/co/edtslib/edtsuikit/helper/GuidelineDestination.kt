@@ -31,6 +31,7 @@ import id.co.edtslib.edtsuikit.GuidelinesSearchProductActivity
 import id.co.edtslib.edtsuikit.GuidelinesSearchbarActivity
 import id.co.edtslib.edtsuikit.GuidelinesSegmentedTabLayoutActivity
 import id.co.edtslib.edtsuikit.GuidelinesSnackbarActivity
+import id.co.edtslib.edtsuikit.GuidelinesTextBadgeActivity
 import id.co.edtslib.edtsuikit.GuidelinesTextfieldActivity
 import id.co.edtslib.edtsuikit.GuidelinesTypographyActivity
 import id.co.edtslib.edtsuikit.HtmlListDemoActivity
@@ -48,6 +49,7 @@ sealed class GuidelineItem(
     object Textfield : GuidelineItem(R.string.guidelines_textfield, GuidelinesTextfieldActivity::class.java)
     object RadioButton : GuidelineItem(R.string.guidelines_radiobutton, GuidelinesRadioButtonActivity::class.java)
     object Checkbox : GuidelineItem(R.string.guidelines_checkbox, GuidelinesCheckboxActivity::class.java)
+    object TextBadge : GuidelineItem(R.string.guidelines_text_badge, GuidelinesTextBadgeActivity::class.java)
 
     object Color : GuidelineItem(R.string.guidelines_color, GuidelinesColorActivity::class.java)
 
@@ -137,7 +139,8 @@ sealed class GuidelineItem(
             CouponPromotion,
             LiquidGlassCouponCard,
             RadioButton,
-            Checkbox
+            Checkbox,
+            TextBadge
         )
 
         fun getByCategory(): Map<String, List<GuidelineItem>> = mapOf(
@@ -147,7 +150,8 @@ sealed class GuidelineItem(
                 Textfield,
                 Color,
                 RadioButton,
-                Checkbox
+                Checkbox,
+                TextBadge
             ),
             "Input Components" to listOf(
                 Otp,
