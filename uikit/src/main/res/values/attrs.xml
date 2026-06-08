@@ -515,4 +515,33 @@
         <attr name="titleVisible"/>
         <attr name="subtitleVisible"/>
     </declare-styleable>
+
+    <declare-styleable name="TextBadge">
+        <attr name="badgeText" />
+        <attr name="textAppearance" />
+        <attr name="textColor" />
+        <attr name="startIcon" />
+        <attr name="startIconVisible" />
+        <attr name="startIconColor" format="color" />
+        <attr name="startIconSize" />
+        <attr name="backgroundColor" />
+        <attr name="badgeSize" format="enum">
+            <enum name="small"  value="0" />
+            <enum name="medium" value="1" />
+            <enum name="large"  value="2" />
+        </attr>
+        <attr name="badgeShape" format="enum">
+            <enum name="status" value="0" />
+            <enum name="promo"  value="1" />
+        </attr>
+        <attr name="cornerRadius" />
+        <attr name="topRightCornerRadius" />
+        <attr name="topLeftCornerRadius" />
+        <attr name="bottomLeftCornerRadius" />
+        <attr name="bottomRightCornerRadius" />
+        <attr name="paddingHorizontal" format="integer" />
+        <attr name="paddingVertical"   format="integer" />
+        <attr name="relativeWidth" format="integer" />
+
+    </declare-styleable>
 </resources>

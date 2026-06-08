@@ -84,4 +84,8 @@
     <color name="html_list_style_red">#D32F2F</color>
     <color name="html_list_style_purple">#7B1FA2</color>
 
+    <!--Text Badge-->
+    <color name="text_badge_foreground_green">#0F820C</color>
+    <color name="text_badge_background_green">#D1FFD0</color>
+
 </resources>

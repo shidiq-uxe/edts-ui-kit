@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".GuidelinesTextBadgeActivity">
+
+    <TextView
+        android:id="@+id/badgeShapeTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_32"
+        android:text="Badge Shape"
+        style="@style/TextAppearance.Inter.SemiBold.B3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <id.co.edtslib.uikit.badge.TextBadge
+        android:id="@+id/badgeAppearanceSemiBold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/badgeShapeTitle"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <id.co.edtslib.uikit.badge.TextBadge
+        android:id="@+id/badgeAppearanceRegular"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/badgeAppearanceSemiBold"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <id.co.edtslib.uikit.badge.TextBadge
+        android:id="@+id/badgeAppearanceSemiBoldDisabled"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/badgeAppearanceRegular"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <id.co.edtslib.uikit.badge.TextBadge
+        android:id="@+id/badgeAppearanceRegularDisabled"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/badgeAppearanceSemiBoldDisabled"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
+        android:id="@+id/badgeSizeTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_32"
+        android:text="Badge Size"
+        style="@style/TextAppearance.Inter.SemiBold.B3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/badgeAppearanceRegularDisabled"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <id.co.edtslib.uikit.badge.TextBadge
+        android:id="@+id/badgeSizeSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/badgeSizeTitle"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <id.co.edtslib.uikit.badge.TextBadge
+        android:id="@+id/badgeSizeMedium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/badgeSizeSmall"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <id.co.edtslib.uikit.badge.TextBadge
+        android:id="@+id/badgeSizeLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/badgeSizeMedium"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
+        android:id="@+id/badgeRelativeWidthTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_32"
+        android:text="Badge Relative Width"
+        style="@style/TextAppearance.Inter.SemiBold.B3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/badgeSizeLarge"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <id.co.edtslib.uikit.badge.TextBadge
+        android:id="@+id/badgeRelativeWidthWrapContent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_8dp"
+        android:layout_marginEnd="@dimen/dimen_16"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/badgeRelativeWidthTitle"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <id.co.edtslib.uikit.badge.TextBadge
+        android:id="@+id/badgeRelativeWidth25Percent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_8dp"
+        android:layout_marginEnd="@dimen/dimen_16"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/badgeRelativeWidthWrapContent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <id.co.edtslib.uikit.badge.TextBadge
+        android:id="@+id/badgeRelativeWidth50Percent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_8dp"
+        android:layout_marginEnd="@dimen/dimen_16"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/badgeRelativeWidth25Percent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <id.co.edtslib.uikit.badge.TextBadge
+        android:id="@+id/badgeRelativeWidth75Percent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_8dp"
+        android:layout_marginEnd="@dimen/dimen_16"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/badgeRelativeWidth50Percent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <id.co.edtslib.uikit.badge.TextBadge
+        android:id="@+id/badgeRelativeWidthMatchParent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/badgeRelativeWidth75Percent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+    
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -21,6 +21,7 @@
     <string name="guidelines_color">Color</string>
     <string name="guidelines_radiobutton">Radio Button</string>
     <string name="guidelines_checkbox">Checkbox</string>
+    <string name="guidelines_text_badge">Text Badge</string>
 
     <!-- Input Components -->
     <string name="guidelines_otp">OTP</string>
