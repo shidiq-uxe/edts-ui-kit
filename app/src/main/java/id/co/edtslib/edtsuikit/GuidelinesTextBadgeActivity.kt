@@ -10,11 +10,10 @@ import id.co.edtslib.uikit.utils.color
 import androidx.core.graphics.toColorInt
 
 class GuidelinesTextBadgeActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityGuidelinesTextBadgeBinding
+    private val binding by viewBinding<ActivityGuidelinesTextBadgeBinding>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityGuidelinesTextBadgeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         setupBackgroundShape()
