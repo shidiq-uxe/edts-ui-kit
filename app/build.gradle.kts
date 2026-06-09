@@ -1,17 +1,17 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
-    alias(libs.plugins.kotlin.kapt)
+    alias(libs.plugins.ksp)
 }
 
 android {
     namespace = "id.co.edtslib.edtsuikit"
-    compileSdk = 34
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "id.co.edtslib.edtsuikit"
         minSdk = 24
-        targetSdk = 34
+        targetSdk = 36
         versionCode = 1
         versionName = "1.0"
 
@@ -20,8 +20,7 @@ android {
 
     configurations.all {
         resolutionStrategy {
-            force( "org.jetbrains.kotlin:kotlin-stdlib:1.7.10")
-            force ("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.7.10")
+
         }
     }
 
@@ -37,11 +36,8 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
-    }
-    kotlinOptions {
-        jvmTarget = "1.8"
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
 }
 
@@ -54,7 +50,7 @@ dependencies {
     implementation(libs.shimmer)
     implementation(libs.glide)
     implementation(libs.androidx.swipeRefresh)
-    kapt(libs.glide.compiler)
+    ksp(libs.glide.compiler)
     implementation(libs.blurView)
 
     implementation(libs.material)
