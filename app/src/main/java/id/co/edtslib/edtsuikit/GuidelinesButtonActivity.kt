@@ -20,12 +20,6 @@ class GuidelinesButtonActivity : GuidelinesBaseActivity() {
         setContentView(R.layout.activity_button)
         setLightStatusBar()
 
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
-
         binding.btnFilled.setOnClickListener {
             Log.e("Button Debug", "Check for Double Click")
         }
