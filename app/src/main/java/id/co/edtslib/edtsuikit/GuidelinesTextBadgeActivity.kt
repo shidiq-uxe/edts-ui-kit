@@ -9,7 +9,7 @@ import id.co.edtslib.uikit.badge.TextBadge.BadgeSize
 import id.co.edtslib.uikit.utils.color
 import androidx.core.graphics.toColorInt
 
-class GuidelinesTextBadgeActivity : AppCompatActivity() {
+class GuidelinesTextBadgeActivity : GuidelinesBaseActivity() {
     private val binding by viewBinding<ActivityGuidelinesTextBadgeBinding>()
 
     override fun onCreate(savedInstanceState: Bundle?) {

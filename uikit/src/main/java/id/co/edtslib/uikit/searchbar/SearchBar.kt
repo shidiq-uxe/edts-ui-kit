@@ -270,6 +270,7 @@ class SearchBar @JvmOverloads constructor(
     private var slidingIndex = 0
 
     private fun slideUpAnimation() {
+        if (placeholderTexts.isEmpty()) return
         placeholderJobHelper = CoroutineScope(Dispatchers.Main).launch {
             while (isActive) {
                 delay(2000L) // Delay between text changes (2 seconds)
@@ -282,6 +283,7 @@ class SearchBar @JvmOverloads constructor(
     private var typeWriterIndex = 0
 
     private fun typeWriterAnimation(changeDelay: Long = 300) {
+        if (placeholderTexts.isEmpty()) return
         if (typeWriterIndex > placeholderTexts.size.minus(1)) {
             typeWriterIndex = 0
         }

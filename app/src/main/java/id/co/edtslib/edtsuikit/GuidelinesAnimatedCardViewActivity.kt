@@ -1,7 +1,6 @@
 package id.co.edtslib.edtsuikit
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import id.co.edtslib.edtsuikit.databinding.ActivityGuidelinesAnimatedCardViewBinding

@@ -29,7 +29,6 @@ import id.co.edtslib.uikit.utils.buildHighlightedMessage
 import id.co.edtslib.uikit.utils.dimen
 import id.co.edtslib.uikit.utils.dp
 import id.co.edtslib.uikit.utils.minutes
-import id.co.edtslib.uikit.utils.setLightStatusBar
 import id.co.edtslib.uikit.utils.snack
 
 
@@ -48,8 +47,6 @@ class SpotlightTrialsActivity : AppCompatActivity() {
         actionBar?.elevation = 0f
 
         setContentView(R.layout.activity_spotlight_trials)
-
-        setLightStatusBar()
 
         binding.root.doOnPreDraw {
             val cornerRadius = dimen(R.dimen.dimen_8dp)

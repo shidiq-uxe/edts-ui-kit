@@ -3,30 +3,29 @@ package id.co.edtslib.edtsuikit
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import id.co.edtslib.edtsuikit.databinding.ActivityGuidelinesPdpentryBinding
+import id.co.edtslib.uikit.utils.colorAttr
 import id.co.edtslib.uikit.utils.dimen
 import id.co.edtslib.uikit.utils.dp
+import id.co.edtslib.uikit.utils.window.WindowInsetsConfig
 
 class GuidelinesPDPEntryActivity : GuidelinesBaseActivity() {
+
+    override val windowInsetsConfig = WindowInsetsConfig.Custom { v, insets ->
+        val actionBarSize = v.context.dimensionFromAttribute(com.google.android.material.R.attr.actionBarSize)
+
+        val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+        v.setPadding(systemBars.left, systemBars.top.plus(actionBarSize), systemBars.right, systemBars.bottom)
+        insets
+    }
 
     private val binding by viewBinding<ActivityGuidelinesPdpentryBinding>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        enableEdgeToEdge()
         setContentView(R.layout.activity_guidelines_pdpentry)
-        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
-            val actionBarSize = dimensionFromAttribute(com.google.android.material.R.attr.actionBarSize)
-
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top.plus(actionBarSize), systemBars.right, systemBars.bottom)
-            insets
-        }
 
         bindOnClickListener()
     }

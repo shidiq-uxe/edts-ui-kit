@@ -3,7 +3,6 @@ package id.co.edtslib.edtsuikit
 import android.graphics.Rect
 import android.os.Bundle
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import id.co.edtslib.edtsuikit.databinding.ActivityColorBinding
 import id.co.edtslib.edtsuikit.databinding.ItemColorBinding
