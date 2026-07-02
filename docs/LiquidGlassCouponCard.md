@@ -113,7 +113,24 @@ interface LiquidGlassCouponCardDelegate {
 
 ### 4\. Setting Up Blur Effect
 
-The glassmorphism effect requires setting up the blur effect. Call `setupBlur()` after the view is attached:
+The glassmorphism effect requires setting up the blur effect. The `BlurTarget` should contain the content that will be blurred and must be positioned behind the card in the view hierarchy.
+
+```xml
+<eightbitlab.com.blurview.BlurTarget
+    android:id="@+id/blurTarget"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- Content to blur -->
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/some_bg_image" />
+
+</eightbitlab.com.blurview.BlurTarget>
+```
+
+Then provide the `BlurTarget` when calling `setupBlur()`:
 
 ```kotlin
 // In  Activity
@@ -129,7 +146,9 @@ couponCard.setupBlur(
 )
 ```
 
-**Note**: The blur effect uses `BlurView` library. Make sure the target view is properly set up before calling `setupBlur()`.
+> **Important:** An empty `BlurTarget` may cause the blur effect to appear as a transparent overlay, particularly on Android API levels below 31.
+
+For advanced configuration and implementation details, refer to the official [BlurView](https://github.com/Dimezis/BlurView) documentation.
 
 * * * * *
 
@@ -240,7 +259,6 @@ This creates a subtle glow effect on the left and right edges of the card.
 ## Requirements
 
 - **Dependencies**:
-    - Material Components 1.9.0 or higher for Android
     - BlurView 3.2.0: `implementation("com.github.Dimezis:BlurView:version-3.2.0")`
 
 * * * * *

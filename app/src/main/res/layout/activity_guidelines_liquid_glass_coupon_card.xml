@@ -5,13 +5,20 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".GuidelinesLiquidGlassCouponCardActivity"
-    android:background="@color/primary_40">
+    tools:context=".GuidelinesLiquidGlassCouponCardActivity">
 
     <eightbitlab.com.blurview.BlurTarget
         android:id="@+id/blurTarget"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/bg_promo_page" />
+
+    </eightbitlab.com.blurview.BlurTarget>
 
     <id.co.edtslib.uikit.card.liquidglass.LiquidGlassCouponCard
         android:id="@+id/liquidGlassCard1"
