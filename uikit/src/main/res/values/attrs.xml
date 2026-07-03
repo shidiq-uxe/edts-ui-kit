@@ -424,6 +424,22 @@
         <attr name="shouldAnimate"/>
     </declare-styleable>
 
+    <declare-styleable name="SegmentSwitcher">
+        <attr name="activeBackgroundColor" format="color"/>
+        <attr name="activeTextColor" format="color"/>
+        <attr name="inactiveTitleColor" format="color"/>
+        <attr name="inactiveSubtitleColor" format="color"/>
+        <attr name="inactiveIconColor" format="color"/>
+        <attr name="trackColor"/>
+        <attr name="cornerRadius"/>
+        <attr name="isDraggable"/>
+        <attr name="shouldAnimate"/>
+        <attr name="tabWidthMode" format="enum">
+            <enum name="fixed" value="0"/>
+            <enum name="wrap" value="1"/>
+        </attr>
+    </declare-styleable>
+
     <declare-styleable name="DiscountRedemptionBox">
         <attr name="isExpanded"/>
         <attr name="titleText"/>

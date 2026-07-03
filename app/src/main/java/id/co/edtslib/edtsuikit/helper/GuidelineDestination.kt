@@ -29,6 +29,7 @@ import id.co.edtslib.edtsuikit.GuidelinesProgressBarActivity
 import id.co.edtslib.edtsuikit.GuidelinesRadioButtonActivity
 import id.co.edtslib.edtsuikit.GuidelinesSearchProductActivity
 import id.co.edtslib.edtsuikit.GuidelinesSearchbarActivity
+import id.co.edtslib.edtsuikit.GuidelinesSegmentSwitcherActivity
 import id.co.edtslib.edtsuikit.GuidelinesSegmentedTabLayoutActivity
 import id.co.edtslib.edtsuikit.GuidelinesSnackbarActivity
 import id.co.edtslib.edtsuikit.GuidelinesTextBadgeActivity
@@ -79,6 +80,8 @@ sealed class GuidelineItem(
     // Navigation & Home
     object HomeSwitcher : GuidelineItem(R.string.guidelines_home_switcher, GuidelinesHomeSwitcherActivity::class.java)
 
+    object SegmentSwitcher : GuidelineItem(R.string.guidelines_segment_switcher, GuidelinesSegmentSwitcherActivity::class.java)
+
     object HomepageExploration : GuidelineItem(R.string.guidelines_homepage_exploration, GuidelinesHomepageExploration::class.java)
 
     // User Guidance
@@ -126,6 +129,7 @@ sealed class GuidelineItem(
             Popup,
             SegmentedTab,
             HomeSwitcher,
+            SegmentSwitcher,
             HomepageExploration,
             Coachmark,
             Cart,

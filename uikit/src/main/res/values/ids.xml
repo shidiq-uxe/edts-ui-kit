@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="segment_switcher_tab_title" type="id"/>
+    <item name="segment_switcher_tab_subtitle" type="id"/>
+    <item name="segment_switcher_tab_icon" type="id"/>
+</resources>

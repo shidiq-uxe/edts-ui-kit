@@ -43,6 +43,7 @@
 
     <!-- Navigation & Home -->
     <string name="guidelines_home_switcher">Home Switcher</string>
+    <string name="guidelines_segment_switcher">Segment Switcher</string>
     <string name="guidelines_homepage_exploration">Homepage Exploration</string>
 
     <!-- User Guidance -->

@@ -78,6 +78,10 @@
             android:name=".GuidelinesHomeSwitcherActivity"
             android:exported="false" />
         <activity
+            android:name=".GuidelinesSegmentSwitcherActivity"
+            android:exported="false"
+            android:theme="@style/Theme.EDTS.UIKit.ActionBar" />
+        <activity
             android:name=".GuidelinesSegmentedTabLayoutActivity"
             android:exported="false"
             android:theme="@style/Theme.EDTS.UIKit" />
