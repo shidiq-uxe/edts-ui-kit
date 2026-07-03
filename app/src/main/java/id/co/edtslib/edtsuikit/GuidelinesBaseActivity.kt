@@ -2,6 +2,8 @@ package id.co.edtslib.edtsuikit
 
 import android.graphics.Color
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
@@ -68,6 +70,10 @@ open class GuidelinesBaseActivity : AppCompatActivity() {
     @ColorInt
     open val navigationBarScrimColor: Int? = null
 
+    open val hasConfigMenu: Boolean = false
+
+    open fun onConfigMenuClicked() {}
+
     override fun onCreate(savedInstanceState: Bundle?) {
         if (enableEdgeToEdge) {
             enableEdgeToEdge()
@@ -113,5 +119,21 @@ open class GuidelinesBaseActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         onBackPressedDispatcher.onBackPressed()
         return true
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        if (hasConfigMenu) {
+            menuInflater.inflate(R.menu.guideline_config, menu)
+            return true
+        }
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.action_configure) {
+            onConfigMenuClicked()
+            return true
+        }
+        return super.onOptionsItemSelected(item)
     }
 }
