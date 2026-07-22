@@ -1,12 +1,11 @@
 package id.co.edtslib.edtsuikit
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import androidx.activity.addCallback
-import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.text.parseAsHtml
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -25,6 +24,7 @@ import id.co.edtslib.edtsuikit.databinding.ItemPdpInformationSectionBinding
 import id.co.edtslib.edtsuikit.databinding.ItemSingleCoachmarkBinding
 import id.co.edtslib.edtsuikit.helper.SelectionItem
 import id.co.edtslib.uikit.adapter.BaseMultiTypeAdapter
+import id.co.edtslib.uikit.utils.window.WindowInsetsConfig
 import id.co.edtslib.uikit.adapter.multiTypeAdapter
 import id.co.edtslib.uikit.coachmark.CoachMarkData
 import id.co.edtslib.uikit.coachmark.CoachMarkOverlay
@@ -41,7 +41,16 @@ import java.util.Locale
 import kotlin.math.roundToInt
 import id.co.edtslib.uikit.R as UIKitR
 
-class GuidelinePDPActivity : AppCompatActivity() {
+class GuidelinePDPActivity : GuidelinesBaseActivity() {
+
+    override val windowInsetsConfig: WindowInsetsConfig = WindowInsetsConfig.Custom { v, insets ->
+        val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+        v.setPadding(systemBars.left, 0, systemBars.right, systemBars.bottom)
+        insets
+    }
+
+    override val statusBarScrimColor: Int
+        get() = Color.TRANSPARENT
 
     private val binding by viewBinding<ActivityGuidelinePdpactivityBinding>()
 
@@ -65,15 +74,8 @@ class GuidelinePDPActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
 
         setContentView(R.layout.activity_guideline_pdpactivity)
-
-        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, 0, systemBars.right, systemBars.bottom)
-            insets
-        }
 
         ViewCompat.setOnApplyWindowInsetsListener(binding.toolbar) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.statusBars())
