@@ -14,7 +14,6 @@ import id.co.edtslib.edtsuikit.databinding.ItemGuidelinesParentBinding
 import id.co.edtslib.edtsuikit.helper.GuidelineItem
 import id.co.edtslib.uikit.adapter.BaseAdapter
 import id.co.edtslib.uikit.pulltorefresh.LiquidRefreshLayout
-import id.co.edtslib.uikit.utils.setLightStatusBar
 
 class MainActivity : AppCompatActivity() {
 
@@ -29,8 +28,6 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-
-        this.setLightStatusBar()
 
         actionBar?.setDisplayHomeAsUpEnabled(true)
 

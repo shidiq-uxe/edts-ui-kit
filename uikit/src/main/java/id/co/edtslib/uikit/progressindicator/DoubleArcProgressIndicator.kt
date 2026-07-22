@@ -14,19 +14,19 @@ class DoubleArcProgressIndicator @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyle: Int = 0
 ) : View(context, attrs, defStyle) {
 
-    private val paint = Paint().apply {
-        style = Paint.Style.STROKE
-        color = progressColor
-        strokeCap = Paint.Cap.ROUND
-        isAntiAlias = true
-    }
-
     var progressColor = context.color(R.color.primary_30)
         set(value) {
             field = value
             paint.color = value
             invalidate()
         }
+
+    private val paint = Paint().apply {
+        style = Paint.Style.STROKE
+        color = progressColor
+        strokeCap = Paint.Cap.ROUND
+        isAntiAlias = true
+    }
 
     var innerArcPadding: Float = 20f
         set(value) {

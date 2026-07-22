@@ -36,6 +36,11 @@
         <!--Surface Container Color-->
         <item name="elevationOverlayColor">@color/white</item>
 
+        <item name="colorSurfaceContainerLow">@color/white</item>
+        <item name="colorSurfaceContainer">@color/white</item>
+        <item name="colorSurfaceContainerHigh">@color/white</item>
+        <item name="colorSurfaceContainerHighest">@color/white</item>
+
         <!--Custom Color-->
         <item name="colorWarning">@color/warning_primary</item>
         <item name="colorWarningBackground">@color/warning_background</item>
@@ -98,7 +103,8 @@
         <item name="buttonStyle">@style/Widget.EDTS.UIKit.Button.Filled</item>
 
         <!--Status Bar Color-->
-        <item name="android:statusBarColor">@color/white</item>
+        <item name="android:statusBarColor">@color/transparent</item>
+        <item name="statusBarForeground">@color/primary_40</item>
 
         <!--Action Bar-->
         <item name="actionBarStyle">@style/Widget.EDTS.UIKit.ActionBar</item>

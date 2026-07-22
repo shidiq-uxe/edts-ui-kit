@@ -22,7 +22,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-class GuidelinesHomepageExploration : AppCompatActivity() {
+class GuidelinesHomepageExploration : GuidelinesBaseActivity() {
 
     private val binding by viewBinding<ActivityGuidelinesHomepageExplorationBinding>()
 
@@ -30,16 +30,16 @@ class GuidelinesHomepageExploration : AppCompatActivity() {
 
     private var switcherSnackbar: Snackbar? = null
 
+    override val statusBarScrimColor: Int
+        get() = color(id.co.edtslib.uikit.R.color.primary_30)
+
+    override val isLightStatusBar: Boolean
+        get() = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_guidelines_homepage_exploration)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
 
-        setStatusBarColor()
         onSwitcherChange()
 
         binding.sbHome.placeholderAnimationType = SearchBar.PlaceholderAnimationType.TypeWriterWithPrefix
@@ -61,10 +61,6 @@ class GuidelinesHomepageExploration : AppCompatActivity() {
                 }
             }
         }
-    }
-
-    private fun setStatusBarColor() {
-        window.statusBarColor = color(id.co.edtslib.uikit.R.color.primary_30)
     }
 
     private suspend fun swapPlaceholderVisibility(tab: HomeSwitcher.Tab) {

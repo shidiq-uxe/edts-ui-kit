@@ -38,22 +38,17 @@ class GuidelinesDiscountRedemptionActivity : GuidelinesBaseActivity() {
     private var items1 = listOf<String>("Paragon Fair", "Paragon Fair 2", "Gajian Indomaret", "Live Shopping Semriwings")
     private var items2 = listOf<String>("Luminarc Soup Idaman Fair", "Toples Kaca Indomaret")
 
+    override val statusBarScrimColor: Int
+        get() = color(id.co.edtslib.uikit.R.color.primary_30)
+
+    override val isLightStatusBar: Boolean
+        get() = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_guidelines_discount_redemption)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
-
-        setSystemBarStyle(
-            statusBarStyle = SystemBarStyle.Dark(color(id.co.edtslib.uikit.R.color.primary_30)),
-            navigationBarStyle = SystemBarStyle.Light(Color.WHITE)
-        )
 
         supportActionBar?.setBackgroundDrawable(color(id.co.edtslib.uikit.R.color.primary_30).toDrawable())
-
 
         bindNavigationAction()
         initAdapter()

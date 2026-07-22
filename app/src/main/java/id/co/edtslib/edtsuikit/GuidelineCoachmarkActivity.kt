@@ -3,17 +3,13 @@ package id.co.edtslib.edtsuikit
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.view.View
 import android.view.ViewGroup
 import android.view.animation.DecelerateInterpolator
 import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.doOnLayout
-import androidx.core.view.doOnNextLayout
 import androidx.core.view.doOnPreDraw
-import com.takusemba.spotlight.OnSpotlightListener
 import com.takusemba.spotlight.Spotlight
 import com.takusemba.spotlight.Target
 import com.takusemba.spotlight.shape.RoundedRectangle
@@ -24,26 +20,24 @@ import id.co.edtslib.uikit.coachmark.CoachMarkOverlay
 import id.co.edtslib.uikit.coachmark.CoachmarkDelegate
 import id.co.edtslib.uikit.utils.color
 import id.co.edtslib.uikit.utils.dp
-import id.co.edtslib.uikit.utils.setLightStatusBar
 
-class GuidelineCoachmarkActivity : AppCompatActivity() {
+class GuidelineCoachmarkActivity : GuidelinesBaseActivity() {
 
     private val binding by viewBinding<ActivityGuidelineCoachmarkBinding>()
 
     private lateinit var coachMarkOverlay: CoachMarkOverlay
+
+    override val statusBarScrimColor: Int
+        get() = color(id.co.edtslib.uikit.R.color.primary_30)
+
+    override val isLightStatusBar: Boolean
+        get() = false
 
     private val coachmarkItems = mutableListOf<CoachMarkData>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_guideline_coachmark)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
-
-        window.statusBarColor = color(id.co.edtslib.uikit.R.color.primary_30)
 
         addDummyTargets()
 
