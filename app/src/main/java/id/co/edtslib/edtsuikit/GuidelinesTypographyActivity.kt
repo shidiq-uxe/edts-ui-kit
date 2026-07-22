@@ -7,7 +7,6 @@ import id.co.edtslib.edtsuikit.databinding.ActivityTypographyBinding
 import id.co.edtslib.edtsuikit.databinding.ItemTypographyBinding
 import id.co.edtslib.uikit.adapter.BaseAdapter
 import id.co.edtslib.uikit.utils.DividerItemDecoration
-import id.co.edtslib.uikit.utils.setLightStatusBar
 import id.co.edtslib.uikit.R as Core_uiR
 
 class GuidelinesTypographyActivity : GuidelinesBaseActivity() {
@@ -17,7 +16,6 @@ class GuidelinesTypographyActivity : GuidelinesBaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_typography)
-        setLightStatusBar()
 
         setupRecyclerView()
     }

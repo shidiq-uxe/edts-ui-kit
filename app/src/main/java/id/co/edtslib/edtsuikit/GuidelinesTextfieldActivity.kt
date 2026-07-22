@@ -2,7 +2,6 @@ package id.co.edtslib.edtsuikit
 
 import android.os.Bundle
 import android.util.Log
-import androidx.appcompat.app.AppCompatActivity
 import id.co.edtslib.edtsuikit.databinding.ActivityTextfieldBinding
 import id.co.edtslib.uikit.textfield.TextFieldDelegate
 import id.co.edtslib.uikit.textfield.TextField

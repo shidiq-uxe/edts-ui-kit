@@ -6,26 +6,17 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import androidx.activity.addCallback
-import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.text.parseAsHtml
 import androidx.core.view.ViewCompat
-import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.WindowInsetsControllerCompat
 import androidx.core.view.doOnLayout
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
-import androidx.core.view.updateLayoutParams
 import androidx.core.view.updatePadding
 import androidx.recyclerview.widget.DiffUtil
-import com.google.android.material.button.MaterialButton
 import com.google.android.material.shape.OffsetEdgeTreatment
 import com.google.android.material.shape.ShapeAppearanceModel
-import id.co.edtslib.edtsuikit.GuidelinesCartActivity.CartItem
 import id.co.edtslib.edtsuikit.databinding.ActivityGuidelinePdpactivityBinding
-import id.co.edtslib.edtsuikit.databinding.ItemCartDiscountRedemptionInfoBinding
-import id.co.edtslib.edtsuikit.databinding.ItemCartPlaceholderBinding
 import id.co.edtslib.edtsuikit.databinding.ItemPdpBundlingSectionBinding
 import id.co.edtslib.edtsuikit.databinding.ItemPdpDescriptionSectionBinding
 import id.co.edtslib.edtsuikit.databinding.ItemPdpImageSectionBinding
@@ -33,7 +24,7 @@ import id.co.edtslib.edtsuikit.databinding.ItemPdpInformationSectionBinding
 import id.co.edtslib.edtsuikit.databinding.ItemSingleCoachmarkBinding
 import id.co.edtslib.edtsuikit.helper.SelectionItem
 import id.co.edtslib.uikit.adapter.BaseMultiTypeAdapter
-import id.co.edtslib.uikit.adapter.BaseMultipleTypeAdapter
+import id.co.edtslib.uikit.utils.window.WindowInsetsConfig
 import id.co.edtslib.uikit.adapter.multiTypeAdapter
 import id.co.edtslib.uikit.coachmark.CoachMarkData
 import id.co.edtslib.uikit.coachmark.CoachMarkOverlay
@@ -44,15 +35,22 @@ import id.co.edtslib.uikit.utils.color
 import id.co.edtslib.uikit.utils.dp
 import id.co.edtslib.uikit.utils.drawable
 import id.co.edtslib.uikit.utils.inflater
-import id.co.edtslib.uikit.utils.setLightStatusBar
-import id.co.edtslib.uikit.utils.setSystemBarStyle
 import id.co.edtslib.uikit.utils.snack
 import java.text.NumberFormat
 import java.util.Locale
 import kotlin.math.roundToInt
 import id.co.edtslib.uikit.R as UIKitR
 
-class GuidelinePDPActivity : AppCompatActivity() {
+class GuidelinePDPActivity : GuidelinesBaseActivity() {
+
+    override val windowInsetsConfig: WindowInsetsConfig = WindowInsetsConfig.Custom { v, insets ->
+        val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+        v.setPadding(systemBars.left, 0, systemBars.right, systemBars.bottom)
+        insets
+    }
+
+    override val statusBarScrimColor: Int
+        get() = Color.TRANSPARENT
 
     private val binding by viewBinding<ActivityGuidelinePdpactivityBinding>()
 
@@ -63,11 +61,11 @@ class GuidelinePDPActivity : AppCompatActivity() {
     private var quantityType = QuantityType.SINGLE
 
     private val shouldShowWarning by lazy {
-        intent.getBooleanExtra(GuidelinesPDPEntryActivity.Companion.SHOULD_SHOW_TOAST, false)
+        intent.getBooleanExtra(GuidelinesPDPEntryActivity.SHOULD_SHOW_TOAST, false)
     }
 
     private val shouldDisableVariant by lazy {
-        intent.getBooleanExtra(GuidelinesPDPEntryActivity.Companion.SHOULD_DISABLE_VARIANT, false)
+        intent.getBooleanExtra(GuidelinesPDPEntryActivity.SHOULD_DISABLE_VARIANT, false)
     }
 
     private val previousQuantity by lazy {
@@ -76,15 +74,8 @@ class GuidelinePDPActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
 
         setContentView(R.layout.activity_guideline_pdpactivity)
-
-        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, 0, systemBars.right, systemBars.bottom)
-            insets
-        }
 
         ViewCompat.setOnApplyWindowInsetsListener(binding.toolbar) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.statusBars())

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Soft bottom shadow — taller gradient for a gentle falloff -->
+    <item>
+        <shape android:shape="rectangle">
+            <gradient
+                android:dither="true"
+                android:angle="90"
+                android:startColor="#06000000"
+                android:centerColor="#03000000"
+                android:endColor="@android:color/transparent" />
+        </shape>
+    </item>
+    <!-- Content, shifted up to leave gradient visible at bottom -->
+    <item android:bottom="8dp">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/white" />
+        </shape>
+    </item>
+</layer-list>

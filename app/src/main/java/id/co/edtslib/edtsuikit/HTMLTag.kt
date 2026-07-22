@@ -3,6 +3,7 @@ package id.co.edtslib.edtsuikit
 import android.graphics.Color
 import android.graphics.Typeface
 import android.os.Bundle
+import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -23,6 +24,8 @@ import id.co.edtslib.uikit.utils.html.withColor
 import id.co.edtslib.uikit.utils.html.withGap
 import id.co.edtslib.uikit.utils.html.withIndent
 import androidx.core.graphics.toColorInt
+import androidx.core.view.updateLayoutParams
+import id.co.edtslib.uikit.utils.dp
 import id.co.edtslib.uikit.utils.html.FontStyle
 import id.co.edtslib.uikit.utils.html.interRegular
 import id.co.edtslib.uikit.utils.html.interSemiBold
@@ -31,21 +34,17 @@ class HTMLTag : GuidelinesBaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_htmltag)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
     }
 }
 
-class HtmlListDemoActivity : AppCompatActivity() {
+class HtmlListDemoActivity : GuidelinesBaseActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val tv = TextView(this).apply {
             setLineSpacing(0f, 1.15f)
             textSize = 16f
-            setPadding(24, 24, 24, 24)
+            setPadding(24, 24.dp.toInt(), 24, 24)
         }
         setContentView(tv)
 

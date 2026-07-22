@@ -1,7 +1,6 @@
 package id.co.edtslib.edtsuikit
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import id.co.edtslib.edtsuikit.databinding.ActivityBoardingBinding
 import id.co.edtslib.uikit.boarding.Boarding
 import id.co.edtslib.uikit.boarding.BoardingItemAlignment

@@ -1,7 +1,6 @@
 package id.co.edtslib.edtsuikit
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import id.co.edtslib.edtsuikit.databinding.ActivityOtpBinding
 
 class GuidelinesOtpActivity : GuidelinesBaseActivity() {

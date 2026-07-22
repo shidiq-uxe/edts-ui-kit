@@ -4,6 +4,8 @@
         <item name="titleTextStyle">?h1SemiBold</item>
         <item name="elevation">@dimen/dimen_1</item>
         <item name="android:elevation">@dimen/dimen_1</item>
+        <item name="android:background">@color/white</item>
+        <item name="background">@color/white</item>
     </style>
 
     <style name="Widget.EDTS.UIKit.ActionBar.NoElevation" parent="Widget.Material3.ActionBar.Solid">
