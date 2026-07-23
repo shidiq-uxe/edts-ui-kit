@@ -29,6 +29,27 @@ abstract class BaseMultiTypeAdapter<T>(
 		viewTypeBindingsMap[viewType] = bind
 	}
 
+	inline fun <reified B : ViewBinding> registerViewType(
+		viewType: Int,
+		noinline bind: (position: Int, binding: B, item: T) -> Unit
+	) {
+		registerViewType(
+			viewType = viewType,
+			bindingInflater = { inflater, parent, attach ->
+				val inflateMethod = B::class.java.getMethod(
+					INFLATE_METHOD,
+					LayoutInflater::class.java,
+					ViewGroup::class.java,
+					Boolean::class.java
+				)
+				inflateMethod.invoke(null, inflater, parent, attach) as B
+			},
+			bind = { position, itemBinding, item ->
+				bind(position, itemBinding as B, item)
+			}
+		)
+	}
+
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
 		val binding = viewTypeBindings[viewType]!!.invoke(LayoutInflater.from(parent.context), parent, false)
 		return BaseViewHolder(binding)
