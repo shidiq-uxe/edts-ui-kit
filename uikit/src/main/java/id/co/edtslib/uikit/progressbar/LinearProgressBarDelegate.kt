@@ -2,6 +2,6 @@ package id.co.edtslib.uikit.progressbar
 
 import android.view.View
 
-interface GradientProgressBarDelegate {
+interface LinearProgressBarDelegate {
     fun onAnimationUpdateListener(view: View, currentProgressValue: Float, finalProgressValue: Float)
 }

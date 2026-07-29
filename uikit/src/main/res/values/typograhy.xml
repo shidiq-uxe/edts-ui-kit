@@ -233,4 +233,11 @@
         <item name="lineHeight">@dimen/dimen_10</item>
     </style>
 
+    <style name="TextAppearance.Inter.Bold.TextBadge" parent="Base.TextAppearance.AppCompat">
+        <item name="fontFamily">@font/inter_bold</item>
+        <item name="android:fontFamily">@font/inter_bold</item>
+        <item name="android:textSize">@dimen/text_badge_size</item>
+        <item name="lineHeight">@dimen/dimen_10</item>
+    </style>
+
 </resources>

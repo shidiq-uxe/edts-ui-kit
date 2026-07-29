@@ -1,75 +1,86 @@
 package id.co.edtslib.edtsuikit
 
-import android.os.Build
 import android.os.Bundle
-import android.util.Log
-import android.view.View
-import android.widget.ProgressBar
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.isVisible
-import com.google.android.material.progressindicator.LinearProgressIndicator
+import android.os.Handler
+import android.os.Looper
 import id.co.edtslib.edtsuikit.databinding.ActivityGuidelinesProgressBarBinding
-import id.co.edtslib.uikit.progressbar.GradientProgressBarDelegate
+import id.co.edtslib.uikit.progressbar.LinearProgressBar
+import kotlin.random.Random
 
 class GuidelinesProgressBarActivity : GuidelinesBaseActivity() {
 
     private val binding by viewBinding<ActivityGuidelinesProgressBarBinding>()
+    private val handler = Handler(Looper.getMainLooper())
+    private var progressRunnable: Runnable? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_guidelines_progress_bar)
 
-        binding.gLPB.delegate = object : GradientProgressBarDelegate {
-            override fun onAnimationUpdateListener(
-                view: View,
-                currentProgressValue: Float,
-                finalProgressValue: Float
-            ) {
-                Log.e(this@GuidelinesProgressBarActivity.javaClass.simpleName, "Progress Value : $currentProgressValue, $finalProgressValue")
-            }
+        binding.btnProgressSingleLap.setOnClickListener {
+            binding.gLPBSingleLap.indicatorProgress += 40f
         }
 
-        binding.gLPB.indicatorProgress = 80f
+        binding.gLPBMultiLap.progressLimit = 4000f
+        binding.gLPBMultiLap.showBadge = true
+        binding.btnProgressMultiLap.setOnClickListener {
+            binding.gLPBMultiLap.indicatorProgress += 40f
+        }
+
+        binding.btnProgressLoading.setOnClickListener {
+            startRandomProgressSimulation(binding.gLPBLoading, minStep = 1, maxStep = 10)
+        }
+
+        binding.gLPBDisabled.isEnabled = false
+        binding.gLPBDisabled.indicatorProgress = 50f
+
+        binding.gLPBIntermittentFixed.startIntermittentAnimation(LinearProgressBar.IntermittentMode.FIXED_WIDTH)
+        binding.gLPBIntermittentStretch.startIntermittentAnimation(LinearProgressBar.IntermittentMode.STRETCH)
+
+
         binding.gCPB.indicatorProgress = 80f
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            binding.lpiSample.setProgress(80, true)
-        }
-
-        binding.lpiSample.showAnimationBehavior = LinearProgressIndicator.SHOW_OUTWARD
-        binding.lpiSample.hideAnimationBehavior = LinearProgressIndicator.HIDE_OUTWARD
-
         binding.btnVisibility.setOnClickListener {
-            // if (binding.lpiSample.isVisible) binding.lpiSample.hide() else binding.lpiSample.show()
-
-            if (binding.gLPB.indicatorProgress >= 80) {
-                binding.gLPB.indicatorProgress = 20f
-            } else {
-                binding.gLPB.indicatorProgress = 80f
-            }
-
             if (binding.gCPB.indicatorProgress >= 80) {
                 binding.gCPB.indicatorProgress = 20f
             } else {
                 binding.gCPB.indicatorProgress = 80f
             }
+        }
+    }
 
-            /*if (binding.piSample.isRunning) {
-                binding.piSample.stopAnimation()
-            } else {
-                binding.piSample.startAnimation()
-            }*/
+    private fun startRandomProgressSimulation(
+        progressIndicator: LinearProgressBar,
+        minStep: Int = 1,
+        maxStep: Int = 8,
+    ) {
+        stopProgressSimulation()
+        progressIndicator.setLoadingStarted()
 
-            if (binding.lpiSample.progress >= 80) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                    binding.lpiSample.setProgress(20, true)
-                }
-            } else {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                    binding.lpiSample.setProgress(80, true)
+        val random = Random.Default
+
+        progressRunnable = object : Runnable {
+            override fun run() {
+                progressIndicator.indicatorProgress +=
+                    random.nextInt(minStep, maxStep).toFloat()
+
+                if (progressIndicator.indicatorProgress < progressIndicator.progressLimit) {
+                    handler.postDelayed(
+                        this,
+                        500L
+                    )
+                } else {
+                    progressIndicator.setLoadingFinished()
                 }
             }
         }
+
+        handler.post(progressRunnable!!)
     }
+
+    private fun stopProgressSimulation(progressIndicator: LinearProgressBar? = null) {
+        progressRunnable?.let { handler.removeCallbacks(it) }
+        progressRunnable = null
+        progressIndicator?.setLoadingFinished()
+    }
+
 }

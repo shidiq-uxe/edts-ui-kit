@@ -5,41 +5,162 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:clipChildren="false"
     tools:context=".GuidelinesProgressBarActivity">
-
-    <com.google.android.material.progressindicator.LinearProgressIndicator
-        android:id="@+id/lpiSample"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/s"
-        app:trackColor="@color/black_20"
-        app:trackThickness="@dimen/dimen_6"
-        app:trackCornerRadius="@dimen/xxs"
-        app:indicatorTrackGapSize="0dp"
-        app:trackStopIndicatorSize="0dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
 
     <id.co.edtslib.uikit.progressindicator.DoubleArcProgressIndicator
         android:id="@+id/piSample"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/s"
-        app:layout_constraintTop_toBottomOf="@id/lpiSample"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
-    <id.co.edtslib.uikit.progressbar.GradientLinearProgressBar
-        android:id="@+id/gLPB"
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvTitleSingleLap"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/s"
+        android:layout_marginBottom="@dimen/s"
+        android:text="Single Lap Progress Bar"
+        style="@style/TextAppearance.Inter.Semibold.H2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/piSample"/>
+
+    <id.co.edtslib.uikit.progressbar.LinearProgressBar
+        android:id="@+id/gLPBSingleLap"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/s"
-        app:trackCornerRadius="@dimen/xxs"
-        app:trackThickness="@dimen/xxs"
-        app:layout_constraintTop_toBottomOf="@id/piSample"
+        app:layout_constraintTop_toBottomOf="@id/tvTitleSingleLap"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
+
+    <id.co.edtslib.uikit.button.Button
+        android:id="@+id/btnProgressSingleLap"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/s"
+        android:text="Animate Progress"
+        app:layout_constraintTop_toBottomOf="@id/gLPBSingleLap"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvTitleMultiLap"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/s"
+        android:text="Multi Lap Progress Bar"
+        style="@style/TextAppearance.Inter.Semibold.H2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnProgressSingleLap"/>
+
+    <id.co.edtslib.uikit.progressbar.LinearProgressBar
+        android:id="@+id/gLPBMultiLap"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/s"
+        app:layout_constraintTop_toBottomOf="@id/tvTitleMultiLap"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <id.co.edtslib.uikit.button.Button
+        android:id="@+id/btnProgressMultiLap"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/s"
+        android:text="Animate Progress"
+        app:layout_constraintTop_toBottomOf="@id/gLPBMultiLap"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvTitleLoading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/s"
+        android:text="Loading State Progress Bar"
+        style="@style/TextAppearance.Inter.Semibold.H2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnProgressMultiLap"/>
+
+    <id.co.edtslib.uikit.progressbar.LinearProgressBar
+        android:id="@+id/gLPBLoading"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/s"
+        app:layout_constraintTop_toBottomOf="@id/tvTitleLoading"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <id.co.edtslib.uikit.button.Button
+        android:id="@+id/btnProgressLoading"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/s"
+        android:text="Animate Progress"
+        app:layout_constraintTop_toBottomOf="@id/gLPBLoading"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvTitleDisabled"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/s"
+        android:text="Disabled State Progress Bar"
+        style="@style/TextAppearance.Inter.Semibold.H2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnProgressLoading"/>
+
+    <id.co.edtslib.uikit.progressbar.LinearProgressBar
+        android:id="@+id/gLPBDisabled"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/s"
+        app:layout_constraintTop_toBottomOf="@id/tvTitleDisabled"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvTitleIntermittent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/s"
+        android:text="Intermittent State Progress Bar"
+        style="@style/TextAppearance.Inter.Semibold.H2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/gLPBDisabled"/>
+
+    <id.co.edtslib.uikit.progressbar.LinearProgressBar
+        android:id="@+id/gLPBIntermittentFixed"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/s"
+        app:layout_constraintTop_toBottomOf="@id/tvTitleIntermittent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <id.co.edtslib.uikit.progressbar.LinearProgressBar
+        android:id="@+id/gLPBIntermittentStretch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/s"
+        app:layout_constraintTop_toBottomOf="@id/gLPBIntermittentFixed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvTitleCircular"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/s"
+        android:text="Circular Progress Bar"
+        style="@style/TextAppearance.Inter.Semibold.H2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/gLPBIntermittentStretch"/>
 
     <id.co.edtslib.uikit.progressbar.GradientCircularProgressBar
         android:id="@+id/gCPB"
@@ -47,19 +168,20 @@
         android:layout_height="@dimen/dimen_0"
         android:layout_margin="@dimen/s"
         app:indicatorProgress="20"
-        app:layout_constraintTop_toBottomOf="@id/gLPB"
+        app:layout_constraintTop_toBottomOf="@id/tvTitleCircular"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintWidth_percent="0.3"/>
 
-    <com.google.android.material.button.MaterialButton
+    <id.co.edtslib.uikit.button.Button
         android:id="@+id/btnVisibility"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/s"
-        android:text="Change ProgressIndicator Visibility"
-        app:layout_constraintBottom_toBottomOf="parent"/>
-
+        android:text="Animate Progress"
+        app:layout_constraintTop_toBottomOf="@id/gCPB"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

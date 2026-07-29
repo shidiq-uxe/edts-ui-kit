@@ -88,4 +88,9 @@
     <color name="text_badge_foreground_green">#0F820C</color>
     <color name="text_badge_background_green">#D1FFD0</color>
 
+    <!--Progress Bar-->
+    <color name="progress_bar_light_blue">#58AAF3</color>
+    <color name="progress_bar_dark_blue">#1178D4</color>
+    <color name="progress_bar_black_opacity">#1A000000</color>
+
 </resources>
