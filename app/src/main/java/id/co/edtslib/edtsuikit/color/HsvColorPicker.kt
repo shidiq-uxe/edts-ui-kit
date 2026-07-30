@@ -1,7 +1,6 @@
 package id.co.edtslib.edtsuikit.color
 
 import android.content.Context
-import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.LinearGradient
@@ -35,11 +34,6 @@ class HsvColorPicker @JvmOverloads constructor(
     private val hueBarBounds = RectF()
     private val svRectBounds = RectF()
 
-    private var cachedSvBitmap: Bitmap? = null
-    private var cachedHue: Float = -1f
-    private var cachedSvWidth: Int = 0
-    private var cachedSvHeight: Int = 0
-
     private val thumbRadius = 10.dp
     private val hueBarHeight = 24.dp
     private val hueBarTopMargin = 12.dp
@@ -57,7 +51,6 @@ class HsvColorPicker @JvmOverloads constructor(
         hueBarLeft = svLeft
         hueBarBounds.set(svLeft, svSide + hueBarTopMargin, svLeft + svSide, svSide + hueBarTopMargin + hueBarHeight)
         huePosition = hueBarLeft + hue / 360f * svSide
-        cachedSvBitmap = null
     }
 
     override fun onDraw(canvas: Canvas) {
@@ -74,14 +67,13 @@ class HsvColorPicker @JvmOverloads constructor(
         val svHeight = r.height().toInt()
         if (svWidth <= 0 || svHeight <= 0) return
 
-        if (cachedSvBitmap == null || cachedHue != hue || cachedSvWidth != svWidth || cachedSvHeight != svHeight) {
-            rebuildSvBitmap(svWidth, svHeight)
-        }
-        cachedSvBitmap?.let { canvas.drawBitmap(it, r.left, r.top, paint) }
+        val hueColor = Color.HSVToColor(floatArrayOf(hue, 1f, 1f))
+        paint.color = hueColor
+        paint.shader = null
+        canvas.drawRect(r, paint)
 
         val whiteGradient = LinearGradient(r.left, 0f, r.right, 0f, Color.WHITE, Color.TRANSPARENT, Shader.TileMode.CLAMP)
         paint.shader = whiteGradient
-        paint.alpha = 255
         canvas.drawRect(r, paint)
         paint.shader = null
 
@@ -89,24 +81,6 @@ class HsvColorPicker @JvmOverloads constructor(
         paint.shader = blackGradient
         canvas.drawRect(r, paint)
         paint.shader = null
-    }
-
-    private fun rebuildSvBitmap(svWidth: Int, svHeight: Int) {
-        cachedSvBitmap?.recycle()
-        val bitmap = Bitmap.createBitmap(svWidth, svHeight, Bitmap.Config.ARGB_8888)
-        val pixels = IntArray(svWidth * svHeight)
-        for (y in 0 until svHeight) {
-            for (x in 0 until svWidth) {
-                val s = x.toFloat() / svWidth
-                val v = 1f - (y.toFloat() / svHeight)
-                pixels[y * svWidth + x] = Color.HSVToColor(floatArrayOf(hue, s, v))
-            }
-        }
-        bitmap.setPixels(pixels, 0, svWidth, 0, 0, svWidth, svHeight)
-        cachedSvBitmap = bitmap
-        cachedHue = hue
-        cachedSvWidth = svWidth
-        cachedSvHeight = svHeight
     }
 
     private fun drawHueBar(canvas: Canvas) {
