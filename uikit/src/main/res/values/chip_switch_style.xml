@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Widget.EDTS.UIKit.Chip.Filter" parent="Widget.Material3.Chip.Filter">
+        <item name="chipBackgroundColor">@color/slr_chip_filter_bg</item>
+        <item name="android:textColor">@color/slr_chip_filter_text</item>
+        <item name="chipStrokeColor">@color/black_30</item>
+        <item name="chipStrokeWidth">@dimen/dimen_1</item>
+        <item name="chipCornerRadius">@dimen/xs</item>
+        <item name="android:textAppearance">@style/TextAppearance.Inter.Regular.B2</item>
+        <item name="chipStartPadding">@dimen/s</item>
+        <item name="chipEndPadding">@dimen/s</item>
+        <item name="chipMinHeight">@dimen/dimen_32</item>
+    </style>
+
+    <style name="Widget.EDTS.UIKit.Switch" parent="Widget.Material3.CompoundButton.MaterialSwitch">
+        <item name="trackTint">@color/slr_switch_track</item>
+        <item name="thumbTint">@color/slr_switch_thumb</item>
+        <item name="trackDecorationTint">@color/transparent</item>
+    </style>
+
+</resources>
