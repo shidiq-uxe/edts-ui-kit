@@ -64,3 +64,37 @@ They should be added once their stop colors and direction are available.
 Do not add new generalized component references to the legacy palette names in
 `colors.xml`; those names remain untouched for compatibility with existing
 components and product work.
+
+## Typography
+
+The Typography frame in [Poinku Foundation 2.0](https://www.figma.com/design/VDm3wrVAgs03BglkFrMSH8/Poinku-Foundation-2.0?node-id=1-4)
+uses Rubik with zero letter spacing. The Android implementation is split into
+two resource layers:
+
+- `poinku_typography.xml` contains the concrete Rubik implementation.
+- `foundation_typography.xml` contains product-neutral aliases that generalized
+  components should consume.
+- `foundation_typography_dimensions.xml` stores the exact `sp` sizes and `dp`
+  line heights used by the Poinku styles.
+
+The available roles are Display D1-D3, Heading H1-H4, Body B1-B5, Paragraph
+P1-P3, and Button Large/Medium/Small. The values are taken from the Figma
+typography definitions, including the distinctions between Rubik Regular,
+Medium, SemiBold, and Bold. For example:
+
+```xml
+<TextView
+    style="@style/TextAppearance.Foundation.Body.B2.Medium"
+    android:text="Poinku body text" />
+```
+
+The Figma library exposes `typography/typeface`, `typography/size/*`, and
+`typography/weight/*` variables. Android resources cannot consume those remote
+variables directly, so the role-to-value mapping is explicit in the local
+dimension and style resources. The Figma variable search exposed names and
+scopes, while the Typography frame definitions supplied the resolved values.
+
+Existing `TextAppearance.Inter.*` styles remain unchanged for compatibility.
+The Rubik resources use Android downloadable fonts, matching the repository's
+existing Inter provider pattern; the host application must provide Google Play
+services for runtime font retrieval.

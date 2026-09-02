@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Product-neutral aliases. Products can override these names without changing components. -->
+    <style name="TextAppearance.Foundation.Display.D1.Heavy" parent="TextAppearance.Poinku.Display.D1.Heavy" />
+    <style name="TextAppearance.Foundation.Display.D1.Medium" parent="TextAppearance.Poinku.Display.D1.Medium" />
+    <style name="TextAppearance.Foundation.Display.D2.Heavy" parent="TextAppearance.Poinku.Display.D2.Heavy" />
+    <style name="TextAppearance.Foundation.Display.D2.Medium" parent="TextAppearance.Poinku.Display.D2.Medium" />
+    <style name="TextAppearance.Foundation.Display.D3.Heavy" parent="TextAppearance.Poinku.Display.D3.Heavy" />
+    <style name="TextAppearance.Foundation.Display.D3.Medium" parent="TextAppearance.Poinku.Display.D3.Medium" />
+    <style name="TextAppearance.Foundation.Heading.H1.Heavy" parent="TextAppearance.Poinku.Heading.H1.Heavy" />
+    <style name="TextAppearance.Foundation.Heading.H1.Medium" parent="TextAppearance.Poinku.Heading.H1.Medium" />
+    <style name="TextAppearance.Foundation.Heading.H2.Heavy" parent="TextAppearance.Poinku.Heading.H2.Heavy" />
+    <style name="TextAppearance.Foundation.Heading.H2.Medium" parent="TextAppearance.Poinku.Heading.H2.Medium" />
+    <style name="TextAppearance.Foundation.Heading.H3.Heavy" parent="TextAppearance.Poinku.Heading.H3.Heavy" />
+    <style name="TextAppearance.Foundation.Heading.H3.Medium" parent="TextAppearance.Poinku.Heading.H3.Medium" />
+    <style name="TextAppearance.Foundation.Heading.H4.Heavy" parent="TextAppearance.Poinku.Heading.H4.Heavy" />
+    <style name="TextAppearance.Foundation.Heading.H4.Medium" parent="TextAppearance.Poinku.Heading.H4.Medium" />
+    <style name="TextAppearance.Foundation.Body.B1.Heavy" parent="TextAppearance.Poinku.Body.B1.Heavy" />
+    <style name="TextAppearance.Foundation.Body.B1.Medium" parent="TextAppearance.Poinku.Body.B1.Medium" />
+    <style name="TextAppearance.Foundation.Body.B1.Light" parent="TextAppearance.Poinku.Body.B1.Light" />
+    <style name="TextAppearance.Foundation.Body.B2.Heavy" parent="TextAppearance.Poinku.Body.B2.Heavy" />
+    <style name="TextAppearance.Foundation.Body.B2.Large" parent="TextAppearance.Poinku.Body.B2.Large" />
+    <style name="TextAppearance.Foundation.Body.B2.Medium" parent="TextAppearance.Poinku.Body.B2.Medium" />
+    <style name="TextAppearance.Foundation.Body.B2.Light" parent="TextAppearance.Poinku.Body.B2.Light" />
+    <style name="TextAppearance.Foundation.Body.B3.Heavy" parent="TextAppearance.Poinku.Body.B3.Heavy" />
+    <style name="TextAppearance.Foundation.Body.B3.Medium" parent="TextAppearance.Poinku.Body.B3.Medium" />
+    <style name="TextAppearance.Foundation.Body.B3.Light" parent="TextAppearance.Poinku.Body.B3.Light" />
+    <style name="TextAppearance.Foundation.Body.B4.Heavy" parent="TextAppearance.Poinku.Body.B4.Heavy" />
+    <style name="TextAppearance.Foundation.Body.B4.Medium" parent="TextAppearance.Poinku.Body.B4.Medium" />
+    <style name="TextAppearance.Foundation.Body.B4.Light" parent="TextAppearance.Poinku.Body.B4.Light" />
+    <style name="TextAppearance.Foundation.Body.B5.Medium" parent="TextAppearance.Poinku.Body.B5.Medium" />
+    <style name="TextAppearance.Foundation.Body.B5.Light" parent="TextAppearance.Poinku.Body.B5.Light" />
+    <style name="TextAppearance.Foundation.Paragraph.P1.Heavy" parent="TextAppearance.Poinku.Paragraph.P1.Heavy" />
+    <style name="TextAppearance.Foundation.Paragraph.P1.Light" parent="TextAppearance.Poinku.Paragraph.P1.Light" />
+    <style name="TextAppearance.Foundation.Paragraph.P2.Heavy" parent="TextAppearance.Poinku.Paragraph.P2.Heavy" />
+    <style name="TextAppearance.Foundation.Paragraph.P2.Light" parent="TextAppearance.Poinku.Paragraph.P2.Light" />
+    <style name="TextAppearance.Foundation.Paragraph.P3.Heavy" parent="TextAppearance.Poinku.Paragraph.P3.Heavy" />
+    <style name="TextAppearance.Foundation.Paragraph.P3.Light" parent="TextAppearance.Poinku.Paragraph.P3.Light" />
+    <style name="TextAppearance.Foundation.Button.Large" parent="TextAppearance.Poinku.Button.Large" />
+    <style name="TextAppearance.Foundation.Button.Medium" parent="TextAppearance.Poinku.Button.Medium" />
+    <style name="TextAppearance.Foundation.Button.Small" parent="TextAppearance.Poinku.Button.Small" />
+</resources>
+

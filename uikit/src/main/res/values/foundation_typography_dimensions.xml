@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Sizes and line heights mirror Poinku Foundation 2.0 typography styles. -->
+    <dimen name="foundation_typography_display_d1_size">28sp</dimen>
+    <dimen name="foundation_typography_display_d1_line_height">30dp</dimen>
+    <dimen name="foundation_typography_display_d2_size">24sp</dimen>
+    <dimen name="foundation_typography_display_d2_line_height">26dp</dimen>
+    <dimen name="foundation_typography_display_d3_size">20sp</dimen>
+    <dimen name="foundation_typography_display_d3_line_height">24dp</dimen>
+
+    <dimen name="foundation_typography_heading_h1_size">16sp</dimen>
+    <dimen name="foundation_typography_heading_h1_line_height">18dp</dimen>
+    <dimen name="foundation_typography_heading_h2_size">14sp</dimen>
+    <dimen name="foundation_typography_heading_h2_line_height">16dp</dimen>
+    <dimen name="foundation_typography_heading_h3_size">12sp</dimen>
+    <dimen name="foundation_typography_heading_h3_line_height">14dp</dimen>
+    <dimen name="foundation_typography_heading_h4_size">10sp</dimen>
+    <dimen name="foundation_typography_heading_h4_line_height">12dp</dimen>
+
+    <dimen name="foundation_typography_body_b1_size">16sp</dimen>
+    <dimen name="foundation_typography_body_b1_line_height">18dp</dimen>
+    <dimen name="foundation_typography_body_b2_size">14sp</dimen>
+    <dimen name="foundation_typography_body_b2_line_height">16dp</dimen>
+    <dimen name="foundation_typography_body_b3_size">12sp</dimen>
+    <dimen name="foundation_typography_body_b3_line_height">16dp</dimen>
+    <dimen name="foundation_typography_body_b4_size">10sp</dimen>
+    <dimen name="foundation_typography_body_b4_line_height">14dp</dimen>
+    <dimen name="foundation_typography_body_b5_size">8sp</dimen>
+    <dimen name="foundation_typography_body_b5_line_height">12dp</dimen>
+
+    <dimen name="foundation_typography_paragraph_p1_size">14sp</dimen>
+    <dimen name="foundation_typography_paragraph_p1_line_height">20dp</dimen>
+    <dimen name="foundation_typography_paragraph_p2_size">12sp</dimen>
+    <dimen name="foundation_typography_paragraph_p2_line_height">16dp</dimen>
+    <dimen name="foundation_typography_paragraph_p3_size">10sp</dimen>
+    <dimen name="foundation_typography_paragraph_p3_line_height">14dp</dimen>
+
+    <dimen name="foundation_typography_button_large_size">16sp</dimen>
+    <dimen name="foundation_typography_button_large_line_height">24dp</dimen>
+    <dimen name="foundation_typography_button_medium_size">14sp</dimen>
+    <dimen name="foundation_typography_button_medium_line_height">16dp</dimen>
+    <dimen name="foundation_typography_button_small_size">12sp</dimen>
+    <dimen name="foundation_typography_button_small_line_height">16dp</dimen>
+</resources>

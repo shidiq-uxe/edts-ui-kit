@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Poinku implementation of the typography contract from Foundation 2.0. -->
+    <style name="TextAppearance.Poinku.Display.D1.Heavy" parent="Base.TextAppearance.AppCompat">
+        <item name="fontFamily">@font/rubik_semibold</item>
+        <item name="android:fontFamily">@font/rubik_semibold</item>
+        <item name="android:textSize">@dimen/foundation_typography_display_d1_size</item>
+        <item name="lineHeight">@dimen/foundation_typography_display_d1_line_height</item>
+    </style>
+    <style name="TextAppearance.Poinku.Display.D1.Medium" parent="Base.TextAppearance.AppCompat">
+        <item name="fontFamily">@font/rubik_medium</item>
+        <item name="android:fontFamily">@font/rubik_medium</item>
+        <item name="android:textSize">@dimen/foundation_typography_display_d1_size</item>
+        <item name="lineHeight">@dimen/foundation_typography_display_d1_line_height</item>
+    </style>
+    <style name="TextAppearance.Poinku.Display.D2.Heavy" parent="Base.TextAppearance.AppCompat">
+        <item name="fontFamily">@font/rubik_semibold</item>
+        <item name="android:fontFamily">@font/rubik_semibold</item>
+        <item name="android:textSize">@dimen/foundation_typography_display_d2_size</item>
+        <item name="lineHeight">@dimen/foundation_typography_display_d2_line_height</item>
+    </style>
+    <style name="TextAppearance.Poinku.Display.D2.Medium" parent="Base.TextAppearance.AppCompat">
+        <item name="fontFamily">@font/rubik_medium</item>
+        <item name="android:fontFamily">@font/rubik_medium</item>
+        <item name="android:textSize">@dimen/foundation_typography_display_d2_size</item>
+        <item name="lineHeight">@dimen/foundation_typography_display_d2_line_height</item>
+    </style>
+    <style name="TextAppearance.Poinku.Display.D3.Heavy" parent="Base.TextAppearance.AppCompat">
+        <item name="fontFamily">@font/rubik_semibold</item>
+        <item name="android:fontFamily">@font/rubik_semibold</item>
+        <item name="android:textSize">@dimen/foundation_typography_display_d3_size</item>
+        <item name="lineHeight">@dimen/foundation_typography_display_d3_line_height</item>
+    </style>
+    <style name="TextAppearance.Poinku.Display.D3.Medium" parent="Base.TextAppearance.AppCompat">
+        <item name="fontFamily">@font/rubik_medium</item>
+        <item name="android:fontFamily">@font/rubik_medium</item>
+        <item name="android:textSize">@dimen/foundation_typography_display_d3_size</item>
+        <item name="lineHeight">@dimen/foundation_typography_display_d3_line_height</item>
+    </style>
+
+    <style name="TextAppearance.Poinku.Heading.H1.Heavy" parent="Base.TextAppearance.AppCompat">
+        <item name="fontFamily">@font/rubik_semibold</item>
+        <item name="android:fontFamily">@font/rubik_semibold</item>
+        <item name="android:textSize">@dimen/foundation_typography_heading_h1_size</item>
+        <item name="lineHeight">@dimen/foundation_typography_heading_h1_line_height</item>
+    </style>
+    <style name="TextAppearance.Poinku.Heading.H1.Medium" parent="Base.TextAppearance.AppCompat">
+        <item name="fontFamily">@font/rubik_medium</item>
+        <item name="android:fontFamily">@font/rubik_medium</item>
+        <item name="android:textSize">@dimen/foundation_typography_heading_h1_size</item>
+        <item name="lineHeight">@dimen/foundation_typography_heading_h1_line_height</item>
+    </style>
+    <style name="TextAppearance.Poinku.Heading.H2.Heavy" parent="Base.TextAppearance.AppCompat">
+        <item name="fontFamily">@font/rubik_semibold</item>
+        <item name="android:fontFamily">@font/rubik_semibold</item>
+        <item name="android:textSize">@dimen/foundation_typography_heading_h2_size</item>
+        <item name="lineHeight">@dimen/foundation_typography_heading_h2_line_height</item>
+    </style>
+    <style name="TextAppearance.Poinku.Heading.H2.Medium" parent="Base.TextAppearance.AppCompat">
+        <item name="fontFamily">@font/rubik_medium</item>
+        <item name="android:fontFamily">@font/rubik_medium</item>
+        <item name="android:textSize">@dimen/foundation_typography_heading_h2_size</item>
+        <item name="lineHeight">@dimen/foundation_typography_heading_h2_line_height</item>
+    </style>
+    <style name="TextAppearance.Poinku.Heading.H3.Heavy" parent="Base.TextAppearance.AppCompat">
+        <item name="fontFamily">@font/rubik_semibold</item>
+        <item name="android:fontFamily">@font/rubik_semibold</item>
+        <item name="android:textSize">@dimen/foundation_typography_heading_h3_size</item>
+        <item name="lineHeight">@dimen/foundation_typography_heading_h3_line_height</item>
+    </style>
+    <style name="TextAppearance.Poinku.Heading.H3.Medium" parent="Base.TextAppearance.AppCompat">
+        <item name="fontFamily">@font/rubik_medium</item>
+        <item name="android:fontFamily">@font/rubik_medium</item>
+        <item name="android:textSize">@dimen/foundation_typography_heading_h3_size</item>
+        <item name="lineHeight">@dimen/foundation_typography_heading_h3_line_height</item>
+    </style>
+    <style name="TextAppearance.Poinku.Heading.H4.Heavy" parent="Base.TextAppearance.AppCompat">
+        <item name="fontFamily">@font/rubik_semibold</item>
+        <item name="android:fontFamily">@font/rubik_semibold</item>
+        <item name="android:textSize">@dimen/foundation_typography_heading_h4_size</item>
+        <item name="lineHeight">@dimen/foundation_typography_heading_h4_line_height</item>
+    </style>
+    <style name="TextAppearance.Poinku.Heading.H4.Medium" parent="Base.TextAppearance.AppCompat">
+        <item name="fontFamily">@font/rubik_medium</item>
+        <item name="android:fontFamily">@font/rubik_medium</item>
+        <item name="android:textSize">@dimen/foundation_typography_heading_h4_size</item>
+        <item name="lineHeight">@dimen/foundation_typography_heading_h4_line_height</item>
+    </style>
+
+    <style name="TextAppearance.Poinku.Body.B1.Heavy" parent="Base.TextAppearance.AppCompat">
+        <item name="fontFamily">@font/rubik_semibold</item>
+        <item name="android:fontFamily">@font/rubik_semibold</item>
+        <item name="android:textSize">@dimen/foundation_typography_body_b1_size</item>
+        <item name="lineHeight">@dimen/foundation_typography_body_b1_line_height</item>
+    </style>
+    <style name="TextAppearance.Poinku.Body.B1.Medium" parent="Base.TextAppearance.AppCompat">
+        <item name="fontFamily">@font/rubik_medium</item>
+        <item name="android:fontFamily">@font/rubik_medium</item>
+        <item name="android:textSize">@dimen/foundation_typography_body_b1_size</item>
+        <item name="lineHeight">@dimen/foundation_typography_body_b1_line_height</item>
+    </style>
+    <style name="TextAppearance.Poinku.Body.B1.Light" parent="Base.TextAppearance.AppCompat">
+        <item name="fontFamily">@font/rubik</item>
+        <item name="android:fontFamily">@font/rubik</item>
+        <item name="android:textSize">@dimen/foundation_typography_body_b1_size</item>
+        <item name="lineHeight">@dimen/foundation_typography_body_b1_line_height</item>
+    </style>
+    <style name="TextAppearance.Poinku.Body.B2.Heavy" parent="Base.TextAppearance.AppCompat">
+        <item name="fontFamily">@font/rubik_bold</item>
+        <item name="android:fontFamily">@font/rubik_bold</item>
+        <item name="android:textSize">@dimen/foundation_typography_body_b2_size</item>
+        <item name="lineHeight">@dimen/foundation_typography_body_b2_line_height</item>
+    </style>
+    <style name="TextAppearance.Poinku.Body.B2.Large" parent="Base.TextAppearance.AppCompat">
+        <item name="fontFamily">@font/rubik_semibold</item>
+        <item name="android:fontFamily">@font/rubik_semibold</item>
+        <item name="android:textSize">@dimen/foundation_typography_body_b2_size</item>
+        <item name="lineHeight">@dimen/foundation_typography_body_b2_line_height</item>
+    </style>
+    <style name="TextAppearance.Poinku.Body.B2.Medium" parent="Base.TextAppearance.AppCompat">
+        <item name="fontFamily">@font/rubik_medium</item>
+        <item name="android:fontFamily">@font/rubik_medium</item>
+        <item name="android:textSize">@dimen/foundation_typography_body_b2_size</item>
+        <item name="lineHeight">@dimen/foundation_typography_body_b2_line_height</item>
+    </style>
+    <style name="TextAppearance.Poinku.Body.B2.Light" parent="Base.TextAppearance.AppCompat">
+        <item name="fontFamily">@font/rubik</item>
+        <item name="android:fontFamily">@font/rubik</item>
+        <item name="android:textSize">@dimen/foundation_typography_body_b2_size</item>
+        <item name="lineHeight">@dimen/foundation_typography_body_b2_line_height</item>
+    </style>
+    <style name="TextAppearance.Poinku.Body.B3.Heavy" parent="Base.TextAppearance.AppCompat">
+        <item name="fontFamily">@font/rubik_semibold</item>
+        <item name="android:fontFamily">@font/rubik_semibold</item>
+        <item name="android:textSize">@dimen/foundation_typography_body_b3_size</item>
+        <item name="lineHeight">@dimen/foundation_typography_body_b3_line_height</item>
+    </style>
+    <style name="TextAppearance.Poinku.Body.B3.Medium" parent="Base.TextAppearance.AppCompat">
+        <item name="fontFamily">@font/rubik_medium</item>
+        <item name="android:fontFamily">@font/rubik_medium</item>
+        <item name="android:textSize">@dimen/foundation_typography_body_b3_size</item>
+        <item name="lineHeight">@dimen/foundation_typography_body_b3_line_height</item>
+    </style>
+    <style name="TextAppearance.Poinku.Body.B3.Light" parent="Base.TextAppearance.AppCompat">
+        <item name="fontFamily">@font/rubik</item>
+        <item name="android:fontFamily">@font/rubik</item>
+        <item name="android:textSize">@dimen/foundation_typography_body_b3_size</item>
+        <item name="lineHeight">@dimen/foundation_typography_body_b3_line_height</item>
+    </style>
+    <style name="TextAppearance.Poinku.Body.B4.Heavy" parent="Base.TextAppearance.AppCompat">
+        <item name="fontFamily">@font/rubik_semibold</item>
+        <item name="android:fontFamily">@font/rubik_semibold</item>
+        <item name="android:textSize">@dimen/foundation_typography_body_b4_size</item>
+        <item name="lineHeight">@dimen/foundation_typography_body_b4_line_height</item>
+    </style>
+    <style name="TextAppearance.Poinku.Body.B4.Medium" parent="Base.TextAppearance.AppCompat">
+        <item name="fontFamily">@font/rubik_medium</item>
+        <item name="android:fontFamily">@font/rubik_medium</item>
+        <item name="android:textSize">@dimen/foundation_typography_body_b4_size</item>
+        <item name="lineHeight">@dimen/foundation_typography_body_b4_line_height</item>
+    </style>
+    <style name="TextAppearance.Poinku.Body.B4.Light" parent="Base.TextAppearance.AppCompat">
+        <item name="fontFamily">@font/rubik</item>
+        <item name="android:fontFamily">@font/rubik</item>
+        <item name="android:textSize">@dimen/foundation_typography_body_b4_size</item>
+        <item name="lineHeight">@dimen/foundation_typography_body_b4_line_height</item>
+    </style>
+    <style name="TextAppearance.Poinku.Body.B5.Medium" parent="Base.TextAppearance.AppCompat">
+        <item name="fontFamily">@font/rubik_medium</item>
+        <item name="android:fontFamily">@font/rubik_medium</item>
+        <item name="android:textSize">@dimen/foundation_typography_body_b5_size</item>
+        <item name="lineHeight">@dimen/foundation_typography_body_b5_line_height</item>
+    </style>
+    <style name="TextAppearance.Poinku.Body.B5.Light" parent="Base.TextAppearance.AppCompat">
+        <item name="fontFamily">@font/rubik</item>
+        <item name="android:fontFamily">@font/rubik</item>
+        <item name="android:textSize">@dimen/foundation_typography_body_b5_size</item>
+        <item name="lineHeight">@dimen/foundation_typography_body_b5_line_height</item>
+    </style>
+
+    <style name="TextAppearance.Poinku.Paragraph.P1.Heavy" parent="Base.TextAppearance.AppCompat">
+        <item name="fontFamily">@font/rubik_semibold</item>
+        <item name="android:fontFamily">@font/rubik_semibold</item>
+        <item name="android:textSize">@dimen/foundation_typography_paragraph_p1_size</item>
+        <item name="lineHeight">@dimen/foundation_typography_paragraph_p1_line_height</item>
+    </style>
+    <style name="TextAppearance.Poinku.Paragraph.P1.Light" parent="Base.TextAppearance.AppCompat">
+        <item name="fontFamily">@font/rubik</item>
+        <item name="android:fontFamily">@font/rubik</item>
+        <item name="android:textSize">@dimen/foundation_typography_paragraph_p1_size</item>
+        <item name="lineHeight">@dimen/foundation_typography_paragraph_p1_line_height</item>
+    </style>
+    <style name="TextAppearance.Poinku.Paragraph.P2.Heavy" parent="Base.TextAppearance.AppCompat">
+        <item name="fontFamily">@font/rubik_semibold</item>
+        <item name="android:fontFamily">@font/rubik_semibold</item>
+        <item name="android:textSize">@dimen/foundation_typography_paragraph_p2_size</item>
+        <item name="lineHeight">@dimen/foundation_typography_paragraph_p2_line_height</item>
+    </style>
+    <style name="TextAppearance.Poinku.Paragraph.P2.Light" parent="Base.TextAppearance.AppCompat">
+        <item name="fontFamily">@font/rubik</item>
+        <item name="android:fontFamily">@font/rubik</item>
+        <item name="android:textSize">@dimen/foundation_typography_paragraph_p2_size</item>
+        <item name="lineHeight">@dimen/foundation_typography_paragraph_p2_line_height</item>
+    </style>
+    <style name="TextAppearance.Poinku.Paragraph.P3.Heavy" parent="Base.TextAppearance.AppCompat">
+        <item name="fontFamily">@font/rubik_semibold</item>
+        <item name="android:fontFamily">@font/rubik_semibold</item>
+        <item name="android:textSize">@dimen/foundation_typography_paragraph_p3_size</item>
+        <item name="lineHeight">@dimen/foundation_typography_paragraph_p3_line_height</item>
+    </style>
+    <style name="TextAppearance.Poinku.Paragraph.P3.Light" parent="Base.TextAppearance.AppCompat">
+        <item name="fontFamily">@font/rubik</item>
+        <item name="android:fontFamily">@font/rubik</item>
+        <item name="android:textSize">@dimen/foundation_typography_paragraph_p3_size</item>
+        <item name="lineHeight">@dimen/foundation_typography_paragraph_p3_line_height</item>
+    </style>
+
+    <style name="TextAppearance.Poinku.Button.Large" parent="Base.TextAppearance.AppCompat">
+        <item name="fontFamily">@font/rubik_medium</item>
+        <item name="android:fontFamily">@font/rubik_medium</item>
+        <item name="android:textSize">@dimen/foundation_typography_button_large_size</item>
+        <item name="lineHeight">@dimen/foundation_typography_button_large_line_height</item>
+    </style>
+    <style name="TextAppearance.Poinku.Button.Medium" parent="Base.TextAppearance.AppCompat">
+        <item name="fontFamily">@font/rubik_medium</item>
+        <item name="android:fontFamily">@font/rubik_medium</item>
+        <item name="android:textSize">@dimen/foundation_typography_button_medium_size</item>
+        <item name="lineHeight">@dimen/foundation_typography_button_medium_line_height</item>
+    </style>
+    <style name="TextAppearance.Poinku.Button.Small" parent="Base.TextAppearance.AppCompat">
+        <item name="fontFamily">@font/rubik_medium</item>
+        <item name="android:fontFamily">@font/rubik_medium</item>
+        <item name="android:textSize">@dimen/foundation_typography_button_small_size</item>
+        <item name="lineHeight">@dimen/foundation_typography_button_small_line_height</item>
+    </style>
+</resources>
