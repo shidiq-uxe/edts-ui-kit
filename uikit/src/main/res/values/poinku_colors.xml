@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--
+        Poinku product theme values from Poinku Foundation 2.0.
+        Keep these product-specific values separate from the foundation role
+        names in foundation_colors.xml so another product can provide its own
+        implementation without changing generalized component code.
+    -->
+
+    <!-- Neutral -->
+    <color name="poinku_color_neutral_white">#FFFFFF</color>
+    <color name="poinku_color_neutral_black">#000000</color>
+
+    <!-- Grey -->
+    <color name="poinku_color_grey_80">#151823</color>
+    <color name="poinku_color_grey_70">#434755</color>
+    <color name="poinku_color_grey_60">#70727D</color>
+    <color name="poinku_color_grey_50">#9C9DA6</color>
+    <color name="poinku_color_grey_40">#C3C7CF</color>
+    <color name="poinku_color_grey_30">#DCDEE3</color>
+    <color name="poinku_color_grey_20">#EFF3F6</color>
+    <color name="poinku_color_grey_10">#F8FBFC</color>
+
+    <!-- Primary - Blue -->
+    <color name="poinku_color_primary_blue_50">#044B95</color>
+    <color name="poinku_color_primary_blue_40">#0958AA</color>
+    <color name="poinku_color_primary_blue_30">#1178D4</color>
+    <color name="poinku_color_primary_blue_20">#368BE2</color>
+    <color name="poinku_color_primary_blue_10">#6CA5E0</color>
+
+    <!-- Secondary - Red -->
+    <color name="poinku_color_secondary_red_50">#BB0000</color>
+    <color name="poinku_color_secondary_red_40">#DC1013</color>
+    <color name="poinku_color_secondary_red_30">#EE2B2E</color>
+    <color name="poinku_color_secondary_red_20">#FD474A</color>
+    <color name="poinku_color_secondary_red_10">#FFEDEE</color>
+
+    <!-- Secondary - Orange -->
+    <color name="poinku_color_secondary_orange_50">#CC8000</color>
+    <color name="poinku_color_secondary_orange_40">#DA8D0B</color>
+    <color name="poinku_color_secondary_orange_30">#F29D0D</color>
+    <color name="poinku_color_secondary_orange_20">#F0AF42</color>
+    <color name="poinku_color_secondary_orange_10">#EEC787</color>
+
+    <!-- Support / semantic values -->
+    <color name="poinku_color_support_error_strong">#EE2B2E</color>
+    <color name="poinku_color_support_error_weak">#FFEDEE</color>
+    <color name="poinku_color_support_warning_strong">#FF7D1D</color>
+    <color name="poinku_color_support_warning_weak">#FFF0E6</color>
+    <color name="poinku_color_support_success_strong">#8FC742</color>
+    <color name="poinku_color_support_success_weak">#F6FFEB</color>
+    <color name="poinku_color_support_highlight_primary_strong">#1178D4</color>
+    <color name="poinku_color_support_highlight_primary_weak">#E7F1FD</color>
+    <color name="poinku_color_support_highlight_secondary_strong">#F29D0D</color>
+    <color name="poinku_color_support_highlight_secondary_weak">#FEFBF5</color>
+    <color name="poinku_color_support_yellow_strong">#FAC714</color>
+</resources>

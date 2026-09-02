@@ -7,5 +7,9 @@
         <item>@font/inter_light</item>
         <item>@font/inter_medium</item>
         <item>@font/inter_semibold</item>
+        <item>@font/rubik</item>
+        <item>@font/rubik_bold</item>
+        <item>@font/rubik_medium</item>
+        <item>@font/rubik_semibold</item>
     </array>
 </resources>

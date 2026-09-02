@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--
+        Product-neutral semantic color contract.
+        Poinku is the default implementation for this module. A future Klik
+        product can override these resource names from its own resource set
+        while generalized components continue to depend on this contract.
+    -->
+
+    <!-- Palette roles -->
+    <color name="foundation_color_neutral_white">@color/poinku_color_neutral_white</color>
+    <color name="foundation_color_neutral_black">@color/poinku_color_neutral_black</color>
+    <color name="foundation_color_grey_80">@color/poinku_color_grey_80</color>
+    <color name="foundation_color_grey_70">@color/poinku_color_grey_70</color>
+    <color name="foundation_color_grey_60">@color/poinku_color_grey_60</color>
+    <color name="foundation_color_grey_50">@color/poinku_color_grey_50</color>
+    <color name="foundation_color_grey_40">@color/poinku_color_grey_40</color>
+    <color name="foundation_color_grey_30">@color/poinku_color_grey_30</color>
+    <color name="foundation_color_grey_20">@color/poinku_color_grey_20</color>
+    <color name="foundation_color_grey_10">@color/poinku_color_grey_10</color>
+
+    <color name="foundation_color_primary_blue_50">@color/poinku_color_primary_blue_50</color>
+    <color name="foundation_color_primary_blue_40">@color/poinku_color_primary_blue_40</color>
+    <color name="foundation_color_primary_blue_30">@color/poinku_color_primary_blue_30</color>
+    <color name="foundation_color_primary_blue_20">@color/poinku_color_primary_blue_20</color>
+    <color name="foundation_color_primary_blue_10">@color/poinku_color_primary_blue_10</color>
+
+    <color name="foundation_color_secondary_red_50">@color/poinku_color_secondary_red_50</color>
+    <color name="foundation_color_secondary_red_40">@color/poinku_color_secondary_red_40</color>
+    <color name="foundation_color_secondary_red_30">@color/poinku_color_secondary_red_30</color>
+    <color name="foundation_color_secondary_red_20">@color/poinku_color_secondary_red_20</color>
+    <color name="foundation_color_secondary_red_10">@color/poinku_color_secondary_red_10</color>
+
+    <color name="foundation_color_secondary_orange_50">@color/poinku_color_secondary_orange_50</color>
+    <color name="foundation_color_secondary_orange_40">@color/poinku_color_secondary_orange_40</color>
+    <color name="foundation_color_secondary_orange_30">@color/poinku_color_secondary_orange_30</color>
+    <color name="foundation_color_secondary_orange_20">@color/poinku_color_secondary_orange_20</color>
+    <color name="foundation_color_secondary_orange_10">@color/poinku_color_secondary_orange_10</color>
+
+    <!--
+        Semantic roles observed in the Poinku foundation.
+        These mappings use the visible Poinku Color definitions as defaults;
+        they do not claim to reproduce an unavailable Figma alias graph.
+    -->
+    <color name="foundation_color_bg_primary">@color/poinku_color_primary_blue_30</color>
+    <color name="foundation_color_fg_primary">@color/poinku_color_primary_blue_30</color>
+    <color name="foundation_color_fg_label">@color/poinku_color_grey_80</color>
+    <color name="foundation_color_fg_disabled">@color/poinku_color_grey_40</color>
+    <color name="foundation_color_bg_disabled">@color/poinku_color_grey_20</color>
+    <color name="foundation_color_stroke_primary">@color/poinku_color_primary_blue_30</color>
+    <color name="foundation_color_bg_primary_subtle">@color/poinku_color_support_highlight_primary_weak</color>
+    <color name="foundation_color_fg_primary_subtle">@color/poinku_color_support_highlight_primary_strong</color>
+
+    <color name="foundation_color_bg_error_subtle">@color/poinku_color_support_error_weak</color>
+    <color name="foundation_color_fg_error_intense">@color/poinku_color_support_error_strong</color>
+    <color name="foundation_color_bg_warning_subtle">@color/poinku_color_support_warning_weak</color>
+    <color name="foundation_color_fg_warning_intense">@color/poinku_color_support_warning_strong</color>
+    <color name="foundation_color_bg_success_subtle">@color/poinku_color_support_success_weak</color>
+    <color name="foundation_color_fg_success_intense">@color/poinku_color_support_success_strong</color>
+    <color name="foundation_color_bg_secondary_subtle">@color/poinku_color_support_highlight_secondary_weak</color>
+    <color name="foundation_color_fg_secondary_intense">@color/poinku_color_support_highlight_secondary_strong</color>
+    <color name="foundation_color_support_yellow">@color/poinku_color_support_yellow_strong</color>
+</resources>
