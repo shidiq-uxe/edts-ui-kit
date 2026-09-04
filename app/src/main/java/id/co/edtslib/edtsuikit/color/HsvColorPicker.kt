@@ -10,6 +10,7 @@ import android.graphics.Shader
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
+import id.co.edtslib.uikit.utils.dp
 import kotlin.math.min
 
 class HsvColorPicker @JvmOverloads constructor(
@@ -37,8 +38,6 @@ class HsvColorPicker @JvmOverloads constructor(
     private val thumbRadius = 10.dp
     private val hueBarHeight = 24.dp
     private val hueBarTopMargin = 12.dp
-    private val svSize = 0f
-
     private var hueBarLeft = 0f
     private var huePosition = 0f
 
@@ -131,7 +130,13 @@ class HsvColorPicker @JvmOverloads constructor(
                 onColorChanged?.invoke(color)
                 invalidate()
             }
+            MotionEvent.ACTION_UP -> performClick()
         }
+        return true
+    }
+
+    override fun performClick(): Boolean {
+        super.performClick()
         return true
     }
 
@@ -146,7 +151,4 @@ class HsvColorPicker @JvmOverloads constructor(
     }
 
     fun getColor(): Int = Color.HSVToColor(floatArrayOf(hue, saturation, value))
-
-    private val Float.dp: Float get() = this * resources.displayMetrics.density
-    private val Int.dp: Float get() = this.toFloat() * resources.displayMetrics.density
 }

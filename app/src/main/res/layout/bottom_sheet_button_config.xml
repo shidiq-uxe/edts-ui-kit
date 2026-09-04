@@ -11,7 +11,7 @@
         android:id="@+id/tvColorPaletteLabel"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Color Palette"
+        android:text="@string/color_palette_label"
         android:textAppearance="@style/TextAppearance.Inter.Semibold.H2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -47,7 +47,7 @@
         android:id="@+id/tvOptionsLabel"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Options"
+        android:text="@string/options_label"
         android:textAppearance="@style/TextAppearance.Inter.Semibold.H2"
         android:layout_marginTop="@dimen/xs"
         app:layout_constraintEnd_toEndOf="parent"
@@ -59,7 +59,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Destructive"
+        android:text="@string/destructive_label"
         android:textAppearance="@style/TextAppearance.Inter.Regular.B2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvOptionsLabel" />
@@ -79,7 +79,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:text="Disabled"
+        android:text="@string/disabled_label"
         android:textAppearance="@style/TextAppearance.Inter.Regular.B2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvDestructiveLabel" />
@@ -99,7 +99,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:text="Shimmer"
+        android:text="@string/shimmer_label"
         android:textAppearance="@style/TextAppearance.Inter.Regular.B2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvDisabledLabel" />
@@ -119,7 +119,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:text="Corner Radius"
+        android:text="@string/corner_radius_label"
         android:textAppearance="@style/TextAppearance.Inter.Regular.B2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvShimmerLabel" />
@@ -157,7 +157,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="Button Size"
+        android:text="@string/button_size_label"
         android:textAppearance="@style/TextAppearance.Inter.Regular.B2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/slCornerRadius" />
