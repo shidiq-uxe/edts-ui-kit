@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--
+        Klik Theme (Semantic Tokens) from Klik Design Foundations 2.0.
+        These names are intentionally product-specific. Android resource
+        merging cannot contain two definitions of the same foundation_color_*
+        name, so a Klik application should overlay these mappings onto the
+        canonical foundation contract in its own product resource source set.
+    -->
+
+    <!-- Background -->
+    <color name="klik_color_bg_background_page_primary">@color/klik_color_grey_20</color>
+    <color name="klik_color_bg_background_page_secondary">@color/klik_color_grey_10</color>
+    <color name="klik_color_bg_container_primary">@color/klik_color_neutral_white</color>
+    <color name="klik_color_bg_container_secondary">@color/klik_color_grey_20</color>
+    <color name="klik_color_bg_container_tertiary">@color/klik_color_grey_10</color>
+    <color name="klik_color_bg_interactive_default">@color/klik_color_blue_50</color>
+    <color name="klik_color_bg_interactive_pressed">@color/klik_color_blue_60</color>
+    <color name="klik_color_bg_interactive_active">@color/klik_color_blue_10</color>
+    <color name="klik_color_bg_interactive_attention_or_error">@color/klik_color_red_30</color>
+    <color name="klik_color_bg_disabled_intense">@color/klik_color_grey_40</color>
+    <color name="klik_color_bg_disabled_subtle">@color/klik_color_grey_30</color>
+    <color name="klik_color_bg_info_grey_intense">@color/klik_color_grey_60</color>
+    <color name="klik_color_bg_info_grey_subtle">@color/klik_color_grey_10</color>
+    <color name="klik_color_bg_info_blue_intense">@color/klik_color_blue_50</color>
+    <color name="klik_color_bg_info_blue_subtle">@color/klik_color_blue_10</color>
+    <color name="klik_color_bg_success_intense">@color/klik_color_green_50</color>
+    <color name="klik_color_bg_success_subtle">@color/klik_color_green_10</color>
+    <color name="klik_color_bg_attention_or_error_intense">@color/klik_color_red_50</color>
+    <color name="klik_color_bg_attention_or_error_subtle">@color/klik_color_red_10</color>
+    <color name="klik_color_bg_warning_intense">@color/klik_color_orange_50</color>
+    <color name="klik_color_bg_warning_subtle">@color/klik_color_orange_10</color>
+
+    <!-- Foreground -->
+    <color name="klik_color_fg_primary">@color/klik_color_grey_70</color>
+    <color name="klik_color_fg_secondary">@color/klik_color_grey_60</color>
+    <color name="klik_color_fg_tertiary">@color/klik_color_grey_50</color>
+    <color name="klik_color_fg_quaternary">@color/klik_color_grey_40</color>
+    <color name="klik_color_fg_white">@color/klik_color_neutral_white</color>
+    <color name="klik_color_fg_interactive_default">@color/klik_color_blue_50</color>
+    <color name="klik_color_fg_interactive_pressed">@color/klik_color_blue_60</color>
+    <color name="klik_color_fg_interactive_active">@color/klik_color_blue_10</color>
+    <color name="klik_color_fg_interactive_attention_or_error">@color/klik_color_red_30</color>
+    <color name="klik_color_fg_disabled_intense">@color/klik_color_grey_40</color>
+    <color name="klik_color_fg_disabled_subtle">@color/klik_color_grey_30</color>
+    <color name="klik_color_fg_info_grey_intense">@color/klik_color_grey_60</color>
+    <color name="klik_color_fg_info_grey_subtle">@color/klik_color_grey_10</color>
+    <color name="klik_color_fg_info_blue_intense">@color/klik_color_blue_50</color>
+    <color name="klik_color_fg_info_blue_subtle">@color/klik_color_blue_10</color>
+    <color name="klik_color_fg_success_intense">@color/klik_color_green_50</color>
+    <color name="klik_color_fg_success_subtle">@color/klik_color_green_10</color>
+    <color name="klik_color_fg_attention_or_error_intense">@color/klik_color_red_50</color>
+    <color name="klik_color_fg_attention_or_error_subtle">@color/klik_color_red_10</color>
+    <color name="klik_color_fg_warning_intense">@color/klik_color_orange_50</color>
+    <color name="klik_color_fg_warning_subtle">@color/klik_color_orange_10</color>
+
+    <!-- Stroke -->
+    <color name="klik_color_stroke_primary">@color/klik_color_grey_30</color>
+    <color name="klik_color_stroke_secondary">@color/klik_color_blue_50</color>
+    <color name="klik_color_stroke_tertiary">@color/klik_color_blue_30</color>
+    <color name="klik_color_stroke_white">@color/klik_color_neutral_white</color>
+    <color name="klik_color_stroke_interactive_default">@color/klik_color_blue_50</color>
+    <color name="klik_color_stroke_interactive_pressed">@color/klik_color_blue_60</color>
+    <color name="klik_color_stroke_interactive_active">@color/klik_color_blue_10</color>
+    <color name="klik_color_stroke_interactive_attention_or_error">@color/klik_color_red_30</color>
+    <color name="klik_color_stroke_disabled_intense">@color/klik_color_grey_40</color>
+    <color name="klik_color_stroke_disabled_subtle">@color/klik_color_grey_30</color>
+    <color name="klik_color_stroke_info_grey_intense">@color/klik_color_grey_60</color>
+    <color name="klik_color_stroke_info_grey_subtle">@color/klik_color_grey_10</color>
+    <color name="klik_color_stroke_info_blue_intense">@color/klik_color_blue_50</color>
+    <color name="klik_color_stroke_info_blue_subtle">@color/klik_color_blue_10</color>
+    <color name="klik_color_stroke_success_intense">@color/klik_color_green_50</color>
+    <color name="klik_color_stroke_success_subtle">@color/klik_color_green_10</color>
+    <color name="klik_color_stroke_attention_or_error_intense">@color/klik_color_red_50</color>
+    <color name="klik_color_stroke_attention_or_error_subtle">@color/klik_color_red_10</color>
+    <color name="klik_color_stroke_warning_intense">@color/klik_color_orange_50</color>
+    <color name="klik_color_stroke_warning_subtle">@color/klik_color_orange_10</color>
+</resources>

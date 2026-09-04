@@ -60,4 +60,80 @@
     <color name="foundation_color_bg_secondary_subtle">@color/poinku_color_support_highlight_secondary_weak</color>
     <color name="foundation_color_fg_secondary_intense">@color/poinku_color_support_highlight_secondary_strong</color>
     <color name="foundation_color_support_yellow">@color/poinku_color_support_yellow_strong</color>
+
+    <!--
+        Canonical cross-product semantic roles.
+        The semantic_ prefix keeps the original Poinku resource names above
+        source-compatible while giving generalized components an unambiguous
+        mapping for Klik's bg/fg/stroke contract. Poinku is the default value;
+        a product resource overlay can provide the Klik equivalents.
+    -->
+
+    <!-- Background -->
+    <color name="foundation_color_semantic_bg_background_page_primary">@color/poinku_color_grey_20</color>
+    <color name="foundation_color_semantic_bg_background_page_secondary">@color/poinku_color_grey_10</color>
+    <color name="foundation_color_semantic_bg_container_primary">@color/poinku_color_neutral_white</color>
+    <color name="foundation_color_semantic_bg_container_secondary">@color/poinku_color_grey_20</color>
+    <color name="foundation_color_semantic_bg_container_tertiary">@color/poinku_color_grey_10</color>
+    <color name="foundation_color_semantic_bg_interactive_default">@color/poinku_color_primary_blue_30</color>
+    <color name="foundation_color_semantic_bg_interactive_pressed">@color/poinku_color_primary_blue_40</color>
+    <color name="foundation_color_semantic_bg_interactive_active">@color/poinku_color_primary_blue_10</color>
+    <color name="foundation_color_semantic_bg_interactive_attention_or_error">@color/poinku_color_secondary_red_30</color>
+    <color name="foundation_color_semantic_bg_disabled_intense">@color/poinku_color_grey_50</color>
+    <color name="foundation_color_semantic_bg_disabled_subtle">@color/poinku_color_grey_30</color>
+    <color name="foundation_color_semantic_bg_info_grey_intense">@color/poinku_color_grey_70</color>
+    <color name="foundation_color_semantic_bg_info_grey_subtle">@color/poinku_color_grey_10</color>
+    <color name="foundation_color_semantic_bg_info_blue_intense">@color/poinku_color_primary_blue_30</color>
+    <color name="foundation_color_semantic_bg_info_blue_subtle">@color/poinku_color_primary_blue_20</color>
+    <color name="foundation_color_semantic_bg_success_intense">@color/poinku_color_support_success_strong</color>
+    <color name="foundation_color_semantic_bg_success_subtle">@color/poinku_color_support_success_weak</color>
+    <color name="foundation_color_semantic_bg_attention_or_error_intense">@color/poinku_color_secondary_red_50</color>
+    <color name="foundation_color_semantic_bg_attention_or_error_subtle">@color/poinku_color_secondary_red_10</color>
+    <color name="foundation_color_semantic_bg_warning_intense">@color/poinku_color_support_warning_strong</color>
+    <color name="foundation_color_semantic_bg_warning_subtle">@color/poinku_color_support_warning_weak</color>
+
+    <!-- Foreground -->
+    <color name="foundation_color_semantic_fg_primary">@color/poinku_color_grey_80</color>
+    <color name="foundation_color_semantic_fg_secondary">@color/poinku_color_grey_70</color>
+    <color name="foundation_color_semantic_fg_tertiary">@color/poinku_color_grey_60</color>
+    <color name="foundation_color_semantic_fg_quaternary">@color/poinku_color_grey_50</color>
+    <color name="foundation_color_semantic_fg_white">@color/poinku_color_neutral_white</color>
+    <color name="foundation_color_semantic_fg_interactive_default">@color/poinku_color_primary_blue_30</color>
+    <color name="foundation_color_semantic_fg_interactive_pressed">@color/poinku_color_primary_blue_40</color>
+    <color name="foundation_color_semantic_fg_interactive_active">@color/poinku_color_primary_blue_10</color>
+    <color name="foundation_color_semantic_fg_interactive_attention_or_error">@color/poinku_color_secondary_red_30</color>
+    <color name="foundation_color_semantic_fg_disabled_intense">@color/poinku_color_grey_50</color>
+    <color name="foundation_color_semantic_fg_disabled_subtle">@color/poinku_color_grey_30</color>
+    <color name="foundation_color_semantic_fg_info_grey_intense">@color/poinku_color_grey_70</color>
+    <color name="foundation_color_semantic_fg_info_grey_subtle">@color/poinku_color_grey_10</color>
+    <color name="foundation_color_semantic_fg_info_blue_intense">@color/poinku_color_primary_blue_30</color>
+    <color name="foundation_color_semantic_fg_info_blue_subtle">@color/poinku_color_primary_blue_20</color>
+    <color name="foundation_color_semantic_fg_success_intense">@color/poinku_color_support_success_strong</color>
+    <color name="foundation_color_semantic_fg_success_subtle">@color/poinku_color_support_success_weak</color>
+    <color name="foundation_color_semantic_fg_attention_or_error_intense">@color/poinku_color_secondary_red_50</color>
+    <color name="foundation_color_semantic_fg_attention_or_error_subtle">@color/poinku_color_secondary_red_10</color>
+    <color name="foundation_color_semantic_fg_warning_intense">@color/poinku_color_support_warning_strong</color>
+    <color name="foundation_color_semantic_fg_warning_subtle">@color/poinku_color_support_warning_weak</color>
+
+    <!-- Stroke -->
+    <color name="foundation_color_semantic_stroke_primary">@color/poinku_color_grey_30</color>
+    <color name="foundation_color_semantic_stroke_secondary">@color/poinku_color_primary_blue_30</color>
+    <color name="foundation_color_semantic_stroke_tertiary">@color/poinku_color_primary_blue_10</color>
+    <color name="foundation_color_semantic_stroke_white">@color/poinku_color_neutral_white</color>
+    <color name="foundation_color_semantic_stroke_interactive_default">@color/poinku_color_primary_blue_30</color>
+    <color name="foundation_color_semantic_stroke_interactive_pressed">@color/poinku_color_primary_blue_40</color>
+    <color name="foundation_color_semantic_stroke_interactive_active">@color/poinku_color_primary_blue_10</color>
+    <color name="foundation_color_semantic_stroke_interactive_attention_or_error">@color/poinku_color_secondary_red_30</color>
+    <color name="foundation_color_semantic_stroke_disabled_intense">@color/poinku_color_grey_50</color>
+    <color name="foundation_color_semantic_stroke_disabled_subtle">@color/poinku_color_grey_30</color>
+    <color name="foundation_color_semantic_stroke_info_grey_intense">@color/poinku_color_grey_70</color>
+    <color name="foundation_color_semantic_stroke_info_grey_subtle">@color/poinku_color_grey_10</color>
+    <color name="foundation_color_semantic_stroke_info_blue_intense">@color/poinku_color_primary_blue_30</color>
+    <color name="foundation_color_semantic_stroke_info_blue_subtle">@color/poinku_color_primary_blue_20</color>
+    <color name="foundation_color_semantic_stroke_success_intense">@color/poinku_color_support_success_strong</color>
+    <color name="foundation_color_semantic_stroke_success_subtle">@color/poinku_color_support_success_weak</color>
+    <color name="foundation_color_semantic_stroke_attention_or_error_intense">@color/poinku_color_secondary_red_50</color>
+    <color name="foundation_color_semantic_stroke_attention_or_error_subtle">@color/poinku_color_secondary_red_10</color>
+    <color name="foundation_color_semantic_stroke_warning_intense">@color/poinku_color_support_warning_strong</color>
+    <color name="foundation_color_semantic_stroke_warning_subtle">@color/poinku_color_support_warning_weak</color>
 </resources>

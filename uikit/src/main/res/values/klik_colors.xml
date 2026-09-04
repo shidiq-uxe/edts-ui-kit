@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--
+        Klik Global (Primitive Tokens) from Klik Design Foundations 2.0.
+        Keep these product-specific values separate from the generalized
+        foundation contract so Klik can be overlaid without changing components.
+    -->
+
+    <!-- Brand -->
+    <color name="klik_color_brand_xtra">#439E25</color>
+    <color name="klik_color_brand_xpress">#F29D0D</color>
+
+    <!-- Neutral -->
+    <color name="klik_color_neutral_white">#FFFFFF</color>
+    <color name="klik_color_neutral_black">#000000</color>
+
+    <!-- Grey -->
+    <color name="klik_color_grey_70">#151823</color>
+    <color name="klik_color_grey_60">#434755</color>
+    <color name="klik_color_grey_50">#70727D</color>
+    <color name="klik_color_grey_40">#9C9DA6</color>
+    <color name="klik_color_grey_30">#DCDEE3</color>
+    <color name="klik_color_grey_20">#EFF3F6</color>
+    <color name="klik_color_grey_10">#F8FBFC</color>
+
+    <!-- Blue -->
+    <color name="klik_color_blue_70">#044B95</color>
+    <color name="klik_color_blue_60">#0958AA</color>
+    <color name="klik_color_blue_50">#1178D4</color>
+    <color name="klik_color_blue_40">#368BE2</color>
+    <color name="klik_color_blue_30">#6CA5E0</color>
+    <color name="klik_color_blue_20">#E7F2FB</color>
+    <color name="klik_color_blue_10">#F2F9FF</color>
+
+    <!-- Orange -->
+    <color name="klik_color_orange_50">#FF7D1D</color>
+    <color name="klik_color_orange_10">#FFF0E6</color>
+
+    <!-- Orange-alt -->
+    <color name="klik_color_orange_alt_50">#CC8000</color>
+    <color name="klik_color_orange_alt_40">#DA8D0B</color>
+    <color name="klik_color_orange_alt_30">#F29D0D</color>
+    <color name="klik_color_orange_alt_20">#F0AF42</color>
+    <color name="klik_color_orange_alt_10">#EEC787</color>
+
+    <!-- Red -->
+    <color name="klik_color_red_50">#BB0000</color>
+    <color name="klik_color_red_40">#DC1013</color>
+    <color name="klik_color_red_30">#EE2B2E</color>
+    <color name="klik_color_red_20">#FD474A</color>
+    <color name="klik_color_red_10">#FFEDEE</color>
+
+    <!-- Yellow -->
+    <color name="klik_color_yellow_50">#B38812</color>
+    <color name="klik_color_yellow_40">#D6A81A</color>
+    <color name="klik_color_yellow_30">#F9CA24</color>
+    <color name="klik_color_yellow_20">#FDE67B</color>
+    <color name="klik_color_yellow_10">#FEF9D3</color>
+
+    <!-- Green -->
+    <color name="klik_color_green_50">#578F21</color>
+    <color name="klik_color_green_40">#72AB30</color>
+    <color name="klik_color_green_30">#8FC742</color>
+    <color name="klik_color_green_20">#CEEE8E</color>
+    <color name="klik_color_green_10">#EBFFD0</color>
+
+    <!-- Green-alt -->
+    <color name="klik_color_green_alt_50">#0F820C</color>
+    <color name="klik_color_green_alt_20">#D1FFD0</color>
+</resources>
