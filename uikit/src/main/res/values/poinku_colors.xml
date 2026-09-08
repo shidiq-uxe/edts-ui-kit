@@ -54,4 +54,8 @@
     <color name="poinku_color_support_highlight_secondary_strong">#F29D0D</color>
     <color name="poinku_color_support_highlight_secondary_weak">#FEFBF5</color>
     <color name="poinku_color_support_yellow_strong">#FAC714</color>
+
+    <!--Text Badge-->
+    <color name="text_badge_background_blue_gradient_start">#6CB8FC</color>
+    <color name="text_badge_background_blue_gradient_end">@color/poinku_color_primary_blue_30</color>
 </resources>
