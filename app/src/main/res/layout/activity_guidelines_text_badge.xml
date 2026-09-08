@@ -1,155 +1,266 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".GuidelinesTextBadgeActivity">
 
-    <TextView
-        android:id="@+id/badgeShapeTitle"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/main"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dimen_32"
-        android:text="Badge Shape"
-        style="@style/TextAppearance.Inter.SemiBold.B3"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:paddingHorizontal="@dimen/dimen_16"
+        android:paddingBottom="@dimen/dimen_32">
 
-    <id.co.edtslib.uikit.badge.TextBadge
-        android:id="@+id/badgeAppearanceSemiBold"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dimen_8dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/badgeShapeTitle"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_16"
+            android:text="Live Preview"
+            style="@style/TextAppearance.Inter.SemiBold.B2" />
 
-    <id.co.edtslib.uikit.badge.TextBadge
-        android:id="@+id/badgeAppearanceRegular"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dimen_8dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/badgeAppearanceSemiBold"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/previewContainer"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="@dimen/dimen_8dp"
+            app:cardBackgroundColor="@color/black_10"
+            app:strokeWidth="1dp"
+            app:strokeColor="@color/black_20"
+            app:cardCornerRadius="@dimen/xxs"
+            app:cardElevation="0dp">
 
-    <id.co.edtslib.uikit.badge.TextBadge
-        android:id="@+id/badgeAppearanceSemiBoldDisabled"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dimen_8dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/badgeAppearanceRegular"
-        app:layout_constraintEnd_toEndOf="parent"/>
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="64dp"
+                android:padding="@dimen/dimen_16"
+                android:foregroundGravity="center">
 
-    <id.co.edtslib.uikit.badge.TextBadge
-        android:id="@+id/badgeAppearanceRegularDisabled"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dimen_8dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/badgeAppearanceSemiBoldDisabled"
-        app:layout_constraintEnd_toEndOf="parent"/>
+                <id.co.edtslib.uikit.core.textbadge.CoreTextBadge
+                    android:id="@+id/previewBadge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center" />
+            </FrameLayout>
 
-    <TextView
-        android:id="@+id/badgeSizeTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dimen_32"
-        android:text="Badge Size"
-        style="@style/TextAppearance.Inter.SemiBold.B3"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/badgeAppearanceRegularDisabled"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        </com.google.android.material.card.MaterialCardView>
 
-    <id.co.edtslib.uikit.badge.TextBadge
-        android:id="@+id/badgeSizeSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dimen_8dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/badgeSizeTitle"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_32"
+            android:text="Core / Default Badge"
+            style="@style/TextAppearance.Inter.SemiBold.B3" />
 
-    <id.co.edtslib.uikit.badge.TextBadge
-        android:id="@+id/badgeSizeMedium"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dimen_8dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/badgeSizeSmall"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        <id.co.edtslib.uikit.core.textbadge.CoreTextBadge
+            android:id="@+id/badgeAppearanceSemiBold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_8dp" />
 
-    <id.co.edtslib.uikit.badge.TextBadge
-        android:id="@+id/badgeSizeLarge"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dimen_8dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/badgeSizeMedium"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        <id.co.edtslib.uikit.core.textbadge.CoreTextBadge
+            android:id="@+id/badgeAppearanceSemiBoldDisabled"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_8dp" />
 
-    <TextView
-        android:id="@+id/badgeRelativeWidthTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dimen_32"
-        android:text="Badge Relative Width"
-        style="@style/TextAppearance.Inter.SemiBold.B3"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/badgeSizeLarge"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_32"
+            android:text="Klik — Promo"
+            style="@style/TextAppearance.Inter.SemiBold.B3" />
 
-    <id.co.edtslib.uikit.badge.TextBadge
-        android:id="@+id/badgeRelativeWidthWrapContent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dimen_8dp"
-        android:layout_marginEnd="@dimen/dimen_16"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/badgeRelativeWidthTitle"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        <id.co.edtslib.uikit.recipes.textbadge.klik.KlikTextBadge
+            android:id="@+id/badgeKlikPromo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_8dp" />
 
-    <id.co.edtslib.uikit.badge.TextBadge
-        android:id="@+id/badgeRelativeWidth25Percent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dimen_8dp"
-        android:layout_marginEnd="@dimen/dimen_16"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/badgeRelativeWidthWrapContent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        <id.co.edtslib.uikit.recipes.textbadge.klik.KlikTextBadge
+            android:id="@+id/badgeKlikPromoDisabled"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_8dp" />
 
-    <id.co.edtslib.uikit.badge.TextBadge
-        android:id="@+id/badgeRelativeWidth50Percent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dimen_8dp"
-        android:layout_marginEnd="@dimen/dimen_16"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/badgeRelativeWidth25Percent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_32"
+            android:text="Klik — Fair"
+            style="@style/TextAppearance.Inter.SemiBold.B3" />
 
-    <id.co.edtslib.uikit.badge.TextBadge
-        android:id="@+id/badgeRelativeWidth75Percent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dimen_8dp"
-        android:layout_marginEnd="@dimen/dimen_16"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/badgeRelativeWidth50Percent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        <id.co.edtslib.uikit.recipes.textbadge.klik.KlikTextBadge
+            android:id="@+id/badgeKlikFairSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_8dp" />
 
-    <id.co.edtslib.uikit.badge.TextBadge
-        android:id="@+id/badgeRelativeWidthMatchParent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dimen_8dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/badgeRelativeWidth75Percent"
-        app:layout_constraintEnd_toEndOf="parent"/>
-    
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <id.co.edtslib.uikit.recipes.textbadge.klik.KlikTextBadge
+            android:id="@+id/badgeKlikFairBig"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_8dp" />
+
+        <id.co.edtslib.uikit.recipes.textbadge.klik.KlikTextBadge
+            android:id="@+id/badgeKlikFairDisabled"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_8dp" />
+
+        <id.co.edtslib.uikit.recipes.textbadge.klik.KlikTextBadge
+            android:id="@+id/badgeKlikFairBigDisabled"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_8dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_32"
+            android:text="Klik — Highlight"
+            style="@style/TextAppearance.Inter.SemiBold.B3" />
+
+        <id.co.edtslib.uikit.recipes.textbadge.klik.KlikTextBadge
+            android:id="@+id/badgeKlikHighlight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_8dp" />
+
+        <id.co.edtslib.uikit.recipes.textbadge.klik.KlikTextBadge
+            android:id="@+id/badgeKlikHighlightDisabled"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_8dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_32"
+            android:text="Klik — Quota"
+            style="@style/TextAppearance.Inter.SemiBold.B3" />
+
+        <id.co.edtslib.uikit.recipes.textbadge.klik.KlikTextBadge
+            android:id="@+id/badgeKlikQuota"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_8dp" />
+
+        <id.co.edtslib.uikit.recipes.textbadge.klik.KlikTextBadge
+            android:id="@+id/badgeKlikQuotaDisabled"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_8dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_32"
+            android:text="Poinku — Loyalty"
+            style="@style/TextAppearance.Inter.SemiBold.B3" />
+
+        <id.co.edtslib.uikit.recipes.textbadge.poinku.PoinkuTextBadge
+            android:id="@+id/badgePoinkuLoyaltyFull"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_8dp"
+            app:badgeVariant="@style/Widget.EDTS.UIKit.TextBadge.Poinku.Loyalty.Full"
+            app:badgeText="Loyalty Full"
+            app:startIconVisible="true" />
+
+        <id.co.edtslib.uikit.recipes.textbadge.poinku.PoinkuTextBadge
+            android:id="@+id/badgePoinkuLoyaltyLite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_8dp"
+            app:badgeVariant="@style/Widget.EDTS.UIKit.TextBadge.Poinku.Loyalty.Lite"
+            app:badgeText="Loyalty Lite"
+            app:startIconVisible="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_32"
+            android:text="Poinku — Coupon"
+            style="@style/TextAppearance.Inter.SemiBold.B3" />
+
+        <id.co.edtslib.uikit.recipes.textbadge.poinku.PoinkuTextBadge
+            android:id="@+id/badgePoinkuCouponFull"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_8dp" />
+
+        <id.co.edtslib.uikit.recipes.textbadge.poinku.PoinkuTextBadge
+            android:id="@+id/badgePoinkuCouponLite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_8dp" />
+
+        <id.co.edtslib.uikit.recipes.textbadge.poinku.PoinkuTextBadge
+            android:id="@+id/badgePoinkuCouponFullDisabled"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_8dp" />
+
+        <id.co.edtslib.uikit.recipes.textbadge.poinku.PoinkuTextBadge
+            android:id="@+id/badgePoinkuCouponLiteDisabled"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_8dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_32"
+            android:text="Poinku — Currency"
+            style="@style/TextAppearance.Inter.SemiBold.B3" />
+
+        <id.co.edtslib.uikit.recipes.textbadge.poinku.PoinkuTextBadge
+            android:id="@+id/badgePoinkuCurrencyFull"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_8dp" />
+
+        <id.co.edtslib.uikit.recipes.textbadge.poinku.PoinkuTextBadge
+            android:id="@+id/badgePoinkuCurrencyLite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_8dp" />
+
+        <id.co.edtslib.uikit.recipes.textbadge.poinku.PoinkuTextBadge
+            android:id="@+id/badgePoinkuCurrencyFullDisabled"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_8dp" />
+
+        <id.co.edtslib.uikit.recipes.textbadge.poinku.PoinkuTextBadge
+            android:id="@+id/badgePoinkuCurrencyLiteDisabled"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_8dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_32"
+            android:text="Poinku — Freeform"
+            style="@style/TextAppearance.Inter.SemiBold.B3" />
+
+        <id.co.edtslib.uikit.recipes.textbadge.poinku.PoinkuTextBadge
+            android:id="@+id/badgePoinkuFreeform"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_8dp" />
+
+        <id.co.edtslib.uikit.recipes.textbadge.poinku.PoinkuTextBadge
+            android:id="@+id/badgePoinkuFreeformDisabled"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_8dp" />
+
+    </LinearLayout>
+</ScrollView>

@@ -87,4 +87,8 @@
     <string name="color_hex_error">Enter a valid hex color, for example #1178D4</string>
     <string name="color_preview_description">Selected color preview</string>
 
+    <!-- Text Badge configuration -->
+    <string name="configure_text_badge">Configure Text Badge</string>
+    <string name="border_width_value">%1$ddp</string>
+
 </resources>
