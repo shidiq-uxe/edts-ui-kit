@@ -27,7 +27,7 @@ import id.co.edtslib.uikit.utils.drawable
 import id.co.edtslib.uikit.utils.viewBinding
 
 
-class BottomSheetTray : BottomSheetDialogFragment() {
+open class BottomSheetTray : BottomSheetDialogFragment() {
 
     val binding by viewBinding<ViewBottomTrayBinding>()
 
@@ -81,6 +81,9 @@ class BottomSheetTray : BottomSheetDialogFragment() {
             val bottomSheet = dialog.findViewById<View>(com.google.android.material.R.id.design_bottom_sheet)
             bottomSheetBehavior = bottomSheet?.let { sheet -> BottomSheetBehavior.from(sheet) }
 
+            setupBottomSheetBehavior()
+            dialog.setCanceledOnTouchOutside(isCancelableOnTouchOutside)
+
             delegate?.onShow(dialogInterface)
 
             bottomSheetBehavior?.addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
@@ -97,15 +100,13 @@ class BottomSheetTray : BottomSheetDialogFragment() {
         return dialog
     }
 
-    override fun onCreateView(
+    open override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ) = ViewBottomTrayBinding.inflate(inflater, container, false).root
+    ): View = ViewBottomTrayBinding.inflate(inflater, container, false).root
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    open override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        setupBottomSheetBehavior()
 
         customTitleView?.let {
             binding.flTitle.removeAllViews()

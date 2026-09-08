@@ -65,4 +65,26 @@
     <string name="guidelines_coupon_ongkir_promotion">Promo Ongkir</string>
     <string name="guidelines_liquid_glass_coupon_card">Liquid Glass Coupon Card</string>
 
+    <!-- Button configuration -->
+    <string name="configure_button">Configure Button</string>
+    <string name="add_color">Add Color</string>
+    <string name="color_palette_label">Color Palette</string>
+    <string name="options_label">Options</string>
+    <string name="destructive_label">Destructive</string>
+    <string name="disabled_label">Disabled</string>
+    <string name="shimmer_label">Shimmer</string>
+    <string name="corner_radius_label">Corner Radius</string>
+    <string name="button_size_label">Button Size</string>
+    <string name="corner_radius_value">%1$ddp</string>
+    <string name="size_filter_all">All</string>
+    <string name="size_filter_small">Small</string>
+    <string name="size_filter_medium">Medium</string>
+    <string name="size_filter_large">Large</string>
+    <string name="size_filter_description">Show %1$s buttons</string>
+    <string name="color_palette_swatch_description">Color %1$s</string>
+    <string name="color_palette_add_description">Add a custom color</string>
+    <string name="color_picker_description">Choose a color using hue, saturation, and brightness</string>
+    <string name="color_hex_error">Enter a valid hex color, for example #1178D4</string>
+    <string name="color_preview_description">Selected color preview</string>
+
 </resources>

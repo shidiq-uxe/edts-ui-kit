@@ -9,6 +9,10 @@ import android.view.View
 import android.widget.FrameLayout
 import android.widget.LinearLayout
 import androidx.core.view.isVisible
+import id.co.edtslib.edtsuikit.R
+import id.co.edtslib.uikit.utils.asColor
+import id.co.edtslib.uikit.utils.dp
+import java.util.Locale
 
 class ColorPaletteView @JvmOverloads constructor(
     context: Context,
@@ -31,7 +35,7 @@ class ColorPaletteView @JvmOverloads constructor(
     }
 
     fun setColors(colors: List<Int>, selectedColor: Int?) {
-        this.colors = colors.take(6)
+        this.colors = colors.take(MAX_VISIBLE_COLORS)
         this.selectedColor = selectedColor
         colorViews.clear()
         removeAllViews()
@@ -47,15 +51,20 @@ class ColorPaletteView @JvmOverloads constructor(
     }
 
     private fun createColorView(color: Int): FrameLayout {
-        val size = 40.dp
-        val borderWidth = 3.dp
+        val size = 40.dp.toInt()
+        val borderWidth = 3.dp.toInt()
 
         val outer = FrameLayout(context).apply {
             layoutParams = LayoutParams(size, size).apply {
-                marginEnd = 8.dp
+                marginEnd = 8.dp.toInt()
             }
             isClickable = true
             isFocusable = true
+            isSelected = color == selectedColor
+            contentDescription = context.getString(
+                R.string.color_palette_swatch_description,
+                color.toHexString(),
+            )
             setOnClickListener {
                 selectedColor = color
                 onColorSelected?.invoke(color)
@@ -81,7 +90,7 @@ class ColorPaletteView @JvmOverloads constructor(
                 setColor(color)
             }
             background = bg
-            val inset = borderWidth + 4.dp
+            val inset = borderWidth + 4.dp.toInt()
             layoutParams = FrameLayout.LayoutParams(size - inset * 2, size - inset * 2).apply {
                 gravity = Gravity.CENTER
             }
@@ -94,18 +103,19 @@ class ColorPaletteView @JvmOverloads constructor(
     }
 
     private fun createAddButton(): FrameLayout {
-        val size = 40.dp
+        val size = 40.dp.toInt()
 
         val frame = FrameLayout(context).apply {
             layoutParams = LayoutParams(size, size)
             isClickable = true
             isFocusable = true
+            contentDescription = context.getString(R.string.color_palette_add_description)
             setOnClickListener { onAddClicked?.invoke(context, selectedColor) }
         }
 
         val bg = GradientDrawable().apply {
             shape = GradientDrawable.OVAL
-            setStroke(2.dp, Color.parseColor("#878F99"))
+            setStroke(2.dp.toInt(), "#878F99".asColor)
             setColor(Color.TRANSPARENT)
         }
 
@@ -118,7 +128,7 @@ class ColorPaletteView @JvmOverloads constructor(
             text = "+"
             textSize = 18f
             gravity = Gravity.CENTER
-            setTextColor(Color.parseColor("#878F99"))
+            setTextColor("#878F99".asColor)
             layoutParams = FrameLayout.LayoutParams(size, size)
         }
 
@@ -132,9 +142,14 @@ class ColorPaletteView @JvmOverloads constructor(
             val border = outer.findViewWithTag<View>("border")
             val tag = outer.tag as? Int
             border?.isVisible = tag == selectedColor
+            outer.isSelected = tag == selectedColor
         }
     }
 
-    private val Int.dp: Int
-        get() = (this * resources.displayMetrics.density).toInt()
+    private fun Int.toHexString(): String =
+        String.format(Locale.ROOT, "#%06X", 0xFFFFFF and this)
+
+    companion object {
+        const val MAX_VISIBLE_COLORS = 8
+    }
 }
