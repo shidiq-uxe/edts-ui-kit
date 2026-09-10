@@ -424,13 +424,6 @@ open class CoreTextBadge @JvmOverloads constructor(
         updateIcon()
     }
 
-    fun setGradientBackground(@ColorInt colors: IntArray, orientation: GradientDrawable.Orientation = GradientDrawable.Orientation.LEFT_RIGHT) {
-        gradientDrawable = GradientDrawable(orientation, colors).apply {
-            cornerRadii = currentCornerRadii()
-        }
-        refreshAppearance()
-    }
-
     fun setCornerRadius(all: Float) {
         setCornerRadius(all, all, all, all)
     }
@@ -455,6 +448,17 @@ open class CoreTextBadge @JvmOverloads constructor(
 
         gradientDrawable?.cornerRadii = currentCornerRadii()
         invalidate()
+    }
+
+    fun setGradientBackground(@ColorInt colors: IntArray, orientation: GradientDrawable.Orientation = GradientDrawable.Orientation.LEFT_RIGHT) {
+        buildGradientDrawable(colors, orientation)
+        refreshAppearance()
+    }
+
+    private fun buildGradientDrawable(colors: IntArray, orientation: GradientDrawable.Orientation) {
+        gradientDrawable = GradientDrawable(orientation, colors).apply {
+            cornerRadii = currentCornerRadii()
+        }
     }
 
     fun setBadgePadding(horizontal: Int, vertical: Int) {
@@ -561,11 +565,11 @@ open class CoreTextBadge @JvmOverloads constructor(
             disabled.iconColorRes?.let { updateIcon(context.color(it)) }
 
             val disabledBorder = disabled.borderColorRes?.let { context.color(it) } ?: borderColor
-
             if (disabled.gradientColors != null) {
                 val resolved = disabled.gradientColors.map { context.color(it) }.toIntArray()
-                setGradientBackground(resolved, disabled.gradientOrientation)
+                buildGradientDrawable(resolved, disabled.gradientOrientation)
                 gradientDrawable?.setStroke(borderWidth.toInt(), disabledBorder)
+                background = gradientDrawable
             } else {
                 disabled.backgroundColorRes?.let {
                     shapeDrawable.fillColor = ColorStateList.valueOf(context.color(it))

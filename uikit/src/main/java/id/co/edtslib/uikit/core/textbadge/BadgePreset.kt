@@ -12,6 +12,6 @@ data class BadgePreset(
     val bottomPadding: Int? = null,
     val iconSize: Int = 12,
     @StyleRes val textAppearance: Int = R.style.TextAppearance_Inter_SemiBold_B4,
-    val drawablePadding: Int = R.dimen.dimen_2,
+    val drawablePadding: Int = 2,
     val borderWidth: Int = 0
 )
