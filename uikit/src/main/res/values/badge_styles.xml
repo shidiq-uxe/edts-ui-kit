@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Legacy Styles -->
+    <style name="Widget.EDTS.UIKit.TextBadge.Shape.Default" parent="" />
+
+    <!-- Klik Styles -->
+    <style name="Widget.EDTS.UIKit.TextBadge.Klik.Promo" parent="" />
+    <style name="Widget.EDTS.UIKit.TextBadge.Klik.Fair.Small" parent="" />
+    <style name="Widget.EDTS.UIKit.TextBadge.Klik.Fair.Big" parent="" />
+    <style name="Widget.EDTS.UIKit.TextBadge.Klik.Highlight" parent="" />
+    <style name="Widget.EDTS.UIKit.TextBadge.Klik.Quota" parent="" />
+
+    <!-- Poinku Styles -->
+    <style name="Widget.EDTS.UIKit.TextBadge.Poinku.Loyalty.Full" parent="" />
+    <style name="Widget.EDTS.UIKit.TextBadge.Poinku.Loyalty.Lite" parent="" />
+    <style name="Widget.EDTS.UIKit.TextBadge.Poinku.Coupon.Full" parent="" />
+    <style name="Widget.EDTS.UIKit.TextBadge.Poinku.Coupon.Lite" parent="" />
+    <style name="Widget.EDTS.UIKit.TextBadge.Poinku.Currency.Full" parent="" />
+    <style name="Widget.EDTS.UIKit.TextBadge.Poinku.Currency.Lite" parent="" />
+    <style name="Widget.EDTS.UIKit.TextBadge.Poinku.Freeform" parent="" />
+
+    <!-- Recipe Styles -->
+    <style name="Widget.EDTS.UIKit.TextBadge.Core" parent="">
+        <item name="textAppearance">@style/TextAppearance.Inter.SemiBold.B4</item>
+        <item name="strokeWidth">0dp</item>
+        <item name="strokeColor">@android:color/transparent</item>
+        <item name="badgeShadowOpacity">0</item>
+        <item name="badgeShadowOffsetX">0dp</item>
+        <item name="badgeShadowOffsetY">0dp</item>
+        <item name="badgeShadowRadius">0dp</item>
+        <item name="badgeShadowColor">@android:color/transparent</item>
+        <item name="iconPadding">2dp</item>
+        <item name="cornerRadius">4dp</item>
+    </style>
+
+    <style name="Widget.EDTS.UIKit.TextBadge.Poinku" parent="Widget.EDTS.UIKit.TextBadge.Core">
+        <item name="textColor">@color/black_70</item>
+        <item name="backgroundColor">@color/primary_10</item>
+        <item name="iconTint">@color/black_50</item>
+        <item name="android:paddingLeft">2dp</item>
+        <item name="android:paddingRight">2dp</item>
+        <item name="android:paddingTop">2dp</item>
+        <item name="android:paddingBottom">2dp</item>
+    </style>
+
+    <style name="Widget.EDTS.UIKit.TextBadge.Klik" parent="Widget.EDTS.UIKit.TextBadge.Core">
+        <item name="textColor">@color/primary_50</item>
+        <item name="backgroundColor">@color/primary_10</item>
+        <item name="iconTint">@color/primary_50</item>
+        <item name="android:paddingLeft">4dp</item>
+        <item name="android:paddingRight">4dp</item>
+        <item name="android:paddingTop">1dp</item>
+        <item name="android:paddingBottom">1dp</item>
+    </style>
+
+    <!-- Theme Overlays -->
+    <style name="ThemeOverlay.EDTS.UIKit.TextBadge.Poinku" parent="">
+        <item name="coreTextBadgeStyle">@style/Widget.EDTS.UIKit.TextBadge.Poinku</item>
+    </style>
+
+    <style name="ThemeOverlay.EDTS.UIKit.TextBadge.Klik" parent="">
+        <item name="coreTextBadgeStyle">@style/Widget.EDTS.UIKit.TextBadge.Klik</item>
+    </style>
+
+</resources>
+

@@ -67,4 +67,10 @@
     <!-- Green-alt -->
     <color name="klik_color_green_alt_50">#0F820C</color>
     <color name="klik_color_green_alt_20">#D1FFD0</color>
+
+    <!--Text Badge-->
+    <color name="text_badge_background_highlight_gradient_start">#6E8BCF</color>
+    <color name="text_badge_background_highlight_gradient_end">#17C12E</color>
+    <color name="text_badge_background_fair_gradient_start">#2E933C</color>
+    <color name="text_badge_background_fair_gradient_end">@color/text_badge_background_highlight_gradient_end</color>
 </resources>

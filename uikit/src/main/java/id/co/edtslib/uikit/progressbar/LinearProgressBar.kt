@@ -18,7 +18,8 @@ import androidx.core.graphics.toColorInt
 import androidx.core.graphics.withClip
 import androidx.core.view.doOnLayout
 import id.co.edtslib.uikit.R
-import id.co.edtslib.uikit.badge.TextBadge
+import id.co.edtslib.uikit.core.textbadge.CoreTextBadge
+import id.co.edtslib.uikit.core.textbadge.DefaultShape
 import id.co.edtslib.uikit.utils.applyFill
 import id.co.edtslib.uikit.utils.color
 import id.co.edtslib.uikit.utils.dimen
@@ -313,7 +314,7 @@ class LinearProgressBar @JvmOverloads constructor(
             invalidate()
         }
 
-    var badge: TextBadge = createDefaultBadge()
+    var badge: CoreTextBadge = createDefaultBadge()
         set(value) {
             field = value
             invalidate()
@@ -716,10 +717,9 @@ class LinearProgressBar @JvmOverloads constructor(
         canvas.restore()
     }
 
-    private fun createDefaultBadge() = TextBadge(context).apply {
+    private fun createDefaultBadge() = CoreTextBadge(context).apply {
         text = "x$badgeCount"
-        badgeShape = TextBadge.BadgeShape.STATUS
-        badgeSize = TextBadge.BadgeSize.SMALL
+        setCoreShape(DefaultShape())
         textColor = context.color(R.color.white)
         badgeTextAppearance = R.style.TextAppearance_Inter_Bold_TextBadge
         iconVisible = false
