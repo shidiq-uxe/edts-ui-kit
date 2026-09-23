@@ -18,9 +18,6 @@ import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayout
 import id.co.edtslib.edtsuikit.databinding.ActivityGuidelinesDiscountRedemptionBinding
-import id.co.edtslib.uikit.chip.DiscountRedemptionChip
-import id.co.edtslib.uikit.chipgroup.DiscountRedemptionCategory
-import id.co.edtslib.uikit.chipgroup.DiscountRedemptionChipGroupDelegate
 import id.co.edtslib.uikit.tablayout.QuadRoundTabLayout
 import id.co.edtslib.uikit.utils.SystemBarStyle
 import id.co.edtslib.uikit.utils.color

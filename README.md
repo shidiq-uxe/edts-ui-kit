@@ -41,8 +41,7 @@ dependencies {
 24. [String Builder Extensions](docs/UtilsExtensions.md)
 25. [CartFooter](docs/CartFooter.md)
 26. [DiscountRedemptionBox](docs/DiscountRedemptionBox.md)
-27. [DiscountRedemptionChipGroup](docs/DiscountRedemptionChipGroup.md)
-28. [QuadRoundTabLayout](docs/QuadRoundTabLayout.md)]
+27. [QuadRoundTabLayout](docs/QuadRoundTabLayout.md)]
 
 ## Basic setup and initialization :
 
