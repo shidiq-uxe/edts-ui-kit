@@ -22,6 +22,7 @@
     <string name="guidelines_radiobutton">Radio Button</string>
     <string name="guidelines_checkbox">Checkbox</string>
     <string name="guidelines_text_badge">Text Badge</string>
+    <string name="guidelines_chip">Chip</string>
 
     <!-- Input Components -->
     <string name="guidelines_otp">OTP</string>
@@ -90,5 +91,8 @@
     <!-- Text Badge configuration -->
     <string name="configure_text_badge">Configure Text Badge</string>
     <string name="border_width_value">%1$ddp</string>
+
+    <!-- Chip configuration -->
+    <string name="configure_chip">Configure Chip</string>
 
 </resources>

@@ -108,6 +108,17 @@
 
     <attr name="isStartIconVisible" format="boolean"/>
     <attr name="isCloseIconVisible" format="boolean"/>
+    <attr name="isEndIconVisible" format="boolean"/>
+    <attr name="isStartIconActionable" format="boolean"/>
+    <attr name="isEndIconActionable" format="boolean"/>
+    <attr name="startIconColor" format="reference" />
+    <attr name="endIconColor" format="reference" />
+    <attr name="startIconBackgroundColor" format="reference" />
+    <attr name="endIconBackgroundColor" format="reference" />
+    <attr name="isStartIconBackgroundVisible" format="boolean" />
+    <attr name="isEndIconBackgroundVisible" format="boolean" />
+    <attr name="startIconPadding" format="dimension" />
+    <attr name="endIconPadding" format="dimension" />
 
     <attr name="isExpanded" format="boolean"/>
     <attr name="isHtml" format="boolean"/>
@@ -125,6 +136,9 @@
     <attr name="backgroundColor" format="color"/>
     <attr name="foregroundColor" format="color"/>
     <attr name="circleRadius" format="dimension"/>
+
+    <attr name="horizontalPadding" format="dimension" />
+    <attr name="verticalPadding" format="dimension" />
 
     <attr name="fieldInputType" format="enum">
         <enum name="text" value="0" />
@@ -554,5 +568,42 @@
         <attr name="badgeShadowRadius" format="dimension" />
         <attr name="badgeShadowColor" format="color" />
         <attr name="iconPadding" />
+    </declare-styleable>
+
+    <declare-styleable name="Chip">
+        <attr name="text" />
+        <attr name="coreChipStyle" format="reference" />
+        <attr name="chipColor" format="color" />
+        <attr name="isStartIconVisible"/>
+        <attr name="isEndIconVisible" />
+        <attr name="startIconSize" />
+        <attr name="endIconSize" />
+        <attr name="isStartIconActionable" />
+        <attr name="isEndIconActionable" />
+        <attr name="startIcon" />
+        <attr name="endIcon" />
+        <attr name="chipState">
+            <enum name="idle" value="0" />
+            <enum name="selected" value="1" />
+            <enum name="active" value="2" />
+        </attr>
+        <attr name="chipVariant" format="reference" />
+        <attr name="widthPercent" format="float" />
+        <attr name="cornerRadius" />
+        <attr name="strokeWidth" />
+        <attr name="textAppearance" />
+        <attr name="horizontalPadding" />
+        <attr name="verticalPadding" />
+        <attr name="backgroundColor" />
+        <attr name="textColor" />
+        <attr name="startIconColor" />
+        <attr name="endIconColor" />
+        <attr name="strokeColor" />
+        <attr name="startIconBackgroundColor" />
+        <attr name="endIconBackgroundColor" />
+        <attr name="isStartIconBackgroundVisible" />
+        <attr name="isEndIconBackgroundVisible" />
+        <attr name="startIconPadding" />
+        <attr name="endIconPadding" />
     </declare-styleable>
 </resources>

@@ -50,6 +50,7 @@ android {
 dependencies {
 
     implementation(project(":uikit"))
+    implementation(libs.androidx.activity.ktx)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
