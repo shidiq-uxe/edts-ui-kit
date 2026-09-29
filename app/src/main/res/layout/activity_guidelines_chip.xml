@@ -20,8 +20,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dimen_16"
+            android:text="Chip"
+            android:textAllCaps="true"
+            style="@style/TextAppearance.Inter.Bold.B2" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_16"
             android:text="Live Preview"
-            style="@style/TextAppearance.Inter.SemiBold.B2" />
+            style="@style/TextAppearance.Inter.SemiBold.B3" />
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/previewContainer"
@@ -69,7 +77,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dimen_32"
+            android:layout_marginTop="@dimen/dimen_24"
             android:text="Klik — Suggestion"
             style="@style/TextAppearance.Inter.SemiBold.B3" />
 
@@ -105,7 +113,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dimen_32"
+            android:layout_marginTop="@dimen/dimen_24"
             android:text="Klik — Filters"
             style="@style/TextAppearance.Inter.SemiBold.B3" />
 
@@ -141,7 +149,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dimen_32"
+            android:layout_marginTop="@dimen/dimen_24"
             android:text="Poinku — Default"
             style="@style/TextAppearance.Inter.SemiBold.B3" />
 
@@ -173,6 +181,125 @@
             app:chipState="selected"
             app:isStartIconVisible="true"
             app:isEndIconVisible="true" />
+
+        <com.google.android.material.divider.MaterialDivider
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/dimen_32dp"
+            android:background="@color/black_10" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_32"
+            android:text="Chip Group"
+            android:textAllCaps="true"
+            style="@style/TextAppearance.Inter.Bold.B2" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_16"
+            android:text="Live Preview"
+            style="@style/TextAppearance.Inter.SemiBold.B3" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_8dp"
+            app:cardBackgroundColor="@color/black_10"
+            app:strokeWidth="1dp"
+            app:strokeColor="@color/black_20"
+            app:cardCornerRadius="@dimen/xxs"
+            app:cardElevation="0dp">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="64dp"
+                android:padding="@dimen/dimen_16">
+
+                <id.co.edtslib.uikit.core.chipgroup.ChipGroup
+                    android:id="@+id/chipGroupPreview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clipToPadding="false"
+                    android:overScrollMode="never" />
+            </FrameLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_32"
+            android:text="Core"
+            style="@style/TextAppearance.Inter.SemiBold.B3" />
+
+        <id.co.edtslib.uikit.core.chipgroup.ChipGroup
+            android:id="@+id/chipGroupCore"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_8dp"
+            android:clipToPadding="false"
+            android:overScrollMode="never"
+            app:orientation="horizontal"
+            app:itemSpacingHorizontal="8dp"
+            app:itemSpacingVertical="8dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_24"
+            android:text="Klik — Suggestion"
+            style="@style/TextAppearance.Inter.SemiBold.B3" />
+
+        <id.co.edtslib.uikit.core.chipgroup.ChipGroup
+            android:id="@+id/chipGroupKlikSuggestion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_8dp"
+            android:clipToPadding="false"
+            android:overScrollMode="never"
+            app:orientation="horizontal"
+            app:itemSpacingHorizontal="8dp"
+            app:itemSpacingVertical="8dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_24"
+            android:text="Klik — Filters"
+            style="@style/TextAppearance.Inter.SemiBold.B3" />
+
+        <id.co.edtslib.uikit.core.chipgroup.ChipGroup
+            android:id="@+id/chipGroupKlikFilters"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_8dp"
+            android:clipToPadding="false"
+            android:overScrollMode="never"
+            app:orientation="horizontal"
+            app:itemSpacingHorizontal="8dp"
+            app:itemSpacingVertical="8dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_24"
+            android:text="Poinku"
+            style="@style/TextAppearance.Inter.SemiBold.B3" />
+
+        <id.co.edtslib.uikit.core.chipgroup.ChipGroup
+            android:id="@+id/chipGroupPoinku"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_8dp"
+            android:clipToPadding="false"
+            android:overScrollMode="never"
+            app:orientation="horizontal"
+            app:itemSpacingHorizontal="8dp"
+            app:itemSpacingVertical="8dp" />
 
     </LinearLayout>
 </ScrollView>

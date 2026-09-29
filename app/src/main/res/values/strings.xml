@@ -94,5 +94,7 @@
 
     <!-- Chip configuration -->
     <string name="configure_chip">Configure Chip</string>
+    <string name="configure_chip_group">Configure Chip Group</string>
+    <string name="spacing_value">%1$d dp</string>
 
 </resources>

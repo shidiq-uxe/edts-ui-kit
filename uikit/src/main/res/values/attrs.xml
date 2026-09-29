@@ -140,6 +140,11 @@
     <attr name="horizontalPadding" format="dimension" />
     <attr name="verticalPadding" format="dimension" />
 
+    <attr name="itemSpacingVertical" format="dimension" />
+    <attr name="itemSpacingHorizontal" format="dimension" />
+
+    <attr name="spanCount" format="integer" />
+
     <attr name="fieldInputType" format="enum">
         <enum name="text" value="0" />
         <enum name="password" value="1" />
@@ -605,5 +610,20 @@
         <attr name="isEndIconBackgroundVisible" />
         <attr name="startIconPadding" />
         <attr name="endIconPadding" />
+    </declare-styleable>
+
+    <declare-styleable name="ChipListView">
+        <attr name="orientation" format="enum">
+            <enum name="horizontal" value="0" />
+            <enum name="vertical" value="1" />
+            <enum name="grid" value="2" />
+        </attr>
+        <attr name="selectionMode" format="enum">
+            <enum name="single" value="0" />
+            <enum name="multiple" value="1" />
+        </attr>
+        <attr name="spanCount" />
+        <attr name="itemSpacingHorizontal" />
+        <attr name="itemSpacingVertical" />
     </declare-styleable>
 </resources>
