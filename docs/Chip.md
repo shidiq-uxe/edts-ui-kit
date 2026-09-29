@@ -1,6 +1,6 @@
 # Chip
 
-`Chip` is a interactive component for filters, tags, suggestions, and other selectable or actionable labels. `CoreChip` is the base implementation, exposes set of variants tailored to that product. Currently available recipes are **Klik** (`KlikChip`) and **Poinku** (`PoinkuChip`).
+`Chip` is a interactive component for filters, tags, suggestions, and other selectable or actionable labels. `CoreChip` is the base implementation, exposes set of variants tailored to that product. Currently available recipes are **Klik** (`KlikChip`) and **Poinku** (`PoinkuChip`). Chips can be laid out as a list, wrapping flow, or grid with **Chip Group** (`ChipGroup`).
 
 ## Architecture
 
@@ -24,6 +24,8 @@ graph TD
     style PoinkuVariants fill:#F0AF42,stroke:#F0AF42,color:#fff
 ```
 
+### Chip
+
 | Class                 | Role                                                                                                                                                |
 |-----------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------|
 | `ChipPreset`          | Geometry for a variant: corner radius, border width, text appearance, padding, and an optional relative `widthPercent`.                             |
@@ -31,6 +33,30 @@ graph TD
 | `ChipVariant`         | Combines `ChipPreset` and `ChipPalette` for each state of chip                                                                                      |
 | `ChipStateAnnotation` | `@IntDef` restricting the `state` property to `CHIP_STATE_IDLE` (0), `CHIP_STATE_SELECTED` (1), or `CHIP_STATE_ACTIVE` (2).                         |
 | `ChipDelegate`        | Callback interface for chip taps: `onClick`, and optional `onStartIconClick` / `onEndIconClick` for actionable icons.                               |
+
+```mermaid
+graph LR
+    Group("ChipGroup<br/>Layout + spacing")
+    Adapter("ChipGroupAdapter<br/>Data → chips")
+    Chip("CoreChip and recipes<br/>KlikChip, PoinkuChip, ...")
+
+    Group -->|chipAdapter| Adapter
+    Adapter -->|createChip / bindChip| Chip
+
+    style Group fill:#439E25,stroke:#439E25,color:#fff
+    style Adapter fill:#1178D4,stroke:#1178D4,color:#fff
+    style Chip fill:#F29D0D,stroke:#F29D0D,color:#fff
+```
+
+
+### Chip Group
+
+| Class               | Role                                                                                                                                                      |
+|---------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `ChipGroup`         | `RecyclerView`-based container that lays out chips horizontally, vertically, or in a (wrapping / fixed-column) grid, with item spacing and group padding. |
+| `ChipGroupAdapter`  | Drives a `ChipGroup` from any list of data. Chip-agnostic: works with `CoreChip`, `KlikChip`, `PoinkuChip`, or any future recipe.                         |
+| `ChipGroupDelegate` | Callback interface for taps on a group's chips: which chip, which item, which position.                                                                   |
+
 
 ## CoreChip
 
@@ -177,4 +203,132 @@ klikChip.text = "Category"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     app:text="Groceries"/>
+```
+
+## Chip Group
+
+![Chip Group](https://res.cloudinary.com/dpdbzlnhr/image/upload/c_scale,w_1000/v1790672156/chipgroupgif_gx0ryr.gif)
+
+`ChipGroup` shows a list of chips in one of three layouts. It extends `RecyclerView`, so chips are recycled and the list can scroll.
+
+### Orientations
+
+| `ChipGroupOrientation` | `app:orientation` | `spanCount` | Layout                                                                                                                                                                                                                |
+|------------------------|-------------------|-------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `HORIZONTAL` (default) | `horizontal`      | ignored     | A single scrollable row. Chips keep their natural width.                                                                                                                                                              |
+| `VERTICAL`             | `vertical`        | ignored     | A single column.                                                                                                                                                                                                      |
+| `GRID`                 | `grid`            | `null`      | When value is 'null' chips on **Wrap Mode** where chips keep their natural width and flow onto a new line when the row is full. When value is `>= 1` chips on **Fixed Span Mode** with that many equal-width columns. |
+
+
+### Properties
+
+| Property                | Type                     | Default      | Description                                                                                                                 |
+|-------------------------|--------------------------|--------------|-----------------------------------------------------------------------------------------------------------------------------|
+| `orientation`           | `ChipGroupOrientation`   | `HORIZONTAL` | Layout mode. Changing it swaps the `LayoutManager` and keeps the adapter attached.                                          |
+| `spanCount`             | `Int?`                   | `null`       | Only used when `orientation` is `GRID`. `null` = wrapping grid; `>= 1` = fixed columns. Values `< 1` are treated as `null`. |
+| `selectionMode`         | `ChipGroupSelectionMode` | `MULTIPLE`   | `SINGLE` or `MULTIPLE`                                                                                                      |
+| `itemSpacingHorizontal` | `Int` (px)               | `0`          | Gap between chips on the horizontal axis: trailing gap in `HORIZONTAL`, column gap in `GRID`. Ignored in `VERTICAL`.        |
+| `itemSpacingVertical`   | `Int` (px)               | `0`          | Gap between chips on the vertical axis: trailing gap in `VERTICAL`, row gap in `GRID`. Ignored in `HORIZONTAL`.             |
+| `groupPaddingStart`     | `Int` (px)               | `0`          | Padding start around the whole group at runtime.                                                                            |
+| `groupPaddingTop`       | `Int` (px)               | `0`          | Padding top around the whole group at runtime.                                                                              |
+| `groupPaddingEnd`       | `Int` (px)               | `0`          | Padding end around the whole group at runtime.                                                                              |
+| `groupPaddingBottom`    | `Int` (px)               | `0`          | Padding bottom around the whole group at runtime.                                                                           |
+| `groupPadding`          | `Int` (px)               | `0`          | Sets all four sides at once. Reading it returns the last value assigned here, not a value derived from the four sides.      |
+| `chipAdapter`           | `ChipGroupAdapter<*>?`   | `null`       | The adapter that supplies the chips.                                                                                        |
+
+
+### XML Attributes
+
+| Attribute               | Type                                  | Description                                                                                  |
+|-------------------------|---------------------------------------|----------------------------------------------------------------------------------------------|
+| `orientation`           | `enum (horizontal, vertical, grid)`   | Layout mode (`horizontal=0`, `vertical=1`, `grid=2`).                                        |
+| `selectionMode`         | `enum (single, multiple)`             | Selection behavior (`single=0`, `multiple=1`).                                               |
+| `spanCount`             | `integer`                             | Fixed column count for `grid`. Omit for a wrapping grid.                                     |
+| `itemSpacingHorizontal` | `dimension`                           | Horizontal gap between chips.                                                                |
+| `itemSpacingVertical`   | `dimension`                           | Vertical gap between chips.                                                                  |
+
+Group padding needs no custom attribute. Use the standard `android:padding*` attributes, and add `android:clipToPadding="false"` if chips should stay visible under the padding while scrolling.
+
+### ChipGroupAdapter
+
+`ChipGroupAdapter<T : Any>` binds a list of `T` to chips.
+
+| Constructor parameter | Type                                               | Default      | Description                                                                                       |
+|-----------------------|----------------------------------------------------|--------------|---------------------------------------------------------------------------------------------------|
+| `createChip`          | `(parent: ViewGroup) -> CoreChip`                  | required     | Creates one chip. Return any `CoreChip` subclass (set its variant here).                          |
+| `bindChip`            | `(chip: CoreChip, item: T, position: Int) -> Unit` | required     | Applies an item's data to a chip (`text`, `state`, icons, ...).                                   |
+| `areItemsTheSame`     | `(old: T, new: T) -> Boolean`                      | `old == new` | Identity check for `DiffUtil`. Override with a stable id when equality isn't a reliable identity. |
+| `areContentsTheSame`  | `(old: T, new: T) -> Boolean`                      | `old == new` | Decides whether a chip needs re-binding.                                                          |
+| `isSelected`          | `(item: T) -> Boolean`                             | `{ false }`  | Tells the adapter which items count as selected, used by `selectedItems()`.                       |
+| `delegate`            | `ChipGroupDelegate<T>?`                            | `null`       | Click callbacks. Also a `var`, so it can be set later.                                            |
+
+| Method                     | Description                                                                                                           |
+|----------------------------|-----------------------------------------------------------------------------------------------------------------------|
+| `submitList(List<T>)`      | Replaces the list, diffing against the current one so only changed chips are re-bound. Runs on the calling thread.    |
+| `currentList()`            | The list currently shown.                                                                                             |
+| `selectedItems()`          | Items for which `isSelected` returns `true`, in list order. Always empty if `isSelected` isn't supplied.              |
+
+### ChipGroupDelegate
+
+When a `delegate` is set, it takes over `chip.delegate` for every bound chip. Don't also assign `chip.delegate` inside `bindChip`, because the adapter's assignment runs afterwards and overwrites it.
+
+| Method                                                    | Description                                                     |
+|-----------------------------------------------------------|-----------------------------------------------------------------|
+| `onChipClick(chip, item, position)`                       | The chip was tapped.                                            |
+| `onChipStartIconClick(chip, item, position)` *(optional)* | The start icon was tapped (needs `isStartIconActionable`).      |
+| `onChipEndIconClick(chip, item, position)` *(optional)*   | The end icon was tapped (needs `isEndIconActionable`).          |
+
+### Usage
+
+```xml
+<id.co.edtslib.uikit.core.chipgroup.ChipGroup
+    android:id="@+id/chipGroupFilters"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp"
+    android:clipToPadding="false"
+    app:orientation="grid"
+    app:selectionMode="multiple"
+    app:itemSpacingHorizontal="8dp"
+    app:itemSpacingVertical="8dp"/>
+```
+
+```kotlin
+data class FilterOption(val id: Int, val label: String, val state: Int = CHIP_STATE_IDLE)
+
+lateinit var adapter: ChipGroupAdapter<FilterOption>
+adapter = ChipGroupAdapter(
+    createChip = { parent ->
+        KlikChip(parent.context).apply { klikChipVariant = KlikChipVariant.Filters }
+    },
+    bindChip = { chip, item, _ ->
+        chip.text = item.label
+        chip.state = item.state
+    },
+    areItemsTheSame = { old, new -> old.id == new.id },
+    isSelected = { it.state == CHIP_STATE_SELECTED },
+    delegate = object : ChipGroupDelegate<FilterOption> {
+        override fun onChipClick(chip: CoreChip, item: FilterOption, position: Int) {
+            val single = chipGroupFilters.selectionMode == ChipGroup.ChipGroupSelectionMode.SINGLE
+            adapter.submitList(adapter.currentList().map {
+                when {
+                    it.id == item.id -> it.copy(
+                        state = if (it.state == CHIP_STATE_SELECTED) CHIP_STATE_IDLE else CHIP_STATE_SELECTED
+                    )
+                    single -> it.copy(state = CHIP_STATE_IDLE)
+                    else -> it
+                }
+            })
+        }
+    },
+)
+chipGroupFilters.chipAdapter = adapter
+adapter.submitList(options)
+```
+
+Set the layout at runtime:
+```kotlin
+chipGroupFilters.orientation = ChipGroup.ChipGroupOrientation.GRID
+chipGroupFilters.spanCount = 3
+chipGroupFilters.itemSpacingHorizontal = 8.dpToPx()
 ```
