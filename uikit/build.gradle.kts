@@ -89,6 +89,7 @@ dependencies {
     implementation(libs.shimmer)
     implementation(libs.lottie)
     implementation(libs.blurView)
+    implementation(libs.flexbox)
 
     implementation(libs.material)
     implementation(libs.glide)
