@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main" android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="@color/white" tools:context=".demo.promo.ParagonFairDemoActivity">
+    <androidx.recyclerview.widget.RecyclerView android:id="@+id/products"
+        android:layout_width="0dp" android:layout_height="0dp" android:clipToPadding="false"
+        android:paddingBottom="72dp" android:overScrollMode="ifContentScrolls"
+        app:layout_constraintTop_toBottomOf="@id/toolbar" app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent" />
+    <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/toolbar"
+        android:layout_width="0dp" android:layout_height="56dp" android:background="@color/white"
+        app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent">
+        <ImageButton android:id="@+id/back" style="@style/FairDemo.Icon" android:layout_width="32dp" android:layout_height="32dp"
+            android:layout_marginStart="12dp" android:src="@drawable/ic_arrow_left" android:contentDescription="@string/fair_back"
+            app:tint="@color/black_50" app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent" />
+        <TextView android:id="@+id/title" style="@style/FairDemo.Strong" android:layout_width="0dp" android:layout_height="wrap_content"
+            android:textSize="16sp" android:layout_marginHorizontal="8dp" android:text="@string/fair_title" android:maxLines="1" android:ellipsize="end"
+            android:longClickable="true" app:layout_constraintStart_toEndOf="@id/back" app:layout_constraintEnd_toStartOf="@id/search"
+            app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent" />
+        <ImageButton android:id="@+id/search" style="@style/FairDemo.Icon" android:layout_width="32dp" android:layout_height="32dp"
+            android:layout_marginEnd="8dp" android:src="@drawable/fair_search" android:contentDescription="@string/fair_search"
+            app:layout_constraintEnd_toStartOf="@id/share" app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent" />
+        <ImageButton android:id="@+id/share" style="@style/FairDemo.Icon" android:layout_width="32dp" android:layout_height="32dp"
+            android:layout_marginEnd="12dp" android:src="@drawable/fair_share" android:contentDescription="@string/fair_share"
+            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent" />
+        <id.co.edtslib.uikit.searchbar.SearchBar android:id="@+id/queryField"
+            android:layout_width="0dp" android:layout_height="32dp" android:visibility="gone"
+            android:layout_marginStart="12dp" android:layout_marginEnd="16dp"
+            app:layout_constraintStart_toEndOf="@id/back" app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/compactProgress" android:layout_width="0dp" android:layout_height="wrap_content"
+        android:background="@color/white" android:elevation="2dp" android:paddingStart="16dp" android:paddingEnd="16dp"
+        android:paddingTop="12dp" android:paddingBottom="8dp" android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/toolbar" app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent">
+        <include android:id="@+id/compactMeter" layout="@layout/view_fair_progress" android:layout_width="0dp" android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintBottom_toBottomOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/bottomActions"
+        android:layout_width="0dp" android:layout_height="wrap_content" android:paddingHorizontal="16dp" android:paddingBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent">
+        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/filterSortPill" android:layout_width="194dp"
+            android:layout_height="40dp" android:background="@drawable/fair_filter_background" android:elevation="3dp"
+            app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent">
+            <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/sort" android:layout_width="77dp" android:layout_height="40dp"
+                android:clickable="true" android:focusable="true" android:foreground="?attr/selectableItemBackground" android:contentDescription="Urutkan produk"
+                android:layout_marginStart="12dp" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent">
+                <ImageView android:layout_width="24dp" android:layout_height="24dp" android:src="@drawable/fair_sort"
+                    android:importantForAccessibility="no" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent" />
+                <TextView android:id="@+id/sortLabel" style="@style/FairDemo.CaptionStrong" android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="@string/fair_sort" android:importantForAccessibility="no" app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <View android:layout_width="1dp" android:layout_height="16dp" android:background="@color/black_30"
+                app:layout_constraintStart_toEndOf="@id/sort" android:layout_marginStart="8dp" app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent" />
+            <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/filter" android:layout_width="76dp" android:layout_height="40dp"
+                android:clickable="true" android:focusable="true" android:foreground="?attr/selectableItemBackground" android:contentDescription="Filter produk"
+                android:layout_marginEnd="12dp" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent">
+                <ImageView android:layout_width="24dp" android:layout_height="24dp" android:src="@drawable/fair_filter"
+                    android:importantForAccessibility="no" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent" />
+                <TextView android:id="@+id/filterLabel" style="@style/FairDemo.CaptionStrong" android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="@string/fair_filter" android:importantForAccessibility="no" app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/cart" android:layout_width="0dp" android:layout_height="40dp"
+            android:layout_marginTop="12dp" app:layout_goneMarginTop="0dp" android:background="@drawable/fair_cart_background" android:paddingHorizontal="12dp"
+            android:clickable="true" android:focusable="true" android:foreground="?attr/selectableItemBackground" android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@id/filterSortPill" app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent">
+            <ImageView android:id="@+id/cartIcon" android:layout_width="24dp" android:layout_height="24dp" android:src="@drawable/fair_cart"
+                android:importantForAccessibility="no" app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent" />
+            <TextView android:id="@+id/cartLabel" style="@style/FairDemo.CaptionStrong" android:layout_width="0dp" android:layout_height="wrap_content"
+                android:text="Keranjang" android:textColor="@color/black_70" android:layout_marginStart="8dp" android:importantForAccessibility="no"
+                app:layout_constraintStart_toEndOf="@id/cartIcon" app:layout_constraintEnd_toStartOf="@id/cartTotal" app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/cartCount" app:layout_constraintVertical_chainStyle="packed" />
+            <TextView android:id="@+id/cartCount" style="@style/FairDemo.Small" android:layout_width="0dp" android:layout_height="wrap_content"
+                android:textColor="@color/black_70" android:importantForAccessibility="no"
+                app:layout_constraintStart_toStartOf="@id/cartLabel" app:layout_constraintEnd_toEndOf="@id/cartLabel"
+                app:layout_constraintTop_toBottomOf="@id/cartLabel" app:layout_constraintBottom_toBottomOf="parent" />
+            <TextView android:id="@+id/cartTotal" style="@style/FairDemo.CaptionStrong" android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:textColor="@color/black_70" android:importantForAccessibility="no" app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

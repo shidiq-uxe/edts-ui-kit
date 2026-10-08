@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="fair_search_hint">Cari produk promo</string>
+    <string name="fair_search_clear">Hapus kata kunci</string>
+    <string name="fair_search_edit">Ganti Kata Kunci</string>
+    <string name="fair_search_empty_title">Produk tidak ditemukan</string>
+    <string name="fair_search_empty_description">Cari kata kunci lain atau cek produk rekomendasi di bawah ini, yuk!</string>
+    <string name="fair_search_filtered_title">Tidak ada produk sesuai filter</string>
+    <string name="fair_search_filtered_description">Hapus filter untuk melihat hasil pencarian ini.</string>
+    <string name="fair_search_clear_filter">Hapus Filter</string>
+    <string name="fair_search_loading">Mencari produk…</string>
+    <string name="fair_search_error_title">Pencarian belum berhasil</string>
+    <string name="fair_search_error_description">Periksa koneksi lalu coba lagi. Keranjangmu tetap tersimpan.</string>
+    <string name="fair_search_retry">Coba Lagi</string>
+    <string name="fair_search_website">Tidak menemukan produk? Buka situs Klik Indomaret, www.klikindomaret.com</string>
+    <string name="fair_search_results">%1$d produk ditemukan untuk %2$s</string>
+    <string name="fair_search_promo_scope">di %1$s</string>
+    <string name="fair_search_global_scope">di Klik Indomaret</string>
+    <string name="fair_search_gift_title">Belanja Paragon Fair Senilai Rp100.000 Dapat Hadiah. Tidak Berlaku Kelipatan.</string>
+    <string name="fair_search_redemption_title">Belanja All Item Klik Indomaret Senilai Rp50.000 Dapat Tebus Murah Rp5.000. Berlaku Kelipatan.</string>
+    <color name="fair_bundling_start">#FF7D1D</color>
+    <color name="fair_bundling_end">#F0AF42</color>
+    <color name="fair_savings_start">#BB0000</color>
+    <color name="fair_savings_end">#FC7678</color>
+    <style name="FairSearch.SmallStrong" parent="FairDemo.CaptionStrong">
+        <item name="android:textSize">10sp</item>
+        <item name="lineHeight">14sp</item>
+    </style>
+    <style name="FairSearch.Scope" parent="FairDemo.Small">
+        <item name="lineHeight">14sp</item>
+    </style>
+</resources>

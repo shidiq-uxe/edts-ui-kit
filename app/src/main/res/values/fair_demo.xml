@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="guidelines_paragon_fair_demo">Paragon Fair · Promo Detail Demo</string>
+    <string name="fair_title">Detail Promo</string>
+    <string name="fair_back">Kembali</string>
+    <string name="fair_search">Cari produk promo</string>
+    <string name="fair_share">Bagikan promo</string>
+    <string name="fair_view_gifts">Lihat hadiah Paragon Fair</string>
+    <string name="fair_sort">Urutkan</string>
+    <string name="fair_filter">Filter</string>
+    <string name="fair_terms">Selengkapnya</string>
+    <string name="fair_products">Daftar Produk Promo</string>
+    <string name="fair_add">Tambah %1$s, jumlah saat ini %2$d</string>
+    <string name="fair_remove">Kurangi %1$s, jumlah saat ini %2$d</string>
+    <string name="fair_cart_description">Keranjang, %1$d barang, total %2$s</string>
+    <string name="fair_product_count">%1$d produk</string>
+    <string name="fair_cart_count">(%1$d Barang)</string>
+    <color name="fair_quota_background">#DAFFA8</color>
+    <color name="fair_quota_foreground">#49760C</color>
+    <style name="FairDemo.Body" parent="Base.TextAppearance.AppCompat">
+        <item name="fontFamily">@font/inter_fallback</item>
+        <item name="android:fontFamily">@font/inter_fallback</item>
+        <item name="lineHeight">16sp</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:textColor">@color/black_70</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+    <style name="FairDemo.Strong" parent="FairDemo.Body">
+        <item name="fontFamily">@font/inter_semibold_fallback</item>
+        <item name="android:fontFamily">@font/inter_semibold_fallback</item>
+    </style>
+    <style name="FairDemo.Caption" parent="FairDemo.Body">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/black_50</item>
+    </style>
+    <style name="FairDemo.CaptionStrong" parent="FairDemo.Strong">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/black_60</item>
+    </style>
+    <style name="FairDemo.Small" parent="FairDemo.Caption">
+        <item name="lineHeight">12sp</item>
+        <item name="android:textSize">10sp</item>
+    </style>
+    <style name="FairDemo.Icon" parent="">
+        <item name="android:background">?attr/selectableItemBackgroundBorderless</item>
+        <item name="android:padding">4dp</item>
+        <item name="android:scaleType">fitCenter</item>
+    </style>
+    <style name="FairDemo.Milestone" parent="FairDemo.CaptionStrong">
+        <item name="android:textSize">10dp</item>
+    </style>
+</resources>

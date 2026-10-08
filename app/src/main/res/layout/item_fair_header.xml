@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent" android:layout_height="wrap_content">
+    <ImageView android:id="@+id/banner" android:layout_width="0dp" android:layout_height="0dp"
+        android:src="@drawable/fair_banner" android:scaleType="centerCrop" android:contentDescription="Paragon Fair"
+        app:layout_constraintDimensionRatio="360:128" app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent" />
+    <TextView android:id="@+id/newUser" style="@style/FairDemo.Small" android:layout_width="wrap_content" android:layout_height="wrap_content"
+        android:text="Pengguna Baru" android:background="@drawable/fair_tag_disabled" android:textColor="@color/white"
+        android:paddingHorizontal="4dp" android:paddingVertical="3dp" android:layout_marginStart="16dp" android:layout_marginBottom="4dp"
+        android:visibility="gone" app:layout_constraintStart_toStartOf="parent" app:layout_constraintBottom_toBottomOf="@id/banner" />
+    <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/progressPanel" android:layout_width="0dp" android:layout_height="wrap_content"
+        android:layout_marginTop="16dp" android:layout_marginHorizontal="16dp" android:padding="12dp" android:background="@drawable/fair_panel_background"
+        android:elevation="1dp" app:layout_constraintTop_toBottomOf="@id/banner" app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent">
+        <id.co.edtslib.uikit.core.textbadge.CoreTextBadge android:id="@+id/fairBadge" android:layout_width="wrap_content" android:layout_height="24dp"
+            app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" />
+        <id.co.edtslib.uikit.recipes.textbadge.klik.KlikTextBadge android:id="@+id/quotaBadge" android:layout_width="wrap_content" android:layout_height="24dp"
+            android:layout_marginStart="4dp" app:layout_constraintStart_toEndOf="@id/fairBadge" app:layout_constraintTop_toTopOf="parent" />
+        <ImageButton android:id="@+id/info" android:layout_width="16dp" android:layout_height="16dp"
+            android:background="?attr/selectableItemBackgroundBorderless" android:padding="0dp" android:src="@drawable/fair_info" android:contentDescription="Informasi promo"
+            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="@id/fairBadge" app:layout_constraintBottom_toBottomOf="@id/fairBadge" />
+        <include android:id="@+id/meter" layout="@layout/view_fair_progress" android:layout_width="0dp" android:layout_height="wrap_content"
+            android:layout_marginTop="8dp" app:layout_constraintTop_toBottomOf="@id/fairBadge" app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintBottom_toBottomOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/gifts" android:layout_width="0dp" android:layout_height="60dp"
+        android:layout_marginTop="-12dp" android:layout_marginHorizontal="16dp" android:background="@drawable/fair_gift_background"
+        android:paddingStart="12dp" android:paddingEnd="12dp" android:paddingTop="20dp" android:paddingBottom="8dp"
+        android:clickable="true" android:focusable="true" android:contentDescription="@string/fair_view_gifts" android:foreground="?attr/selectableItemBackground"
+        app:layout_constraintTop_toBottomOf="@id/progressPanel" app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent">
+        <ImageView android:id="@+id/giftOne" android:layout_width="32dp" android:layout_height="32dp" android:src="@drawable/fair_emina_gel"
+            android:scaleType="centerCrop" android:importantForAccessibility="no" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" />
+        <ImageView android:id="@+id/giftTwo" android:layout_width="32dp" android:layout_height="32dp" android:src="@drawable/fair_gift_cotton" android:layout_marginStart="4dp"
+            android:scaleType="centerCrop" android:importantForAccessibility="no" app:layout_constraintStart_toEndOf="@id/giftOne" app:layout_constraintTop_toTopOf="parent" />
+        <ImageView android:id="@+id/giftThree" android:layout_width="32dp" android:layout_height="32dp" android:src="@drawable/fair_gift_cleanser" android:layout_marginStart="4dp"
+            android:scaleType="centerCrop" android:importantForAccessibility="no" app:layout_constraintStart_toEndOf="@id/giftTwo" app:layout_constraintTop_toTopOf="parent" />
+        <TextView android:id="@+id/giftOverflow" style="@style/FairDemo.Strong" android:layout_width="32dp" android:layout_height="32dp" android:layout_marginStart="4dp"
+            android:text="+2" android:textColor="@color/black_60" android:gravity="center" android:background="@drawable/fair_thumb_background"
+            android:importantForAccessibility="no" app:layout_constraintStart_toEndOf="@id/giftThree" app:layout_constraintTop_toTopOf="parent" />
+        <ImageView android:id="@+id/giftChevron" android:layout_width="16dp" android:layout_height="16dp" android:src="@drawable/fair_chevron"
+            android:importantForAccessibility="no" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent" />
+        <TextView style="@style/FairDemo.CaptionStrong" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Lihat"
+            android:textColor="@color/primary_30" android:importantForAccessibility="no" android:layout_marginEnd="4dp"
+            app:layout_constraintEnd_toStartOf="@id/giftChevron" app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <TextView android:id="@+id/promoTitle" style="@style/FairDemo.Strong" android:layout_width="0dp" android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp" android:layout_marginTop="12dp" android:minHeight="40dp"
+        app:lineHeight="20sp"
+        android:text="Belanja Paragon Fair Senilai Rp100.000 Dapat Hadiah. Tidak Berlaku Kelipatan."
+        app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/gifts" />
+    <ImageView android:id="@+id/periodIcon" android:layout_width="16dp" android:layout_height="16dp" android:src="@drawable/fair_clock" android:layout_marginStart="16dp"
+        android:layout_marginTop="12dp" android:importantForAccessibility="no" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toBottomOf="@id/promoTitle" />
+    <TextView android:id="@+id/periodLabel" style="@style/FairDemo.Caption" android:layout_width="wrap_content" android:layout_height="wrap_content"
+        android:text="Periode" android:textColor="@color/black_40" android:layout_marginStart="4dp"
+        app:layout_constraintStart_toEndOf="@id/periodIcon" app:layout_constraintTop_toTopOf="@id/periodIcon" />
+    <TextView android:id="@+id/periodValue" style="@style/FairDemo.CaptionStrong" android:layout_width="0dp" android:layout_height="wrap_content"
+        android:text="03 Jan 2025 - 31 Des 2025" android:gravity="end" android:layout_marginStart="8dp" android:layout_marginEnd="16dp"
+        app:layout_constraintStart_toEndOf="@id/periodLabel" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="@id/periodIcon" />
+    <androidx.constraintlayout.widget.Barrier android:id="@+id/periodBottom" android:layout_width="wrap_content" android:layout_height="wrap_content"
+        app:barrierDirection="bottom" app:constraint_referenced_ids="periodIcon,periodLabel,periodValue" />
+    <ImageView android:id="@+id/minimumIcon" android:layout_width="16dp" android:layout_height="16dp" android:src="@drawable/fair_minimum" android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp" android:importantForAccessibility="no" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toBottomOf="@id/periodBottom" />
+    <TextView android:id="@+id/minimumLabel" style="@style/FairDemo.Caption" android:layout_width="wrap_content" android:layout_height="wrap_content"
+        android:text="Minimum Transaksi" android:textColor="@color/black_40" android:layout_marginStart="4dp"
+        app:layout_constraintStart_toEndOf="@id/minimumIcon" app:layout_constraintTop_toTopOf="@id/minimumIcon" />
+    <TextView android:id="@+id/minimumValue" style="@style/FairDemo.CaptionStrong" android:layout_width="0dp" android:layout_height="wrap_content"
+        android:text="Rp100.000" android:gravity="end" android:layout_marginStart="8dp" android:layout_marginEnd="16dp"
+        app:layout_constraintStart_toEndOf="@id/minimumLabel" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="@id/minimumIcon" />
+    <androidx.constraintlayout.widget.Barrier android:id="@+id/minimumBottom" android:layout_width="wrap_content" android:layout_height="wrap_content"
+        app:barrierDirection="bottom" app:constraint_referenced_ids="minimumIcon,minimumLabel,minimumValue" />
+    <ImageView android:id="@+id/termsIcon" android:layout_width="16dp" android:layout_height="16dp" android:src="@drawable/fair_terms" android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp" android:importantForAccessibility="no" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toBottomOf="@id/minimumBottom" />
+    <TextView android:id="@+id/termsLabel" style="@style/FairDemo.Caption" android:layout_width="wrap_content" android:layout_height="wrap_content"
+        android:text="Syarat dan Ketentuan" android:textColor="@color/black_40" android:layout_marginStart="4dp"
+        app:layout_constraintStart_toEndOf="@id/termsIcon" app:layout_constraintTop_toTopOf="@id/termsIcon" />
+    <TextView android:id="@+id/terms" style="@style/FairDemo.CaptionStrong" android:layout_width="0dp" android:layout_height="wrap_content"
+        android:text="@string/fair_terms" android:textColor="@color/primary_30" android:gravity="end" android:layout_marginStart="8dp" android:layout_marginEnd="16dp"
+        android:clickable="true" android:focusable="true" android:contentDescription="Baca syarat dan ketentuan"
+        app:layout_constraintStart_toEndOf="@id/termsLabel" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="@id/termsIcon" />
+    <androidx.constraintlayout.widget.Barrier android:id="@+id/termsBottom" android:layout_width="wrap_content" android:layout_height="wrap_content"
+        app:barrierDirection="bottom" app:constraint_referenced_ids="termsIcon,termsLabel,terms" />
+    <View android:id="@+id/headerDivider" android:layout_width="0dp" android:layout_height="1dp" android:background="@color/black_30" android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@id/termsBottom" app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" app:layout_constraintBottom_toBottomOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
