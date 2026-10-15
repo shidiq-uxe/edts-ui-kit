@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="StepperButton">
+        <attr name="buttonTouchTargetMode" format="enum">
+            <enum name="compact" value="0" />
+            <enum name="expanded" value="1" />
+        </attr>
+        <attr name="isStepperHapticFeedbackEnabled" format="boolean" />
+        <attr name="isDragFeedbackEnabled" format="boolean" />
+    </declare-styleable>
+
+</resources>

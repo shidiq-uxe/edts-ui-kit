@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:paddingHorizontal="@dimen/xs"
+    android:paddingVertical="@dimen/xxs"
+    android:background="@drawable/bg_stepper_drag_feedback"
+    android:gravity="center"
+    android:orientation="horizontal"
+    android:importantForAccessibility="noHideDescendants">
+
+    <TextView
+        android:id="@+id/tvDirection"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/TextAppearance.Inter.SemiBold.B3"
+        android:textColor="@color/primary_50"
+        android:gravity="center"
+        android:maxLines="1" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/s"
+        android:layout_marginStart="@dimen/xxs"
+        android:gravity="bottom"
+        android:orientation="horizontal">
+
+        <View
+            android:id="@+id/speedLow"
+            android:layout_width="@dimen/xxxs"
+            android:layout_height="@dimen/xxxs"
+            android:background="@color/primary_50" />
+
+        <View
+            android:id="@+id/speedMedium"
+            android:layout_width="@dimen/xxxs"
+            android:layout_height="@dimen/xxs"
+            android:layout_marginStart="@dimen/dimen_2"
+            android:background="@color/primary_50" />
+
+        <View
+            android:id="@+id/speedHigh"
+            android:layout_width="@dimen/xxxs"
+            android:layout_height="@dimen/xs"
+            android:layout_marginStart="@dimen/dimen_2"
+            android:background="@color/primary_50" />
+
+    </LinearLayout>
+
+</LinearLayout>

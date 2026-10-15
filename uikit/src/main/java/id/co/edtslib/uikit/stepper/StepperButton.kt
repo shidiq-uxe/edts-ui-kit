@@ -3,11 +3,16 @@ package id.co.edtslib.uikit.stepper
 import android.animation.AnimatorSet
 import android.animation.ValueAnimator
 import android.content.Context
+import android.graphics.Rect
+import android.os.Build
 import android.os.Looper
+import android.os.SystemClock
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.AttributeSet
-import android.view.LayoutInflater
+import android.view.MotionEvent
+import android.view.Gravity
+import android.view.HapticFeedbackConstants
 import android.view.View
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.widget.EditText
@@ -18,12 +23,10 @@ import com.google.android.material.button.MaterialButton
 import com.google.android.material.card.MaterialCardView
 import id.co.edtslib.uikit.R
 import id.co.edtslib.uikit.databinding.ViewStepperBinding
-import id.co.edtslib.uikit.utils.dimen
 import id.co.edtslib.uikit.utils.dimenPixelSize
 import id.co.edtslib.uikit.utils.dp
 import id.co.edtslib.uikit.utils.hideKeyboard
 import id.co.edtslib.uikit.utils.inflater
-import id.co.edtslib.uikit.utils.px
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -40,6 +43,64 @@ open class StepperButton @JvmOverloads constructor(
 ) : FrameLayout(context, attrs, defStyleAttr) {
 
     val binding = ViewStepperBinding.inflate(context.inflater, this)
+
+    var buttonTouchTargetMode = StepperButtonTouchTargetMode.COMPACT
+        set(value) {
+            if (field == value) return
+            cancelDragRepeat()
+            field = value
+            requestLayout()
+        }
+
+    /** Uses platform feedback and honors system/user settings; programmatic updates stay silent. */
+    var isStepperHapticFeedbackEnabled = false
+
+    /** Shows a temporary direction/speed hint and active outline during an acquired drag. */
+    var isDragFeedbackEnabled = false
+        set(value) {
+            field = value
+            if (!value && dragFeedbackDelegate.isInitialized()) dragFeedback.hide(immediately = true)
+        }
+
+    /** Optional long-press vertical repetition. Off by default for existing callers. */
+    var isDragRepeatEnabled = false
+        set(value) {
+            if (field == value) return
+            field = value
+            if (!value) cancelDragRepeat()
+        }
+
+    var dragRepeatConfig = StepperDragRepeatConfig()
+        set(value) {
+            if (field == value) return
+            field = value
+            cancelDragRepeat()
+        }
+
+    /** Keeps both controls visible at zero, without the legacy expansion/collapse animation. */
+    var isAlwaysExpanded = false
+        set(value) {
+            if (field == value) return
+            field = value
+            removeCallbacks(showExpandedRunnable)
+            removeCallbacks(showCollapsedRunnable)
+            currentAnimator?.cancel()
+            currentAnimator = null
+            isAnimating = false
+            isExpanded = value || count > 0
+            container.layoutParams = container.layoutParams.apply {
+                width = if (isExpanded) expandedWidth else collapsedWidth
+            }
+            if (isExpanded) showExpandedViews() else showCollapsedViews()
+            singlePlusButton.alpha = 1f
+            minusButton.alpha = 1f
+            plusButton.alpha = 1f
+            countText.alpha = 1f
+            countEditText.alpha = 1f
+            requestLayout()
+        }
+
+    var incremental = 1
 
     // Views
     private val container: MaterialCardView = binding.stepperContainer
@@ -63,8 +124,43 @@ open class StepperButton @JvmOverloads constructor(
     private var isUpdatingProgrammatically = false
     private var isAnimating = false
     private var currentAnimator: AnimatorSet? = null
-
-    var incremental = 1
+    private val targetBounds = Rect()
+    private val editorBounds = Rect()
+    private var touchButton: View? = null
+    private var touchOriginX = 0f
+    private var touchOriginY = 0f
+    private val dragFeedbackDelegate = lazy { StepperDragFeedback(this, container) }
+    private val dragFeedback by dragFeedbackDelegate
+    private val showExpandedRunnable = Runnable { if (isExpanded) showExpandedViews() }
+    private val showCollapsedRunnable = Runnable { if (!isExpanded && !isAlwaysExpanded) showCollapsedViews() }
+    private val dragRepeatTouchDelegate = lazy {
+        StepperDragRepeatTouch(
+            owner = this,
+            config = { dragRepeatConfig },
+            findTarget = ::findDragTarget,
+            cancelChildTouch = ::cancelChildTouch,
+            canChange = { direction ->
+                incremental > 0 && if (direction > 0) count < maxValue && plusButton.isEnabled
+                    else count > minValue && minusButton.isEnabled
+            },
+            changeCount = { direction ->
+                val previous = count
+                if (direction > 0) {
+                    incrementCount()
+                    if (!isAlwaysExpanded) expand()
+                } else {
+                    decrementCount()
+                }
+                count != previous
+            },
+            onActivated = { performStepperHaptic(isActivation = true) },
+            onFeedback = { feedback ->
+                if (feedback != null && isDragFeedbackEnabled) dragFeedback.show(feedback)
+                else if (dragFeedbackDelegate.isInitialized()) dragFeedback.hide()
+            },
+        )
+    }
+    private val dragRepeatTouch by dragRepeatTouchDelegate
 
     // Colors
 
@@ -80,22 +176,18 @@ open class StepperButton @JvmOverloads constructor(
     private var onCountChangeListener: ((Int) -> Unit)? = null
 
     init {
-        /*// Parse custom attributes
-        context.theme.obtainStyledAttributes(
-            attrs,
-            R.styleable.Stepp,
-            0, 0
-        ).apply {
-            try {
-                plusIconRes = getResourceId(R.styleable.StepperView_plusIcon, plusIconRes)
-                minusIconRes = getResourceId(R.styleable.StepperView_minusIcon, minusIconRes)
-                allowTextEditing = getBoolean(R.styleable.StepperView_allowTextEditing, false)
-                minValue = getInt(R.styleable.StepperView_minValue, 0)
-                maxValue = getInt(R.styleable.StepperView_maxValue, Int.MAX_VALUE)
-            } finally {
-                recycle()
-            }
-        }*/
+        val attributes = context.obtainStyledAttributes(attrs, R.styleable.StepperButton, defStyleAttr, 0)
+        try {
+            buttonTouchTargetMode = StepperButtonTouchTargetMode.entries[
+                attributes.getInt(R.styleable.StepperButton_buttonTouchTargetMode, 0).coerceIn(0, 1)
+            ]
+            isStepperHapticFeedbackEnabled = attributes.getBoolean(
+                R.styleable.StepperButton_isStepperHapticFeedbackEnabled, false
+            )
+            isDragFeedbackEnabled = attributes.getBoolean(R.styleable.StepperButton_isDragFeedbackEnabled, false)
+        } finally {
+            attributes.recycle()
+        }
 
         // Set icons
         singlePlusButton.setIconResource(plusIconRes)
@@ -110,7 +202,7 @@ open class StepperButton @JvmOverloads constructor(
 
     private fun setupInitialState() {
         // Start in collapsed state
-        container.layoutParams = LayoutParams(collapsedWidth, collapsedWidth)
+        container.layoutParams = LayoutParams(collapsedWidth, collapsedWidth, Gravity.CENTER)
         singlePlusButton.visibility = VISIBLE
         minusButton.visibility = GONE
         plusButton.visibility = GONE
@@ -191,6 +283,7 @@ open class StepperButton @JvmOverloads constructor(
                         withContext(Dispatchers.Main) {
                             count = clampedValue
                             updateCountDisplay()
+                            performStepperHaptic()
                             onCountChangeListener?.invoke(count)
 
                             // Collapse if count reaches 0
@@ -263,22 +356,11 @@ open class StepperButton @JvmOverloads constructor(
             start()
         }
 
-        postDelayed({
-            singlePlusButton.visibility = GONE
-            minusButton.visibility = VISIBLE
-            plusButton.visibility = VISIBLE
-            if (allowTextEditing) {
-                countEditText.visibility = VISIBLE
-                countText.visibility = GONE
-            } else {
-                countText.visibility = VISIBLE
-                countEditText.visibility = GONE
-            }
-        }, 150)
+        postDelayed(showExpandedRunnable, 150)
     }
 
     private fun collapse() {
-        if (!isExpanded || isAnimating) return
+        if (isAlwaysExpanded || !isExpanded || isAnimating) return
         isExpanded = false
         isAnimating = true
 
@@ -329,27 +411,23 @@ open class StepperButton @JvmOverloads constructor(
             start()
         }
 
-        postDelayed({
-            singlePlusButton.visibility = VISIBLE
-            minusButton.visibility = GONE
-            plusButton.visibility = GONE
-            countText.visibility = GONE
-            countEditText.visibility = GONE
-        }, 150)
+        postDelayed(showCollapsedRunnable, 150)
     }
 
     private fun incrementCount() {
-        if (count < maxValue) {
-            count += incremental
+        if (incremental > 0 && count < maxValue) {
+            count = (count.toLong() + incremental).coerceAtMost(maxValue.toLong()).toInt()
             updateCountDisplay()
+            performStepperHaptic()
             onCountChangeListener?.invoke(count)
         }
     }
 
     private fun decrementCount() {
-        if (count > minValue && count - incremental >= minValue) {
-            count -= incremental
+        if (incremental > 0 && count > minValue) {
+            count = (count.toLong() - incremental).coerceAtLeast(minValue.toLong()).toInt()
             updateCountDisplay()
+            performStepperHaptic()
             onCountChangeListener?.invoke(count)
 
             if (count == 0) {
@@ -365,6 +443,106 @@ open class StepperButton @JvmOverloads constructor(
             countEditText.setText(count.toString())
         }
         isUpdatingProgrammatically = false
+    }
+
+    private fun showExpandedViews() {
+        singlePlusButton.visibility = GONE
+        minusButton.visibility = VISIBLE
+        plusButton.visibility = VISIBLE
+        countText.visibility = if (allowTextEditing) GONE else VISIBLE
+        countEditText.visibility = if (allowTextEditing) VISIBLE else GONE
+    }
+
+    private fun showCollapsedViews() {
+        singlePlusButton.visibility = VISIBLE
+        minusButton.visibility = GONE
+        plusButton.visibility = GONE
+        countText.visibility = GONE
+        countEditText.visibility = GONE
+    }
+
+    private fun findDragTarget(event: MotionEvent): StepperDragRepeatTouch.Target? {
+        if (!isDragRepeatEnabled || !isEnabled) return null
+        val button = findTouchButton(event) ?: return null
+        return StepperDragRepeatTouch.Target(button, button !== minusButton)
+    }
+
+    private fun findTouchButton(event: MotionEvent): View? {
+        if (!isEnabled || isAnimating) return null
+        val x = event.x.toInt()
+        val y = event.y.toInt()
+        if (allowTextEditing && countEditText.isShown) {
+            getDescendantBounds(countEditText, editorBounds)
+            if (x >= editorBounds.left && x < editorBounds.right) return null
+        }
+        val size = if (buttonTouchTargetMode == StepperButtonTouchTargetMode.EXPANDED) 48.dp else 32.dp
+        return listOf(singlePlusButton, plusButton, minusButton).firstOrNull { button ->
+            if (!button.isShown || !button.isEnabled) return@firstOrNull false
+            getDescendantBounds(button, targetBounds)
+            val centerX = targetBounds.exactCenterX()
+            val centerY = targetBounds.exactCenterY()
+            var left = (centerX - size / 2).toInt()
+            var right = left + size.toInt()
+            if (allowTextEditing && countEditText.isShown) {
+                if (button === minusButton) {
+                    right = minOf(right, editorBounds.left)
+                    if (buttonTouchTargetMode == StepperButtonTouchTargetMode.EXPANDED) left = right - size.toInt()
+                } else {
+                    left = maxOf(left, editorBounds.right)
+                    if (buttonTouchTargetMode == StepperButtonTouchTargetMode.EXPANDED) right = left + size.toInt()
+                }
+            }
+            targetBounds.set(left, (centerY - size / 2).toInt(), right, (centerY + size / 2).toInt())
+            targetBounds.intersect(0, 0, width, height) && targetBounds.contains(x, y)
+        }
+    }
+
+    private fun getDescendantBounds(view: View, bounds: Rect) {
+        view.getDrawingRect(bounds)
+        offsetDescendantRectToMyCoords(view, bounds)
+    }
+
+    private fun dispatchButtonTouch(event: MotionEvent): Boolean {
+        val button = touchButton ?: return false
+        val forwarded = MotionEvent.obtain(event)
+        forwarded.setLocation(button.width / 2f + event.x - touchOriginX, button.height / 2f + event.y - touchOriginY)
+        return try {
+            button.dispatchTouchEvent(forwarded)
+        } finally {
+            forwarded.recycle()
+        }
+    }
+
+    private fun performStepperHaptic(isActivation: Boolean = false) {
+        if (!isStepperHapticFeedbackEnabled || !isHapticFeedbackEnabled) return
+        val effect = when {
+            isActivation && Build.VERSION.SDK_INT >= Build.VERSION_CODES.R -> HapticFeedbackConstants.GESTURE_START
+            isActivation -> HapticFeedbackConstants.LONG_PRESS
+            Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE -> HapticFeedbackConstants.SEGMENT_FREQUENT_TICK
+            else -> HapticFeedbackConstants.CLOCK_TICK
+        }
+        performHapticFeedback(effect)
+    }
+
+    private fun cancelChildTouch(event: MotionEvent) {
+        val cancellation = MotionEvent.obtain(event)
+        cancellation.action = MotionEvent.ACTION_CANCEL
+        if (touchButton != null) dispatchButtonTouch(cancellation) else super.dispatchTouchEvent(cancellation)
+        cancellation.recycle()
+    }
+
+    /** Call when rebinding this view to a different item or dismissing its owner. */
+    fun cancelDragRepeat() {
+        if (dragRepeatTouchDelegate.isInitialized()) dragRepeatTouch.cancel()
+        touchButton?.let { button ->
+            val now = SystemClock.uptimeMillis()
+            val cancellation = MotionEvent.obtain(now, now, MotionEvent.ACTION_CANCEL, 0f, 0f, 0)
+            try {
+                button.dispatchTouchEvent(cancellation)
+            } finally {
+                cancellation.recycle()
+            }
+        }
     }
 
     // Public API
@@ -397,25 +575,21 @@ open class StepperButton @JvmOverloads constructor(
         onCountChangeListener = null
     }
 
-    override fun setEnabled(enabled: Boolean) {
-        super.setEnabled(enabled)
-        singlePlusButton.isEnabled = enabled
-        minusButton.isEnabled = enabled
-        plusButton.isEnabled = enabled
-        countEditText.isEnabled = enabled
-    }
-
     fun setPlusButtonEnabled(enabled: Boolean) {
         singlePlusButton.isEnabled = enabled
         plusButton.isEnabled = enabled
+        if (dragRepeatTouchDelegate.isInitialized()) dragRepeatTouch.refreshBounds()
     }
 
     fun setMinusButtonEnabled(enabled: Boolean) {
         minusButton.isEnabled = enabled
+        if (dragRepeatTouchDelegate.isInitialized()) dragRepeatTouch.refreshBounds()
     }
 
     fun setAllowTextEditing(allow: Boolean) {
+        if (allowTextEditing != allow) cancelDragRepeat()
         allowTextEditing = allow
+        requestLayout()
         if (isExpanded) {
             if (allow) {
                 countText.visibility = GONE
@@ -432,6 +606,7 @@ open class StepperButton @JvmOverloads constructor(
         if (count < minValue) {
             setCount(minValue)
         }
+        if (dragRepeatTouchDelegate.isInitialized()) dragRepeatTouch.refreshBounds()
     }
 
     fun setMaxValue(value: Int) {
@@ -439,6 +614,7 @@ open class StepperButton @JvmOverloads constructor(
         if (count > maxValue) {
             setCount(maxValue)
         }
+        if (dragRepeatTouchDelegate.isInitialized()) dragRepeatTouch.refreshBounds()
     }
 
     fun setIncrementalValue(value: Int) {
@@ -449,11 +625,68 @@ open class StepperButton @JvmOverloads constructor(
         debounceDelay = delayMs
     }
 
+    override fun setEnabled(enabled: Boolean) {
+        super.setEnabled(enabled)
+        if (!enabled) cancelDragRepeat()
+        singlePlusButton.isEnabled = enabled
+        minusButton.isEnabled = enabled
+        plusButton.isEnabled = enabled
+        countEditText.isEnabled = enabled
+    }
+
+    override fun dispatchTouchEvent(event: MotionEvent): Boolean {
+        if (event.actionMasked == MotionEvent.ACTION_DOWN) {
+            touchButton = findTouchButton(event)
+            touchOriginX = event.x
+            touchOriginY = event.y
+        }
+        val hasButtonTarget = touchButton != null
+        val isFinished = event.actionMasked == MotionEvent.ACTION_UP || event.actionMasked == MotionEvent.ACTION_CANCEL
+        if ((isDragRepeatEnabled || (dragRepeatTouchDelegate.isInitialized() && dragRepeatTouch.isConsuming)) &&
+            dragRepeatTouch.handle(event)) {
+            if (isFinished) touchButton = null
+            return true
+        }
+        if (hasButtonTarget) {
+            dispatchButtonTouch(event)
+            if (isFinished) touchButton = null
+            return true
+        }
+        return super.dispatchTouchEvent(event)
+    }
+
+    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec)
+        if (buttonTouchTargetMode != StepperButtonTouchTargetMode.EXPANDED) return
+        // Reserve space only for opt-in wrap-content hosts. EXACTLY/AT_MOST constraints remain authoritative.
+        val extraWidth = if (isExpanded && allowTextEditing) 40.dp else 16.dp
+        val desiredWidth = container.layoutParams.width + extraWidth.toInt() + paddingLeft + paddingRight
+        val desiredHeight = 48.dp.toInt() + paddingTop + paddingBottom
+        super.onMeasure(
+            MeasureSpec.makeMeasureSpec(resolveSize(maxOf(measuredWidth, desiredWidth), widthMeasureSpec), MeasureSpec.EXACTLY),
+            MeasureSpec.makeMeasureSpec(resolveSize(maxOf(measuredHeight, desiredHeight), heightMeasureSpec), MeasureSpec.EXACTLY),
+        )
+    }
+
+    override fun onWindowVisibilityChanged(visibility: Int) {
+        super.onWindowVisibilityChanged(visibility)
+        if (visibility != VISIBLE) {
+            cancelDragRepeat()
+            if (dragFeedbackDelegate.isInitialized()) dragFeedback.hide(immediately = true)
+        }
+    }
+
     override fun onDetachedFromWindow() {
         super.onDetachedFromWindow()
         // Cancel all pending jobs and animations
         textChangeJob?.cancel()
         currentAnimator?.cancel()
+        removeCallbacks(showExpandedRunnable)
+        removeCallbacks(showCollapsedRunnable)
+        cancelDragRepeat()
+        if (dragRepeatTouchDelegate.isInitialized()) dragRepeatTouch.detach()
+        if (dragFeedbackDelegate.isInitialized()) dragFeedback.hide(immediately = true)
+        touchButton = null
         viewScope.cancel()
     }
 
