@@ -3,6 +3,7 @@ package id.co.edtslib.uikit.utils.html
 import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Typeface
+import android.os.Build
 import android.text.Editable
 import android.text.Html
 import android.text.Spannable
@@ -417,12 +418,22 @@ fun Editable.applyListColors(start: Int, end: Int, style: ListStyle) {
 
 
 class TypefaceSpan(private val typeface: Typeface) : MetricAffectingSpan() {
+    private fun applyTypeface(paint: TextPaint) {
+        val shouldKeepItalic = paint.typeface?.isItalic == true && !typeface.isItalic
+        paint.typeface = if (shouldKeepItalic && Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            Typeface.create(typeface, typeface.weight, true)
+        } else {
+            typeface
+        }
+        if (shouldKeepItalic && !paint.typeface.isItalic) paint.textSkewX = -0.25f
+    }
+
     override fun updateDrawState(ds: TextPaint) {
-        ds.typeface = typeface
+        applyTypeface(ds)
     }
 
     override fun updateMeasureState(paint: TextPaint) {
-        paint.typeface = typeface
+        applyTypeface(paint)
     }
 }
 
