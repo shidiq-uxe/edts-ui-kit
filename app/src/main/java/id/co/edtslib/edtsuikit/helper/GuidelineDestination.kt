@@ -33,6 +33,7 @@ import id.co.edtslib.edtsuikit.GuidelinesSegmentedTabLayoutActivity
 import id.co.edtslib.edtsuikit.GuidelinesSnackbarActivity
 import id.co.edtslib.edtsuikit.GuidelinesTextBadgeActivity
 import id.co.edtslib.edtsuikit.GuidelinesTextfieldActivity
+import id.co.edtslib.edtsuikit.GuidelinesTmhActivity
 import id.co.edtslib.edtsuikit.GuidelinesTypographyActivity
 import id.co.edtslib.edtsuikit.HtmlListDemoActivity
 import id.co.edtslib.edtsuikit.PoinkuResearchActivity
@@ -87,6 +88,7 @@ sealed class GuidelineItem(
     // Shopping Features
     object Cart : GuidelineItem(R.string.guidelines_cart, GuidelinesCartActivity::class.java)
     object DiscountRedemption : GuidelineItem(R.string.guidelines_discount_redemption, GuidelinesDiscountRedemptionActivity::class.java)
+    object TmhPromotion : GuidelineItem(R.string.guidelines_tmh, GuidelinesTmhActivity::class.java)
 
     // Advanced Components
     object AnimatedCard : GuidelineItem(R.string.guidelines_animated_card, GuidelinesAnimatedCardViewActivity::class.java)
@@ -130,6 +132,7 @@ sealed class GuidelineItem(
             Coachmark,
             Cart,
             DiscountRedemption,
+            TmhPromotion,
             AnimatedCard,
             GreyScaleViewGroup,
             HtmlTextView,
@@ -180,7 +183,8 @@ sealed class GuidelineItem(
             ),
             "Shopping Features" to listOf(
                 Cart,
-                DiscountRedemption
+                DiscountRedemption,
+                TmhPromotion
             ),
             "Advanced Components" to listOf(
                 AnimatedCard,

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="@dimen/tmh_product_preview_width"
+    android:layout_height="@dimen/xxxl"
+    android:layout_marginEnd="@dimen/xxs"
+    app:cardBackgroundColor="@color/white"
+    app:cardElevation="@dimen/dimen_0"
+    app:shapeAppearanceOverlay="@style/ShapeAppearance.Tmh.Product"
+    app:strokeColor="@color/black_30"
+    app:strokeWidth="@dimen/dimen_1">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/xs">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/ivProduct"
+            android:layout_width="@dimen/xxl"
+            android:layout_height="@dimen/xxl"
+            android:scaleType="centerCrop"
+            android:importantForAccessibility="no"
+            app:shapeAppearanceOverlay="@style/ShapeAppearance.Tmh.Image"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvName"
+            android:layout_width="@dimen/dimen_0"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/xxs"
+            android:textAppearance="@style/TextAppearance.Tmh.Regular.B3"
+            android:textColor="@color/black_70"
+            android:maxLines="1"
+            android:ellipsize="end"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/ivProduct"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvPrice"
+            android:layout_width="@dimen/dimen_0"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/xxxs"
+            android:textAppearance="@style/TextAppearance.Tmh.SemiBold.B3"
+            android:textColor="@color/red_30"
+            app:layout_constraintTop_toBottomOf="@id/tvName"
+            app:layout_constraintStart_toStartOf="@id/tvName"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvDiscount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/xxxs"
+            android:paddingHorizontal="@dimen/xxxs"
+            android:background="@drawable/bg_tmh_badge"
+            android:text="@string/tmh_discount"
+            android:textAppearance="@style/TextAppearance.Tmh.Bold.B4"
+            android:textColor="@color/red_30"
+            app:layout_constraintTop_toBottomOf="@id/tvPrice"
+            app:layout_constraintStart_toStartOf="@id/tvName" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvOriginalPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/xxxs"
+            android:textAppearance="@style/TextAppearance.Tmh.Regular.B4"
+            android:textColor="@color/black_40"
+            app:layout_constraintTop_toTopOf="@id/tvDiscount"
+            app:layout_constraintStart_toEndOf="@id/tvDiscount" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ImageView
+        android:id="@+id/ivSelected"
+        android:layout_width="@dimen/l"
+        android:layout_height="@dimen/l"
+        android:src="@drawable/tmh_selected_corner"
+        android:importantForAccessibility="no"
+        android:visibility="gone" />
+
+</com.google.android.material.card.MaterialCardView>

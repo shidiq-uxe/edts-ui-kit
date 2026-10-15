@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.textview.MaterialTextView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/dimen_48"
+    android:paddingHorizontal="@dimen/s"
+    android:background="?attr/selectableItemBackground"
+    android:gravity="center_vertical"
+    android:textAppearance="@style/TextAppearance.Tmh.Regular.B2"
+    android:textColor="@color/black_70" />

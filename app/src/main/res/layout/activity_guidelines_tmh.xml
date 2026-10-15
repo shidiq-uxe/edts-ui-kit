@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black_10">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/xxl"
+        android:background="@color/primary_30"
+        app:contentInsetStartWithNavigation="@dimen/dimen_0"
+        app:navigationIcon="@drawable/ic_arrow_left"
+        app:navigationIconTint="@color/white"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvTitle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="@dimen/xxl"
+            android:gravity="center_vertical"
+            android:text="@string/tmh_title"
+            android:textAppearance="@style/TextAppearance.Tmh.Semibold.H1"
+            android:textColor="@color/white"
+            android:contentDescription="@string/tmh_title_hint"
+            android:maxLines="1"
+            android:ellipsize="end" />
+
+    </com.google.android.material.appbar.MaterialToolbar>
+
+    <ImageButton
+        android:id="@+id/ivCart"
+        android:layout_width="@dimen/dimen_48"
+        android:layout_height="@dimen/dimen_48"
+        android:layout_marginEnd="@dimen/xxs"
+        android:padding="@dimen/xs"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="@string/tmh_cart"
+        app:srcCompat="@drawable/ic_cart"
+        app:tint="@color/white"
+        app:layout_constraintTop_toTopOf="@id/toolbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/toolbar" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvCartCount"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/m1"
+        android:layout_marginTop="@dimen/xxs"
+        android:layout_marginEnd="@dimen/dimen_6"
+        android:minWidth="@dimen/m1"
+        android:paddingHorizontal="@dimen/xxxs"
+        android:background="@drawable/bg_tmh_cart_badge"
+        android:gravity="center"
+        android:textAppearance="@style/TextAppearance.Tmh.SemiBold.B4"
+        android:textColor="@color/white"
+        android:importantForAccessibility="no"
+        app:layout_constraintTop_toTopOf="@id/toolbar"
+        app:layout_constraintEnd_toEndOf="@id/ivCart" />
+
+    <id.co.edtslib.uikit.tablayout.QuadRoundTabLayout
+        android:id="@+id/promotionTabs"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/l"
+        app:layout_constraintTop_toBottomOf="@id/toolbar" />
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/fairTabs"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/l"
+        android:paddingTop="@dimen/xxxs"
+        android:paddingHorizontal="@dimen/dimen_10"
+        android:background="@color/white"
+        android:clipToPadding="false"
+        android:overScrollMode="never"
+        app:tabMode="scrollable"
+        app:tabGravity="start"
+        app:tabMinWidth="@dimen/dimen_0"
+        app:tabContentStart="@dimen/dimen_0"
+        app:tabPaddingStart="@dimen/dimen_6"
+        app:tabPaddingEnd="@dimen/dimen_6"
+        app:tabIndicator="@drawable/tabs_rounded_indicator"
+        app:tabIndicatorColor="@color/primary_30"
+        app:tabIndicatorFullWidth="false"
+        app:tabIndicatorAnimationMode="linear"
+        app:tabIndicatorAnimationDuration="300"
+        app:tabRippleColor="@color/transparent"
+        app:tabTextAppearance="@style/TextAppearance.Tmh.SemiBold.B3"
+        app:tabTextColor="@color/black_40"
+        app:tabSelectedTextColor="@color/primary_30"
+        app:layout_constraintTop_toBottomOf="@id/promotionTabs" />
+
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/loadingFairTabs"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/l"
+        android:background="@color/white"
+        android:contentDescription="@string/tmh_loading"
+        android:visibility="gone"
+        app:shimmer_auto_start="false"
+        app:shimmer_duration="1000"
+        app:layout_constraintTop_toBottomOf="@id/promotionTabs">
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:enabled="false"
+            android:importantForAccessibility="noHideDescendants"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:paddingHorizontal="@dimen/s"
+                android:paddingVertical="@dimen/xxs"
+                android:orientation="horizontal">
+                <View
+                    android:layout_width="@dimen/xxxl"
+                    android:layout_height="@dimen/s"
+                    android:layout_marginEnd="@dimen/xs"
+                    android:background="@drawable/bg_tmh_skeleton" />
+                <View
+                    android:layout_width="@dimen/xxxl"
+                    android:layout_height="@dimen/s"
+                    android:layout_marginEnd="@dimen/xs"
+                    android:background="@drawable/bg_tmh_skeleton" />
+                <View
+                    android:layout_width="@dimen/xxxl"
+                    android:layout_height="@dimen/s"
+                    android:layout_marginEnd="@dimen/xs"
+                    android:background="@drawable/bg_tmh_skeleton" />
+                <View
+                    android:layout_width="@dimen/xxxl"
+                    android:layout_height="@dimen/s"
+                    android:layout_marginEnd="@dimen/xs"
+                    android:background="@drawable/bg_tmh_skeleton" />
+                <View
+                    android:layout_width="@dimen/xxxl"
+                    android:layout_height="@dimen/s"
+                    android:layout_marginEnd="@dimen/xs"
+                    android:background="@drawable/bg_tmh_skeleton" />
+
+            </LinearLayout>
+
+        </HorizontalScrollView>
+
+    </com.facebook.shimmer.ShimmerFrameLayout>
+
+    <View
+        android:id="@+id/tabsDivider"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_1"
+        android:background="@color/black_30"
+        app:layout_constraintBottom_toBottomOf="@id/fairTabs" />
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/refreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_0"
+        app:layout_constraintTop_toBottomOf="@id/fairTabs"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvFairs"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="@dimen/xs"
+            android:clipToPadding="false"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    <LinearLayout
+        android:id="@+id/emptyState"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_0"
+        android:paddingHorizontal="@dimen/s"
+        android:paddingTop="@dimen/xxl"
+        android:background="@color/white"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/promotionTabs"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <ImageView
+            android:layout_width="@dimen/tmh_empty_image_size"
+            android:layout_height="@dimen/tmh_empty_image_size"
+            android:src="@drawable/tmh_empty_promotions"
+            android:importantForAccessibility="no" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/l"
+            android:text="@string/tmh_empty_title"
+            android:textAppearance="@style/TextAppearance.Tmh.Semibold.H2"
+            android:textColor="@color/black_70" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/s"
+            android:text="@string/tmh_empty_message"
+            android:textAppearance="@style/TextAppearance.Tmh.Regular.P1"
+            android:textColor="@color/black_50" />
+
+        <id.co.edtslib.uikit.button.Button
+            android:id="@+id/btnAllPromos"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/xl"
+            android:layout_marginTop="@dimen/s"
+            android:text="@string/tmh_all_promos" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

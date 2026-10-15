@@ -10,6 +10,7 @@ import android.text.style.URLSpan
 import android.view.View
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
+import id.co.edtslib.edtsuikit.R
 import id.co.edtslib.uikit.utils.TextStyleKey
 import id.co.edtslib.uikit.utils.TextStyleProvider.get
 import id.co.edtslib.uikit.utils.buildHighlightedMessage
@@ -70,6 +71,21 @@ class HighlightedMessageTest {
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.P) {
             assertEquals(600, paint.typeface.weight)
         }
+    }
+
+    @Test
+    fun tmhHtmlResourceEmphasizesBothRepeatedQuantities() {
+        val result = buildHighlightedMessage(
+            context = context,
+            htmlMessage = context.getString(R.string.tmh_selected, 2),
+            highlightedTextAppearance = emphasis,
+        )
+        assertEquals("Sudah ambil 2 dari 2 tebus murah", result.toString())
+        val first = result.indexOf('2')
+        val last = result.lastIndexOf('2')
+        assertSemibold(result, first, first + 1)
+        assertSemibold(result, last, last + 1)
+        assertEquals(0, result.getSpans(0, result.length, ClickableSpan::class.java).size)
     }
 
     @Test

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="tmh_selected_background">#1A72AB30</color>
+    <style name="ShapeAppearance.Tmh.Product" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+        <item name="cornerSize">@dimen/dimen_6</item>
+    </style>
+    <style name="ShapeAppearance.Tmh.Image" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+        <item name="cornerSize">@dimen/xxxs</item>
+    </style>
+    <style name="Tmh.Price" parent="TextAppearance.Tmh.SemiBold.B2">
+        <item name="android:textColor">@color/red_30</item>
+    </style>
+    <style name="TextAppearance.Tmh.Semibold.H1" parent="TextAppearance.Inter.Semibold.H1">
+        <item name="fontFamily">@font/inter_semibold_fallback</item>
+        <item name="android:fontFamily">@font/inter_semibold_fallback</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+    <style name="TextAppearance.Tmh.Semibold.H2" parent="TextAppearance.Inter.Semibold.H2">
+        <item name="fontFamily">@font/inter_semibold_fallback</item>
+        <item name="android:fontFamily">@font/inter_semibold_fallback</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+    <style name="TextAppearance.Tmh.SemiBold.B2" parent="TextAppearance.Inter.SemiBold.B2">
+        <item name="fontFamily">@font/inter_semibold_fallback</item>
+        <item name="android:fontFamily">@font/inter_semibold_fallback</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+    <style name="TextAppearance.Tmh.SemiBold.B3" parent="TextAppearance.Inter.SemiBold.B3">
+        <item name="fontFamily">@font/inter_semibold_fallback</item>
+        <item name="android:fontFamily">@font/inter_semibold_fallback</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+    <style name="TextAppearance.Tmh.SemiBold.B4" parent="TextAppearance.Inter.SemiBold.B4">
+        <item name="fontFamily">@font/inter_semibold_fallback</item>
+        <item name="android:fontFamily">@font/inter_semibold_fallback</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+    <style name="TextAppearance.Tmh.Medium.B3" parent="TextAppearance.Inter.Medium.B3">
+        <item name="fontFamily">@font/inter_medium_fallback</item>
+        <item name="android:fontFamily">@font/inter_medium_fallback</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+    <style name="TextAppearance.Tmh.Medium.B4" parent="TextAppearance.Inter.Medium.B4">
+        <item name="fontFamily">@font/inter_medium_fallback</item>
+        <item name="android:fontFamily">@font/inter_medium_fallback</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+    <style name="TextAppearance.Tmh.Regular.B2" parent="TextAppearance.Inter.Regular.B2">
+        <item name="fontFamily">@font/inter_fallback</item>
+        <item name="android:fontFamily">@font/inter_fallback</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+    <style name="TextAppearance.Tmh.Regular.B3" parent="TextAppearance.Inter.Regular.B3">
+        <item name="fontFamily">@font/inter_fallback</item>
+        <item name="android:fontFamily">@font/inter_fallback</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+    <style name="TextAppearance.Tmh.Regular.B4" parent="TextAppearance.Inter.Regular.B4">
+        <item name="fontFamily">@font/inter_fallback</item>
+        <item name="android:fontFamily">@font/inter_fallback</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="lineHeight">@dimen/xs</item>
+    </style>
+    <style name="TextAppearance.Tmh.Bold.B4" parent="TextAppearance.Inter.Bold.B4">
+        <item name="fontFamily">@font/inter_bold_fallback</item>
+        <item name="android:fontFamily">@font/inter_bold_fallback</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+    <style name="TextAppearance.Tmh.Regular.P1" parent="TextAppearance.Inter.Regular.P1">
+        <item name="fontFamily">@font/inter_fallback</item>
+        <item name="android:fontFamily">@font/inter_fallback</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+    <style name="TextAppearance.Tmh.Regular.P2" parent="TextAppearance.Inter.Regular.P2">
+        <item name="fontFamily">@font/inter_fallback</item>
+        <item name="android:fontFamily">@font/inter_fallback</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+    <style name="TextAppearance.Tmh.SemiBold.Button.Text.Small" parent="TextAppearance.Inter.SemiBold.Button.Text.Small">
+        <item name="fontFamily">@font/inter_semibold_fallback</item>
+        <item name="android:fontFamily">@font/inter_semibold_fallback</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+    <style name="TextAppearance.Tmh.SemiBold.Button.Text.Medium" parent="TextAppearance.Inter.SemiBold.Button.Text.Medium">
+        <item name="fontFamily">@font/inter_semibold_fallback</item>
+        <item name="android:fontFamily">@font/inter_semibold_fallback</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+    <style name="TextAppearance.Tmh.SemiBold.Button.Text.Large" parent="TextAppearance.Inter.SemiBold.Button.Text.Large">
+        <item name="fontFamily">@font/inter_semibold_fallback</item>
+        <item name="android:fontFamily">@font/inter_semibold_fallback</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+    <style name="ThemeOverlay.Tmh.BottomSheetDialog" parent="ThemeOverlay.EDTS.UIKit.BottomSheetDialog">
+        <item name="android:backgroundDimAmount">0.75</item>
+        <item name="bottomSheetStyle">@style/Widget.Tmh.BottomSheet</item>
+    </style>
+    <style name="Widget.Tmh.BottomSheet" parent="Widget.EDTS.UIKit.BottomSheet.Modal">
+        <item name="paddingBottomSystemWindowInsets">false</item>
+        <item name="paddingLeftSystemWindowInsets">false</item>
+        <item name="paddingRightSystemWindowInsets">false</item>
+    </style>
+</resources>

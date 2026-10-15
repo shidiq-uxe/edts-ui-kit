@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.facebook.shimmer.ShimmerFrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/xs"
+    android:enabled="false"
+    android:importantForAccessibility="noHideDescendants"
+    app:shimmer_auto_start="true"
+    app:shimmer_duration="1000">
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="@dimen/xxs"
+        app:cardBackgroundColor="@color/white"
+        app:cardElevation="@dimen/dimen_1"
+        app:cardUseCompatPadding="false"
+        app:strokeWidth="@dimen/dimen_0">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/xs">
+
+            <View
+                android:id="@+id/titlePlaceholder"
+                android:layout_width="@dimen/dimen_0"
+                android:layout_height="@dimen/s"
+                android:background="@drawable/bg_tmh_skeleton"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <View
+                android:id="@+id/bannerPlaceholder"
+                android:layout_width="@dimen/dimen_0"
+                android:layout_height="@dimen/dimen_0"
+                android:layout_marginTop="@dimen/xs"
+                android:background="@drawable/bg_tmh_skeleton"
+                app:layout_constraintDimensionRatio="312:112"
+                app:layout_constraintTop_toBottomOf="@id/titlePlaceholder"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <HorizontalScrollView
+                android:id="@+id/productsPlaceholder"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/xxxl"
+                android:layout_marginTop="@dimen/xs"
+                android:enabled="false"
+                android:scrollbars="none"
+                app:layout_constraintTop_toBottomOf="@id/bannerPlaceholder">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <View
+                        android:layout_width="@dimen/tmh_product_preview_width"
+                        android:layout_height="match_parent"
+                        android:layout_marginEnd="@dimen/xxs"
+                        android:background="@drawable/bg_tmh_skeleton" />
+
+                    <View
+                        android:layout_width="@dimen/tmh_product_preview_width"
+                        android:layout_height="match_parent"
+                        android:layout_marginEnd="@dimen/xxs"
+                        android:background="@drawable/bg_tmh_skeleton" />
+
+                    <View
+                        android:layout_width="@dimen/tmh_product_preview_width"
+                        android:layout_height="match_parent"
+                        android:layout_marginEnd="@dimen/xxs"
+                        android:background="@drawable/bg_tmh_skeleton" />
+
+                </LinearLayout>
+
+            </HorizontalScrollView>
+
+            <View
+                android:id="@+id/alertPlaceholder"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/xl"
+                android:layout_marginTop="@dimen/xs"
+                android:background="@drawable/bg_tmh_skeleton"
+                app:layout_constraintTop_toBottomOf="@id/productsPlaceholder"
+                app:layout_constraintBottom_toBottomOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</com.facebook.shimmer.ShimmerFrameLayout>

@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/xs"
+    app:cardBackgroundColor="@color/white"
+    app:cardElevation="@dimen/dimen_0"
+    app:shapeAppearanceOverlay="@style/ShapeAppearance.Tmh.Product"
+    app:strokeColor="@color/black_30"
+    app:strokeWidth="@dimen/dimen_1">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/ivProduct"
+            android:layout_width="@dimen/xxl"
+            android:layout_height="@dimen/xxl"
+            android:layout_margin="@dimen/xs"
+            android:scaleType="centerCrop"
+            android:importantForAccessibility="no"
+            app:shapeAppearanceOverlay="@style/ShapeAppearance.Tmh.Image"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvName"
+            android:layout_width="@dimen/dimen_0"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/xxs"
+            android:layout_marginEnd="@dimen/xs"
+            android:textAppearance="@style/TextAppearance.Tmh.Regular.B2"
+            android:textColor="@color/black_70"
+            android:maxLines="2"
+            android:ellipsize="end"
+            app:layout_constraintTop_toTopOf="@id/ivProduct"
+            app:layout_constraintStart_toEndOf="@id/ivProduct"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvPack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/xxxs"
+            android:text="@string/tmh_pack"
+            android:textAppearance="@style/TextAppearance.Tmh.Medium.B3"
+            android:textColor="@color/black_40"
+            app:layout_constraintTop_toBottomOf="@id/tvName"
+            app:layout_constraintStart_toStartOf="@id/tvName" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvDiscount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/xxxs"
+            android:paddingHorizontal="@dimen/xxxs"
+            android:background="@drawable/bg_tmh_badge"
+            android:text="@string/tmh_discount"
+            android:textAppearance="@style/TextAppearance.Tmh.Bold.B4"
+            android:textColor="@color/red_30"
+            app:layout_constraintTop_toBottomOf="@id/tvPack"
+            app:layout_constraintStart_toStartOf="@id/tvName" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvOriginalPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/xxxs"
+            android:textAppearance="@style/TextAppearance.Tmh.Regular.B4"
+            android:textColor="@color/black_40"
+            app:layout_constraintTop_toTopOf="@id/tvDiscount"
+            app:layout_constraintStart_toEndOf="@id/tvDiscount"
+            app:layout_constraintBottom_toBottomOf="@id/tvDiscount" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvPrice"
+            style="@style/Tmh.Price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/xxxs"
+            app:layout_constraintTop_toTopOf="@id/tvDiscount"
+            app:layout_constraintStart_toEndOf="@id/tvOriginalPrice"
+            app:layout_constraintBottom_toBottomOf="@id/tvDiscount" />
+
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/contentBottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:barrierDirection="bottom"
+            app:constraint_referenced_ids="ivProduct,tvDiscount" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/quantityContainer"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_48"
+            android:layout_marginTop="@dimen/xs"
+            android:paddingHorizontal="@dimen/xs"
+            android:background="@color/info_background"
+            app:layout_constraintTop_toBottomOf="@id/contentBottom"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvTotal"
+                android:layout_width="@dimen/dimen_0"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/xxs"
+                android:textAppearance="@style/TextAppearance.Tmh.Regular.B3"
+                android:textColor="@color/black_40"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/stepper"
+                app:layout_constraintBottom_toBottomOf="parent" />
+
+            <id.co.edtslib.uikit.stepper.StepperButton
+                android:id="@+id/stepper"
+                android:layout_width="@dimen/dimen_90"
+                android:layout_height="@dimen/l"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvRestock"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="@dimen/xxxs"
+                android:paddingVertical="@dimen/dimen_2"
+                android:background="@color/black_50"
+                android:text="@string/tmh_restock"
+                android:textAppearance="@style/TextAppearance.Tmh.Medium.B4"
+                android:textColor="@color/white"
+                android:visibility="gone"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ImageView
+            android:id="@+id/ivSelected"
+            android:layout_width="@dimen/l"
+            android:layout_height="@dimen/l"
+            android:src="@drawable/tmh_selected_corner"
+            android:importantForAccessibility="no"
+            android:visibility="gone"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

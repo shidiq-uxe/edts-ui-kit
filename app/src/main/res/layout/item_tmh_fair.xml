@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/xs"
+    app:cardBackgroundColor="@color/white"
+    app:cardCornerRadius="@dimen/xxs"
+    app:cardElevation="@dimen/dimen_1"
+    app:cardUseCompatPadding="false"
+    app:strokeWidth="@dimen/dimen_0">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/xs">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvFairName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.Tmh.Semibold.H2"
+            android:textColor="@color/black_70"
+            android:maxLines="1"
+            android:ellipsize="end"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/ivBanner"
+            android:layout_width="@dimen/dimen_0"
+            android:layout_height="@dimen/dimen_0"
+            android:layout_marginTop="@dimen/xs"
+            android:scaleType="centerCrop"
+            app:shapeAppearanceOverlay="@style/ShapeAppearance.Tmh.Product"
+            app:layout_constraintDimensionRatio="312:112"
+            app:layout_constraintTop_toBottomOf="@id/tvFairName"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvProducts"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/xxxl"
+            android:layout_marginTop="@dimen/xs"
+            android:overScrollMode="never"
+            app:layout_constraintTop_toBottomOf="@id/ivBanner" />
+
+        <id.co.edtslib.uikit.alert.AlertBox
+            android:id="@+id/alertBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/xs"
+            app:isCloseIconVisible="false"
+            app:startIconVerticalAlignment="center"
+            app:layout_constraintTop_toBottomOf="@id/rvProducts"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>
