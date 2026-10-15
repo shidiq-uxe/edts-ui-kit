@@ -35,7 +35,7 @@
             android:layout_marginHorizontal="@dimen/xxs"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toEndOf="@id/ivAlertIcon"
-            app:layout_constraintEnd_toStartOf="@id/ivAlertClose"
+            app:layout_constraintEnd_toStartOf="@id/tvAction"
             app:layout_constraintBottom_toTopOf="@id/btnAction"
             app:layout_constraintVertical_bias="0.0"
             app:layout_goneMarginBottom="@dimen/xs"
@@ -45,6 +45,21 @@
             app:layout_goneMarginStart="@dimen/xs"
             app:layout_goneMarginEnd="@dimen/xs"
             tools:maxLines="2"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvAction"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="@dimen/xxxs"
+            android:paddingVertical="@dimen/xs"
+            android:gravity="center"
+            android:background="?attr/selectableItemBackground"
+            android:visibility="gone"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/tvAlertMessage"
+            app:layout_constraintEnd_toStartOf="@id/ivAlertClose"
+            app:layout_constraintBottom_toTopOf="@id/btnAction"
+            app:layout_goneMarginEnd="@dimen/xs" />
 
         <com.google.android.material.checkbox.MaterialCheckBox
             android:id="@+id/ivAlertClose"

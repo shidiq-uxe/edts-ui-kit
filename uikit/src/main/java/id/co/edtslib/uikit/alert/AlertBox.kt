@@ -4,17 +4,17 @@ import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.drawable.Drawable
 import android.os.Build
+import android.text.TextUtils
 import android.util.AttributeSet
-import android.util.Log
 import android.widget.FrameLayout
 import androidx.annotation.ColorInt
+import androidx.annotation.StyleRes
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.constraintlayout.widget.ConstraintSet
 import androidx.appcompat.view.ContextThemeWrapper
-import androidx.core.content.ContextCompat
 import androidx.core.content.withStyledAttributes
 import androidx.core.text.parseAsHtml
 import androidx.core.view.isVisible
-import androidx.core.view.updateLayoutParams
-import androidx.core.view.updateMargins
 import id.co.edtslib.uikit.R
 import id.co.edtslib.uikit.button.Button.ButtonType
 import id.co.edtslib.uikit.databinding.ViewAlertBinding
@@ -22,7 +22,6 @@ import id.co.edtslib.uikit.utils.color
 import id.co.edtslib.uikit.utils.dp
 import id.co.edtslib.uikit.utils.drawable
 import id.co.edtslib.uikit.utils.inflater
-import org.w3c.dom.Attr
 
 class AlertBox @JvmOverloads constructor(
     context: Context,
@@ -32,7 +31,70 @@ class AlertBox @JvmOverloads constructor(
 
     var delegate: AlertBoxDelegate? = null
 
-    private val binding = ViewAlertBinding.inflate(this.context.inflater, this, true)
+    var startIconVerticalAlignment: StartIconVerticalAlignment = StartIconVerticalAlignment.TOP
+        set(value) {
+            field = value
+            updateStartIconAlignment()
+        }
+
+    var actionText: CharSequence = ""
+        set(value) {
+            field = value
+            binding.tvAction.text = value
+        }
+
+    @StyleRes
+    var actionTextAppearance: Int = R.style.TextAppearance_Inter_SemiBold_Button_Text_Small
+        set(value) {
+            field = value
+            binding.tvAction.setTextAppearance(value)
+        }
+
+    @ColorInt
+    var actionTextColor: Int = context.color(R.color.primary_30)
+        set(value) {
+            field = value
+            binding.tvAction.setTextColor(value)
+        }
+
+    var actionMaxLines: Int = 1
+        set(value) {
+            require(value > 0) { "actionMaxLines must be positive" }
+            field = value
+            binding.tvAction.maxLines = value
+        }
+
+    var actionEllipsize: TextUtils.TruncateAt? = TextUtils.TruncateAt.END
+        set(value) {
+            field = value
+            binding.tvAction.ellipsize = value
+        }
+
+    var actionEndIcon: Drawable? = null
+        set(value) {
+            field = value
+            updateActionIcon()
+        }
+
+    @ColorInt
+    var actionEndIconTint: Int? = null
+        set(value) {
+            field = value
+            updateActionIcon()
+        }
+
+    /** Spacing between the inline action label and icon, in pixels. */
+    var actionIconPadding: Int = 4.dp.toInt()
+        set(value) {
+            field = value
+            binding.tvAction.compoundDrawablePadding = value
+        }
+
+    var isActionVisible: Boolean = false
+        set(value) {
+            field = value
+            binding.tvAction.isVisible = value
+        }
 
     var alertType: AlertType = AlertType.LIGHT
         set(value) {
@@ -153,6 +215,9 @@ class AlertBox @JvmOverloads constructor(
             value.let { binding.ivAlertClose.buttonIconTintList = ColorStateList.valueOf(it) }
         }
 
+    private val binding = ViewAlertBinding.inflate(this.context.inflater, this, true)
+    private var isOpticalSpacingEnabled = true
+
     private fun AlertType.bindAlertType() {
         binding.apply {
             root.apply {
@@ -197,6 +262,36 @@ class AlertBox @JvmOverloads constructor(
         binding.btnAction.setOnClickListener {
             delegate?.onButtonClickListener(it)
         }
+
+        binding.tvAction.setOnClickListener {
+            delegate?.onActionClickListener(it)
+        }
+    }
+
+    private fun updateStartIconAlignment() {
+        val container = binding.ivAlertIcon.parent as ConstraintLayout
+        val constraints = ConstraintSet().apply { clone(container) }
+        constraints.clear(R.id.ivAlertIcon, ConstraintSet.TOP)
+        constraints.clear(R.id.ivAlertIcon, ConstraintSet.BOTTOM)
+        if (startIconVerticalAlignment != StartIconVerticalAlignment.BOTTOM) {
+            constraints.connect(
+                R.id.ivAlertIcon,
+                ConstraintSet.TOP,
+                R.id.tvAlertMessage,
+                ConstraintSet.TOP,
+                if (startIconVerticalAlignment == StartIconVerticalAlignment.TOP && isOpticalSpacingEnabled) 2.dp.toInt() else 0,
+            )
+        }
+        if (startIconVerticalAlignment != StartIconVerticalAlignment.TOP) {
+            constraints.connect(R.id.ivAlertIcon, ConstraintSet.BOTTOM, R.id.tvAlertMessage, ConstraintSet.BOTTOM)
+        }
+        constraints.applyTo(container)
+    }
+
+    private fun updateActionIcon() {
+        val icon = actionEndIcon?.mutate()
+        actionEndIconTint?.let { icon?.setTint(it) }
+        binding.tvAction.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, icon, null)
     }
 
     private fun initAttrs(attr: AttributeSet?) {
@@ -227,6 +322,27 @@ class AlertBox @JvmOverloads constructor(
 
             this@AlertBox.isHtml = getBoolean(R.styleable.AlertBox_isHtml, isHtml)
 
+            this@AlertBox.startIconVerticalAlignment = StartIconVerticalAlignment.entries[
+                getInt(R.styleable.AlertBox_startIconVerticalAlignment, startIconVerticalAlignment.ordinal)
+                    .coerceIn(0, StartIconVerticalAlignment.entries.lastIndex)
+            ]
+            this@AlertBox.actionText = getText(R.styleable.AlertBox_actionText) ?: actionText
+            this@AlertBox.actionTextAppearance = getResourceId(R.styleable.AlertBox_actionTextAppearance, actionTextAppearance)
+            this@AlertBox.actionTextColor = getColor(R.styleable.AlertBox_actionTextColor, actionTextColor)
+            this@AlertBox.actionMaxLines = getInt(R.styleable.AlertBox_actionMaxLines, actionMaxLines).coerceAtLeast(1)
+            this@AlertBox.actionEllipsize = when (getInt(R.styleable.AlertBox_actionEllipsize, 3)) {
+                1 -> TextUtils.TruncateAt.START
+                2 -> TextUtils.TruncateAt.MIDDLE
+                3 -> TextUtils.TruncateAt.END
+                else -> null
+            }
+            this@AlertBox.actionEndIcon = getDrawable(R.styleable.AlertBox_actionEndIcon)
+            if (hasValue(R.styleable.AlertBox_actionEndIconTint)) {
+                this@AlertBox.actionEndIconTint = getColor(R.styleable.AlertBox_actionEndIconTint, actionTextColor)
+            }
+            this@AlertBox.actionIconPadding = getDimensionPixelSize(R.styleable.AlertBox_actionIconPadding, actionIconPadding)
+            this@AlertBox.isActionVisible = getBoolean(R.styleable.AlertBox_isActionVisible, isActionVisible)
+
             if (hasValue(R.styleable.AlertBox_alertType)) {
                 this@AlertBox.alertType = AlertType.values()[alertType]
             }
@@ -234,11 +350,12 @@ class AlertBox @JvmOverloads constructor(
     }
 
     fun showOpticalSpacing(enable: Boolean = true) {
-        binding.ivAlertIcon.updateLayoutParams<MarginLayoutParams> {
-            updateMargins(
-                top = if (enable) 2.dp.toInt() else 0.dp.toInt(),
-            )
-        }
+        isOpticalSpacingEnabled = enable
+        updateStartIconAlignment()
+    }
+
+    enum class StartIconVerticalAlignment {
+        TOP, CENTER, BOTTOM
     }
 
     enum class AlertType {

@@ -150,3 +150,51 @@ interface AlertBoxDelegate {
 ## Customization and Styling
 
 The `AlertBox` can be styled using custom attributes or by setting properties programmatically. To match the app's visual design, ensure consistency with text appearance and color themes.
+## Inline action and start-icon alignment
+
+The inline action is separate from the existing button below the message. It is hidden by
+default; existing `buttonText`, `buttonType`, `isButtonVisible`, and button callbacks retain
+their behavior. The message accepts `CharSequence`, including styled spans when `isHtml`
+is false.
+
+| Property | Default | Purpose |
+|---|---|---|
+| `startIconVerticalAlignment` | `TOP` | `TOP`, `CENTER`, or `BOTTOM`, relative to the complete message block. |
+| `actionText` | Empty | Inline action label; supports `CharSequence`. |
+| `actionTextAppearance` | Inter Semibold small button | Typography for the inline label. |
+| `actionTextColor` | Primary blue | Color integer for the label. |
+| `actionMaxLines` | `1` | Positive maximum line count. |
+| `actionEllipsize` | `END` | Truncation mode; `null` disables truncation. |
+| `actionEndIcon` | `null` | Optional drawable at the logical end of the label. |
+| `actionEndIconTint` | `null` | Optional color integer for the icon. |
+| `actionIconPadding` | 4dp in pixels | Space between label and icon. |
+| `isActionVisible` | `false` | Showing/hiding the inline action; hidden space is returned to the message. |
+
+All properties have matching XML attributes. XML `actionEllipsize` supports `none`, `start`,
+`middle`, and `end`. Icon alignment preserves the legacy top offset by default;
+`showOpticalSpacing()` controls that offset only for `TOP` alignment.
+
+```xml
+<id.co.edtslib.uikit.alert.AlertBox
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:text="@string/promotion_message"
+    app:startIconVerticalAlignment="center"
+    app:isCloseIconVisible="false"
+    app:actionText="@string/edit"
+    app:actionEndIcon="@drawable/ic_chevron_right_16"
+    app:isActionVisible="true" />
+```
+
+```kotlin
+alertBox.delegate = object : AlertBoxDelegate {
+    override fun onCloseClickListener(view: View) = Unit
+    override fun onButtonClickListener(view: View) = Unit
+    override fun onActionClickListener(view: View) {
+        openPromotionSelection()
+    }
+}
+```
+
+`onActionClickListener` has a default no-op implementation, so existing delegate
+implementations do not need to implement it. Inline and lower-button callbacks are independent.

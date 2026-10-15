@@ -5,4 +5,5 @@ import android.view.View
 interface AlertBoxDelegate {
     fun onCloseClickListener(view: View)
     fun onButtonClickListener(view: View)
+    fun onActionClickListener(view: View) = Unit
 }
