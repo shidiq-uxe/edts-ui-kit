@@ -435,11 +435,7 @@ class ParagonFairDemoActivity : GuidelinesBaseActivity() {
         view.progressBar.apply {
             showBadge = true
 
-            val limit = if (model.rule == RewardRule.REPEATABLE) {
-                100_000f
-            } else {
-                100f
-            }
+            val limit = model.barLimit
 
             if (maxIndicatorProgress != 100f) {
                 maxIndicatorProgress = 100f
@@ -624,6 +620,7 @@ class ParagonFairDemoActivity : GuidelinesBaseActivity() {
     }
 
     private fun animateProgress(target: Float) {
+        if (target == displayedProgress) return
         val increasing = target > displayedProgress
         displayedProgress = target
         android.util.Log.d("FairBar", "prevTarget=$displayedProgress target=$target")
@@ -857,24 +854,16 @@ class ParagonFairDemoActivity : GuidelinesBaseActivity() {
 
     private fun showSkeleton(durationMs: Long = 1500L, onFinished: () -> Unit = {}) {
         val root = binding.skeleton.root
-        skeletonFinish?.let { root.removeCallbacks(it) }
+        skeletonFinish?.let { root.removeCallbacks(it) }                 // a newer request replaces a pending one
         root.animate().cancel()
         root.alpha = 1f
         root.isVisible = true
-
-        if (skeletonPulse == null && motionEnabled) {
-            skeletonPulse = ObjectAnimator.ofFloat(binding.skeleton.content, View.ALPHA, 1f, 0.5f).apply {
-                duration = 700L
-                repeatCount = ValueAnimator.INFINITE
-                repeatMode = ValueAnimator.REVERSE
-                start()
-            }
-        }
+        if (motionEnabled) binding.skeleton.shimmer.startShimmer()
 
         val finish = Runnable {
             skeletonFinish = null
             root.animate().alpha(0f).setDuration(150L).withEndAction {
-                skeletonPulse?.cancel(); skeletonPulse = null
+                binding.skeleton.shimmer.stopShimmer()
                 root.isVisible = false
                 root.alpha = 1f
                 if (!isFinishing && !isDestroyed) onFinished()
@@ -1608,7 +1597,7 @@ class ParagonFairDemoActivity : GuidelinesBaseActivity() {
         searchHandler.removeCallbacksAndMessages(null)
         header = null
         skeletonFinish?.let { binding.skeleton.root.removeCallbacks(it) }
-        skeletonPulse?.cancel()
+        binding.skeleton.shimmer.stopShimmer()
         binding.products.removeCallbacks(clearFocusTask)
         super.onDestroy()
     }
@@ -1633,5 +1622,5 @@ class ParagonFairDemoActivity : GuidelinesBaseActivity() {
 
     private class FaceTag(val productId: String, val face: StepperFace, var animator: AnimatorSet? = null, var cancelled: Boolean = false)
 
-    companion object { const val EXTRA_SEARCH = "fair_search_demo"; const val EXTRA_SCENARIO = "fair_scenario" }
+    companion object { const val EXTRA_SEARCH = "fair_search_demo"; const val EXTRA_SCENARIO = "fair_scenario"}
 }

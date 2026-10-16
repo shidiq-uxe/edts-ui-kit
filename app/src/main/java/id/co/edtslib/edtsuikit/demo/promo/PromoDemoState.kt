@@ -13,24 +13,24 @@ internal data class PromoDemoState(
 ) {
     init { require(threshold > 0) }
 
+    private val maxLaps: Int get() = if (rule == RewardRule.ONE_TIME) 1 else MAX_REPEAT_LAPS
+
     val giftLines: List<GiftLine> get() = giftOffers.mapNotNull { offer ->
         val quantity = claimedGifts.count { it == offer.id }
         if (quantity > 0) GiftLine(offer, quantity) else null
     }
     val giftCount: Int get() = giftLines.sumOf { it.quantity }
     val giftTotal: Long get() = giftLines.sumOf { it.offer.price * it.quantity }
-
     val cartCount: Int get() = otherCartCount + products.sumOf { it.quantity } + giftCount
     val cartTotal: Long get() = otherCartTotal + products.sumOf { it.price * it.quantity } + giftTotal
     val qualifyingSubtotal: Long get() = products.filter { it.qualifies }.sumOf { it.price * it.quantity }
     val earnedGifts: Int get() {
         if (availability != PromoAvailability.ACTIVE) return 0
-        val count = (qualifyingSubtotal / threshold).toInt()
-        return if (rule == RewardRule.ONE_TIME) count.coerceAtMost(1) else count
+        return (qualifyingSubtotal / threshold).toInt().coerceAtMost(maxLaps)
     }
     val unclaimedGifts: Int get() = (earnedGifts - claimedGifts.size).coerceAtLeast(0)
     val remainingSpend: Long get() = when {
-        rule == RewardRule.ONE_TIME && earnedGifts > 0 -> 0L
+        earnedGifts >= maxLaps -> 0L
         else -> threshold - qualifyingSubtotal % threshold
     }
     val progressPercent: Float get() = when {
@@ -39,10 +39,12 @@ internal data class PromoDemoState(
         else -> (qualifyingSubtotal % threshold) * 100f / threshold
     }
 
+    val barLimit: Float get() = if (rule == RewardRule.ONE_TIME) 100f else maxLaps * 100f
+
     val barProgress: Float get() = when {
         availability != PromoAvailability.ACTIVE -> 0f
         rule == RewardRule.ONE_TIME -> (qualifyingSubtotal * 100f / threshold).coerceAtMost(99.99f)
-        else -> qualifyingSubtotal * 100f / threshold
+        else -> (qualifyingSubtotal * 100f / threshold).coerceAtMost(barLimit)      // stops at 200
     }
 
     fun withQuantity(id: String, quantity: Int): PromoDemoState {
@@ -58,6 +60,8 @@ internal data class PromoDemoState(
     } else this
 
     fun withClaimedGifts(ids: List<String>): PromoDemoState = copy(claimedGifts = ids.take(earnedGifts))
+
+    companion object { private const val MAX_REPEAT_LAPS = 2 }
 }
 
 internal data class DemoProduct(
