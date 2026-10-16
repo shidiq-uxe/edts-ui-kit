@@ -72,16 +72,31 @@ existing callers. TMH enables both. These are also XML boolean attributes.
 | Accepted tap, drag-repeat step, or committed count edit | One `SEGMENT_FREQUENT_TICK` on API 34+, `CLOCK_TICK` on older versions |
 | Programmatic `setCount`, dead zone, ignored minus-up gesture, blocked limit, release, or cancellation | No additional haptic |
 | Active drag | Blue pill outline and a non-touchable direction/speed hint above the control |
-| Paused | `Geser ↑/↓` for plus, `Geser ↓` for minus; speed bars inactive |
-| Increasing/decreasing | `↑ Tambah` / `↓ Kurangi`; one to three active speed bars |
-| Blocked direction | `Batas tercapai`; speed bars inactive |
+| Paused | One static chevron in the last active direction, beside `Tambah` / `Kurangi`; initially up for plus and down for minus |
+| Increasing/decreasing | `Tambah` / `Kurangi`; upward/downward chevrons with a highlight travelling in that direction |
+| Blocked direction | `Batas tercapai`; highlight stops immediately |
 | End/cancel | Restore the original outline; fade the hint out |
 
 The hint fades in/out over 150ms with deceleration, without changing row measurements.
 Its width reserves the longest translated label at the current font size, avoiding jumps
 when state changes. It cannot consume touches or take focus. System-disabled animations
 snap directly to the final state; window hiding and detachment dismiss it immediately.
-Speed indicators divide the configured minimum-to-maximum repeat rate into three bands.
+The existing distance-based repeat-speed levels determine the chevron count and highlight
+cycle. Finger velocity is not used. These are initial tuning values, not repeat intervals:
+
+| Existing speed level | Chevrons | Highlight cycle |
+|---|---|---|
+| Slow | 1 | 900ms |
+| Medium | 2 | 600ms |
+| Fast | 3 | 350ms |
+
+The fixed 24×24dp indicator reserves all three chevrons, keeping the bubble size stable
+between levels. A speed change preserves the highlight phase; reversal restarts travel in
+the new direction. Neutral/blocked states stop the loop and show a static cue. Release or
+cancellation stops the loop before the bubble fades out, and indicator detachment also
+stops it. With system animations disabled, active direction and speed remain visible as
+one, two, or three fully opaque static chevrons. Native `ValueAnimator` drives the highlight;
+no animation dependency or public API is added.
 
 Haptics use `View.performHapticFeedback`, honor the view/system settings, and require no
 new vibration permission. Hardware can soften or omit effects, especially frequent ticks;

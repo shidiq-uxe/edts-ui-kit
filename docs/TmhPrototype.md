@@ -50,8 +50,12 @@ before activation retain normal scrolling. See [StepperButton](StepperButton.md)
 
 TMH enables a light activation haptic and a soft tick for each accepted tap/drag count change.
 During drag, a blue outline and a direction/speed hint acknowledge the acquired gesture.
-The hint shows paused guidance, increase/decrease with three speed levels, or `Batas tercapai`
-at a blocked limit. It fades in/out over 150ms, takes no touch/focus, and adds no row space.
+The hint pairs `Tambah` / `Kurangi` with one, two, or three chevrons based on the existing
+distance-derived speed level. Highlights travel up for increases and down for decreases,
+with initial cycle timings of 900ms / 600ms / 350ms. Neutral shows a static cue in the last
+direction; a blocked limit stops the loop and shows `Batas tercapai`. Disabled animations
+retain static direction/count cues. The bubble fades in/out over 150ms, takes no touch/focus,
+and adds no row space. The indicator reserves three chevrons, avoiding size changes by level.
 Blocked changes, pause, release, cancellation, and programmatic rebinding stay silent.
 Compact touch targets expand toward 32dp while retaining the current 90×32dp stepper footprint.
 The shared component also supports an explicit larger 48dp target mode for callers that allow

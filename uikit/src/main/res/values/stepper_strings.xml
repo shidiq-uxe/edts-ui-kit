@@ -3,8 +3,8 @@
 
     <string name="stepper_drag_both">Geser ↑/↓</string>
     <string name="stepper_drag_decrease">Geser ↓</string>
-    <string name="stepper_drag_increasing">↑ Tambah</string>
-    <string name="stepper_drag_decreasing">↓ Kurangi</string>
+    <string name="stepper_drag_increasing">Tambah</string>
+    <string name="stepper_drag_decreasing">Kurangi</string>
     <string name="stepper_drag_limit">Batas tercapai</string>
 
 </resources>

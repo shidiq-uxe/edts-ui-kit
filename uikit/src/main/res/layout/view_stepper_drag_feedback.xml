@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:paddingHorizontal="@dimen/xs"
@@ -19,33 +20,39 @@
         android:gravity="center"
         android:maxLines="1" />
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/s"
+    <FrameLayout
+        android:id="@+id/chevronIndicator"
+        android:layout_width="@dimen/m2"
+        android:layout_height="@dimen/m2"
         android:layout_marginStart="@dimen/xxs"
-        android:gravity="bottom"
-        android:orientation="horizontal">
+        android:importantForAccessibility="noHideDescendants">
 
-        <View
-            android:id="@+id/speedLow"
-            android:layout_width="@dimen/xxxs"
-            android:layout_height="@dimen/xxxs"
-            android:background="@color/primary_50" />
+        <ImageView
+            android:id="@+id/ivChevronFirst"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_chevron_up_16"
+            android:contentDescription="@null"
+            app:tint="@color/primary_50" />
 
-        <View
-            android:id="@+id/speedMedium"
-            android:layout_width="@dimen/xxxs"
-            android:layout_height="@dimen/xxs"
-            android:layout_marginStart="@dimen/dimen_2"
-            android:background="@color/primary_50" />
+        <ImageView
+            android:id="@+id/ivChevronSecond"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_chevron_up_16"
+            android:contentDescription="@null"
+            android:visibility="invisible"
+            app:tint="@color/primary_50" />
 
-        <View
-            android:id="@+id/speedHigh"
-            android:layout_width="@dimen/xxxs"
-            android:layout_height="@dimen/xs"
-            android:layout_marginStart="@dimen/dimen_2"
-            android:background="@color/primary_50" />
+        <ImageView
+            android:id="@+id/ivChevronThird"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_chevron_up_16"
+            android:contentDescription="@null"
+            android:visibility="invisible"
+            app:tint="@color/primary_50" />
 
-    </LinearLayout>
+    </FrameLayout>
 
 </LinearLayout>
