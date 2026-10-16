@@ -680,6 +680,7 @@ class LinearProgressBar @JvmOverloads constructor(
     }
 
     private fun drawBadge(canvas: Canvas) {
+        if (width <= 0 || height <= 0) return
         // Apply minWidth and minHeight to keep the initial round shape
         badge.minimumHeight = (context.dimen(R.dimen.s)).toInt()
         badge.measure(MeasureSpec.UNSPECIFIED, MeasureSpec.UNSPECIFIED)
@@ -693,7 +694,8 @@ class LinearProgressBar @JvmOverloads constructor(
         val badgeWidth = badge.measuredWidth
         val badgeHeight = badge.measuredHeight
         val badgeRight = trackRect.right
-        val badgeLeft = (badgeRight - badgeWidth).coerceIn(0f, (width - badgeWidth).toFloat()).toInt()
+        val maximumLeft = (width - badgeWidth).coerceAtLeast(0).toFloat()
+        val badgeLeft = (badgeRight - badgeWidth).coerceIn(0f, maximumLeft).toInt()
         val badgeTop = ((height - badgeHeight) / 2f).toInt()
         badge.layout(badgeLeft, badgeTop, badgeLeft + badgeWidth, badgeTop + badgeHeight)
         canvas.save()

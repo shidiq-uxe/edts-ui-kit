@@ -8,6 +8,7 @@ import android.util.AttributeSet
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
+import androidx.activity.OnBackPressedCallback
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
@@ -23,6 +24,7 @@ import id.co.edtslib.uikit.tray.BottomSheetTray
 open class TmhBottomSheet : BottomSheetTray() {
 
     private var shouldAllowDismiss = false
+    private var dismissBackCallback: OnBackPressedCallback? = null
     private var measuredContent: ContentLayout? = null
 
     protected open fun requestDismiss() {
@@ -102,6 +104,13 @@ open class TmhBottomSheet : BottomSheetTray() {
 
     override fun onStart() {
         super.onStart()
+        dismissBackCallback?.remove()
+        dismissBackCallback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() = requestDismiss()
+        }.also { callback ->
+            // Consume Back in this window so it cannot also pop the underlying PPP Activity.
+            (dialog as? BottomSheetDialog)?.onBackPressedDispatcher?.addCallback(this, callback)
+        }
         dialog?.window?.let { window ->
             WindowCompat.setDecorFitsSystemWindows(window, false)
             @Suppress("DEPRECATION")
@@ -113,6 +122,8 @@ open class TmhBottomSheet : BottomSheetTray() {
     }
 
     override fun onDestroyView() {
+        dismissBackCallback?.remove()
+        dismissBackCallback = null
         measuredContent = null
         contentView = null
         super.onDestroyView()

@@ -115,7 +115,7 @@
         android:paddingBottom="@dimen/xxs"
         android:background="@color/white"
         android:elevation="@dimen/dimen_2"
-        android:visibility="gone"
+        android:visibility="invisible"
         android:clipChildren="false"
         android:clipToPadding="false"
         android:clipToOutline="false"

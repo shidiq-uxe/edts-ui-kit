@@ -33,6 +33,8 @@ class TmhRedemptionBottomSheet : TmhBottomSheet() {
     private var sheetBinding: BottomSheetTmhRedemptionBinding? = null
     private var productAdapter: BaseAdapter<ProductRow, ItemTmhRedemptionProductBinding>? = null
     private var pendingSaveResult: Bundle? = null
+    private var shouldOpenFair = false
+    private var isNavigatingToFair = false
     private val productAnimations = mutableMapOf<View, TmhProductSelectionAnimator>()
 
     private fun renderSelection() {
@@ -128,8 +130,9 @@ class TmhRedemptionBottomSheet : TmhBottomSheet() {
         }
     }
 
-    override fun requestDismiss() {
+    private fun requestCloseOrNavigate() {
         if (!selection.hasChanges) {
+            shouldOpenFair = isNavigatingToFair
             closeSheet()
             return
         }
@@ -139,6 +142,11 @@ class TmhRedemptionBottomSheet : TmhBottomSheet() {
         }
     }
 
+    override fun requestDismiss() {
+        isNavigatingToFair = false
+        requestCloseOrNavigate()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val scenario = TmhScenario.valueOf(requireArguments().getString(ARG_SCENARIO) ?: TmhScenario.DEFAULT.name)
@@ -146,12 +154,15 @@ class TmhRedemptionBottomSheet : TmhBottomSheet() {
         val original = requireArguments().getBundle(ARG_QUANTITIES)?.quantities().orEmpty()
         val actualState = TmhFairState.valueOf(requireNotNull(requireArguments().getString(ARG_FAIR_STATE)))
         fair = fair.copy(
+            redemptionMaximum = requireArguments().getInt(ARG_MAXIMUM, 2),
+            remainingSpend = requireArguments().getLong(ARG_REMAINING_SPEND, TmhFlowState.THRESHOLD),
             state = actualState,
             savedQuantities = original,
             products = fair.products.map {
                 if (actualState == TmhFairState.OUT_OF_STOCK) it.copy(isInStock = false) else it
             },
         )
+        isNavigatingToFair = savedInstanceState?.getBoolean(STATE_NAVIGATING) ?: false
         selection = fair.selection()
         savedInstanceState?.getBundle(STATE_PENDING)?.let { pending ->
             fair.products.forEach { selection.update(it.id, 0) }
@@ -159,6 +170,7 @@ class TmhRedemptionBottomSheet : TmhBottomSheet() {
         }
         title = getString(fair.nameRes).takeIf { it.isNotBlank() } ?: getString(R.string.tmh_detail_fallback)
         childFragmentManager.setFragmentResultListener(TmhUnsavedBottomSheet.RESULT_DISCARD, this) { _, _ ->
+            shouldOpenFair = isNavigatingToFair
             closeSheet()
         }
     }
@@ -167,10 +179,23 @@ class TmhRedemptionBottomSheet : TmhBottomSheet() {
         val content = BottomSheetTmhRedemptionBinding.inflate(inflater, container, false)
         sheetBinding = content
         content.tvDescription.text = getString(R.string.tmh_description, getString(fair.nameRes))
+        val isPromoDetail = requireArguments().getBoolean(ARG_PROMO_DETAIL)
+        content.tvDescriptionTitle.isVisible = !isPromoDetail
+        content.tvDescription.isVisible = !isPromoDetail
+        content.tvTerms.setText(if (isPromoDetail) R.string.tmh_view_terms else R.string.tmh_view_fair)
         content.tvTerms.setOnClickListener {
-            if (childFragmentManager.findFragmentByTag(TmhTermsBottomSheet.TAG) == null) {
-                TmhTermsBottomSheet.newInstance(getString(fair.nameRes))
-                    .show(childFragmentManager, TmhTermsBottomSheet.TAG)
+            if (isPromoDetail) {
+                if (childFragmentManager.findFragmentByTag(TmhTermsBottomSheet.TAG) == null) {
+                    TmhTermsBottomSheet.newInstance(
+                        fairName = getString(fair.nameRes),
+                        isIntegrated = true,
+                        offerDescriptions = fair.products.map { "${getString(it.nameRes)} (${getString(it.priceRes)})" },
+                    )
+                        .show(childFragmentManager, TmhTermsBottomSheet.TAG)
+                }
+            } else {
+                isNavigatingToFair = true
+                requestCloseOrNavigate()
             }
         }
         content.alertBox.isVisible = !fair.state.isEligible
@@ -213,17 +238,23 @@ class TmhRedemptionBottomSheet : TmhBottomSheet() {
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
+        outState.putBoolean(STATE_NAVIGATING, isNavigatingToFair)
         outState.putBundle(STATE_PENDING, selection.quantities.toQuantityBundle())
         super.onSaveInstanceState(outState)
     }
 
     override fun onDismiss(dialog: DialogInterface) {
+        val navigation = shouldOpenFair
+        shouldOpenFair = false
         val result = pendingSaveResult
         pendingSaveResult = null
         val manager = parentFragmentManager
         super.onDismiss(dialog)
-        // Reload the listing after the committed tray is dismissed, never on ordinary cancellation.
+        // Deliver the committed selection or requested navigation after dismissal.
         result?.let { manager.setFragmentResult(RESULT_SAVE, it) }
+        if (navigation) manager.setFragmentResult(RESULT_VIEW_FAIR, Bundle().apply {
+            putString(KEY_FAIR_ID, fair.id)
+        })
     }
 
     override fun onDestroyView() {
@@ -240,18 +271,30 @@ class TmhRedemptionBottomSheet : TmhBottomSheet() {
     companion object {
         const val TAG = "TMH_REDEMPTION"
         const val RESULT_SAVE = "tmh_save_result"
+        const val RESULT_VIEW_FAIR = "tmh_view_fair_result"
         const val KEY_FAIR_ID = "fair_id"
         const val KEY_QUANTITIES = "quantities"
         private const val ARG_FAIR_ID = "fair_id"
         private const val ARG_SCENARIO = "scenario"
         private const val ARG_FAIR_STATE = "fair_state"
+        private const val ARG_REMAINING_SPEND = "remaining_spend"
+        private const val ARG_MAXIMUM = "maximum"
+        private const val ARG_PROMO_DETAIL = "promo_detail"
         private const val ARG_QUANTITIES = "original_quantities"
+        private const val STATE_NAVIGATING = "navigating_to_fair"
         private const val STATE_PENDING = "pending_quantities"
 
-        fun newInstance(fair: TmhFair, scenario: TmhScenario): TmhRedemptionBottomSheet =
+        fun newInstance(
+            fair: TmhFair,
+            scenario: TmhScenario,
+            isPromoDetail: Boolean = false,
+        ): TmhRedemptionBottomSheet =
             TmhRedemptionBottomSheet().apply {
                 arguments = Bundle().apply {
                     putString(ARG_FAIR_ID, fair.id)
+                    putInt(ARG_MAXIMUM, fair.maximum)
+                    putLong(ARG_REMAINING_SPEND, fair.remainingSpend)
+                    putBoolean(ARG_PROMO_DETAIL, isPromoDetail)
                     putString(ARG_SCENARIO, scenario.name)
                     putString(ARG_FAIR_STATE, fair.state.name)
                     putBundle(ARG_QUANTITIES, fair.savedQuantities.toQuantityBundle())

@@ -28,7 +28,7 @@
                 android:id="@+id/image"
                 android:layout_width="@dimen/dimen_0"
                 android:layout_height="@dimen/dimen_0"
-                android:scaleType="centerCrop"
+                android:scaleType="fitCenter"
                 android:importantForAccessibility="no"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -110,7 +110,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:barrierDirection="bottom"
-                app:constraint_referenced_ids="discount,originalPrice" />
+                app:barrierAllowsGoneWidgets="false"
+                app:constraint_referenced_ids="price,discount,originalPrice" />
 
             <TextView
                 android:id="@+id/promotion"
@@ -139,8 +140,7 @@
                 android:background="@color/klik_color_blue_10"
                 app:layout_constraintTop_toBottomOf="@id/promotion"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent">
+                app:layout_constraintEnd_toEndOf="parent">
                 <ImageView
                     android:id="@+id/benefitIcon"
                     android:layout_width="@dimen/xs"
@@ -165,6 +165,23 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.Barrier
+                android:id="@+id/contentBottom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:barrierDirection="bottom"
+                app:barrierAllowsGoneWidgets="false"
+                app:constraint_referenced_ids="image,name,price,discount,originalPrice,promotion,benefitStrip" />
+
+            <View
+                android:id="@+id/contentBottomSpace"
+                android:layout_width="@dimen/dimen_0"
+                android:layout_height="@dimen/xxs"
+                app:layout_constraintTop_toBottomOf="@id/contentBottom"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

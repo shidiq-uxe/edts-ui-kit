@@ -13,15 +13,17 @@ import id.co.edtslib.uikit.utils.buildHighlightedMessage
 import id.co.edtslib.uikit.utils.color
 import id.co.edtslib.uikit.utils.dp
 import id.co.edtslib.uikit.utils.drawable
+import java.text.NumberFormat
+import java.util.Locale
 import id.co.edtslib.uikit.R as UIKitR
 
 fun TmhFair.alertText(context: Context): CharSequence = buildHighlightedMessage(
     context = context,
     htmlMessage = when (state) {
-        TmhFairState.ELIGIBLE -> context.getString(R.string.tmh_available)
+        TmhFairState.ELIGIBLE -> context.getString(R.string.tmh_remaining_allowance, maximum)
         TmhFairState.PARTIALLY_SELECTED, TmhFairState.FULLY_SELECTED ->
             context.getString(R.string.tmh_selected, savedTotal)
-        TmhFairState.REQUIREMENT_UNMET -> context.getString(R.string.tmh_requirement)
+        TmhFairState.REQUIREMENT_UNMET -> context.getString(R.string.tmh_remaining_spend, "Rp" + NumberFormat.getIntegerInstance(Locale("id", "ID")).format(remainingSpend))
         TmhFairState.OUT_OF_STOCK -> context.getString(R.string.tmh_stock_message)
         TmhFairState.QUOTA_EXHAUSTED -> context.getString(R.string.tmh_quota_message)
         TmhFairState.LIMIT_EXHAUSTED -> context.getString(R.string.tmh_limit_message)

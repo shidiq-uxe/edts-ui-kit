@@ -1,6 +1,7 @@
 package id.co.edtslib.edtsuikit.tmh
 
 import android.os.Bundle
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -28,7 +29,17 @@ class TmhTermsBottomSheet : TmhBottomSheet() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         val content = BottomSheetTmhTermsBinding.inflate(inflater, container, false)
-        val html = resources.openRawResource(R.raw.tmh_terms).bufferedReader().use { it.readText() }
+        var html = resources.openRawResource(R.raw.tmh_terms).bufferedReader().use { it.readText() }
+        if (arguments?.getBoolean(ARG_INTEGRATED) == true) {
+            val offers = arguments?.getStringArrayList(ARG_OFFERS).orEmpty()
+                .joinToString("; ") { TextUtils.htmlEncode(it) }
+                .ifEmpty { getString(R.string.tmh_terms_offer_fallback) }
+            html = html.replace(
+                "Tebus Murah 1 pc [Nama Produk] diskon [Harga Diskon]. [Kalau lebih dari 1, di list aja lagi]",
+                getString(R.string.tmh_terms_offer, offers),
+            )
+                .replace("[Tipe Kelipatan]", "berlaku kelipatan, maksimal 2 tebus murah")
+        }
         val renderer = HtmlRenderer(
             config = HtmlRendererConfig(orderedStyle = ListStyles.numbered.withIndent(8).withGap(4)),
             fontManager = FontManager(requireContext()),
@@ -44,10 +55,20 @@ class TmhTermsBottomSheet : TmhBottomSheet() {
 
     companion object {
         const val TAG = "TMH_TERMS"
+        private const val ARG_OFFERS = "offers"
+        private const val ARG_INTEGRATED = "integrated"
         private const val ARG_FAIR_NAME = "fair_name"
 
-        fun newInstance(fairName: String): TmhTermsBottomSheet = TmhTermsBottomSheet().apply {
-            arguments = Bundle().apply { putString(ARG_FAIR_NAME, fairName) }
+        fun newInstance(
+            fairName: String,
+            isIntegrated: Boolean = false,
+            offerDescriptions: List<String> = emptyList(),
+        ): TmhTermsBottomSheet = TmhTermsBottomSheet().apply {
+            arguments = Bundle().apply {
+                putString(ARG_FAIR_NAME, fairName)
+                putBoolean(ARG_INTEGRATED, isIntegrated)
+                putStringArrayList(ARG_OFFERS, ArrayList(offerDescriptions))
+            }
         }
     }
 }

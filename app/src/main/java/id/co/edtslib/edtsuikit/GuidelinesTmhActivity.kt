@@ -1,5 +1,7 @@
 package id.co.edtslib.edtsuikit
 
+import android.app.Activity
+import android.content.Intent
 import android.content.res.ColorStateList
 import android.os.Bundle
 import android.os.Handler
@@ -7,6 +9,7 @@ import android.os.Looper
 import android.os.Parcelable
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.doOnLayout
 import androidx.core.view.doOnNextLayout
 import androidx.core.view.isVisible
@@ -20,9 +23,11 @@ import id.co.edtslib.edtsuikit.databinding.ActivityGuidelinesTmhBinding
 import id.co.edtslib.edtsuikit.databinding.ItemTmhFairBinding
 import id.co.edtslib.edtsuikit.databinding.ItemTmhProductPreviewBinding
 import id.co.edtslib.edtsuikit.databinding.SkeletonTmhFairBinding
+import id.co.edtslib.edtsuikit.demo.promo.ParagonFairDemoActivity
 import id.co.edtslib.edtsuikit.tmh.TmhFair
 import id.co.edtslib.edtsuikit.tmh.TmhFairState
 import id.co.edtslib.edtsuikit.tmh.TmhFixtures
+import id.co.edtslib.edtsuikit.tmh.TmhFlowState
 import id.co.edtslib.edtsuikit.tmh.TmhProduct
 import id.co.edtslib.edtsuikit.tmh.TmhRedemptionBottomSheet
 import id.co.edtslib.edtsuikit.tmh.TmhScenario
@@ -33,7 +38,6 @@ import id.co.edtslib.edtsuikit.tmh.quantities
 import id.co.edtslib.edtsuikit.tmh.setUnavailable
 import id.co.edtslib.edtsuikit.tmh.tmhTextAppearance
 import id.co.edtslib.edtsuikit.tmh.tmhTypography
-import id.co.edtslib.edtsuikit.tmh.toQuantityBundle
 import id.co.edtslib.uikit.adapter.BaseAdapter
 import id.co.edtslib.uikit.alert.AlertBoxDelegate
 import id.co.edtslib.uikit.button.Button
@@ -55,7 +59,18 @@ class GuidelinesTmhActivity : GuidelinesBaseActivity() {
     private val binding by viewBinding<ActivityGuidelinesTmhBinding>()
     private val handler = Handler(Looper.getMainLooper())
     private var scenario = TmhScenario.DEFAULT
+    private var isOpeningPromoDetail = false
+    private lateinit var flow: TmhFlowState
     private var fairs = TmhFixtures.fairs(scenario)
+    private val promoDetail = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        isOpeningPromoDetail = false
+        val snapshot = result.data?.getBundleExtra(TmhFlowState.EXTRA_FLOW)
+        if (result.resultCode == Activity.RESULT_OK && snapshot != null) {
+            flow = TmhFlowState.restore(this, snapshot)
+            fairs = flow.fairs
+            renderFairs()
+        }
+    }
     private var selectedTab = 0
     private var scrollTarget: Int? = null
     private var pendingLoad: Runnable? = null
@@ -97,7 +112,7 @@ class GuidelinesTmhActivity : GuidelinesBaseActivity() {
             true
         }
         binding.ivCart.setOnClickListener {
-            binding.root.snack(getString(R.string.tmh_cart_summary, TmhFixtures.BASE_CART_QUANTITY + fairs.sumOf { it.savedTotal }), resTextAppearance = R.style.TextAppearance_Tmh_Regular_B3)
+            binding.root.snack(getString(R.string.tmh_cart_summary, flow.cartCount), resTextAppearance = R.style.TextAppearance_Tmh_Regular_B3)
         }
         binding.btnAllPromos.buttonType = Button.ButtonType.FILLED_MEDIUM
         binding.btnAllPromos.tmhTextAppearance(R.style.TextAppearance_Tmh_SemiBold_Button_Text_Medium, 16)
@@ -202,8 +217,22 @@ class GuidelinesTmhActivity : GuidelinesBaseActivity() {
     }
 
     private fun openFair(fair: TmhFair) {
+        if (!fair.state.isEligible) {
+            openPromoDetail(fair.id)
+            return
+        }
         if (supportFragmentManager.findFragmentByTag(TmhRedemptionBottomSheet.TAG) != null) return
-        TmhRedemptionBottomSheet.newInstance(fair, scenario).show(supportFragmentManager, TmhRedemptionBottomSheet.TAG)
+        TmhRedemptionBottomSheet.newInstance(fair, flow.scenario).show(supportFragmentManager, TmhRedemptionBottomSheet.TAG)
+    }
+
+    private fun openPromoDetail(fairId: String) {
+        if (isOpeningPromoDetail) return
+        isOpeningPromoDetail = true
+        loadingAnchor = captureFairAnchor()
+        promoDetail.launch(Intent(this, ParagonFairDemoActivity::class.java).apply {
+            putExtra(TmhFlowState.EXTRA_FLOW, flow.toBundle())
+            putExtra(TmhFlowState.EXTRA_FAIR_ID, fairId)
+        })
     }
 
     private fun updateFairTabs() {
@@ -289,7 +318,7 @@ class GuidelinesTmhActivity : GuidelinesBaseActivity() {
     }
 
     private fun renderCartCount() {
-        val cartTotal = TmhFixtures.BASE_CART_QUANTITY + fairs.sumOf { it.savedTotal }
+        val cartTotal = flow.cartCount
         binding.tvCartCount.text = getString(R.string.tmh_cart_count, cartTotal)
         binding.ivCart.contentDescription = getString(R.string.tmh_cart_summary, cartTotal)
     }
@@ -380,7 +409,8 @@ class GuidelinesTmhActivity : GuidelinesBaseActivity() {
                 )
             }
             else -> {
-                fairs = TmhFixtures.fairs(selected)
+                flow = TmhFlowState.create(this, selected)
+                fairs = flow.fairs
                 renderFairs()
                 fairsLayoutManager.scrollToPositionWithOffset(0, 0)
             }
@@ -392,11 +422,9 @@ class GuidelinesTmhActivity : GuidelinesBaseActivity() {
         setContentView(R.layout.activity_guidelines_tmh)
         binding.root.tmhTypography()
         scenario = TmhScenario.valueOf(savedInstanceState?.getString(STATE_SCENARIO) ?: TmhScenario.DEFAULT.name)
-        fairs = TmhFixtures.fairs(scenario).map { fair ->
-            savedInstanceState?.getBundle(fair.id)?.let { saved ->
-                if (fair.state.isEligible) fair.withSelection(saved.quantities()) else fair
-            } ?: fair
-        }
+        flow = savedInstanceState?.getBundle(TmhFlowState.EXTRA_FLOW)?.let { TmhFlowState.restore(this, it) }
+            ?: TmhFlowState.create(this, scenario)
+        fairs = flow.fairs
         selectedTab = savedInstanceState?.getInt(STATE_TAB) ?: 0
         @Suppress("DEPRECATION")
         restoredListState = savedInstanceState?.getParcelable(STATE_SCROLL)
@@ -413,9 +441,13 @@ class GuidelinesTmhActivity : GuidelinesBaseActivity() {
         supportFragmentManager.setFragmentResultListener(TmhRedemptionBottomSheet.RESULT_SAVE, this) { _, result ->
             val id = result.getString(TmhRedemptionBottomSheet.KEY_FAIR_ID)
             val quantities = result.getBundle(TmhRedemptionBottomSheet.KEY_QUANTITIES)?.quantities().orEmpty()
-            fairs = fairs.map { if (it.id == id) it.withSelection(quantities) else it }
+            if (id != null) flow = flow.withSelection(id, quantities)
+            fairs = flow.fairs
             pendingSuccessMessage = getString(R.string.tmh_cart_updated)
             showLoading { renderFairs() }
+        }
+        supportFragmentManager.setFragmentResultListener(TmhRedemptionBottomSheet.RESULT_VIEW_FAIR, this) { _, result ->
+            result.getString(TmhRedemptionBottomSheet.KEY_FAIR_ID)?.let(::openPromoDetail)
         }
         if (savedInstanceState == null) {
             selectTab(0)
@@ -430,6 +462,7 @@ class GuidelinesTmhActivity : GuidelinesBaseActivity() {
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
+        outState.putBundle(TmhFlowState.EXTRA_FLOW, flow.toBundle())
         outState.putString(STATE_SCENARIO, scenario.name)
         outState.putInt(STATE_TAB, selectedTab)
         outState.putParcelable(STATE_SCROLL, if (isLoading) restoredListState else fairsLayoutManager.onSaveInstanceState())
@@ -439,7 +472,6 @@ class GuidelinesTmhActivity : GuidelinesBaseActivity() {
             outState.putInt(STATE_ANCHOR_OFFSET, it.offset)
         }
         outState.putString(STATE_SUCCESS_MESSAGE, pendingSuccessMessage)
-        fairs.forEach { outState.putBundle(it.id, it.savedQuantities.toQuantityBundle()) }
         super.onSaveInstanceState(outState)
     }
 

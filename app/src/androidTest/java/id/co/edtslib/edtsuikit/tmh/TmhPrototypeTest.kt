@@ -53,7 +53,16 @@ class TmhPrototypeTest {
 
     private lateinit var activity: ActivityScenario<GuidelinesTmhActivity>
 
-    private fun openFreshTray() {
+    private fun openFreshTray(isPromoDetail: Boolean = false) {
+        if (isPromoDetail) {
+            activity.onActivity { screen ->
+                val fair = TmhFlowState.create(screen, TmhScenario.ELIGIBLE).fairs.first()
+                TmhRedemptionBottomSheet.newInstance(fair, TmhScenario.ELIGIBLE, isPromoDetail = true)
+                    .show(screen.supportFragmentManager, TmhRedemptionBottomSheet.TAG)
+            }
+            settleUi()
+            return
+        }
         activity.onActivity { screen ->
             val list = screen.findViewById<RecyclerView>(R.id.rvFairs)
             (list.layoutManager as LinearLayoutManager).scrollToPositionWithOffset(0, 0)
@@ -279,7 +288,8 @@ class TmhPrototypeTest {
             assertEquals(1, manager.findFirstVisibleItemPosition())
             assertEquals(list.paddingTop, manager.getDecoratedTop(requireNotNull(manager.findViewByPosition(1))))
             assertEquals(1, screen.findViewById<TabLayout>(R.id.fairTabs).selectedTabPosition)
-            assertEquals("13", screen.findViewById<android.widget.TextView>(R.id.tvCartCount).text.toString())
+            assertEquals((TmhFlowState.create(screen, TmhScenario.DEFAULT).cartCount - 1).toString(),
+                screen.findViewById<android.widget.TextView>(R.id.tvCartCount).text.toString())
         }
     }
 
@@ -330,7 +340,7 @@ class TmhPrototypeTest {
 
     @Test
     fun eachStackedSheetDimsItsOwnWindowBySeventyFivePercent() {
-        openFreshTray()
+        openFreshTray(isPromoDetail = true)
         activity.onActivity { screen ->
             val sheet = screen.supportFragmentManager.findFragmentByTag(TmhRedemptionBottomSheet.TAG) as TmhRedemptionBottomSheet
             assertEquals(0.75f, requireNotNull(sheet.dialog?.window).attributes.dimAmount, 0.001f)
@@ -357,7 +367,7 @@ class TmhPrototypeTest {
 
     @Test
     fun termsHtmlScrollsWithNumberingEmphasisAndRestoredFairTitle() {
-        openFreshTray()
+        openFreshTray(isPromoDetail = true)
         onView(withId(R.id.tvTerms)).perform(click())
         settleUi()
         activity.onActivity { screen ->
@@ -776,7 +786,8 @@ class TmhPrototypeTest {
             val tabs = screen.findViewById<TabLayout>(R.id.fairTabs)
             assertEquals(0, tabs.selectedTabPosition)
             assertEquals(0, tabs.scrollX)
-            assertEquals("14", screen.findViewById<android.widget.TextView>(R.id.tvCartCount).text.toString())
+            assertEquals(TmhFlowState.create(screen, TmhScenario.DEFAULT).cartCount.toString(),
+                screen.findViewById<android.widget.TextView>(R.id.tvCartCount).text.toString())
             val list = screen.findViewById<RecyclerView>(R.id.rvFairs)
             assertEquals(8, list.adapter?.itemCount)
             (list.layoutManager as LinearLayoutManager).scrollToPositionWithOffset(7, 0)

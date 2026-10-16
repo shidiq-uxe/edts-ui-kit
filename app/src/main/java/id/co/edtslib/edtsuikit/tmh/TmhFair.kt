@@ -53,13 +53,15 @@ data class TmhFair(
     val products: List<TmhProduct>,
     val state: TmhFairState,
     val savedQuantities: Map<String, Int> = emptyMap(),
+    val redemptionMaximum: Int = 2,
+    val remainingSpend: Long = 100_000L,
 ) {
 
     val savedTotal: Int
         get() = savedQuantities.values.sum()
 
     val maximum: Int
-        get() = if (state.isEligible) 2 else 0
+        get() = if (state.isEligible) redemptionMaximum else 0
 
     fun selection(): RedemptionSelection = RedemptionSelection(
         originalQuantities = savedQuantities,
@@ -72,7 +74,7 @@ data class TmhFair(
         savedQuantities = quantities.toMap(),
         state = when (quantities.values.sum()) {
             0 -> TmhFairState.ELIGIBLE
-            1 -> TmhFairState.PARTIALLY_SELECTED
+            in 1 until maximum -> TmhFairState.PARTIALLY_SELECTED
             else -> TmhFairState.FULLY_SELECTED
         },
     )

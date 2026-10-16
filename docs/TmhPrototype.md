@@ -19,9 +19,49 @@ to select a scenario. Hadiah Produk is displayed but does not navigate.
 | 7 | 5 Days Fair | Personal limit exhausted, S&K |
 | 8 | Chupa Chups Fair | First transaction only, S&K |
 
-The demo cart contains 11 other items plus saved promotional quantities, initially totaling
-14. This is sample data, not a cart-service integration. Individual state scenarios retain
+The integrated cart contains 11 background items, explicit qualifying catalog quantities,
+and saved promotional quantities. Eligible fixtures seed enough qualifying spend for two
+redemptions, so its initial total now reflects those shopping lines as well. This is sample data, not a cart-service integration. Individual state scenarios retain
 three representative campaigns, including a restocking example.
+
+## Connected Detail Promo flow
+
+All eight fairs open campaign-specific Detail Promo (PPP) using the coworker’s
+`ParagonFairDemoActivity`. Qualifying catalog items and redemption offers have separate
+names, images, IDs, prices, and quantities. Integrated Paragon filters the coworker’s catalog
+to exclude products offered in its redemption tray; the standalone coworker demo retains its
+eight original entries. Other campaigns use local qualifying grocery fixtures from existing
+assets, with stable campaign-specific IDs and order. These are sample qualifying catalogs,
+not a claim about production campaign assortments.
+
+| TMH interaction | Destination |
+|---|---|
+| Eligible card, including its banner/title and Pilih/Ubah | Redemption tray |
+| Entire unmet, out-of-stock, quota, personal-limit, or first-transaction-only card | That fair’s PPP |
+| Unmet card’s Tambah | That fair’s PPP |
+| TMH redemption tray’s Lihat Fair | That fair’s PPP, after the unsaved-change guard |
+| PPP page’s Lihat | The same redemption tray with Lihat Syarat |
+| PPP page’s Selengkapnya or its tray’s Lihat Syarat | Campaign HTML terms |
+
+There is no independent banner/title shortcut to PPP for an eligible TMH card.
+
+`TmhFlowState` is the single immutable shopping snapshot. Activity results return changes to
+TMH, and Bundle restoration preserves quantities, selected benefits, and campaign identity.
+TMH retains its tab and list anchor. Search, Share, Keranjang, Urutkan, Filter, and grid
+selection remain visible but noninteractive, matching the coworker’s latest commit. Product
+steppers, Lihat, and terms navigation retain their actions. The PPP redemption tray hides
+Deskripsi Promo and its description while keeping Lihat Syarat. Partial PPP selection reads
+“Kamu sudah ambil 1 dari 2 tebus murah. Yuk pilih produk lagi”; full selection reads
+“Kamu sudah ambil 2 tebus murah”. TMH keeps its shorter selected-state copy. The separate pre-existing staged Promo Detail prototype
+is outside this integration and remains untouched in its original checkout.
+
+The agreed fixture rule is Rp100.000 qualifying spend for each redemption, repeatable up to
+two. Promotion items do not earn further allowance. The counter denominator follows the
+earned allowance (for example 1/1), while quota/personal/account restrictions remain separate.
+Reducing spend trims excess selected benefits in their existing order and shows a snackbar.
+Remote cart changes, real network failures, and checkout remain outside this prototype.
+
+[Connected Figma flow](https://www.figma.com/design/Wd140rqS27zbhDNDSpy9PB/?node-id=62856-70463)
 
 ## Interaction behavior
 
@@ -63,7 +103,8 @@ and adds no row space. The indicator reserves three chevrons, avoiding size chan
 Blocked changes, pause, release, cancellation, and programmatic rebinding stay silent.
 Compact touch targets expand toward 32dp while retaining the current 90×32dp stepper footprint.
 The shared component also supports an explicit larger 48dp target mode for callers that allow
-the additional host space; this mode is not enabled in the TMH row.
+the additional host space. The TMH row requests expanded mode within exact 90×32dp bounds;
+those parent bounds take precedence, preserving the existing layout.
 
 The redemption footer is 40dp high and follows the original per-product selection:
 
@@ -161,14 +202,16 @@ Card transitions retarget from their current visible values when interrupted. Ne
 binding and detach apply the final appearance immediately; disabled system animations also
 apply the final state synchronously. Quantities update independently of visual animation.
 
-Sources: the TMH Activity and sheet classes; RecyclerView 1.3.0 and Shimmer 0.5.0 sources;
+Sources: the TMH Activity and sheet classes; RecyclerView 1.4.0 and Shimmer 0.5.0 sources;
 [Material TabLayout 1.12.0 implementation](https://github.com/material-components/material-components-android/blob/1.12.0/lib/java/com/google/android/material/tabs/TabLayout.java);
 Material 1.12.0 animation resources and [snackbar implementation](https://github.com/material-components/material-components-android/blob/1.12.0/lib/java/com/google/android/material/snackbar/BaseTransientBottomBar.java).
 
 ## Prototype limitations
 
-Eligibility amounts remain marked as inconsistent sample content (Rp40.000, Rp50.000,
-and Rp100.000 across designs). Cross-device cart changes and cart-save failures remain TODOs.
+Design eligibility amounts remain inconsistent (including Rp40.000, Rp50.000, Rp100.000,
+and embedded campaign-banner amounts). The connected prototype consistently uses the approved
+Rp100.000-per-redemption rule, capped at two; original banner artwork remains unchanged.
+Cross-device cart changes and cart-save failures remain TODOs.
 Device-specific Vivo behavior needs confirmation on the physical device after installation;
 emulator verification cannot substitute for that check.
 Consolidating the feature-local TMH TextAppearance XML and Kotlin helpers into shared

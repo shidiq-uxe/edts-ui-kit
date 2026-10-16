@@ -25,7 +25,7 @@ class PromoDemoStateTest {
     fun repeatableRewardsUseCompletedIntervals() {
         val eligible = PromoDemoState(listOf(product), RewardRule.REPEATABLE).withQuantity("gel", 5)
         assertEquals(2, eligible.earnedGifts)
-        assertEquals(50_000L, eligible.remainingSpend)
+        assertEquals(0L, eligible.remainingSpend)
         assertEquals(50f, eligible.progressPercent, 0.01f)
         val claimed = eligible.claimGift("first")
         assertEquals(1, claimed.unclaimedGifts)

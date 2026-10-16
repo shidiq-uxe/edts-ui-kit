@@ -5,6 +5,7 @@ import android.animation.AnimatorListenerAdapter
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
+import android.app.Activity
 import android.app.Dialog
 import android.content.ActivityNotFoundException
 import android.content.Intent
@@ -63,14 +64,23 @@ import id.co.edtslib.edtsuikit.databinding.SheetFairDiscardBinding
 import id.co.edtslib.edtsuikit.databinding.SheetFairOptionsBinding
 import id.co.edtslib.edtsuikit.databinding.SheetFairRedemptionBinding
 import id.co.edtslib.edtsuikit.databinding.ViewFairProgressBinding
+import id.co.edtslib.edtsuikit.tmh.TmhBottomSheet
+import id.co.edtslib.edtsuikit.tmh.TmhFair
+import id.co.edtslib.edtsuikit.tmh.TmhCatalogFixtures
+import id.co.edtslib.edtsuikit.tmh.TmhFlowState
+import id.co.edtslib.edtsuikit.tmh.TmhRedemptionBottomSheet
+import id.co.edtslib.edtsuikit.tmh.TmhTermsBottomSheet
+import id.co.edtslib.edtsuikit.tmh.alertText
+import id.co.edtslib.edtsuikit.tmh.quantities
 import id.co.edtslib.edtsuikit.viewBinding
-import id.co.edtslib.uikit.R as UIKitR
 import id.co.edtslib.uikit.adapter.BaseAdapter
 import id.co.edtslib.uikit.databinding.SearchBarBinding
 import id.co.edtslib.uikit.recipes.textbadge.klik.KlikVariant
 import id.co.edtslib.uikit.searchbar.SearchBarDelegate
 import id.co.edtslib.uikit.stepper.StepperButton
 import id.co.edtslib.uikit.tray.BottomSheetTray
+import id.co.edtslib.uikit.utils.TextStyleKey
+import id.co.edtslib.uikit.utils.TextStyleProvider.get
 import id.co.edtslib.uikit.utils.buildHighlightedMessage
 import id.co.edtslib.uikit.utils.color
 import id.co.edtslib.uikit.utils.colorStateList
@@ -80,6 +90,7 @@ import id.co.edtslib.uikit.utils.inflater
 import id.co.edtslib.uikit.utils.window.WindowInsetsConfig
 import java.text.NumberFormat
 import java.util.Locale
+import id.co.edtslib.uikit.R as UIKitR
 
 class ParagonFairDemoActivity : GuidelinesBaseActivity() {
 
@@ -95,6 +106,10 @@ class ParagonFairDemoActivity : GuidelinesBaseActivity() {
     private val binding by viewBinding<ActivityParagonFairDemoBinding>()
 
     private var state = PromoDemoState(products = emptyList())
+    private var flow: TmhFlowState? = null
+    private var fairId: String? = null
+    private val integratedFair: TmhFair?
+        get() = fairId?.let { flow?.fair(it) }
 
     private var promotion = DemoPromotion.REDEMPTION
 
@@ -129,10 +144,14 @@ class ParagonFairDemoActivity : GuidelinesBaseActivity() {
         get() = searchState.mode == SearchMode.EDITING
 
     private val promotionTitle
-        get() =
+        get() = if (flow != null) {
+            getString(R.string.tmh_promo_rule, state.fairName)
+        } else {
             getString(
                 if (promotion == DemoPromotion.FREE_GIFT) R.string.fair_search_gift_title
-                else R.string.fair_search_redemption_title)
+                else R.string.fair_search_redemption_title,
+            )
+        }
 
     private val searchBack =
         object : OnBackPressedCallback(false) {
@@ -217,6 +236,9 @@ class ParagonFairDemoActivity : GuidelinesBaseActivity() {
                             if (isInSearch) R.style.FairDemo_CaptionStrong else R.style.FairDemo_Caption)
                         view.heading.text = if (isInSearch) promotionTitle else getString(R.string.fair_products)
                         view.count.text = getString(R.string.fair_product_count, item.count)
+                        view.grid.makeStatic()
+                        view.list.makeStatic()
+
 
                         ViewCompat.setAccessibilityHeading(view.heading, true)
                         view.root.importantForAccessibility = View.IMPORTANT_FOR_ACCESSIBILITY_NO
@@ -285,7 +307,16 @@ class ParagonFairDemoActivity : GuidelinesBaseActivity() {
                     areContentsTheSame = { oldItem, newItem -> oldItem == newItem }))
     }
 
+    private fun synchronizeFlow() {
+        val id = fairId ?: return
+        val updated = flow?.withModel(id, state) ?: return
+        flow = updated
+        state = updated.modelFor(id)
+        setResult(Activity.RESULT_OK, Intent().putExtra(TmhFlowState.EXTRA_FLOW, updated.toBundle()))
+    }
+
     private fun render(shouldAnnounce: Boolean = false) {
+        synchronizeFlow()
         val base =
             when (searchState.mode) {
                 SearchMode.DETAIL -> state.products
@@ -324,7 +355,7 @@ class ParagonFairDemoActivity : GuidelinesBaseActivity() {
             binding.compactProgress.animate().cancel()
             binding.compactProgress.alpha = 1f
             binding.compactProgress.translationY = 0f
-            binding.compactProgress.isVisible = isSubmitted
+            binding.compactProgress.visibility = if (isSubmitted) View.VISIBLE else View.INVISIBLE
             isCompactVisible = isSubmitted
         }
         binding.bottomActions.isVisible = !isEditingSearch
@@ -418,7 +449,7 @@ class ParagonFairDemoActivity : GuidelinesBaseActivity() {
             view.minimumValue.gravity = android.view.Gravity.START
             view.terms.gravity = android.view.Gravity.START
         }
-        val isActive = model.availability == PromoAvailability.ACTIVE
+        val isActive = model.availability == PromoAvailability.ACTIVE && integratedFair?.state?.isUnavailable != true
         val monochrome = if (isActive) null else ColorMatrixColorFilter(ColorMatrix().apply { setSaturation(0f) })
         listOf(view.banner, view.giftOne, view.giftTwo, view.giftThree).forEach { it.colorFilter = monochrome }
         view.newUser.isVisible = model.availability == PromoAvailability.NEW_CUSTOMER_ONLY
@@ -446,6 +477,20 @@ class ParagonFairDemoActivity : GuidelinesBaseActivity() {
                     if (model.rule == RewardRule.ONE_TIME) R.string.fair_search_gift_title
                     else R.string.fair_repeatable_title)
 
+        integratedFair?.let { fair ->
+            view.promoTitle.maxLines = Int.MAX_VALUE
+            view.promoTitle.ellipsize = null
+            view.banner.setImageResource(fair.bannerRes)
+            view.banner.contentDescription = getString(fair.nameRes)
+            val previews = listOf(view.giftOne, view.giftTwo, view.giftThree)
+            previews.forEachIndexed { index, image ->
+                val product = fair.products.getOrNull(index)
+                image.isVisible = product != null
+                image.scaleType = android.widget.ImageView.ScaleType.FIT_CENTER
+                product?.let { image.setImageResource(it.imageRes) }
+            }
+            view.periodValue.setText(R.string.tmh_promo_period)
+        }
         view.banner.isVisible = true
         view.gifts.isVisible = true
         view.minimumValue.text = money(model.threshold)
@@ -518,7 +563,7 @@ class ParagonFairDemoActivity : GuidelinesBaseActivity() {
 
     private fun bindProduct(view: ItemFairProductBinding, row: ProductRow) {
         val product = row.product
-        val isActive = row.availability == PromoAvailability.ACTIVE
+        val isActive = row.availability == PromoAvailability.ACTIVE && integratedFair?.state?.isUnavailable != true
         view.image.setImageResource(product.image)
         view.card.strokeWidth = if (row.isSearch && row.promotion == DemoPromotion.REDEMPTION) 1.dp.toInt() else 0
         view.card.setStrokeColor(color(UIKitR.color.black_30))
@@ -536,14 +581,13 @@ class ParagonFairDemoActivity : GuidelinesBaseActivity() {
             color(if (isSavingsPromotion) UIKitR.color.klik_color_red_30 else UIKitR.color.warning_primary))
         view.promotion.setBackgroundResource(
             if (isSavingsPromotion) R.drawable.fair_discount_background else R.drawable.fair_extra_background)
-        (view.image.parent as View).setPadding(
-            0, 0, 0, if (row.isSearch && row.promotion == DemoPromotion.FREE_GIFT) 8.dp.toInt() else 0)
         view.discount.setTextAppearance(if (row.isSearch) R.style.FairSearch_SmallStrong else R.style.FairDemo_Small)
         view.promotion.setTextAppearance(if (row.isSearch) R.style.FairSearch_SmallStrong else R.style.FairDemo_Small)
         view.discount.setTextColor(color(UIKitR.color.klik_color_red_30))
         view.promotion.setTextColor(
             color(if (isSavingsPromotion) UIKitR.color.klik_color_red_30 else UIKitR.color.warning_primary))
-        view.benefitStrip.isVisible = !row.isSearch || row.promotion == DemoPromotion.REDEMPTION
+        view.benefitStrip.isVisible = product.benefit.isNotEmpty() && (!row.isSearch || row.promotion == DemoPromotion.REDEMPTION)
+        view.contentBottomSpace.isVisible = !view.benefitStrip.isVisible
         view.benefit.text = product.benefit
         view.promotion.isVisible = product.promotion.isNotEmpty()
         view.discount.text = getString(R.string.fair_discount_label)
@@ -659,6 +703,9 @@ class ParagonFairDemoActivity : GuidelinesBaseActivity() {
         state = state.withQuantity(id, quantity)
         if (state == old) return
         render(shouldAnnounce = old.earnedGifts != state.earnedGifts || old.claimedGifts != state.claimedGifts)
+        if (flow != null && state.claimedGifts.size < old.claimedGifts.size) {
+            Snackbar.make(binding.root, R.string.tmh_eligibility_reduced, Snackbar.LENGTH_LONG).show()
+        }
 
         animateProgress(state.barProgress)
         if (isMotionEnabled && state.cartCount > 0) {
@@ -709,7 +756,7 @@ class ParagonFairDemoActivity : GuidelinesBaseActivity() {
                 .alpha(0f)
                 .setDuration(if (isMotionEnabled) 120 else 0)
                 .withEndAction {
-                    if (!isCompactVisible) binding.compactProgress.isVisible = false
+                    if (!isCompactVisible) binding.compactProgress.visibility = View.INVISIBLE
                 }
                 .start()
         }
@@ -726,6 +773,21 @@ class ParagonFairDemoActivity : GuidelinesBaseActivity() {
     }
 
     private fun message(model: PromoDemoState): CharSequence {
+        integratedFair?.let { fair ->
+            val html = when {
+                fair.state.isUnavailable -> return fair.alertText(this)
+                model.earnedGifts == 0 -> getString(R.string.tmh_remaining_spend, money(model.remainingSpend))
+                model.claimedGifts.isNotEmpty() && model.unclaimedGifts > 0 ->
+                    getString(R.string.tmh_ppp_selected_partial, model.claimedGifts.size, model.earnedGifts)
+                model.claimedGifts.isNotEmpty() -> getString(R.string.tmh_ppp_selected_full, model.claimedGifts.size)
+                else -> getString(R.string.tmh_remaining_allowance, model.earnedGifts)
+            }
+            return buildHighlightedMessage(
+                context = this,
+                htmlMessage = html,
+                highlightedTextAppearance = TextStyleKey.B3_SEMIBOLD.get(this, UIKitR.color.primary_30),
+            )
+        }
         val text =
             when (model.availability) {
                 PromoAvailability.QUOTA_EXHAUSTED -> getString(R.string.fair_message_quota_exhausted)
@@ -910,6 +972,17 @@ class ParagonFairDemoActivity : GuidelinesBaseActivity() {
     }
 
     private fun showTerms() {
+        if (flow != null) {
+            if (supportFragmentManager.findFragmentByTag(TmhTermsBottomSheet.TAG) == null) {
+                TmhTermsBottomSheet.newInstance(
+                    fairName = state.fairName,
+                    isIntegrated = true,
+                    offerDescriptions = state.giftOffers.map { "${it.name} (${money(it.price)})" },
+                )
+                    .show(supportFragmentManager, TmhTermsBottomSheet.TAG)
+            }
+            return
+        }
         val isRepeatable = state.rule == RewardRule.REPEATABLE
         showOptions(
             title = getString(R.string.fair_terms_title),
@@ -953,6 +1026,15 @@ class ParagonFairDemoActivity : GuidelinesBaseActivity() {
     }
 
     private fun showRedemptionTray() {
+        val currentFlow = flow
+        val fair = integratedFair
+        if (currentFlow != null && fair != null) {
+            if (supportFragmentManager.findFragmentByTag(TmhRedemptionBottomSheet.TAG) == null) {
+                TmhRedemptionBottomSheet.newInstance(fair, currentFlow.scenario, isPromoDetail = true)
+                    .show(supportFragmentManager, TmhRedemptionBottomSheet.TAG)
+            }
+            return
+        }
         val limit = state.earnedGifts
         val isLocked = limit == 0
         var committed = redemptionOffers().map { o -> o.copy(quantity = state.claimedGifts.count { it == o.id }) }
@@ -1373,7 +1455,7 @@ class ParagonFairDemoActivity : GuidelinesBaseActivity() {
         searchState = PromoSearchState()
         resultScroll = null
         isCompactVisible = false
-        binding.compactProgress.isVisible = false
+        binding.compactProgress.visibility = View.INVISIBLE
         render()
         restoreScroll(detailScroll)
         binding.search.requestFocus()
@@ -1664,7 +1746,10 @@ class ParagonFairDemoActivity : GuidelinesBaseActivity() {
         view.options.adapter = adapter
         view.options.isVisible = options.isNotEmpty()
         tray =
-            BottomSheetTray.newInstance(title = title, contentLayout = view.root).apply {
+            (if (flow != null) TmhBottomSheet().apply {
+                this.title = title
+                contentView = view.root
+            } else BottomSheetTray.newInstance(title = title, contentLayout = view.root)).apply {
                 dragHandleVisibility = true
                 shouldShowClose = true
                 customAnimationsEnabled = isMotionEnabled
@@ -1718,45 +1803,7 @@ class ParagonFairDemoActivity : GuidelinesBaseActivity() {
 
     private fun fixtureProducts(): List<DemoProduct> =
         if (promotion == DemoPromotion.REDEMPTION) redemptionProducts()
-        else
-            listOf(
-                DemoProduct(
-                    id = "wash", name = "Emina Bright Stuff Face Wash 100ml", image = R.drawable.fair_emina_wash),
-                DemoProduct(
-                    id = "gel",
-                    name = "Emina Water Barrier Balancing Gel 30g",
-                    image = R.drawable.fair_emina_gel,
-                    isDiscounted = false,
-                    promotion = "Banyak Lebih Hemat",
-                    benefit = "+2 Stamp"),
-                DemoProduct(
-                    id = "cooling",
-                    name = "Kahf Anti Perspirant Deodorant Cooling Power 45ml",
-                    image = R.drawable.fair_kahf_cooling),
-                DemoProduct(
-                    id = "dry",
-                    name = "Kahf Anti Perspirant Deodorant Extra Dry Power 45ml",
-                    image = R.drawable.fair_kahf_dry,
-                    promotion = "Banyak Lebih Hemat"),
-                DemoProduct(
-                    id = "dry-second",
-                    name = "Kahf Anti Perspirant Deodorant Extra Dry Power 45ml",
-                    image = R.drawable.fair_kahf_dry),
-                DemoProduct(
-                    id = "cooling-second",
-                    name = "Kahf Anti Perspirant Deodorant Cooling Power 45ml",
-                    image = R.drawable.fair_kahf_cooling),
-                DemoProduct(
-                    id = "wash-second",
-                    name = "Emina Bright Stuff Face Wash 100ml",
-                    image = R.drawable.fair_emina_wash),
-                DemoProduct(
-                    id = "gel-second",
-                    name = "Emina Water Barrier Balancing Gel 30g",
-                    image = R.drawable.fair_emina_gel,
-                    isDiscounted = false,
-                    promotion = "Banyak Lebih Hemat",
-                    benefit = "+2 Stamp"))
+        else TmhCatalogFixtures.paragonProducts(this)
 
     private fun redemptionProducts() =
         listOf(
@@ -1882,12 +1929,31 @@ class ParagonFairDemoActivity : GuidelinesBaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_paragon_fair_demo)
-        promotion = DemoPromotion.valueOf(savedInstanceState?.getString("promotion") ?: "FREE_GIFT")
-        state =
-            restoreState(savedInstanceState)
-                ?: scenarioState(
-                    DemoScenario.entries.firstOrNull { it.name == intent.getStringExtra(EXTRA_SCENARIO) }
-                        ?: DemoScenario.START)
+        val snapshot = savedInstanceState?.getBundle(TmhFlowState.EXTRA_FLOW)
+            ?: intent.getBundleExtra(TmhFlowState.EXTRA_FLOW)
+        fairId = savedInstanceState?.getString(TmhFlowState.EXTRA_FAIR_ID)
+            ?: intent.getStringExtra(TmhFlowState.EXTRA_FAIR_ID)
+        flow = snapshot?.let { TmhFlowState.restore(this, it) }
+        if (flow != null && fairId != null) {
+            promotion = DemoPromotion.REDEMPTION
+            state = requireNotNull(flow).modelFor(requireNotNull(fairId))
+        } else {
+            promotion = DemoPromotion.valueOf(savedInstanceState?.getString("promotion") ?: "FREE_GIFT")
+            state = restoreState(savedInstanceState)
+                ?: scenarioState(DemoScenario.entries.firstOrNull { it.name == intent.getStringExtra(EXTRA_SCENARIO) }
+                    ?: DemoScenario.START)
+        }
+        supportFragmentManager.setFragmentResultListener(TmhRedemptionBottomSheet.RESULT_SAVE, this) { _, result ->
+            val id = fairId ?: return@setFragmentResultListener
+            val quantities = result.getBundle(TmhRedemptionBottomSheet.KEY_QUANTITIES)?.quantities().orEmpty()
+            flow = flow?.withSelection(id, quantities)
+            state = requireNotNull(flow).modelFor(id)
+            render(shouldAnnounce = true)
+            animateProgress(state.barProgress)
+            showSkeleton {
+                Snackbar.make(binding.root, R.string.tmh_cart_updated, Snackbar.LENGTH_SHORT).show()
+            }
+        }
         savedInstanceState?.let {
             searchState =
                 PromoSearchState(
@@ -1934,17 +2000,18 @@ class ParagonFairDemoActivity : GuidelinesBaseActivity() {
                 override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) = updateCompactHeader()
             })
         binding.bottomActions.addOnLayoutChangeListener { _, _, _, _, _, _, _, _, _ ->
+            if (flow != null) binding.products.updatePadding(bottom = binding.bottomActions.height + 12.dp.toInt())
             binding.products.clipToPadding = false
             binding.products.clipChildren = false
             (binding.products.parent as? ViewGroup)?.clipChildren = false
             binding.products.clipToPadding = false
         }
         binding.back.setOnClickListener { if (isInSearch) closeSearch() else onBackPressedDispatcher.onBackPressed() }
-        binding.title.setOnLongClickListener {
+        if (flow == null) binding.title.setOnLongClickListener {
             showScenarios()
             true
         }
-        ViewCompat.replaceAccessibilityAction(
+        if (flow == null) ViewCompat.replaceAccessibilityAction(
             binding.title,
             AccessibilityNodeInfoCompat.AccessibilityActionCompat.ACTION_LONG_CLICK,
             getString(R.string.fair_scenario_action)) { _, _ ->
@@ -1953,6 +2020,7 @@ class ParagonFairDemoActivity : GuidelinesBaseActivity() {
             }
 
         configureSearchField()
+        listOf(binding.search, binding.share, binding.cart, binding.sort, binding.filter).forEach { it.makeStatic() }
         onBackPressedDispatcher.addCallback(this, searchBack)
 
         if (resources.configuration.fontScale > 1.4f) {
@@ -1973,6 +2041,8 @@ class ParagonFairDemoActivity : GuidelinesBaseActivity() {
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
+        flow?.let { outState.putBundle(TmhFlowState.EXTRA_FLOW, it.toBundle()) }
+        outState.putString(TmhFlowState.EXTRA_FAIR_ID, fairId)
         outState.putString("promotion", promotion.name)
         outState.putLong("threshold", state.threshold)
         outState.putString("searchMode", searchState.mode.name)

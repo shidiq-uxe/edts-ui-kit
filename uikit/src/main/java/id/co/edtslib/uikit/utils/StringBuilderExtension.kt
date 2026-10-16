@@ -3,14 +3,14 @@ package id.co.edtslib.uikit.utils
 import android.content.Context
 import android.graphics.Typeface
 import android.text.SpannableStringBuilder
-import android.text.SpannedString
 import android.text.Spanned
+import android.text.SpannedString
 import android.text.TextUtils
 import android.text.style.ForegroundColorSpan
-import androidx.annotation.ColorInt
-import android.text.style.StyleSpan
 import android.text.style.LeadingMarginSpan
+import android.text.style.StyleSpan
 import android.view.View
+import androidx.annotation.ColorInt
 import androidx.core.text.HtmlCompat
 import androidx.core.text.bold
 import androidx.core.text.buildSpannedString

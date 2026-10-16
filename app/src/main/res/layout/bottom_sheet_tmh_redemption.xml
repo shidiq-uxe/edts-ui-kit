@@ -27,6 +27,7 @@
                 app:isCloseIconVisible="false" />
 
             <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvDescriptionTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/tmh_description_title"

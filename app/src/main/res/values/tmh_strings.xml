@@ -54,7 +54,7 @@
     <string name="tmh_terms">S&amp;K</string>
     <string name="tmh_view_terms">Lihat Syarat</string>
     <string name="tmh_description_title">Deskripsi Promo</string>
-    <string name="tmh_description">Belanja all produk (kec item tertentu) senilai Rp40.000, dapat tebus murah produk %1$s.</string>
+    <string name="tmh_description">Belanja produk %1$s senilai Rp100.000 untuk setiap 1 tebus murah. Berlaku kelipatan, maksimal 2 tebus murah.</string>
     <string name="tmh_choose_products">Pilih Tebus Murah</string>
     <string name="tmh_update_cart">Perbarui Keranjang</string>
     <string name="tmh_cart_updated">Keranjang berhasil diperbarui</string>
@@ -72,7 +72,7 @@
     <string name="tmh_back">Kembali</string>
     <string name="tmh_cart">Keranjang</string>
     <string name="tmh_cart_count">%1$d</string>
-    <string name="tmh_cart_summary">%1$d produk tebus murah di keranjang</string>
+    <string name="tmh_cart_summary">%1$d produk di keranjang</string>
     <string name="tmh_terms_title">Syarat dan Ketentuan</string>
     <string name="tmh_terms_fair_title">Syarat dan Ketentuan %1$s</string>
     <string name="tmh_terms_content">Setiap pembelanjaan All Produk (kecuali rokok, susu bayi dibawah 1 tahun, payment point, top up tarik tunai) senilai minimal Rp100.000 pada halaman Klik Indomaret, konsumen berhak mendapatkan Tebus Murah 1 pc [Nama Produk] diskon [Harga Diskon]. [Kalau lebih dari 1, di list aja lagi]
@@ -104,4 +104,25 @@ Dengan melakukan transaksi di dalam program ini, maka konsumen dianggap mengerti
     <string name="tmh_price_3500">Rp3.500</string>
     <string name="tmh_price_7000">Rp7.000</string>
     <string name="tmh_price_7500">Rp7.500</string>
+    <string name="tmh_view_fair">Lihat Fair</string>
+    <string name="tmh_catalog_emina_wash">Emina Bright Stuff Face Wash 100ml</string>
+    <string name="tmh_catalog_kahf_cooling">Kahf Anti Perspirant Deodorant Cooling Power 45ml</string>
+    <string name="tmh_catalog_kahf_dry">Kahf Anti Perspirant Deodorant Extra Dry Power 45ml</string>
+    <string name="tmh_eligibility_reduced">Pilihan tebus murah disesuaikan karena syarat belanja berubah</string>
+    <string name="tmh_promo_rule">Belanja produk %1$s senilai Rp100.000 untuk setiap 1 tebus murah. Berlaku kelipatan, maksimal 2 tebus murah.</string>
+    <string name="tmh_remaining_spend">Tambah &lt;b&gt;%1$s&lt;/b&gt; lagi untuk dapat tebus murah</string>
+    <string name="tmh_remaining_allowance">Kamu bisa ambil &lt;b&gt;%1$d tebus murah&lt;/b&gt;</string>
+    <string name="tmh_ppp_selected_partial">Kamu sudah ambil &lt;b&gt;%1$d dari %2$d tebus murah&lt;/b&gt;. Yuk pilih produk lagi</string>
+    <string name="tmh_ppp_selected_full">Kamu sudah ambil &lt;b&gt;%1$d tebus murah&lt;/b&gt;</string>
+    <string name="tmh_catalog_aceh">Indomie Mi Instan Goreng Aceh 90g</string>
+    <string name="tmh_catalog_special">Indomie Mi Instan Goreng Plus Special 80g</string>
+    <string name="tmh_catalog_ayam">Indomie Mi Instan Goreng Ayam Geprek 85g</string>
+    <string name="tmh_catalog_jumbo">Indomie Mi Instan Goreng Jumbo Special 129g</string>
+    <string name="tmh_sort">Urutkan</string>
+    <string name="tmh_filter">Filter</string>
+    <string name="tmh_promo_period">15 - 25 Oktober 2026</string>
+    <string name="tmh_terms_offer">1 produk tebus murah pilihan: %1$s.</string>
+    <string name="tmh_terms_offer_fallback">produk yang tercantum pada promo</string>
+    <string name="tmh_cart_line">%1$s × %2$d</string>
+    <string name="tmh_other_cart_items">Produk lainnya (%1$d barang) · %2$s</string>
 </resources>
