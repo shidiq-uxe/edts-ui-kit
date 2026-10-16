@@ -26,7 +26,6 @@ import android.util.TypedValue
 import android.widget.TextView
 import androidx.annotation.FontRes
 import androidx.annotation.StyleRes
-import androidx.core.content.res.ResourcesCompat
 import androidx.core.text.HtmlCompat
 import androidx.core.text.parseAsHtml
 import id.co.edtslib.uikit.R
@@ -458,9 +457,10 @@ class HtmlRenderer(
 
         if (spanned !is Spannable) return spanned
 
-        val color = context.colorAttr(com.google.android.material.R.attr.colorPrimary)
-        val linkTypeface = ResourcesCompat.getFont(context, R.font.inter_semibold)
         val spans = spanned.getSpans(0, spanned.length, URLSpan::class.java)
+        if (spans.isEmpty()) return spanned
+        val color = context.colorAttr(com.google.android.material.R.attr.colorPrimary)
+        val linkTypeface = context.font(R.font.inter_semibold)
 
         spans.forEach { span ->
             val start = spanned.getSpanStart(span)

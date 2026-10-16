@@ -4,14 +4,17 @@ import android.content.Context
 import android.graphics.Typeface
 import android.text.SpannableStringBuilder
 import android.text.SpannedString
+import android.text.Spanned
 import android.text.TextUtils
 import android.text.style.StyleSpan
+import android.text.style.LeadingMarginSpan
 import android.view.View
 import androidx.core.text.HtmlCompat
 import androidx.core.text.bold
 import androidx.core.text.buildSpannedString
 import androidx.core.text.color
 import id.co.edtslib.uikit.R
+import id.co.edtslib.uikit.utils.span.OrderedSpan
 
 
 /**
@@ -128,7 +131,31 @@ fun buildHighlightedMessage(
     highlightedTextAppearance: TextStyle,
     defaultTextAppearance: TextStyle? = null,
 ): SpannedString {
-    val parsed = SpannableStringBuilder(HtmlCompat.fromHtml(htmlMessage, HtmlCompat.FROM_HTML_MODE_COMPACT))
+    return buildHighlightedMessage(
+        context = context,
+        parsedMessage = HtmlCompat.fromHtml(htmlMessage, HtmlCompat.FROM_HTML_MODE_COMPACT),
+        highlightedTextAppearance = highlightedTextAppearance,
+        defaultTextAppearance = defaultTextAppearance,
+    )
+}
+
+/** Preserves shared-renderer list/link spans while applying the same HTML emphasis rules. */
+fun buildHighlightedMessage(
+    context: Context,
+    parsedMessage: Spanned,
+    highlightedTextAppearance: TextStyle,
+    defaultTextAppearance: TextStyle? = null,
+): SpannedString {
+    val parsed = SpannableStringBuilder(parsedMessage)
+    parsed.getSpans(0, parsed.length, OrderedSpan::class.java).forEach { span ->
+        val start = parsed.getSpanStart(span)
+        val end = parsed.getSpanEnd(span)
+        val flags = parsed.getSpanFlags(span)
+        parsed.removeSpan(span)
+        // Framework ParcelableSpan IDs are reserved for Android's own span classes.
+        // Keep custom list drawing without exposing its unsupported ID to accessibility parcels.
+        parsed.setSpan(object : LeadingMarginSpan by span {}, start, end, flags)
+    }
     val boldSpans = parsed.getSpans(0, parsed.length, StyleSpan::class.java)
         .filter { it.style and Typeface.BOLD != 0 }
     val ranges = boldSpans.map { parsed.getSpanStart(it) until parsed.getSpanEnd(it) }

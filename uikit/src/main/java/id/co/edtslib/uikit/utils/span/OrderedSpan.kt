@@ -107,7 +107,9 @@ class OrderedSpan(
         layout: Layout?
     ) {
         // Only draw on the first line of the paragraph this span is attached to
-        if (first && text is Spanned && text.getSpanStart(this) == start) {
+        // A drawing-only delegate can own the span range while this object supplies its marker.
+        val spanStart = (text as? Spanned)?.getSpanStart(this) ?: return
+        if (first && (spanStart == start || spanStart == -1)) {
             val originalColor = paint.color
             if (wantColor) {
                 paint.color = this.color
