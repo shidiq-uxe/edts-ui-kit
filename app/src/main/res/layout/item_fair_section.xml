@@ -1,20 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent" android:layout_height="wrap_content" android:paddingHorizontal="16dp" android:paddingTop="16dp" android:paddingBottom="10dp"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingHorizontal="@dimen/s"
+    android:paddingTop="@dimen/s"
+    android:paddingBottom="@dimen/dimen_10"
     android:focusable="false"
     android:defaultFocusHighlightEnabled="false">
-    <TextView android:id="@+id/heading" style="@style/TextAppearance.Inter.Semibold.H2" android:layout_width="0dp" android:layout_height="wrap_content" android:textColor="@color/black_70"
-        android:text="@string/fair_products" app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent" />
-    <TextView android:id="@+id/count" style="@style/TextAppearance.Inter.SemiBold.B3" android:layout_width="0dp" android:layout_height="wrap_content" android:textColor="@color/black_50"
-        android:layout_marginTop="12dp" app:layout_constraintTop_toBottomOf="@id/heading" app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/displayLabel" app:layout_constraintBottom_toBottomOf="parent" />
-    <TextView android:id="@+id/displayLabel" style="@style/TextAppearance.Inter.SemiBold.B3" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="@color/black_50"
-        android:text="Tampilan" android:layout_marginEnd="8dp" app:layout_constraintEnd_toStartOf="@id/grid"
-        app:layout_constraintTop_toTopOf="@id/count" app:layout_constraintBottom_toBottomOf="@id/count" />
-    <ImageButton android:id="@+id/grid" android:layout_width="16dp" android:layout_height="16dp" android:scaleType="fitCenter" android:clickable="false" android:focusable="false" android:src="@drawable/fair_grid" android:padding="2dp"
-         android:contentDescription="Tampilan dua kolom" android:layout_marginEnd="8dp"
-        app:layout_constraintEnd_toStartOf="@id/list" app:layout_constraintTop_toTopOf="@id/count" app:layout_constraintBottom_toBottomOf="@id/count" />
-    <ImageButton android:id="@+id/list" android:layout_width="16dp" android:layout_height="16dp" android:scaleType="fitCenter" android:src="@drawable/fair_list" android:clickable="false" android:focusable="false" android:padding="0dp"
-        android:contentDescription="Tampilan tiga kolom"
-        app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="@id/count" app:layout_constraintBottom_toBottomOf="@id/count" />
+    <TextView
+        android:id="@+id/heading"
+        style="@style/TextAppearance.Inter.Semibold.H2"
+        android:layout_width="@dimen/dimen_0"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black_70"
+        android:text="@string/fair_products"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/count"
+        style="@style/TextAppearance.Inter.SemiBold.B3"
+        android:layout_width="@dimen/dimen_0"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/xs"
+        android:textColor="@color/black_50"
+        app:layout_constraintTop_toBottomOf="@id/heading"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/displayLabel"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <TextView
+        android:id="@+id/displayLabel"
+        style="@style/TextAppearance.Inter.SemiBold.B3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/xxs"
+        android:textColor="@color/black_50"
+        android:text="@string/fair_display_label"
+        app:layout_constraintTop_toTopOf="@id/count"
+        app:layout_constraintEnd_toStartOf="@id/grid"
+        app:layout_constraintBottom_toBottomOf="@id/count" />
+
+    <ImageButton
+        android:id="@+id/grid"
+        android:layout_width="@dimen/s"
+        android:layout_height="@dimen/s"
+        android:layout_marginEnd="@dimen/xxs"
+        android:padding="@dimen/dimen_2"
+        android:scaleType="fitCenter"
+        android:clickable="false"
+        android:focusable="false"
+        android:src="@drawable/fair_grid"
+        android:contentDescription="@string/fair_two_columns"
+        app:layout_constraintTop_toTopOf="@id/count"
+        app:layout_constraintEnd_toStartOf="@id/list"
+        app:layout_constraintBottom_toBottomOf="@id/count" />
+
+    <ImageButton
+        android:id="@+id/list"
+        android:layout_width="@dimen/s"
+        android:layout_height="@dimen/s"
+        android:padding="@dimen/dimen_0"
+        android:scaleType="fitCenter"
+        android:src="@drawable/fair_list"
+        android:clickable="false"
+        android:focusable="false"
+        android:contentDescription="@string/fair_three_columns"
+        app:layout_constraintTop_toTopOf="@id/count"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/count" />
 </androidx.constraintlayout.widget.ConstraintLayout>

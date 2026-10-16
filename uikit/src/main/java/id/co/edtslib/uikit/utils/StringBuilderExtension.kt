@@ -1,9 +1,14 @@
 package id.co.edtslib.uikit.utils
 
 import android.content.Context
+import android.graphics.Typeface
 import android.text.SpannableStringBuilder
+import android.text.Spanned
 import android.text.SpannedString
+import android.text.style.ForegroundColorSpan
+import android.text.style.StyleSpan
 import android.view.View
+import androidx.annotation.ColorInt
 import androidx.core.text.bold
 import androidx.core.text.buildSpannedString
 import androidx.core.text.color
@@ -109,5 +114,32 @@ fun buildHighlightedMessage(
         defaultTextAppearance?.let { textStyle ->
             applyTextAppearanceSpan(context, textStyle) { append(remainingMessage) }
         } ?: append(remainingMessage)
+    }
+}
+
+/**
+ * Applies static bold/color emphasis without adding click actions or changing font metrics.
+ *
+ * Highlights are matched in the supplied order, starting after the preceding match. Repeated
+ * text can be highlighted by supplying it more than once; empty or missing entries are skipped.
+ * This overload accepts plain text. The existing overload retains its interactive behavior.
+ */
+fun buildHighlightedMessage(
+    message: String,
+    highlightedMessages: List<String>,
+    @ColorInt highlightColor: Int
+): SpannedString {
+    return buildSpannedString {
+        append(message)
+        var searchStart = 0
+        highlightedMessages.forEach { highlight ->
+            if (highlight.isEmpty()) return@forEach
+            val start = message.indexOf(highlight, searchStart)
+            if (start < 0) return@forEach
+            val end = start + highlight.length
+            setSpan(ForegroundColorSpan(highlightColor), start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+            setSpan(StyleSpan(Typeface.BOLD), start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+            searchStart = end
+        }
     }
 }

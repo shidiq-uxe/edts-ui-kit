@@ -6,23 +6,30 @@ internal data class PromoSearchState(
     val draft: String = "",
     val submitted: String = "",
     val generation: Long = 0,
-    val fallbackAvailable: Boolean = false,
+    val isFallbackAvailable: Boolean = false,
     val hasSubmission: Boolean = false
 ) {
     fun edit(query: String = draft) = copy(mode = SearchMode.EDITING, draft = query, generation = generation + 1)
 
     fun submit(): PromoSearchState {
         val query = normalize(draft)
-        return if (query.isEmpty()) this else copy(
-            mode = SearchMode.LOADING, draft = query, submitted = query,
-            generation = generation + 1, fallbackAvailable = false, hasSubmission = true
-        )
+        return if (query.isEmpty()) this
+        else
+            copy(
+                mode = SearchMode.LOADING,
+                draft = query,
+                submitted = query,
+                generation = generation + 1,
+                isFallbackAvailable = false,
+                hasSubmission = true)
     }
 
-    fun complete(request: Long, resultCount: Int, fallback: Boolean): PromoSearchState =
+    fun complete(request: Long, resultCount: Int, isFallbackAvailable: Boolean): PromoSearchState =
         if (request != generation || mode != SearchMode.LOADING) this
-        else copy(mode = if (resultCount == 0) SearchMode.EMPTY else SearchMode.RESULTS,
-            fallbackAvailable = resultCount == 0 && fallback)
+        else
+            copy(
+                mode = if (resultCount == 0) SearchMode.EMPTY else SearchMode.RESULTS,
+                isFallbackAvailable = resultCount == 0 && isFallbackAvailable)
 
     fun fail(request: Long): PromoSearchState =
         if (request != generation || mode != SearchMode.LOADING) this else copy(mode = SearchMode.ERROR)
@@ -34,7 +41,9 @@ internal data class PromoSearchState(
             val words = normalize(query).split(" ").filter { it.isNotEmpty() }
             if (words.isEmpty()) return emptyList()
             // The original demo repeats fixture artwork; search exposes one catalog entry per name.
-            return products.distinctBy { it.name }.filter { product -> words.all { product.name.contains(it, ignoreCase = true) } }
+            return products
+                .distinctBy { it.name }
+                .filter { product -> words.all { product.name.contains(it, ignoreCase = true) } }
         }
 
         // Explicit Figma demo fixture, not a production policy or failure counter.
@@ -42,5 +51,16 @@ internal data class PromoSearchState(
     }
 }
 
-internal enum class SearchMode { DETAIL, EDITING, LOADING, RESULTS, EMPTY, ERROR }
-internal enum class DemoPromotion { FREE_GIFT, REDEMPTION }
+internal enum class SearchMode {
+    DETAIL,
+    EDITING,
+    LOADING,
+    RESULTS,
+    EMPTY,
+    ERROR
+}
+
+internal enum class DemoPromotion {
+    FREE_GIFT,
+    REDEMPTION
+}

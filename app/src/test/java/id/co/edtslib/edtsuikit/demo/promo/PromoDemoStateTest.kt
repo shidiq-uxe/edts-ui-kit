@@ -6,7 +6,8 @@ import org.junit.Test
 class PromoDemoStateTest {
     private val product = DemoProduct("gel", "Emina", image = 0)
 
-    @Test fun oneTimeRewardUsesSpendAndSeparatesClaims() {
+    @Test
+    fun oneTimeRewardUsesSpendAndSeparatesClaims() {
         val start = PromoDemoState(listOf(product))
         val halfway = start.withQuantity("gel", 1)
         assertEquals(0, halfway.earnedGifts)
@@ -20,7 +21,8 @@ class PromoDemoStateTest {
         assertEquals(300_000L, claimed.cartTotal)
     }
 
-    @Test fun repeatableRewardsUseCompletedIntervals() {
+    @Test
+    fun repeatableRewardsUseCompletedIntervals() {
         val eligible = PromoDemoState(listOf(product), RewardRule.REPEATABLE).withQuantity("gel", 5)
         assertEquals(2, eligible.earnedGifts)
         assertEquals(50_000L, eligible.remainingSpend)
@@ -32,7 +34,8 @@ class PromoDemoStateTest {
         assertEquals(0, decreased.earnedGifts)
     }
 
-    @Test fun unavailablePromoCannotAddOrClaim() {
+    @Test
+    fun unavailablePromoCannotAddOrClaim() {
         val model = PromoDemoState(listOf(product.copy(quantity = 2)), availability = PromoAvailability.QUOTA_EXHAUSTED)
         assertEquals(model, model.withQuantity("gel", 3))
         assertEquals(model, model.claimGift("gift"))
@@ -40,7 +43,8 @@ class PromoDemoStateTest {
         assertEquals(0, model.earnedGifts)
     }
 
-    @Test fun unrelatedCartSpendDoesNotQualify() {
+    @Test
+    fun unrelatedCartSpendDoesNotQualify() {
         val model = PromoDemoState(listOf(product), otherCartCount = 3, otherCartTotal = 999_999)
         assertEquals(3, model.cartCount)
         assertEquals(999_999L, model.cartTotal)

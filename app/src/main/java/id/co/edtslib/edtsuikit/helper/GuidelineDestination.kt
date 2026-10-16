@@ -99,7 +99,10 @@ sealed class GuidelineItem(
     // Research & Demo
     object Research : GuidelineItem(R.string.guidelines_research, PoinkuResearchActivity::class.java)
 
-    object ParagonFairDemo : GuidelineItem(R.string.guidelines_paragon_fair_demo, ParagonFairDemoActivity::class.java)
+    object ParagonFairDemo : GuidelineItem(
+        R.string.guidelines_paragon_fair_demo,
+        ParagonFairDemoActivity::class.java
+    )
 
     object HtmlListDemo : GuidelineItem(R.string.guidelines_html_list_demo, HtmlListDemoActivity::class.java)
 

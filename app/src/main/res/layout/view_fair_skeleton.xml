@@ -1,49 +1,159 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent" android:layout_height="match_parent"
-    android:background="@color/white" android:elevation="8dp" android:outlineProvider="none"
-    android:clickable="true" android:focusable="true"
-    android:importantForAccessibility="yes" android:contentDescription="Memuat">
-
-    <com.facebook.shimmer.ShimmerFrameLayout android:id="@+id/shimmer"
-        android:layout_width="match_parent" android:layout_height="match_parent"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:elevation="@dimen/xxs"
+    android:outlineProvider="none"
+    android:clickable="true"
+    android:focusable="true"
+    android:importantForAccessibility="yes"
+    android:contentDescription="@string/fair_loading_description">
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/shimmer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         app:shimmer_auto_start="false"
         app:shimmer_duration="1200"
         app:shimmer_base_alpha="1"
         app:shimmer_highlight_alpha="0.45"
         app:shimmer_tilt="20">
+        <LinearLayout
+            android:id="@+id/content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/fair_skeleton_banner_height"
+                android:background="@color/black_20" />
 
-        <LinearLayout android:id="@+id/content" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/s"
+                android:orientation="vertical">
+                <View
+                    android:layout_width="@dimen/fair_skeleton_heading_width"
+                    android:layout_height="@dimen/s"
+                    android:background="@drawable/fair_skeleton_block" />
 
-            <View android:layout_width="match_parent" android:layout_height="128dp" android:background="@color/black_20" />
-            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="16dp">
-                <View android:layout_width="160dp" android:layout_height="16dp" android:background="@drawable/fair_skeleton_block" />
-                <FrameLayout android:layout_width="match_parent" android:layout_height="16dp" android:layout_marginTop="12dp">
-                    <View android:layout_width="100dp" android:layout_height="16dp" android:layout_gravity="start" android:background="@drawable/fair_skeleton_block" />
-                    <View android:layout_width="120dp" android:layout_height="16dp" android:layout_gravity="end" android:background="@drawable/fair_skeleton_block" />
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/s"
+                    android:layout_marginTop="@dimen/xs">
+                    <View
+                        android:layout_width="@dimen/fair_pill_corner_radius"
+                        android:layout_height="@dimen/s"
+                        android:layout_gravity="start"
+                        android:background="@drawable/fair_skeleton_block" />
+
+                    <View
+                        android:layout_width="@dimen/fair_skeleton_value_width"
+                        android:layout_height="@dimen/s"
+                        android:layout_gravity="end"
+                        android:background="@drawable/fair_skeleton_block" />
                 </FrameLayout>
-                <FrameLayout android:layout_width="match_parent" android:layout_height="16dp" android:layout_marginTop="12dp">
-                    <View android:layout_width="160dp" android:layout_height="16dp" android:layout_gravity="start" android:background="@drawable/fair_skeleton_block" />
-                    <View android:layout_width="80dp" android:layout_height="16dp" android:layout_gravity="end" android:background="@drawable/fair_skeleton_block" />
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/s"
+                    android:layout_marginTop="@dimen/xs">
+                    <View
+                        android:layout_width="@dimen/fair_skeleton_heading_width"
+                        android:layout_height="@dimen/s"
+                        android:layout_gravity="start"
+                        android:background="@drawable/fair_skeleton_block" />
+
+                    <View
+                        android:layout_width="@dimen/xxxl"
+                        android:layout_height="@dimen/s"
+                        android:layout_gravity="end"
+                        android:background="@drawable/fair_skeleton_block" />
                 </FrameLayout>
-                <View android:layout_width="match_parent" android:layout_height="1dp" android:layout_marginTop="20dp" android:background="@color/black_30" />
-                <FrameLayout android:layout_width="match_parent" android:layout_height="16dp" android:layout_marginTop="12dp">
-                    <View android:layout_width="80dp" android:layout_height="16dp" android:layout_gravity="start" android:background="@drawable/fair_skeleton_block" />
-                    <LinearLayout android:layout_width="wrap_content" android:layout_height="16dp" android:layout_gravity="end" android:orientation="horizontal">
-                        <View android:layout_width="80dp" android:layout_height="16dp" android:background="@drawable/fair_skeleton_block" />
-                        <View android:layout_width="16dp" android:layout_height="16dp" android:layout_marginStart="16dp" android:background="@drawable/fair_skeleton_block" />
-                        <View android:layout_width="16dp" android:layout_height="16dp" android:layout_marginStart="16dp" android:background="@drawable/fair_skeleton_block" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dimen_1"
+                    android:layout_marginTop="@dimen/m1"
+                    android:background="@color/black_30" />
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/s"
+                    android:layout_marginTop="@dimen/xs">
+                    <View
+                        android:layout_width="@dimen/xxxl"
+                        android:layout_height="@dimen/s"
+                        android:layout_gravity="start"
+                        android:background="@drawable/fair_skeleton_block" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/s"
+                        android:layout_gravity="end"
+                        android:orientation="horizontal">
+                        <View
+                            android:layout_width="@dimen/xxxl"
+                            android:layout_height="@dimen/s"
+                            android:background="@drawable/fair_skeleton_block" />
+
+                        <View
+                            android:layout_width="@dimen/s"
+                            android:layout_height="@dimen/s"
+                            android:layout_marginStart="@dimen/s"
+                            android:background="@drawable/fair_skeleton_block" />
+
+                        <View
+                            android:layout_width="@dimen/s"
+                            android:layout_height="@dimen/s"
+                            android:layout_marginStart="@dimen/s"
+                            android:background="@drawable/fair_skeleton_block" />
                     </LinearLayout>
                 </FrameLayout>
             </LinearLayout>
-            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:paddingHorizontal="12dp">
-                <include layout="@layout/view_fair_skeleton_card" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:layout_marginEnd="6dp" />
-                <include layout="@layout/view_fair_skeleton_card" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:layout_marginStart="6dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="@dimen/xs"
+                android:orientation="horizontal">
+                <include
+                    layout="@layout/view_fair_skeleton_card"
+                    android:layout_width="@dimen/dimen_0"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="@dimen/dimen_6" />
+
+                <include
+                    layout="@layout/view_fair_skeleton_card"
+                    android:layout_width="@dimen/dimen_0"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="@dimen/dimen_6" />
             </LinearLayout>
-            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal"
-                android:paddingHorizontal="12dp" android:layout_marginTop="12dp">
-                <include layout="@layout/view_fair_skeleton_card" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:layout_marginEnd="6dp" />
-                <include layout="@layout/view_fair_skeleton_card" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:layout_marginStart="6dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/xs"
+                android:paddingHorizontal="@dimen/xs"
+                android:orientation="horizontal">
+                <include
+                    layout="@layout/view_fair_skeleton_card"
+                    android:layout_width="@dimen/dimen_0"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="@dimen/dimen_6" />
+
+                <include
+                    layout="@layout/view_fair_skeleton_card"
+                    android:layout_width="@dimen/dimen_0"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="@dimen/dimen_6" />
             </LinearLayout>
         </LinearLayout>
     </com.facebook.shimmer.ShimmerFrameLayout>

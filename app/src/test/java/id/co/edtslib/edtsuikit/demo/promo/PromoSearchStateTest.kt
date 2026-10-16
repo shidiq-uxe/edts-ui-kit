@@ -1,17 +1,20 @@
 package id.co.edtslib.edtsuikit.demo.promo
 
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertTrue
 import org.junit.Test
 
 class PromoSearchStateTest {
-    private val products = listOf(
-        DemoProduct("emina", "Emina Face Wash", 0, quantity = 1),
-        DemoProduct("cooling", "Kahf Cooling Power", 0),
-        DemoProduct("dry", "Kahf Extra Dry Power", 0),
-        DemoProduct("duplicate", "Kahf Cooling Power", 0)
-    )
+    private val products =
+        listOf(
+            DemoProduct("emina", "Emina Face Wash", 0, quantity = 1),
+            DemoProduct("cooling", "Kahf Cooling Power", 0),
+            DemoProduct("dry", "Kahf Extra Dry Power", 0),
+            DemoProduct("duplicate", "Kahf Cooling Power", 0))
 
-    @Test fun searchFindsTwoCatalogProductsWithoutDroppingUnmatchedCartItem() {
+    @Test
+    fun searchFindsTwoCatalogProductsWithoutDroppingUnmatchedCartItem() {
         val cart = PromoDemoState(products)
         val matches = PromoSearchState.matching(cart.products, "  kAhF  ")
         assertEquals(listOf("cooling", "dry"), matches.map { it.id })
@@ -22,7 +25,8 @@ class PromoSearchStateTest {
         assertEquals(2, added.cartCount)
     }
 
-    @Test fun staleCompletionCannotReplaceNewQueryOrReopenedEditor() {
+    @Test
+    fun staleCompletionCannotReplaceNewQueryOrReopenedEditor() {
         val first = PromoSearchState().edit("Kurma").submit()
         val second = first.edit("Kahf").submit()
         assertEquals(second, second.complete(first.generation, 0, false))
@@ -30,7 +34,8 @@ class PromoSearchStateTest {
         assertEquals(editor, editor.complete(second.generation, 2, false))
     }
 
-    @Test fun clearingDraftKeepsSubmittedQueryForBackNavigation() {
+    @Test
+    fun clearingDraftKeepsSubmittedQueryForBackNavigation() {
         val results = PromoSearchState().edit("Kahf").submit().let { it.complete(it.generation, 2, false) }
         val cleared = results.edit("")
         assertEquals("", cleared.draft)
@@ -39,7 +44,8 @@ class PromoSearchStateTest {
         assertEquals(cleared, cleared.submit())
     }
 
-    @Test fun noResultsAndConnectionFailureAreDistinctAndRetryCanSucceed() {
+    @Test
+    fun noResultsAndConnectionFailureAreDistinctAndRetryCanSucceed() {
         val pending = PromoSearchState().edit("Kahf").submit()
         val failure = pending.fail(pending.generation)
         assertEquals(SearchMode.ERROR, failure.mode)
@@ -48,15 +54,17 @@ class PromoSearchStateTest {
         assertEquals(SearchMode.EMPTY, pending.complete(pending.generation, 0, false).mode)
     }
 
-    @Test fun websiteBannerIsExplicitFixturePolicyAndRequiresEmptyResults() {
+    @Test
+    fun websiteBannerIsExplicitFixturePolicyAndRequiresEmptyResults() {
         assertFalse(PromoSearchState.websiteFallback("Kurma"))
         assertTrue(PromoSearchState.websiteFallback(" Rokok "))
         val pending = PromoSearchState().edit("Rokok").submit()
-        assertTrue(pending.complete(pending.generation, 0, true).fallbackAvailable)
-        assertFalse(pending.complete(pending.generation, 1, true).fallbackAvailable)
+        assertTrue(pending.complete(pending.generation, 0, true).isFallbackAvailable)
+        assertFalse(pending.complete(pending.generation, 1, true).isFallbackAvailable)
     }
 
-    @Test fun repeatableRedemptionKeepsAllItemSpendAcrossQueryChanges() {
+    @Test
+    fun repeatableRedemptionKeepsAllItemSpendAcrossQueryChanges() {
         val cart = PromoDemoState(products.take(3), rule = RewardRule.REPEATABLE, threshold = 50_000L)
         val initial = cart.claimGift("offer")
         assertEquals(1, initial.earnedGifts)
