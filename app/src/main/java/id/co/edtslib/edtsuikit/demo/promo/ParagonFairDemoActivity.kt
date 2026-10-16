@@ -1,8 +1,13 @@
 package id.co.edtslib.edtsuikit.demo.promo
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
+import android.animation.AnimatorSet
+import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
 import android.content.Intent
 import android.content.ActivityNotFoundException
+import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.ColorMatrix
 import android.graphics.ColorMatrixColorFilter
@@ -24,6 +29,7 @@ import id.co.edtslib.uikit.databinding.SearchBarBinding
 import id.co.edtslib.edtsuikit.databinding.ItemFairSearchScopeBinding
 import id.co.edtslib.edtsuikit.databinding.ItemFairSearchEmptyBinding
 import id.co.edtslib.edtsuikit.databinding.ItemFairSearchLoadingBinding
+import id.co.edtslib.edtsuikit.databinding.SheetFairDiscardBinding
 import android.provider.Settings
 import android.text.SpannableString
 import android.text.Spanned
@@ -37,24 +43,39 @@ import androidx.core.view.isVisible
 import androidx.core.view.updateLayoutParams
 import androidx.core.view.accessibility.AccessibilityNodeInfoCompat
 import androidx.recyclerview.widget.ConcatAdapter
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SimpleItemAnimator
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
+import android.app.Dialog
+import android.view.ViewGroup
+import android.view.animation.AccelerateDecelerateInterpolator
+import android.view.animation.AccelerateInterpolator
+import android.view.animation.DecelerateInterpolator
+import android.view.animation.OvershootInterpolator
+import androidx.core.view.updatePadding
+import androidx.recyclerview.widget.GridLayoutManager
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.snackbar.Snackbar
 import id.co.edtslib.edtsuikit.GuidelinesBaseActivity
 import id.co.edtslib.edtsuikit.R
 import id.co.edtslib.edtsuikit.databinding.ActivityParagonFairDemoBinding
+import id.co.edtslib.edtsuikit.databinding.ItemFairCartGiftBinding
 import id.co.edtslib.edtsuikit.databinding.ItemFairHeaderBinding
 import id.co.edtslib.edtsuikit.databinding.ItemFairOptionBinding
 import id.co.edtslib.edtsuikit.databinding.ItemFairProductBinding
+import id.co.edtslib.edtsuikit.databinding.ItemFairRedeemProductBinding
 import id.co.edtslib.edtsuikit.databinding.ItemFairSectionBinding
+import id.co.edtslib.edtsuikit.databinding.SheetFairCartBinding
 import id.co.edtslib.edtsuikit.databinding.SheetFairOptionsBinding
+import id.co.edtslib.edtsuikit.databinding.SheetFairRedemptionBinding
 import id.co.edtslib.edtsuikit.databinding.ViewFairProgressBinding
 import id.co.edtslib.edtsuikit.viewBinding
 import id.co.edtslib.uikit.adapter.BaseAdapter
 import id.co.edtslib.uikit.recipes.textbadge.klik.KlikVariant
+import id.co.edtslib.uikit.stepper.StepperButton
 import id.co.edtslib.uikit.tray.BottomSheetTray
 import id.co.edtslib.uikit.utils.color
 import id.co.edtslib.uikit.utils.colorStateList
@@ -63,8 +84,8 @@ import id.co.edtslib.uikit.utils.inflater
 import java.text.NumberFormat
 import java.util.Locale
 import id.co.edtslib.uikit.R as UIKitR
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 
-/** A local, interactive prototype. Long press the toolbar title to choose a scenario. */
 class ParagonFairDemoActivity : GuidelinesBaseActivity() {
     private val binding by viewBinding<ActivityParagonFairDemoBinding>()
     override val navigationBarScrimColor: Int = Color.WHITE
@@ -76,7 +97,7 @@ class ParagonFairDemoActivity : GuidelinesBaseActivity() {
         insets
     }
     private var state = PromoDemoState(emptyList())
-    private var promotion = DemoPromotion.FREE_GIFT
+    private var promotion = DemoPromotion.REDEMPTION
     private var searchState = PromoSearchState()
     private val searchHandler = Handler(Looper.getMainLooper())
     private var pendingSearch: Runnable? = null
@@ -109,15 +130,23 @@ class ParagonFairDemoActivity : GuidelinesBaseActivity() {
     }
     private var header: ItemFairHeaderBinding? = null
     private var columns = 2
+    private val gridEdge = 16.dp.toInt()
+    private val gridGap = 12.dp.toInt()
     private var brand = "Semua"
     private var sortOrder = "Relevansi"
+    private val shown = java.util.WeakHashMap<View, Float>()
     private var displayedProgress = 0f
-    private var progressAnimator: ValueAnimator? = null
+    private var focusedProductId: String? = null
+    private val clearFocusTask = Runnable { applyFocus(null) }
     private var compactVisible = false
     private val easing = PathInterpolator(0.2f, 0.8f, 0.2f, 1f)
+    private var cartShown = false
+    private var cartMove: ObjectAnimator? = null
     private val rupiah = NumberFormat.getIntegerInstance(Locale.forLanguageTag("id-ID"))
     private val motionEnabled: Boolean get() = Settings.Global.getFloat(contentResolver, Settings.Global.ANIMATOR_DURATION_SCALE, 1f) > 0f
     private val effectiveColumns: Int get() = if (resources.configuration.fontScale > 1.4f) 1 else columns
+    private var skeletonPulse: ObjectAnimator? = null
+    private var skeletonFinish: Runnable? = null
 
     private val headerAdapter by lazy {
         BaseAdapter.adapterOf<HeaderRow, ItemFairHeaderBinding>(
@@ -132,12 +161,7 @@ class ParagonFairDemoActivity : GuidelinesBaseActivity() {
                 view.displayLabel.setTextAppearance(if (inSearch) R.style.FairDemo_CaptionStrong else R.style.FairDemo_Caption)
                 view.heading.text = if (inSearch) promotionTitle else getString(R.string.fair_products)
                 view.count.text = getString(R.string.fair_product_count, item.count)
-                view.grid.imageTintList = colorStateList(if (item.columns == 2) UIKitR.color.primary_30 else UIKitR.color.black_50)
-                view.list.imageTintList = colorStateList(if (item.columns == 3) UIKitR.color.primary_30 else UIKitR.color.black_50)
-                view.grid.isSelected = item.columns == 2
-                view.list.isSelected = item.columns == 3
-                view.grid.setOnClickListener { changeColumns(2) }
-                view.list.setOnClickListener { changeColumns(3) }
+
                 ViewCompat.setAccessibilityHeading(view.heading, true)
                 view.root.importantForAccessibility = View.IMPORTANT_FOR_ACCESSIBILITY_NO
             }),
@@ -148,7 +172,8 @@ class ParagonFairDemoActivity : GuidelinesBaseActivity() {
         BaseAdapter.adapterOf<ProductRow, ItemFairProductBinding>(
             register = BaseAdapter.Register(onBindHolder = { _, item, view, _ -> bindProduct(view, item) }),
             diff = BaseAdapter.Diff(areItemsTheSame = { a, b -> a.id == b.id }, areContentsTheSame = { a, b -> a == b })
-        ).apply { setOnItemClickListener { _, item, _ -> showProduct(item.product) } }
+        )
+
     }
 
     private val scopeAdapter by lazy {
@@ -199,49 +224,47 @@ class ParagonFairDemoActivity : GuidelinesBaseActivity() {
         columns = savedInstanceState?.getInt("columns", 2) ?: 2
         brand = savedInstanceState?.getString("brand") ?: "Semua"
         sortOrder = savedInstanceState?.getString("sort") ?: "Relevansi"
-        displayedProgress = if (savedInstanceState != null) state.progressPercent else 0f
-        val grid = GridLayoutManager(this, effectiveColumns).apply {
-            spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
-                override fun getSpanSize(position: Int): Int {
-                    val firstProduct = headerAdapter.itemCount + scopeAdapter.itemCount + sectionAdapter.itemCount
-                    return if (position in firstProduct until firstProduct + productAdapter.itemCount) 1 else spanCount
-                }
-            }
+
+        displayedProgress = if (savedInstanceState != null) state.barProgress else 0f
+        val grid = StaggeredGridLayoutManager(effectiveColumns, StaggeredGridLayoutManager.VERTICAL).apply {
+            gapStrategy = StaggeredGridLayoutManager.GAP_HANDLING_MOVE_ITEMS_BETWEEN_SPANS
         }
         binding.products.layoutManager = grid
+        binding.products.updatePadding(left = gridEdge - gridGap / 2, right = gridEdge - gridGap / 2)
         binding.products.adapter = ConcatAdapter(headerAdapter, scopeAdapter, sectionAdapter, productAdapter, emptyAdapter, loadingAdapter)
+        binding.products.addOnChildAttachStateChangeListener(object : RecyclerView.OnChildAttachStateChangeListener {
+            override fun onChildViewAttachedToWindow(view: View) {
+                val position = binding.products.getChildAdapterPosition(view)
+                val firstProduct = headerAdapter.itemCount + scopeAdapter.itemCount + sectionAdapter.itemCount
+                val lastProduct = firstProduct + productAdapter.itemCount
+                val params = view.layoutParams as? StaggeredGridLayoutManager.LayoutParams ?: return
+                params.isFullSpan = position !in firstProduct until lastProduct
+                view.layoutParams = params
+            }
+
+            override fun onChildViewDetachedFromWindow(view: View) = Unit
+        })
         (binding.products.itemAnimator as? SimpleItemAnimator)?.supportsChangeAnimations = false
+        binding.products.addItemDecoration(ProductSpacingDecoration())
         productAdapter.stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
         binding.products.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) = updateCompactHeader()
         })
         binding.bottomActions.addOnLayoutChangeListener { _, _, _, _, _, _, _, _, _ ->
-            binding.products.setPadding(0, 0, 0, binding.bottomActions.height + 16.dp.toInt())
+            binding.products.clipToPadding = false
+            binding.products.clipChildren = false
+            (binding.products.parent as? ViewGroup)?.clipChildren = false
+            binding.products.clipToPadding = false
         }
         binding.back.setOnClickListener { if (inSearch) closeSearch() else onBackPressedDispatcher.onBackPressed() }
         binding.title.setOnLongClickListener { showScenarios(); true }
         ViewCompat.replaceAccessibilityAction(binding.title, AccessibilityNodeInfoCompat.AccessibilityActionCompat.ACTION_LONG_CLICK,
             "Pilih skenario demo") { _, _ -> showScenarios(); true }
-        binding.search.setOnClickListener { showSearch() }
+
         configureSearchField()
         onBackPressedDispatcher.addCallback(this, searchBack)
-        binding.share.setOnClickListener {
-            startActivity(Intent.createChooser(Intent(Intent.ACTION_SEND).apply {
-                type = "text/plain"
-                putExtra(Intent.EXTRA_TEXT, "Paragon Fair — belanja Rp100.000 untuk hadiah di Klik Indomaret.")
-            }, "Bagikan promo"))
-        }
-        binding.sort.setOnClickListener {
-            showOptions("Urutkan produk", "Pilih urutan produk promo.", listOf("Relevansi", "Nama A–Z", "Harga terendah", "Harga tertinggi")
-                .map { Option(it, it, selected = it == sortOrder) }) { sortOrder = it.id; render() }
-        }
-        binding.filter.setOnClickListener {
-            showOptions("Filter produk", "Pilih merek produk promo.", (if (promotion == DemoPromotion.REDEMPTION) listOf("Semua", "Indomie") else listOf("Semua", "Emina", "Kahf"))
-                .map { Option(it, it, selected = it == brand) }) { brand = it.id; render() }
-        }
-        binding.cart.setOnClickListener { showCart() }
+
         if (resources.configuration.fontScale > 1.4f) {
-            // Keep the requested control bounds; expose the full labels through accessibility.
             binding.sortLabel.isVisible = false
             binding.filterLabel.isVisible = false
             binding.cartLabel.isVisible = false
@@ -251,7 +274,8 @@ class ParagonFairDemoActivity : GuidelinesBaseActivity() {
         binding.compactMeter.seeGifts.setOnClickListener { showGifts() }
         binding.compactMeter.message.importantForAccessibility = View.IMPORTANT_FOR_ACCESSIBILITY_YES
         render()
-        if (savedInstanceState == null) animateProgress(state.progressPercent)
+
+        if (savedInstanceState == null) showSkeleton { animateProgress(state.barProgress) }
         if (editingSearch) focusSearch()
         if (searchState.mode == SearchMode.LOADING) submitSearch()
         if (savedInstanceState == null && intent.getBooleanExtra(EXTRA_SEARCH, false)) showSearch()
@@ -283,7 +307,7 @@ class ParagonFairDemoActivity : GuidelinesBaseActivity() {
             binding.queryField.editText.setSelection(searchState.draft.length)
             updatingQuery = false
         }
-        val layout = binding.products.layoutManager as GridLayoutManager
+        val layout = binding.products.layoutManager as StaggeredGridLayoutManager
         layout.spanCount = if (editingSearch) 1 else effectiveColumns
         binding.products.updateLayoutParams<ConstraintLayout.LayoutParams> {
             topToBottom = if (submitted) R.id.compactProgress else R.id.toolbar
@@ -300,7 +324,8 @@ class ParagonFairDemoActivity : GuidelinesBaseActivity() {
         headerAdapter.items = if (inSearch) emptyList() else listOf(HeaderRow(state))
         sectionAdapter.items = if (inSearch && searchState.mode != SearchMode.RESULTS) emptyList() else listOf(SectionRow(visible.size, columns))
         expectedProductIds = visible.map { it.id }
-        productAdapter.items = visible.map { ProductRow(it, state.availability, effectiveColumns, inSearch, promotion) }
+
+        productAdapter.items = visible.map { ProductRow(it, state.availability, effectiveColumns, inSearch, promotion, focused = it.id == focusedProductId) }
         val query = PromoSearchState.normalize(searchState.draft)
         scopeAdapter.items = if (editingSearch && query.isNotEmpty()) listOf(
             ScopeRow("promo", query, getString(R.string.fair_search_promo_scope, promotionTitle)),
@@ -319,18 +344,16 @@ class ParagonFairDemoActivity : GuidelinesBaseActivity() {
             lastRenderedMode = searchState.mode
         }
         bindMeter(binding.compactMeter, state)
-        val hadCart = binding.cart.isVisible
-        binding.cart.isVisible = state.cartCount > 0
         binding.filterSortPill.isVisible = state.availability == PromoAvailability.ACTIVE && (!inSearch || searchState.mode == SearchMode.RESULTS)
         binding.search.isVisible = !inSearch && state.availability != PromoAvailability.NEW_CUSTOMER_ONLY
-        binding.cartCount.text = getString(R.string.fair_cart_count, state.cartCount)
-        binding.cartTotal.text = money(state.cartTotal)
-        binding.cart.contentDescription = getString(R.string.fair_cart_description, state.cartCount, money(state.cartTotal))
-        if (!hadCart && binding.cart.isVisible && motionEnabled) {
-            binding.cart.alpha = 0f
-            binding.cart.translationY = 16.dp
-            binding.cart.animate().alpha(1f).translationY(0f).setDuration(240).setInterpolator(easing).start()
+
+        if (state.cartCount > 0) {
+            binding.cartCount.text = getString(R.string.fair_cart_count, state.cartCount)
+            binding.cartTotal.text = money(state.cartTotal)
+            binding.cart.contentDescription = getString(R.string.fair_cart_description, state.cartCount, money(state.cartTotal))
         }
+        setCartVisible(state.cartCount > 0)
+
         if (announce) binding.root.announceForAccessibility(message(state).toString())
         binding.products.post { updateCompactHeader() }
     }
@@ -339,7 +362,7 @@ class ParagonFairDemoActivity : GuidelinesBaseActivity() {
         header = view
         view.root.importantForAccessibility = View.IMPORTANT_FOR_ACCESSIBILITY_NO
         if (resources.configuration.fontScale > 1.4f) {
-            view.giftOverflow.setTextSize(android.util.TypedValue.COMPLEX_UNIT_DIP, 14f)
+
             ConstraintSet().apply {
                 clone(view.progressPanel)
                 connect(R.id.quotaBadge, ConstraintSet.START, ConstraintSet.PARENT_ID, ConstraintSet.START)
@@ -366,7 +389,7 @@ class ParagonFairDemoActivity : GuidelinesBaseActivity() {
         listOf(view.banner, view.giftOne, view.giftTwo, view.giftThree).forEach { it.colorFilter = monochrome }
         view.newUser.isVisible = model.availability == PromoAvailability.NEW_CUSTOMER_ONLY
         view.fairBadge.apply {
-            text = "Paragon Fair"
+            text = model.fairName
             textColor = color(if (active) UIKitR.color.primary_30 else UIKitR.color.black_50)
             badgeColor = color(if (active) UIKitR.color.support_selected else UIKitR.color.black_30)
             badgeTextAppearance = R.style.FairDemo_CaptionStrong
@@ -381,16 +404,17 @@ class ParagonFairDemoActivity : GuidelinesBaseActivity() {
             badgeTextAppearance = R.style.FairDemo_CaptionStrong
         }
         view.promoTitle.text = if (promotion == DemoPromotion.REDEMPTION) promotionTitle else "Belanja Paragon Fair Senilai Rp100.000 Dapat Hadiah. " +
-            if (model.rule == RewardRule.ONE_TIME) "Tidak Berlaku Kelipatan." else "Berlaku Kelipatan."
-        // The supplied search section does not specify a Tebus Murah hero/gift preview.
-        view.banner.isVisible = promotion == DemoPromotion.FREE_GIFT
-        view.gifts.isVisible = promotion == DemoPromotion.FREE_GIFT
+                if (model.rule == RewardRule.ONE_TIME) "Tidak Berlaku Kelipatan." else "Berlaku Kelipatan."
+
+        view.banner.isVisible = true
+        view.gifts.isVisible = true
         view.minimumValue.text = money(model.threshold)
         view.terms.paintFlags = view.terms.paintFlags or Paint.UNDERLINE_TEXT_FLAG
+
         view.terms.setOnClickListener { showTerms() }
-        view.info.setOnClickListener { showTerms() }
-        view.gifts.setOnClickListener { showGifts() }
-        view.gifts.setOnLongClickListener { showGifts(); true }
+        view.info.makeStatic()
+
+        view.giftsAction.setOnClickListener { showGifts() }
         bindMeter(view.meter, model)
         view.meter.message.importantForAccessibility = if (compactVisible) View.IMPORTANT_FOR_ACCESSIBILITY_NO else View.IMPORTANT_FOR_ACCESSIBILITY_YES
         ViewCompat.setAccessibilityHeading(view.promoTitle, true)
@@ -398,48 +422,70 @@ class ParagonFairDemoActivity : GuidelinesBaseActivity() {
     }
 
     private fun bindMeter(view: ViewFairProgressBinding, model: PromoDemoState) {
-        view.seeGifts.contentDescription = if (promotion == DemoPromotion.FREE_GIFT) getString(R.string.fair_view_gifts) else "Lihat penawaran tebus murah"
-        val hasLaps = model.rule == RewardRule.REPEATABLE && model.earnedGifts > 0
+        view.seeGifts.contentDescription =
+            if (promotion == DemoPromotion.FREE_GIFT) {
+                getString(R.string.fair_view_gifts)
+            } else {
+                "Lihat penawaran tebus murah"
+            }
+
+        val hasLaps =
+            model.rule == RewardRule.REPEATABLE && model.earnedGifts > 0
+
         view.progressBar.apply {
-            shouldAnimate = false // The Activity retargets one animator, including decreasing values.
-            showBadge = false
-            trackColor = color(if (hasLaps) UIKitR.color.primary_20 else UIKitR.color.black_20)
-            indicatorProgress = displayedProgress.coerceAtMost(99.99f)
+            showBadge = true
+
+            val limit = if (model.rule == RewardRule.REPEATABLE) {
+                100_000f
+            } else {
+                100f
+            }
+
+            if (maxIndicatorProgress != 100f) {
+                maxIndicatorProgress = 100f
+            }
+
+            if (progressLimit != limit) {
+                progressLimit = limit
+            }
+
             isEnabled = model.availability == PromoAvailability.ACTIVE
-            updateLayoutParams { height = (if (hasLaps) 16 else 8).dp.toInt() }
         }
-        view.milestone.apply {
-            text = "x${model.earnedGifts}"
-            isVisible = hasLaps
-            badgeTextAppearance = R.style.FairDemo_Milestone
-            badgeColor = color(UIKitR.color.primary_30)
-            textColor = color(UIKitR.color.white)
-            setCornerRadius(8f)
-            setBadgePadding(0, 0)
-        }
+
         val next = message(model)
+
         if (view.message.text.toString() != next.toString()) {
             view.message.animate().cancel()
             view.message.text = next
+
             if (motionEnabled) {
                 view.message.alpha = 0f
                 view.message.translationY = 4.dp
-                view.message.animate().alpha(1f).translationY(0f).setDuration(160).setInterpolator(easing).start()
+
+                view.message.animate()
+                    .alpha(1f)
+                    .translationY(0f)
+                    .setDuration(160)
+                    .setInterpolator(easing)
+                    .start()
             } else {
                 view.message.alpha = 1f
                 view.message.translationY = 0f
             }
-        } else view.message.text = next
-        ViewCompat.setStateDescription(view.message, "${money(model.qualifyingSubtotal)} dari ${money(model.threshold)}; ${model.claimedGifts.size} benefit dipilih")
+        } else {
+            view.message.text = next
+        }
+
+        ViewCompat.setStateDescription(
+            view.message,
+            "${money(model.qualifyingSubtotal)} dari ${money(model.threshold)}; " +
+                    "${model.claimedGifts.size} benefit dipilih"
+        )
     }
 
     private fun bindProduct(view: ItemFairProductBinding, row: ProductRow) {
         val product = row.product
         val active = row.availability == PromoAvailability.ACTIVE
-        val count = row.columns
-        // BaseAdapter supplies the absolute ConcatAdapter position; derive the local product column.
-        val column = productAdapter.items.indexOfFirst { it.id == product.id }.coerceAtLeast(0) % count
-        view.root.setPadding((12f - column * 12f / count).dp.toInt(), 6.dp.toInt(), ((column + 1) * 12f / count).dp.toInt(), 6.dp.toInt())
         view.image.setImageResource(product.image)
         view.card.strokeWidth = if (row.search && row.promotion == DemoPromotion.REDEMPTION) 1.dp.toInt() else 0
         view.card.setStrokeColor(color(UIKitR.color.black_30))
@@ -463,7 +509,7 @@ class ParagonFairDemoActivity : GuidelinesBaseActivity() {
         view.benefitStrip.isVisible = !row.search || row.promotion == DemoPromotion.REDEMPTION
         view.benefit.text = product.benefit
         view.promotion.isVisible = product.promotion.isNotEmpty()
-        view.discount.text = "50%" // Literal reference fixture; its Aceh prices are inconsistent.
+        view.discount.text = "50%"
         val highlight = product.highlight
         view.benefitIcon.setImageResource(if (product.benefit.contains("Stamp")) R.drawable.fair_stamp else R.drawable.fair_point)
         view.highlight.apply {
@@ -483,9 +529,9 @@ class ParagonFairDemoActivity : GuidelinesBaseActivity() {
             }
             iconVisible = true
         }
-        view.root.setOnLongClickListener { showProduct(product); true }
-        view.card.setOnClickListener { showProduct(product) }
-        view.card.setOnLongClickListener { showProduct(product); true }
+
+        view.root.makeStatic()
+        view.card.makeStatic()
         view.card.contentDescription = listOf(product.name, money(product.price), highlight, product.promotion,
             if (view.benefitStrip.isVisible) product.benefit else "").filter { it.isNotEmpty() }.joinToString(", ")
         view.root.importantForAccessibility = View.IMPORTANT_FOR_ACCESSIBILITY_NO
@@ -495,8 +541,10 @@ class ParagonFairDemoActivity : GuidelinesBaseActivity() {
             clearListener()
             setAllowTextEditing(false)
             setMinValue(0)
+
+            setMaxValue(Int.MAX_VALUE)
+            setCount(product.quantity, animate = false)
             setMaxValue(product.stock)
-            setCount(product.quantity, animate = true)
             isEnabled = active
             setPlusButtonEnabled(active && product.quantity < product.stock)
             setMinusButtonEnabled(active && product.quantity > 0)
@@ -511,18 +559,51 @@ class ParagonFairDemoActivity : GuidelinesBaseActivity() {
             if (resources.configuration.fontScale > 1.4f) binding.countText.setTextSize(android.util.TypedValue.COMPLEX_UNIT_DIP, 14f)
             binding.plusButton.backgroundTintList = white
             binding.plusButton.iconTint = blue
-            binding.minusButton.iconTint = white
+            binding.minusButton.iconTint = colorStateList(UIKitR.color.black_30)
             binding.singlePlusButton.contentDescription = getString(R.string.fair_add, product.name, product.quantity)
             binding.plusButton.contentDescription = getString(R.string.fair_add, product.name, product.quantity)
             binding.minusButton.contentDescription = getString(R.string.fair_remove, product.name, product.quantity)
-            // Read current state for every tap; an in-flight list diff must not lose a tap.
-            binding.singlePlusButton.setOnClickListener { step(product.id, 1) }
+
+            binding.singlePlusButton.setOnClickListener {
+                val current = state.products.firstOrNull { it.id == product.id }?.quantity ?: 0
+                if (current == 0) step(product.id, 1) else applyFocus(product.id)
+            }
             binding.plusButton.setOnClickListener { step(product.id, 1) }
             binding.minusButton.setOnClickListener { step(product.id, -1) }
         }
+        val face = when {
+            product.quantity == 0 -> StepperFace.ADD
+            row.focused -> StepperFace.FOCUSED
+            else -> StepperFace.COUNT
+        }
+
+        applyStepperFace(view, product.id, face, product.quantity)
+        view.quantity.binding.singlePlusButton.apply {
+            if (face == StepperFace.COUNT) {
+                isEnabled = active
+                contentDescription = "${product.name}, jumlah ${product.quantity}. Ketuk untuk mengubah jumlah"
+            }
+        }
+    }
+
+    private fun View.makeStatic() {
+        setOnClickListener(null)
+        setOnLongClickListener(null)
+        isClickable = false
+        isLongClickable = false
+        isFocusable = false
+    }
+
+    private fun applyFocus(id: String?) {
+        binding.products.removeCallbacks(clearFocusTask)
+        if (id != null) binding.products.postDelayed(clearFocusTask, 5000L)
+        if (focusedProductId == id) return
+        focusedProductId = id
+        productAdapter.items = productAdapter.items.map { it.copy(focused = it.id == id) }
     }
 
     private fun step(id: String, delta: Int) {
+        applyFocus(id)
         state.products.firstOrNull { it.id == id }?.let { changeQuantity(id, it.quantity + delta) }
     }
 
@@ -531,44 +612,33 @@ class ParagonFairDemoActivity : GuidelinesBaseActivity() {
         state = state.withQuantity(id, quantity)
         if (state == old) return
         render(announce = old.earnedGifts != state.earnedGifts || old.claimedGifts != state.claimedGifts)
-        animateProgress(state.progressPercent)
+
+        animateProgress(state.barProgress)
         if (motionEnabled && state.cartCount > 0) {
             binding.cartIcon.animate().cancel()
             binding.cartIcon.scaleX = 1f
             binding.cartIcon.scaleY = 1f
-            binding.cartIcon.animate().scaleX(1.12f).scaleY(1.12f).setDuration(100).withEndAction {
-                binding.cartIcon.animate().scaleX(1f).scaleY(1f).setDuration(120).start()
-            }.start()
+
         }
-        if (state.earnedGifts > old.earnedGifts && motionEnabled) {
-            listOfNotNull(header?.meter?.milestone, binding.compactMeter.milestone).forEach {
-                it.animate().scaleX(1.12f).scaleY(1.12f).setDuration(120).withEndAction {
-                    it.animate().scaleX(1f).scaleY(1f).setDuration(140).start()
-                }.start()
-            }
-        }
+
     }
 
     private fun animateProgress(target: Float) {
-        progressAnimator?.cancel()
-        if (!motionEnabled) { displayedProgress = target; updateProgressViews(); return }
-        progressAnimator = ValueAnimator.ofFloat(displayedProgress, target).apply {
-            duration = 450
-            interpolator = easing
-            addUpdateListener { displayedProgress = it.animatedValue as Float; updateProgressViews() }
-            start()
+        val increasing = target > displayedProgress
+        displayedProgress = target
+        android.util.Log.d("FairBar", "prevTarget=$displayedProgress target=$target")
+        listOfNotNull(header?.meter?.progressBar, binding.compactMeter.progressBar).forEach { bar ->
+            bar.shouldAnimate = motionEnabled && increasing
+            android.util.Log.d("FairBar", "getter=${bar.indicatorProgress} animate=${bar.shouldAnimate}")
+            bar.indicatorProgress = target
+            shown[bar] = target
         }
     }
 
-    private fun updateProgressViews() {
-        header?.meter?.progressBar?.indicatorProgress = displayedProgress.coerceAtMost(99.99f)
-        binding.compactMeter.progressBar.indicatorProgress = displayedProgress.coerceAtMost(99.99f)
-    }
-
     private fun updateCompactHeader() {
-        val grid = binding.products.layoutManager as GridLayoutManager
+        val grid = binding.products.layoutManager as StaggeredGridLayoutManager
         val view = header
-        val first = grid.findFirstVisibleItemPosition()
+        val first = grid.findFirstVisibleItemPositions(null).minOrNull() ?: RecyclerView.NO_POSITION
         val threshold = if (compactVisible) 4.dp.toInt() else -4.dp.toInt()
         val visible = state.products.isNotEmpty() && (first > 0 || (first == 0 && view != null && view.root.top + view.gifts.bottom < threshold))
         if (inSearch) return
@@ -591,7 +661,7 @@ class ParagonFairDemoActivity : GuidelinesBaseActivity() {
     private fun changeColumns(value: Int) {
         val anchor = binding.products.layoutManager?.onSaveInstanceState()
         columns = value
-        (binding.products.layoutManager as GridLayoutManager).spanCount = effectiveColumns
+        (binding.products.layoutManager as StaggeredGridLayoutManager).spanCount = effectiveColumns
         render()
         restoreScroll(anchor)
     }
@@ -602,71 +672,436 @@ class ParagonFairDemoActivity : GuidelinesBaseActivity() {
             PromoAvailability.LIMIT_REACHED -> "Limit fair sudah habis. Cek promo fair lainnya yang tersedia yuk!"
             PromoAvailability.NEW_CUSTOMER_ONLY -> "Promo hanya berlaku untuk transaksi pertamamu di Klik Indomaret"
             PromoAvailability.ACTIVE -> when {
-                promotion == DemoPromotion.REDEMPTION && model.unclaimedGifts > 0 -> "Kamu bisa tebus ${model.unclaimedGifts} produk seharga Rp5.000"
-                promotion == DemoPromotion.REDEMPTION && model.claimedGifts.isNotEmpty() -> "Sudah pilih ${model.claimedGifts.size} tebus murah. Tambah ${money(model.remainingSpend)} untuk benefit berikutnya"
+
+                promotion == DemoPromotion.REDEMPTION && model.unclaimedGifts > 0 && model.claimedGifts.isNotEmpty() -> "Kamu sudah ambil ${model.claimedGifts.size} dari ${model.earnedGifts} tebus murah. Yuk pilih produk lagi"
+                promotion == DemoPromotion.REDEMPTION && model.unclaimedGifts > 0 -> "Kamu bisa ambil ${model.earnedGifts} tebus murah"
+                promotion == DemoPromotion.REDEMPTION && model.claimedGifts.isNotEmpty() -> "Kamu sudah ambil ${model.claimedGifts.size} tebus murah"
                 model.qualifyingSubtotal == 0L -> "Tambah produk dulu, yuk!"
                 model.earnedGifts == 0 -> "Tambah ${money(model.remainingSpend)} lagi untuk dapatkan benefit"
                 model.unclaimedGifts > 0 && model.claimedGifts.isNotEmpty() -> "Kamu sudah ambil ${model.claimedGifts.size} dari ${model.earnedGifts} hadiah. Yuk pilih produk lagi"
                 model.unclaimedGifts > 0 -> "Kamu bisa ambil ${model.earnedGifts} hadiah"
-                model.rule == RewardRule.REPEATABLE && model.claimedGifts.size == 1 -> "Kamu sudah ambil 1 hadiah. Tambah ${money(model.remainingSpend)} untuk dapat ekstra hadiah"
+                model.rule == RewardRule.REPEATABLE && model.claimedGifts.size == 1 -> "Kamu sudah ambil 1 hadiah."
                 else -> "Kamu sudah ambil ${model.claimedGifts.size} hadiah"
             }
         }
+
         return SpannableString(text).apply {
-            Regex("Rp[\\d.]+|\\d+(?: dari \\d+)? hadiah").findAll(text).forEach {
+            Regex("Rp[\\d.]+|\\d+(?: dari \\d+)? (?:hadiah|tebus murah)").findAll(text).forEach {
                 setSpan(ForegroundColorSpan(color(UIKitR.color.primary_30)), it.range.first, it.range.last + 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
                 setSpan(StyleSpan(android.graphics.Typeface.BOLD), it.range.first, it.range.last + 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
             }
         }
     }
 
+    private fun StepperButton.showExpanded() {
+        val width = resources.getDimensionPixelSize(UIKitR.dimen.dimen_90)
+        val params = binding.stepperContainer.layoutParams
+        if (params.width != width) {
+            params.width = width
+            binding.stepperContainer.layoutParams = params
+        }
+        binding.singlePlusButton.visibility = View.GONE
+        binding.minusButton.visibility = View.VISIBLE
+        binding.plusButton.visibility = View.VISIBLE
+        binding.countText.visibility = View.VISIBLE
+        binding.countEditText.visibility = View.GONE
+        binding.minusButton.alpha = 1f
+        binding.plusButton.alpha = 1f
+        binding.countText.alpha = 1f
+    }
+
+    private fun StepperButton.applyRedeemStyle(dimCount: Boolean) {
+        val grey = color(UIKitR.color.black_30)
+        val darkGrey = color(UIKitR.color.black_60)
+        val blue = color(UIKitR.color.primary_30)
+        val white = color(UIKitR.color.white)
+
+        fun states(enabled: Int, disabled: Int) = ColorStateList(
+            arrayOf(intArrayOf(-android.R.attr.state_enabled), intArrayOf()),
+            intArrayOf(disabled, enabled)
+        )
+
+        binding.stepperContainer.apply {
+            setCardBackgroundColor(white)
+            setStrokeColor(grey)
+            strokeWidth = 1.dp.toInt()
+        }
+        binding.minusButton.iconTint = states(darkGrey, grey)
+        binding.plusButton.backgroundTintList = states(blue, grey)
+        binding.plusButton.iconTint = ColorStateList.valueOf(white)
+        binding.countText.setTextColor(if (dimCount) grey else color(UIKitR.color.black_70))
+        binding.countText.alpha = 1f
+    }
+
+    private fun applyStepperFace(v: ItemFairProductBinding, productId: String, face: StepperFace, count: Int) {
+        val stepper = v.quantity
+        val b = stepper.binding
+        val collapsedW = resources.getDimensionPixelSize(UIKitR.dimen.l)
+        val expandedW = resources.getDimensionPixelSize(UIKitR.dimen.dimen_90)
+        val blue = color(UIKitR.color.primary_30)
+        val white = color(UIKitR.color.white)
+
+        val prev = stepper.tag as? FaceTag
+        prev?.cancelled = true
+        prev?.animator?.cancel()
+        val sameCard = prev != null && prev.productId == productId
+        val from = if (sameCard) prev!!.face else face
+        val tag = FaceTag(productId, face)
+        stepper.tag = tag
+
+        fun setWidth(w: Int) {
+            val lp = b.stepperContainer.layoutParams
+            if (lp.width != w) { lp.width = w; b.stepperContainer.layoutParams = lp }
+        }
+        fun setControls(visible: Boolean, alpha: Float = 1f) {
+            listOf(b.minusButton, b.plusButton, b.countText).forEach { it.isVisible = visible; it.alpha = alpha }
+            b.countEditText.isVisible = false
+        }
+
+        fun styleCircle(asCount: Boolean) {
+            b.singlePlusButton.apply {
+                if (asCount) {
+                    icon = null
+                    text = count.toString()
+                    setTextAppearance(R.style.FairDemo_Strong)
+                    setTextColor(color(UIKitR.color.black_70))
+                    setPadding(0, 0, 0, 0)
+                    backgroundTintList = ColorStateList.valueOf(white)
+                } else {
+                    text = ""
+                    setIconResource(UIKitR.drawable.ic_plus_stepper)
+                    iconTint = ColorStateList.valueOf(white)
+                    backgroundTintList = ColorStateList.valueOf(blue)
+                }
+            }
+        }
+        fun styleContainer(asCount: Boolean) {
+            b.stepperContainer.setCardBackgroundColor(if (asCount) white else blue)
+            b.stepperContainer.strokeWidth = if (asCount) 1.dp.toInt() else 0
+            if (asCount) b.stepperContainer.setStrokeColor(color(UIKitR.color.black_30))
+        }
+
+        fun applyFinal() {
+            stepper.isVisible = true
+            when (face) {
+                StepperFace.ADD -> {
+                    setWidth(collapsedW); styleContainer(false); styleCircle(false)
+                    b.singlePlusButton.isVisible = true; b.singlePlusButton.alpha = 1f; setControls(false)
+                }
+                StepperFace.FOCUSED -> {
+                    setWidth(expandedW); styleContainer(false); styleCircle(false)
+                    b.singlePlusButton.isVisible = false; setControls(true)
+                }
+                StepperFace.COUNT -> {
+                    setWidth(collapsedW); styleContainer(true); styleCircle(true)
+                    b.singlePlusButton.isVisible = true; b.singlePlusButton.alpha = 1f; setControls(false)
+                }
+            }
+        }
+
+        val expanding = face == StepperFace.FOCUSED
+        val collapsing = from == StepperFace.FOCUSED && !expanding
+        if (!motionEnabled || !sameCard || from == face || !(expanding || collapsing)) { applyFinal(); return }
+
+        fun fade(from: Float, to: Float, ms: Long, delay: Long = 0L, apply: (Float) -> Unit) =
+            ValueAnimator.ofFloat(from, to).apply {
+                duration = ms; startDelay = delay
+                addUpdateListener { apply(it.animatedValue as Float) }
+            }
+        fun width(from: Int, to: Int) = ValueAnimator.ofInt(from, to).apply {
+            duration = 300L; interpolator = AccelerateDecelerateInterpolator()
+            addUpdateListener { setWidth(it.animatedValue as Int) }
+        }
+        fun containerColor(from: Int, to: Int, ms: Long, delay: Long = 0L) = ValueAnimator.ofArgb(from, to).apply {
+            duration = ms; startDelay = delay
+            addUpdateListener { b.stepperContainer.setCardBackgroundColor(it.animatedValue as Int) }
+        }
+        val controls = listOf(b.minusButton, b.plusButton, b.countText)
+
+        val parts = mutableListOf<Animator>()
+        stepper.isVisible = true
+        if (expanding) {
+
+            setWidth(collapsedW); setControls(true, 0f)
+            b.singlePlusButton.isVisible = true; b.singlePlusButton.alpha = 1f
+            b.stepperContainer.strokeWidth = 0
+            parts += width(collapsedW, expandedW)
+            parts += fade(0f, 1f, 150L, 150L) { a -> controls.forEach { it.alpha = a } }
+            parts += fade(1f, 0f, 150L) { b.singlePlusButton.alpha = it }
+            if (from == StepperFace.COUNT) parts += containerColor(white, blue, 150L)
+        } else {
+            setWidth(expandedW); setControls(true, 1f)
+            styleCircle(face == StepperFace.COUNT)
+            b.singlePlusButton.isVisible = true; b.singlePlusButton.alpha = 0f
+            parts += width(expandedW, collapsedW)
+            parts += fade(1f, 0f, 150L, delay = 300L) { a -> controls.forEach { it.alpha = a } }
+            parts += fade(0f, 1f, 150L, delay = 300L) { b.singlePlusButton.alpha = it }
+            if (face == StepperFace.COUNT) parts += containerColor(blue, white, 150L, delay = 300L)
+        }
+
+        tag.animator = AnimatorSet().apply {
+            playTogether(parts)
+            addListener(object : AnimatorListenerAdapter() {
+                override fun onAnimationEnd(animation: Animator) { if (!tag.cancelled) applyFinal() }
+            })
+            start()
+        }
+    }
+
     private fun showTerms() {
         val repeat = state.rule == RewardRule.REPEATABLE
         showOptions("Syarat dan ketentuan", "Belanja produk Paragon Fair senilai ${money(state.threshold)} untuk mendapat hadiah. " +
-            (if (repeat) "Berlaku kelipatan. " else "Tidak berlaku kelipatan. ") +
-            "Hadiah dipilih melalui Lihat dan mengikuti kuota serta kelayakan promo. Periode sesuai referensi: 03 Jan–31 Des 2025.", emptyList()) {}
+                (if (repeat) "Berlaku kelipatan. " else "Tidak berlaku kelipatan. ") +
+                "Hadiah dipilih melalui Lihat dan mengikuti kuota serta kelayakan promo. Periode sesuai referensi: 03 Jan–31 Des 2025.", emptyList()) {}
+    }
+
+    private fun showSkeleton(durationMs: Long = 1500L, onFinished: () -> Unit = {}) {
+        val root = binding.skeleton.root
+        skeletonFinish?.let { root.removeCallbacks(it) }
+        root.animate().cancel()
+        root.alpha = 1f
+        root.isVisible = true
+
+        if (skeletonPulse == null && motionEnabled) {
+            skeletonPulse = ObjectAnimator.ofFloat(binding.skeleton.content, View.ALPHA, 1f, 0.5f).apply {
+                duration = 700L
+                repeatCount = ValueAnimator.INFINITE
+                repeatMode = ValueAnimator.REVERSE
+                start()
+            }
+        }
+
+        val finish = Runnable {
+            skeletonFinish = null
+            root.animate().alpha(0f).setDuration(150L).withEndAction {
+                skeletonPulse?.cancel(); skeletonPulse = null
+                root.isVisible = false
+                root.alpha = 1f
+                if (!isFinishing && !isDestroyed) onFinished()
+            }.start()
+        }
+        skeletonFinish = finish
+        root.postDelayed(finish, durationMs)
     }
 
     private fun showGifts() {
-        if (promotion == DemoPromotion.REDEMPTION) {
-            showOptions("Tebus Murah Rp5.000", "${message(state)}\nPemilihan ini adalah simulasi kelayakan. Penagihan Rp5.000 belum terhubung ke checkout.",
-                if (state.unclaimedGifts > 0) listOf(Option("redemption", "Pilih penawaran tebus murah", R.drawable.promo_reward_bowl)) else emptyList()) {
-                val old = state
-                state = state.claimGift("redemption")
-                if (state != old) render(announce = true)
+
+        showRedemptionTray()
+    }
+
+    private fun showRedemptionTray() {
+        val limit = state.earnedGifts
+        val locked = limit == 0
+        var committed = redemptionOffers().map { o -> o.copy(quantity = state.claimedGifts.count { it == o.id }) }
+        var draft = committed
+        var tray: BottomSheetTray? = null
+        var sheetBehavior: BottomSheetBehavior<*>? = null
+        val sheet = SheetFairRedemptionBinding.inflate(inflater)
+        val defaultTint = sheet.update.backgroundTintList
+        val destructiveTint = colorStateList(UIKitR.color.klik_color_red_30)
+        lateinit var refresh: () -> Unit
+
+        fun setQuantity(id: String, quantity: Int) {
+            val current = draft.firstOrNull { it.id == id } ?: return
+            val room = (limit - draft.sumOf { it.quantity }).coerceAtLeast(0)
+            val capped = quantity.coerceIn(0, current.quantity + room)
+            if (capped == current.quantity) return
+            draft = draft.map { if (it.id == id) it.copy(quantity = capped) else it }
+            refresh()
+        }
+
+        val adapter = BaseAdapter.adapterOf<RedeemRow, ItemFairRedeemProductBinding>(
+            register = BaseAdapter.Register(onBindHolder = { _, row, v, _ ->
+                val item = row.item
+                val selected = item.quantity > 0 && !item.restocking
+                val greyed = row.locked || item.restocking
+                v.root.post {
+                    android.util.Log.d("RedeemCard", "late state: root clickable=${v.root.isClickable} listener=${v.root.hasOnClickListeners()} info clickable=${v.info.isClickable}")
+                    v.root.makeStatic()
+                    v.info.makeStatic()
+                }
+
+                applySelection(v, item.id, selected)
+                v.total.isVisible = selected
+                if (selected) {
+                    val pcs = "${item.quantity * item.packSize} pcs"
+                    v.total.text = SpannableString("Total dapat: $pcs").apply {
+                        val start = length - pcs.length
+                        setSpan(StyleSpan(android.graphics.Typeface.BOLD), start, length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+                        setSpan(ForegroundColorSpan(color(UIKitR.color.black_70)), start, length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+                    }
+                }
+                v.image.setImageResource(item.image)
+                v.name.text = item.name
+                v.pack.text = "Isi ${item.packSize} pcs"
+                v.discount.text = "${100 - item.price * 100 / item.originalPrice}%"
+                v.originalPrice.text = money(item.originalPrice)
+                v.originalPrice.paintFlags = v.originalPrice.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+                v.price.text = if (item.price == 0L) "GRATIS" else money(item.price)
+                v.restockLabel.isVisible = item.restocking
+                v.stepper.isVisible = !item.restocking
+
+                v.root.alpha = 1f
+                v.info.animationDuration = 0L
+                v.info.setDisabledWithAnimation(greyed, animate = true)
+                v.footer.setBackgroundColor(color(if (greyed) UIKitR.color.black_20 else UIKitR.color.info_background))
+                v.info.alpha = if (greyed) 0.5f else 1f
+                v.stepper.apply {
+                    clearListener()
+                    setAllowTextEditing(false)
+                    showExpanded()
+
+                    setMinValue(0)
+                    setMaxValue(Int.MAX_VALUE)
+                    setCount(item.quantity, animate = false)
+                    setMaxValue(item.quantity + row.remaining)
+                    isEnabled = !row.locked
+                    setPlusButtonEnabled(row.canAdd && !item.restocking)
+                    setMinusButtonEnabled(item.quantity > 0)
+
+                    applyRedeemStyle(dimCount = row.locked || (item.quantity == 0 && !row.canAdd))
+                    binding.singlePlusButton.contentDescription = "Tambah ${item.name}"
+                    binding.plusButton.contentDescription = "Tambah ${item.name}"
+                    binding.minusButton.contentDescription = "Kurangi ${item.name}"
+                    setOnCountChangeListener { newCount -> setQuantity(item.id, newCount) }
+                }
+                v.root.contentDescription = "${item.name}, isi ${item.packSize} pcs, jumlah ${item.quantity}" + if (selected) ", terpilih" else ""
+            }),
+            diff = BaseAdapter.Diff(areItemsTheSame = { a, b -> a.id == b.id }, areContentsTheSame = { a, b -> a == b })
+        )
+
+        fun quantities(list: List<RedeemItem>) = list.associate { it.id to it.quantity }
+        fun hasChanges() = quantities(draft) != quantities(committed)
+
+        fun isRemoval(): Boolean {
+            val before = quantities(committed)
+            val added = draft.any { it.quantity > (before[it.id] ?: 0) }
+            val removed = draft.any { it.quantity == 0 && (before[it.id] ?: 0) > 0 }
+            return hasChanges() && removed && !added
+        }
+
+        refresh = {
+            val used = draft.sumOf { it.quantity }
+            val cartEmpty = committed.sumOf { it.quantity } == 0
+            val remove = isRemoval()
+            val enabled = hasChanges()
+
+            android.util.Log.d("FairDemo", "draft=${quantities(draft)} committed=${quantities(committed)} changed=$enabled removal=$remove cartEmpty=$cartEmpty")
+
+            sheet.counter.text = "$used/$limit"
+            sheet.counter.setTextColor(color(if (locked) UIKitR.color.black_40 else UIKitR.color.primary_30))
+            sheet.counter.backgroundTintList = if (locked) colorStateList(UIKitR.color.black_20) else null
+            sheet.update.text = when {
+                remove -> "Hapus"
+                cartEmpty -> "Keranjang"
+                else -> "Perbarui Keranjang"
             }
-            return
+            if (cartEmpty) sheet.update.setIconResource(UIKitR.drawable.ic_plus_stepper) else sheet.update.icon = null
+            sheet.update.backgroundTintList = if (remove) destructiveTint else defaultTint
+            sheet.update.isEnabled = enabled
+            sheet.update.refreshDrawableState()
+            adapter.items = draft.map {
+                RedeemRow(it, canAdd = used < limit, locked = locked, remaining = (limit - used).coerceAtLeast(0))
+            }
+            sheetBehavior?.isHideable = !enabled
         }
-        val description = when {
-            state.availability != PromoAvailability.ACTIVE -> message(state).toString()
-            state.unclaimedGifts > 0 -> "Kamu bisa pilih ${state.unclaimedGifts} hadiah. Hadiah terpilih: ${state.claimedGifts.size}."
-            else -> message(state).toString()
+
+        fun commit() {
+            val removal = isRemoval()
+            val removedQty = committed.sumOf { it.quantity } - draft.sumOf { it.quantity }
+
+            state = state.withClaimedGifts(draft.flatMap { d -> List(d.quantity) { d.id } })
+            committed = draft
+            render(announce = true)
+
+            tray?.dismiss()
+            showSkeleton {
+                Snackbar.make(
+                    binding.main,
+                    if (removal) "$removedQty produk telah dihapus" else "Keranjang berhasil diperbarui",
+                    Snackbar.LENGTH_SHORT
+                ).apply {
+                    view.updateLayoutParams<ViewGroup.MarginLayoutParams> {
+                        leftMargin = 16.dp.toInt()
+                        rightMargin = 16.dp.toInt()
+                        bottomMargin = 8.dp.toInt()
+                    }
+                }.show()
+            }
         }
-        showOptions("Hadiah Paragon Fair", description, listOf(
-            Option("gel", "Emina Water Barrier Balancing Gel", R.drawable.fair_emina_gel, state.claimedGifts.contains("gel")),
-            Option("scrub", "Kahf Acne & Pore Cleanse Scrub", R.drawable.fair_gift_cotton, state.claimedGifts.contains("scrub")),
-            Option("sunscreen", "Wardah UV Shield Airy Smooth Sunscreen", R.drawable.fair_gift_cleanser, state.claimedGifts.contains("sunscreen"))
-        )) { option ->
-            val old = state
-            state = state.claimGift(option.id)
-            if (old != state) { render(announce = true); showGifts() }
-            else showOptions("${option.label}", message(state).toString(), emptyList()) {}
+
+        fun requestClose() {
+            if (hasChanges()) showDiscardConfirmation { tray?.dismiss() } else tray?.dismiss()
+        }
+
+        sheet.update.setOnClickListener { commit() }
+        sheet.list.layoutManager = LinearLayoutManager(this)
+        sheet.list.adapter = adapter
+        sheet.list.itemAnimator = null
+        refresh()
+        sheet.update.setOnClickListener { commit() }
+
+        tray = BottomSheetTray.newInstance(title = state.fairName, contentLayout = sheet.root).apply {
+            dragHandleVisibility = true
+            titleDividerVisibility = true
+            shouldShowClose = true
+            customAnimationsEnabled = motionEnabled
+        }
+        tray.show(supportFragmentManager, "fair-redemption")
+        supportFragmentManager.executePendingTransactions()
+
+        (tray.dialog as? BottomSheetDialog)?.let { dialog ->
+
+            dialog.onBackPressedDispatcher.addCallback(object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() = requestClose()
+            })
+
+            dialog.findViewById<View>(com.google.android.material.R.id.touch_outside)?.setOnClickListener { requestClose() }
+
+            sheetBehavior = dialog.behavior
+            dialog.behavior.addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
+                override fun onStateChanged(bottomSheet: View, newState: Int) {
+                    if (newState == BottomSheetBehavior.STATE_COLLAPSED && hasChanges()) {
+                        dialog.behavior.state = BottomSheetBehavior.STATE_EXPANDED
+                        requestClose()
+                    }
+                }
+                override fun onSlide(bottomSheet: View, slideOffset: Float) {}
+            })
+            hookTrayClose(dialog, sheet.root) { requestClose() }
+            refresh()
         }
     }
 
-    private fun showProduct(product: DemoProduct) {
-        val current = state.products.firstOrNull { it.id == product.id } ?: product
-        val active = state.availability == PromoAvailability.ACTIVE
-        showOptions(current.name, "${money(current.price)} · ${if (promotion == DemoPromotion.FREE_GIFT) "Gratis Hadiah" else "Tebus Murah"}\n${current.promotion} · ${current.benefit}\nJumlah di keranjang: ${current.quantity}",
-            buildList {
-                add(Option("photo", current.name, current.image))
-                if (active && current.quantity < current.stock) add(Option("add", "Tambah ke keranjang"))
-                if (active && current.quantity > 0) add(Option("remove", "Kurangi satu"))
-            }) { option ->
-            when (option.id) {
-                "add" -> changeQuantity(current.id, current.quantity + 1)
-                "remove" -> changeQuantity(current.id, current.quantity - 1)
+    private fun setCartVisible(show: Boolean) {
+        if (show == cartShown) return
+        cartShown = show
+        val cart = binding.cart
+        cart.animate().cancel()
+        cartMove?.cancel()
+        if (!motionEnabled) {
+            cart.alpha = 1f; cart.translationY = 0f; cart.isVisible = show
+            return
+        }
+        if (show) {
+            if (!cart.isVisible) {
+                cart.isVisible = true
+                cart.alpha = 0f
+                cart.translationY = 16.dp
             }
+            cart.animate().alpha(1f).setDuration(50).setInterpolator(
+                AccelerateDecelerateInterpolator()).start()
+            cartMove = ObjectAnimator.ofFloat(cart, View.TRANSLATION_Y, cart.translationY, 0f).apply {
+                duration = 320L
+                interpolator = OvershootInterpolator(1f)
+                start()
+            }
+        } else {
+            cart.animate().alpha(0f).translationY(16.dp).setDuration(200).setInterpolator(
+                AccelerateDecelerateInterpolator())
+                .withEndAction {
+                    if (!cartShown) { cart.isVisible = false; cart.alpha = 1f; cart.translationY = 0f }
+                }.start()
         }
     }
 
@@ -681,7 +1116,7 @@ class ParagonFairDemoActivity : GuidelinesBaseActivity() {
             placeholderTexts = arrayOf(getString(R.string.fair_search_hint))
             startIcon = R.drawable.fair_search
             placeholderTextAppearance = R.style.FairDemo_Caption
-            editText.isSaveEnabled = false // SearchUiState restores text and mode together.
+            editText.isSaveEnabled = false
             editText.setPadding(editText.paddingLeft, 0, editText.paddingRight, 0)
             editText.imeOptions = EditorInfo.IME_ACTION_SEARCH
             editText.isSingleLine = true
@@ -750,18 +1185,18 @@ class ParagonFairDemoActivity : GuidelinesBaseActivity() {
         val request = searchState.generation
         val simulateFailure = failNextSearch
         failNextSearch = false
-        // Local latency makes loading/cancellation demonstrable without a backend.
+
         pendingSearch = Runnable {
             if (isDestroyed) return@Runnable
             val matches = searchMatches()
             searchState = if (simulateFailure) searchState.fail(request)
-                else searchState.complete(request, matches.size, PromoSearchState.websiteFallback(searchState.submitted))
+            else searchState.complete(request, matches.size, PromoSearchState.websiteFallback(searchState.submitted))
             if (searchState.generation != request || editingSearch || !inSearch) return@Runnable
             pendingSearch = null
             render()
             scrollToNewSearchResults()
             binding.products.announceForAccessibility(if (searchState.mode == SearchMode.ERROR) getString(R.string.fair_search_error_title)
-                else getString(R.string.fair_search_results, matches.size, searchState.submitted))
+            else getString(R.string.fair_search_results, matches.size, searchState.submitted))
         }.also { searchHandler.postDelayed(it, 220) }
     }
 
@@ -774,7 +1209,6 @@ class ParagonFairDemoActivity : GuidelinesBaseActivity() {
         pendingSearch = null
     }
 
-    /** ConcatAdapter children diff asynchronously; scroll only after the new rows are committed. */
     private fun scrollToNewSearchResults() {
         val adapter = binding.products.adapter ?: return
         val request = searchState.generation
@@ -789,7 +1223,7 @@ class ParagonFairDemoActivity : GuidelinesBaseActivity() {
             searchScrollObserver = null
             binding.products.post {
                 if (request == searchState.generation && inSearch && !editingSearch)
-                    (binding.products.layoutManager as GridLayoutManager).scrollToPositionWithOffset(0, 0)
+                    (binding.products.layoutManager as StaggeredGridLayoutManager).scrollToPositionWithOffset(0, 0)
             }
         }
         searchScrollObserver = object : RecyclerView.AdapterDataObserver() {
@@ -817,7 +1251,7 @@ class ParagonFairDemoActivity : GuidelinesBaseActivity() {
 
     private fun restoreScroll(scroll: Parcelable?) {
         if (scroll == null) return
-        // AsyncListDiffer commits first; the adapter observer restores after inserted rows.
+
         val adapter = binding.products.adapter ?: return
         var registered = true
         val observer = object : RecyclerView.AdapterDataObserver() {
@@ -862,7 +1296,7 @@ class ParagonFairDemoActivity : GuidelinesBaseActivity() {
             }
         }
         if (resources.configuration.fontScale > 1.4f) {
-            // Preserve the approved 28 dp rectangle and full visible label at large font scales.
+
             view.action.setTextSize(android.util.TypedValue.COMPLEX_UNIT_DIP, 12f)
             TextViewCompat.setLineHeight(view.action, 16.dp.toInt())
         }
@@ -885,6 +1319,65 @@ class ParagonFairDemoActivity : GuidelinesBaseActivity() {
         })
     }
 
+    private class SelectionTag(val itemId: String, var selected: Boolean, var strokeAnimator: ValueAnimator? = null)
+
+    private fun applySelection(v: ItemFairRedeemProductBinding, itemId: String, selected: Boolean) {
+        val card = v.root
+        val mark = v.selectedMark
+        val previous = card.tag as? SelectionTag
+
+        val sameItem = previous != null && previous.itemId == itemId
+        val animated = motionEnabled && sameItem && previous!!.selected != selected
+
+        previous?.strokeAnimator?.cancel()
+        mark.animate().cancel()
+
+        val tag = if (sameItem) previous!! else SelectionTag(itemId, selected)
+        tag.selected = selected
+        tag.strokeAnimator = null
+        card.tag = tag
+
+        val newBorder = color(if (selected) UIKitR.color.primary_30 else UIKitR.color.black_30)
+        if (animated) {
+            tag.strokeAnimator = ValueAnimator.ofArgb(card.strokeColor, newBorder).apply {
+                duration = 250L
+                addUpdateListener { card.setStrokeColor(it.animatedValue as Int) }
+                start()
+            }
+        } else {
+            card.setStrokeColor(newBorder)
+        }
+
+        val offscreen = -(if (mark.width > 0) mark.width else (32 * resources.displayMetrics.density).toInt()).toFloat()
+        if (selected) {
+            mark.isVisible = true
+            if (animated) {
+                mark.alpha = 0f
+                mark.translationX = offscreen
+                mark.translationY = offscreen
+                mark.animate()
+                    .alpha(1f).translationX(0f).translationY(0f)
+                    .setDuration(250L).setInterpolator(DecelerateInterpolator())
+                    .start()
+            } else {
+                mark.alpha = 1f
+                mark.translationX = 0f
+                mark.translationY = 0f
+            }
+        } else if (animated) {
+            mark.animate()
+                .alpha(0f).translationX(offscreen).translationY(offscreen)
+                .setDuration(200L).setInterpolator(AccelerateInterpolator())
+                .withEndAction { if (!tag.selected) mark.isVisible = false }
+                .start()
+        } else {
+            mark.isVisible = false
+            mark.alpha = 1f
+            mark.translationX = 0f
+            mark.translationY = 0f
+        }
+    }
+
     private fun showGeneralSearchHandoff() {
         ViewCompat.getWindowInsetsController(binding.queryField)?.hide(WindowInsetsCompat.Type.ime())
         showOptions("Pencarian Klik Indomaret", "Kata kunci: ${PromoSearchState.normalize(searchState.draft)}\nHandoff demo. Halaman pencarian umum tidak disediakan dalam frame Figma ini.",
@@ -899,23 +1392,74 @@ class ParagonFairDemoActivity : GuidelinesBaseActivity() {
         }
     }
 
-    private fun showCart() {
-        showOptions("Keranjang", "${state.cartCount} barang · ${money(state.cartTotal)}\nHadiah dipilih: ${state.claimedGifts.size}",
-            state.products.filter { it.quantity > 0 }.map { Option(it.id, "${it.name}\n${it.quantity} × ${money(it.price)}", it.image) } +
-                if (state.unclaimedGifts > 0) listOf(Option("gift", "Pilih ${state.unclaimedGifts} hadiah")) else emptyList()) { option ->
-            if (option.id == "gift") showGifts() else state.products.firstOrNull { it.id == option.id }?.let { showProduct(it) }
+    private fun showDiscardConfirmation(onDiscard: () -> Unit) {
+        if (supportFragmentManager.findFragmentByTag("fair-discard") != null) return
+        val view = SheetFairDiscardBinding.inflate(inflater)
+        var confirm: BottomSheetTray? = null
+        view.stay.setOnClickListener { confirm?.dismiss() }
+        view.discard.setOnClickListener { confirm?.dismiss(); onDiscard() }
+        confirm = BottomSheetTray.newInstance(title = "Perubahan Belum Disimpan", contentLayout = view.root).apply {
+            dragHandleVisibility = false
+            titleDividerVisibility = true
+            shouldShowClose = false
+            customAnimationsEnabled = motionEnabled
+        }
+        confirm.show(supportFragmentManager, "fair-discard")
+    }
+
+    private fun hookTrayClose(dialog: Dialog, ownContent: View, onClose: () -> Unit) {
+        val decor = dialog.window?.decorView ?: return
+        val scrim = dialog.findViewById<View>(com.google.android.material.R.id.touch_outside)
+        val density = resources.displayMetrics.density
+        val min = (24 * density).toInt()
+        val max = (64 * density).toInt()
+
+        decor.post {
+            val candidates = mutableListOf<View>()
+
+            fun idName(v: View) = if (v.id == View.NO_ID) "-" else runCatching { resources.getResourceEntryName(v.id) }.getOrDefault("?")
+
+            fun walk(v: View, depth: Int) {
+                if (v === ownContent || v === scrim) return
+                android.util.Log.d("FairDemo", "tray view: ${"  ".repeat(depth)}${v.javaClass.simpleName} id=${idName(v)} clickable=${v.isClickable} ${v.width}x${v.height}")
+                if (v.isShown && v.isClickable && v.width in min..max && v.height in min..max) candidates += v
+                if (v is ViewGroup) for (i in 0 until v.childCount) walk(v.getChildAt(i), depth + 1)
+            }
+            walk(decor, 0)
+
+            val close = candidates.maxByOrNull { v -> IntArray(2).also { v.getLocationOnScreen(it) }[0] }
+            if (close != null) close.setOnClickListener { onClose() }
+            else android.util.Log.w("FairDemo", "tray close button not found; ✕ is not guarded")
+        }
+    }
+
+    private inner class ProductSpacingDecoration : RecyclerView.ItemDecoration() {
+        override fun getItemOffsets(outRect: android.graphics.Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
+            val position = parent.getChildAdapterPosition(view)
+            if (position == RecyclerView.NO_POSITION) { outRect.set(0, 0, 0, 0); return }
+
+            val firstProduct = headerAdapter.itemCount + scopeAdapter.itemCount + sectionAdapter.itemCount
+            val lastProduct = firstProduct + productAdapter.itemCount
+            val half = gridGap / 2
+
+            if (position in firstProduct until lastProduct) {
+                outRect.set(half, half, half, half)                        // same on every side: no column or span lookup needed
+            } else {
+                outRect.set(-(gridEdge - half), 0, -(gridEdge - half), 0)  // header, section, empty and loading rows cancel the list padding
+            }
         }
     }
 
     private fun showScenarios() {
         showOptions("Skenario demo", "Pilih kondisi promo untuk menguji tampilan dan interaksi.", DemoScenario.entries.map { Option(it.name, it.label) }) {
-            progressAnimator?.cancel()
+
             cancelSearchRequest()
             searchState = PromoSearchState()
             state = scenarioState(DemoScenario.valueOf(it.id))
             brand = "Semua"
             sortOrder = "Relevansi"
-            displayedProgress = state.progressPercent
+
+            displayedProgress = state.barProgress
             render()
             binding.products.scrollToPosition(0)
             if (it.id.startsWith("SEARCH_")) showSearch()
@@ -958,10 +1502,16 @@ class ParagonFairDemoActivity : GuidelinesBaseActivity() {
     }
 
     private fun scenarioState(scenario: DemoScenario): PromoDemoState {
-        promotion = if (scenario == DemoScenario.SEARCH_REDEMPTION) DemoPromotion.REDEMPTION else DemoPromotion.FREE_GIFT
+        promotion = if (scenario == DemoScenario.SEARCH_REDEMPTION || scenario == DemoScenario.START) DemoPromotion.REDEMPTION else DemoPromotion.FREE_GIFT
         failNextSearch = scenario == DemoScenario.SEARCH_ERROR
-        var model = PromoDemoState(fixtureProducts())
-        if (promotion == DemoPromotion.REDEMPTION) model = model.copy(rule = RewardRule.REPEATABLE, threshold = 50_000L)
+        var model = PromoDemoState(fixtureProducts(), giftOffers = giftOffers())
+
+        if (promotion == DemoPromotion.REDEMPTION) {
+            model = model.copy(
+                threshold = 50_000L,
+                rule = if (scenario == DemoScenario.SEARCH_REDEMPTION) RewardRule.REPEATABLE else RewardRule.ONE_TIME
+            )
+        }
         if (scenario in listOf(DemoScenario.REPEATABLE, DemoScenario.REPEATABLE_PARTIAL, DemoScenario.REPEATABLE_THREE)) model = model.copy(rule = RewardRule.REPEATABLE)
         val quantity = when (scenario) {
             DemoScenario.HALFWAY, DemoScenario.SEARCH_GIFT, DemoScenario.SEARCH_ERROR -> 1
@@ -1002,6 +1552,21 @@ class ParagonFairDemoActivity : GuidelinesBaseActivity() {
         DemoProduct("jumbo", "Indomie Mi Instan Goreng Jumbo Special 129g", R.drawable.promo_product_jumbo, price = 10_000, discounted = false, promotion = "Paket Bundling", benefit = "Beli 3, +10 Stamp", highlight = "Banyak Lebih Hemat")
     )
 
+    private fun redemptionOffers(): List<RedeemItem> {
+        val original = if (promotion == DemoPromotion.FREE_GIFT) 50_000L else 10_000L
+        val discountPercent = 50
+        val price = original * (100 - discountPercent) / 100
+        return listOf(
+            RedeemItem("gel", "Emina Water Barrier Balancing Gel 30g", R.drawable.fair_emina_gel, packSize = 2, originalPrice = original, price = price),
+            RedeemItem("scrub", "Kahf Face Wash Scrub Acne & Pore", R.drawable.fair_gift_cotton, originalPrice = original, price = price),
+            RedeemItem("sunscreen", "Wardah UV Shield Airy Sunscreen", R.drawable.fair_gift_cleanser, originalPrice = original, price = price, restocking = true)
+        )
+    }
+
+    private fun giftOffers() = redemptionOffers().map {
+        GiftOffer(it.id, it.name, it.image, it.packSize, it.originalPrice, it.price, it.restocking)
+    }
+
     private fun money(value: Long): String = "Rp${rupiah.format(value)}"
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -1034,24 +1599,39 @@ class ParagonFairDemoActivity : GuidelinesBaseActivity() {
         val products = if (saved.getBoolean("empty")) emptyList() else fixtureProducts().mapIndexed { i, p -> p.copy(quantity = quantities.getOrElse(i) { 0 }) }
         return PromoDemoState(products, RewardRule.valueOf(saved.getString("rule") ?: "ONE_TIME"),
             PromoAvailability.valueOf(saved.getString("availability") ?: "ACTIVE"), saved.getStringArrayList("gifts") ?: emptyList(),
-            threshold = saved.getLong("threshold", 100_000L), otherCartCount = saved.getInt("otherCount"), otherCartTotal = saved.getLong("otherTotal"))
+            threshold = saved.getLong("threshold", 100_000L), otherCartCount = saved.getInt("otherCount"), otherCartTotal = saved.getLong("otherTotal"),
+            giftOffers = giftOffers())
     }
 
     override fun onDestroy() {
-        progressAnimator?.cancel()
         cancelSearchRequest()
         searchHandler.removeCallbacksAndMessages(null)
         header = null
+        skeletonFinish?.let { binding.skeleton.root.removeCallbacks(it) }
+        skeletonPulse?.cancel()
+        binding.products.removeCallbacks(clearFocusTask)
         super.onDestroy()
     }
 
     private data class HeaderRow(val state: PromoDemoState, val id: String = "header")
     private data class SectionRow(val count: Int, val columns: Int, val id: String = "section")
-    private data class ProductRow(val product: DemoProduct, val availability: PromoAvailability, val columns: Int, val search: Boolean, val promotion: DemoPromotion) { val id get() = product.id }
+    private data class ProductRow(val product: DemoProduct, val availability: PromoAvailability, val columns: Int, val search: Boolean, val promotion: DemoPromotion, val focused: Boolean = false) { val id get() = product.id }
     private data class Option(val id: String, val label: String, val image: Int? = null, val selected: Boolean = false)
 
     private data class ScopeRow(val id: String, val query: String, val description: String)
     private data class EmptyRow(val mode: SearchMode, val fallback: Boolean, val filtered: Boolean = false, val id: String = "empty")
+
+    private data class RedeemItem(
+        val id: String, val name: String, val image: Int,
+        val packSize: Int = 1,
+        val originalPrice: Long = 10_000, val price: Long = 5_000,
+        val restocking: Boolean = false, val quantity: Int = 0
+    )
+    private data class RedeemRow(val item: RedeemItem, val canAdd: Boolean, val locked: Boolean, val remaining: Int) { val id get() = item.id }
+
+    private enum class StepperFace { ADD, FOCUSED, COUNT }
+
+    private class FaceTag(val productId: String, val face: StepperFace, var animator: AnimatorSet? = null, var cancelled: Boolean = false)
 
     companion object { const val EXTRA_SEARCH = "fair_search_demo"; const val EXTRA_SCENARIO = "fair_scenario" }
 }

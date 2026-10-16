@@ -33,8 +33,19 @@
         <item name="android:textSize">12sp</item>
         <item name="android:textColor">@color/black_50</item>
     </style>
+    <style name="FairDemo.BodyCaption" parent="FairDemo.Body">
+        <item name="android:textSize">14sp</item>
+        <item name="lineHeight">16dp</item>
+    </style>
     <style name="FairDemo.CaptionStrong" parent="FairDemo.Strong">
         <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/black_60</item>
+    </style>
+    <style name="FairDemo.CaptionBold" parent="Base.TextAppearance.AppCompat">
+        <item name="fontFamily">@font/inter_bold_fallback</item>
+        <item name="android:fontFamily">@font/inter_bold_fallback</item>
+        <item name="android:textSize">12sp</item>
+        <item name="lineHeight">16dp</item>
         <item name="android:textColor">@color/black_60</item>
     </style>
     <style name="FairDemo.Small" parent="FairDemo.Caption">

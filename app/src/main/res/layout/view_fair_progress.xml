@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent" android:layout_height="wrap_content">
+    xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent" android:layout_height="wrap_content"
+    android:clipChildren="false" android:clipToOutline="false" android:clipToPadding="false">
     <id.co.edtslib.uikit.progressbar.LinearProgressBar
         android:id="@+id/progressBar" android:layout_width="0dp" android:layout_height="8dp"
-        android:importantForAccessibility="no" app:trackThickness="6dp" app:thumbSize="8dp"
-        app:maxIndicatorProgress="100" app:progressLimit="100" app:showBadge="false"
+        android:importantForAccessibility="no" android:clipChildren="false"
+        android:clipToPadding="false"
+        android:clipToOutline="false"
+        app:maxIndicatorProgress="100" app:progressLimit="100" app:showBadge="true"
         app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent" />
-    <id.co.edtslib.uikit.core.textbadge.CoreTextBadge android:id="@+id/milestone"
-        android:layout_width="16dp" android:layout_height="16dp" android:visibility="gone" android:importantForAccessibility="no"
-        app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="@id/progressBar" app:layout_constraintBottom_toBottomOf="@id/progressBar" />
-    <TextView android:id="@+id/message" style="@style/FairDemo.Caption"
+    <TextView android:id="@+id/message" style="@style/TextAppearance.Inter.Medium.B3" android:textColor="@color/black_50"
         android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginTop="8dp"
         android:minHeight="16dp" android:gravity="center_vertical" android:text="Tambah produk dulu, yuk!"
         app:layout_constraintTop_toBottomOf="@id/progressBar" app:layout_constraintStart_toStartOf="parent"
