@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_marginBottom="@dimen/xs"
     app:cardBackgroundColor="@color/white"
     app:cardCornerRadius="@dimen/xxs"
@@ -41,9 +41,10 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvProducts"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/xxxl"
+            android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/xs"
             android:overScrollMode="never"
+            tools:itemCount="3"
             app:layout_constraintTop_toBottomOf="@id/ivBanner" />
 
         <id.co.edtslib.uikit.alert.AlertBox

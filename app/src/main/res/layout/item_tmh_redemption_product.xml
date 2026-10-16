@@ -18,25 +18,30 @@
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/ivProduct"
             android:layout_width="@dimen/xxl"
-            android:layout_height="@dimen/xxl"
-            android:layout_margin="@dimen/xs"
-            android:scaleType="centerCrop"
+            android:layout_height="@dimen/dimen_0"
+            android:layout_marginTop="@dimen/xs"
+            android:layout_marginStart="@dimen/xs"
+            android:scaleType="fitCenter"
             android:importantForAccessibility="no"
             app:shapeAppearanceOverlay="@style/ShapeAppearance.Tmh.Image"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/tvDiscount"
+            app:layout_constraintHeight_max="@dimen/xxl"
+            app:layout_constraintVertical_bias="1" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tvName"
             android:layout_width="@dimen/dimen_0"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/xs"
             android:layout_marginStart="@dimen/xxs"
             android:layout_marginEnd="@dimen/xs"
             android:textAppearance="@style/TextAppearance.Tmh.Regular.B2"
             android:textColor="@color/black_70"
             android:maxLines="2"
             android:ellipsize="end"
-            app:layout_constraintTop_toTopOf="@id/ivProduct"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toEndOf="@id/ivProduct"
             app:layout_constraintEnd_toEndOf="parent" />
 
@@ -118,6 +123,7 @@
                 android:id="@+id/stepper"
                 android:layout_width="@dimen/dimen_90"
                 android:layout_height="@dimen/l"
+                app:buttonTouchTargetMode="expanded"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent" />

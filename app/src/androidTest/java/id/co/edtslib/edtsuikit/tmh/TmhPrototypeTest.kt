@@ -34,6 +34,7 @@ import com.google.android.material.card.MaterialCardView
 import id.co.edtslib.uikit.button.Button
 import id.co.edtslib.uikit.utils.color
 import id.co.edtslib.uikit.utils.dp
+import id.co.edtslib.uikit.utils.dimenPixelSize
 import id.co.edtslib.edtsuikit.GuidelinesTmhActivity
 import id.co.edtslib.edtsuikit.R
 import org.hamcrest.Matchers.allOf
@@ -421,6 +422,52 @@ class TmhPrototypeTest {
             assertEquals(10, text.getSpans(0, text.length, android.text.style.LeadingMarginSpan::class.java)
                 .count { it !is android.text.ParcelableSpan })
         }
+    }
+
+    @Test
+    fun imageBoundsFollowDiscountBottomAndCapAtFiftySixDp() {
+        activity.onActivity { screen ->
+            val row = id.co.edtslib.edtsuikit.databinding.ItemTmhRedemptionProductBinding.inflate(screen.layoutInflater)
+            row.root.tmhTypography()
+            row.tvPrice.text = screen.getString(R.string.tmh_price_5000)
+            row.tvOriginalPrice.text = screen.getString(R.string.tmh_price_10000)
+            row.ivProduct.setImageResource(R.drawable.tmh_product_emina)
+            for (name in listOf("Emina", "Baris pertama\nBaris kedua", "Emina")) {
+                row.tvName.text = name
+                row.root.measure(View.MeasureSpec.makeMeasureSpec(360.dp.toInt(), View.MeasureSpec.EXACTLY),
+                    View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED))
+                row.root.layout(0, 0, row.root.measuredWidth, row.root.measuredHeight)
+                assertEquals(row.tvDiscount.bottom, row.ivProduct.bottom)
+                assertTrue(row.ivProduct.height <= 56.dp + 1)
+                assertTrue(kotlin.math.abs(row.ivProduct.width - 56.dp) <= 1)
+                assertEquals(android.widget.ImageView.ScaleType.FIT_CENTER, row.ivProduct.scaleType)
+                if (name.contains('\n')) {
+                    assertEquals(2, row.tvName.lineCount)
+                    assertTrue(kotlin.math.abs(row.ivProduct.height - 56.dp) <= 1)
+                    assertTrue(row.ivProduct.top > row.tvName.top)
+                } else {
+                    assertEquals(row.tvName.top, row.ivProduct.top)
+                    assertTrue(row.ivProduct.height < 56.dp)
+                }
+            }
+            val preview = id.co.edtslib.edtsuikit.databinding.ItemTmhProductPreviewBinding.inflate(screen.layoutInflater)
+            preview.root.tmhTypography()
+            preview.tvName.text = "Emina"
+            preview.tvPrice.text = screen.getString(R.string.tmh_price_5000)
+            preview.tvOriginalPrice.text = screen.getString(R.string.tmh_price_10000)
+            preview.ivProduct.setImageResource(R.drawable.tmh_product_emina)
+            preview.root.measure(View.MeasureSpec.makeMeasureSpec(
+                requireNotNull(screen.dimenPixelSize(R.dimen.tmh_product_preview_width)), View.MeasureSpec.EXACTLY),
+                View.MeasureSpec.makeMeasureSpec(80.dp.toInt(), View.MeasureSpec.EXACTLY))
+            preview.root.layout(0, 0, preview.root.measuredWidth, preview.root.measuredHeight)
+            assertEquals(preview.tvDiscount.bottom, preview.ivProduct.bottom)
+            assertTrue(preview.ivProduct.height <= 56.dp + 1)
+            assertTrue(kotlin.math.abs(preview.ivProduct.width - 56.dp) <= 1)
+            assertEquals(1, preview.tvName.maxLines)
+            assertEquals(android.widget.ImageView.ScaleType.FIT_CENTER, preview.ivProduct.scaleType)
+        }
+        openFreshTray()
+        captureReview("product-images-redemption")
     }
 
     @Test

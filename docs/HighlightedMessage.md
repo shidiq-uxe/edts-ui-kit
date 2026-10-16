@@ -17,7 +17,7 @@ import id.co.edtslib.uikit.utils.buildHighlightedMessage
 
 alertBox.text = buildHighlightedMessage(
     context = context,
-    htmlMessage = "Sudah ambil <b>2</b> dari <strong>2</strong> tebus murah",
+    htmlMessage = "Sudah ambil <strong>2</strong> tebus murah",
     highlightedTextAppearance = TextStyleKey.P2_SEMIBOLD.get(context, R.color.black_70),
 )
 ```

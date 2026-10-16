@@ -36,6 +36,10 @@ near-end tab's scroll is clamped at the bottom. A new tap supersedes the
 previous scroll; manual dragging takes over vertical navigation.
 
 A selected product has a blue outline and a 32dp triangular blue corner with a white check.
+Product images keep a 56dp column, with height constrained to the discount row and capped
+at 56dp. The text block is anchored independently; when it exceeds the cap, image bottom
+alignment takes priority. `fitCenter` preserves complete packshots in the rectangular bounds.
+The preview retains its one-line product name. Selected alerts read `Sudah ambil N tebus murah`.
 At 2/2, plus is disabled while minus remains available. An unavailable product cannot be
 incremented. Saving a changed selection can remove all previously saved promotional items;
 an unchanged fresh 0/2 selection cannot be saved.

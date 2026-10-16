@@ -80,18 +80,18 @@ class HighlightedMessageTest {
     }
 
     @Test
-    fun tmhHtmlResourceEmphasizesBothRepeatedQuantities() {
-        val result = buildHighlightedMessage(
-            context = context,
-            htmlMessage = context.getString(R.string.tmh_selected, 2),
-            highlightedTextAppearance = emphasis,
-        )
-        assertEquals("Sudah ambil 2 dari 2 tebus murah", result.toString())
-        val first = result.indexOf('2')
-        val last = result.lastIndexOf('2')
-        assertSemibold(result, first, first + 1)
-        assertSemibold(result, last, last + 1)
-        assertEquals(0, result.getSpans(0, result.length, ClickableSpan::class.java).size)
+    fun tmhHtmlResourceEmphasizesOnlyTheSelectedQuantity() {
+        for (quantity in 1..2) {
+            val result = buildHighlightedMessage(
+                context = context,
+                htmlMessage = context.getString(R.string.tmh_selected, quantity),
+                highlightedTextAppearance = emphasis,
+            )
+            assertEquals("Sudah ambil $quantity tebus murah", result.toString())
+            val start = result.indexOf(quantity.toString())
+            assertSemibold(result, start, start + 1)
+            assertEquals(0, result.getSpans(0, result.length, ClickableSpan::class.java).size)
+        }
     }
 
     @Test

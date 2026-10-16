@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="@dimen/tmh_product_preview_width"
-    android:layout_height="@dimen/xxxl"
+    android:layout_height="wrap_content"
     android:layout_marginEnd="@dimen/xxs"
     app:cardBackgroundColor="@color/white"
     app:cardElevation="@dimen/dimen_0"
@@ -19,12 +19,15 @@
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/ivProduct"
             android:layout_width="@dimen/xxl"
-            android:layout_height="@dimen/xxl"
-            android:scaleType="centerCrop"
+            android:layout_height="@dimen/dimen_0"
+            android:scaleType="fitCenter"
             android:importantForAccessibility="no"
             app:shapeAppearanceOverlay="@style/ShapeAppearance.Tmh.Image"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/tvDiscount"
+            app:layout_constraintHeight_max="@dimen/xxl"
+            app:layout_constraintVertical_bias="1" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tvName"

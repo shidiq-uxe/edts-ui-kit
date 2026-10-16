@@ -41,7 +41,7 @@
     <string name="tmh_total_product">Total dapat: &lt;b&gt;%1$d pcs&lt;/b&gt;</string>
     <string name="tmh_counter">%1$d/%2$d</string>
     <string name="tmh_available">Bisa ambil &lt;b&gt;2&lt;/b&gt; tebus murah</string>
-    <string name="tmh_selected">Sudah ambil &lt;b&gt;%1$d&lt;/b&gt; dari &lt;b&gt;2&lt;/b&gt; tebus murah</string>
+    <string name="tmh_selected">Sudah ambil &lt;b&gt;%1$d&lt;/b&gt; tebus murah</string>
     <!-- Figma inconsistency: listing +Rp50.000, tray Rp40.000, detail Rp50.000/Rp100.000. -->
     <string name="tmh_requirement">&lt;b&gt;+Rp50.000&lt;/b&gt; untuk ambil promo tebus murah ini.</string>
     <string name="tmh_stock_message">Stok produk tebus murah tidak tersedia. Cek promo lainnya yang tersedia yuk!</string>
