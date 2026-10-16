@@ -74,7 +74,17 @@
     <string name="tmh_cart_count">%1$d</string>
     <string name="tmh_cart_summary">%1$d produk tebus murah di keranjang</string>
     <string name="tmh_terms_title">Syarat dan Ketentuan</string>
-    <string name="tmh_terms_content">Belanja produk yang memenuhi syarat untuk memilih maksimal 2 produk tebus murah. Berlaku sesuai ketersediaan stok, kuota promo, dan limit pelanggan.</string>
+    <string name="tmh_terms_fair_title">Syarat dan Ketentuan %1$s</string>
+    <string name="tmh_terms_content">Setiap pembelanjaan All Produk (kecuali rokok, susu bayi dibawah 1 tahun, payment point, top up tarik tunai) senilai minimal Rp100.000 pada halaman Klik Indomaret, konsumen berhak mendapatkan Tebus Murah 1 pc [Nama Produk] diskon [Harga Diskon]. [Kalau lebih dari 1, di list aja lagi]
+Periode promo 15 - 25 Oktober 2026.
+Promo [Tipe Kelipatan].
+Kuota promo Tebus Murah terbatas.
+Mohon dipastikan item Tebus Murah sudah dipilih pada halaman Tebus Murah sebelum menyelesaikan transaksi.
+Jika promosi Tebus Murah menampilkan informasi "Kuota Promo Sudah Habis", artinya kuota sudah habis.
+Jika item Tebus Murah menampilkan informasi "Sedang Direstock", artinya stok sudah habis.
+Untuk pesanan yang sudah terbentuk dan memasuki proses selanjutnya, maka pesanan Anda tidak dapat dibatalkan kembali.
+Apabila kamu melakukan pembelian atas item yang sedang promosi, baik itu diskon, gratis hadiah ataupun lainnya tetapi item tersebut secara jumlah stock di toko tidak memenuhi jumlah yang dibeli, maka promo yang kamu dapatkan akan dihitung secara prorata sesuai dengan stock yang tersedia di toko.
+Dengan melakukan transaksi di dalam program ini, maka konsumen dianggap mengerti dan menyetujui semua syarat dan ketentuan yang berlaku</string>
     <string name="tmh_toples_fair">Toples Kaca Indomaret Fair</string>
     <string name="tmh_softex">Softex Fair</string>
     <string name="tmh_tissue">Toilet Tissue Fair</string>

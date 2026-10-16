@@ -1,9 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.textview.MaterialTextView
+<androidx.core.widget.NestedScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/termsScroll"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="@dimen/s"
-    android:text="@string/tmh_terms_content"
-    android:textAppearance="@style/TextAppearance.Tmh.Regular.P1"
-    android:textColor="@color/black_60" />
+    android:clipToPadding="false"
+    android:fillViewport="false">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvTermsContent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="@dimen/s"
+        android:paddingTop="@dimen/s"
+        android:paddingBottom="@dimen/xxs"
+        android:textAppearance="@style/TextAppearance.Tmh.Regular.P1"
+        android:textColor="@color/black_60"
+        tools:text="@string/tmh_terms_content" />
+
+</androidx.core.widget.NestedScrollView>

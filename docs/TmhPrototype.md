@@ -88,6 +88,14 @@ swipe-down all ask for confirmation only when quantities differ from the origina
 Each dialog window dims its background with 75% black (Figma RGBA `#000000BF`, Android ARGB
 `#BF000000`). Stacked terms and unsaved-change sheets each apply their own dimming.
 
+The terms title includes the originating fair name, with the generic title as a fallback.
+`raw/tmh_terms.html` simulates backend content using ten ordered clauses, strong emphasis,
+entities, and a blue terms phrase. The shared HTML renderer supplies list spans and
+`buildHighlightedMessage` applies semibold emphasis while retaining those spans. The body
+scrolls inside the content-based sheet with its 90% maximum and navigation-safe bottom padding.
+The blue phrase is color-only until a navigation destination is defined; design placeholders
+remain sample content. Campaign identity is retained through fragment arguments on recreation.
+
 ## Typography implementation and audit
 
 TMH text appearances explicitly use the existing bundled Inter font files at weights 400,

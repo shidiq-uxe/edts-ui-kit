@@ -78,8 +78,8 @@ class TmhPrototypeTest {
         if (settleDuration > 0) settleUi(settleDuration)
         val automation = androidx.test.platform.app.InstrumentationRegistry.getInstrumentation().uiAutomation
         for (command in listOf(
-            "mkdir -p /sdcard/Download/tmh-review-v6",
-            "screencap -p /sdcard/Download/tmh-review-v6/$name.png",
+            "mkdir -p /sdcard/Download/tmh-review-v8",
+            "screencap -p /sdcard/Download/tmh-review-v8/$name.png",
         )) {
             automation.executeShellCommand(command).use { descriptor ->
                 java.io.FileInputStream(descriptor.fileDescriptor).use { it.readBytes() }
@@ -352,6 +352,75 @@ class TmhPrototypeTest {
             assertEquals(0.75f, requireNotNull(unsaved.dialog?.window).attributes.dimAmount, 0.001f)
         }
         captureReview("stacked-dimming")
+    }
+
+    @Test
+    fun termsHtmlScrollsWithNumberingEmphasisAndRestoredFairTitle() {
+        openFreshTray()
+        onView(withId(R.id.tvTerms)).perform(click())
+        settleUi()
+        activity.onActivity { screen ->
+            val redemption = screen.supportFragmentManager.findFragmentByTag(TmhRedemptionBottomSheet.TAG)
+                as TmhRedemptionBottomSheet
+            val terms = redemption.childFragmentManager.findFragmentByTag(TmhTermsBottomSheet.TAG) as TmhTermsBottomSheet
+            val content = terms.requireView().findViewById<android.widget.TextView>(R.id.tvTermsContent)
+            val text = content.text as android.text.Spanned
+            assertEquals(screen.getString(R.string.tmh_terms_fair_title, screen.getString(R.string.tmh_paragon)),
+                terms.title)
+            assertEquals(10, text.getSpans(0, text.length, android.text.style.LeadingMarginSpan::class.java)
+                .count { it !is android.text.ParcelableSpan })
+            assertTrue(text.toString().contains("\"Kuota Promo Sudah Habis\""))
+            assertTrue(!text.toString().contains("<strong>"))
+            assertTrue(text.getSpans(0, text.length, id.co.edtslib.uikit.utils.html.TypefaceSpan::class.java).isNotEmpty())
+            val firstLine = content.layout.getLineForOffset(0)
+            val lineBottom = content.compoundPaddingTop + content.layout.getLineBottom(firstLine)
+            val bitmap = android.graphics.Bitmap.createBitmap(content.width, lineBottom,
+                android.graphics.Bitmap.Config.ARGB_8888)
+            try {
+                content.draw(android.graphics.Canvas(bitmap))
+                val textStart = content.compoundPaddingLeft + content.layout.getPrimaryHorizontal(0).toInt()
+                val markerRight = textStart - 4.dp.toInt()
+                val markerTop = content.compoundPaddingTop + content.layout.getLineTop(firstLine)
+                val hasMarkerPixels = (content.compoundPaddingLeft until markerRight).any { x ->
+                    (markerTop until lineBottom).any { y -> android.graphics.Color.alpha(bitmap.getPixel(x, y)) > 0 }
+                }
+                assertTrue("The first ordered-list number must actually be drawn", hasMarkerPixels)
+            } finally {
+                bitmap.recycle()
+            }
+            val linkStart = text.indexOf("syarat dan ketentuan")
+            assertTrue(text.getSpans(linkStart, linkStart + 19, android.text.style.ForegroundColorSpan::class.java)
+                .any { it.foregroundColor == screen.color(UIKitR.color.klik_color_blue_50) })
+            val sheet = requireNotNull(terms.dialog).findViewById<View>(com.google.android.material.R.id.design_bottom_sheet)
+            assertTrue(requireNotNull(sheet).height <= screen.window.decorView.height * 0.9f + 1)
+            val scroll = terms.requireView().findViewById<androidx.core.widget.NestedScrollView>(R.id.termsScroll)
+            assertTrue(scroll.canScrollVertically(1))
+        }
+        captureReview("terms-html-top")
+        onView(withId(R.id.termsScroll)).perform(swipeUp())
+        onView(withId(R.id.termsScroll)).perform(swipeUp())
+        settleUi()
+        activity.onActivity { screen ->
+            val redemption = screen.supportFragmentManager.findFragmentByTag(TmhRedemptionBottomSheet.TAG)
+                as TmhRedemptionBottomSheet
+            val terms = redemption.childFragmentManager.findFragmentByTag(TmhTermsBottomSheet.TAG) as TmhTermsBottomSheet
+            terms.requireView().findViewById<androidx.core.widget.NestedScrollView>(R.id.termsScroll).fullScroll(View.FOCUS_DOWN)
+        }
+        settleUi()
+        onView(withId(R.id.termsScroll)).check { view, _ -> assertTrue(!view.canScrollVertically(1)) }
+        captureReview("terms-html-bottom")
+        activity.recreate()
+        settleUi()
+        activity.onActivity { screen ->
+            val redemption = screen.supportFragmentManager.findFragmentByTag(TmhRedemptionBottomSheet.TAG)
+                as TmhRedemptionBottomSheet
+            val terms = redemption.childFragmentManager.findFragmentByTag(TmhTermsBottomSheet.TAG) as TmhTermsBottomSheet
+            assertEquals(screen.getString(R.string.tmh_terms_fair_title, screen.getString(R.string.tmh_paragon)),
+                terms.title)
+            val text = terms.requireView().findViewById<android.widget.TextView>(R.id.tvTermsContent).text as android.text.Spanned
+            assertEquals(10, text.getSpans(0, text.length, android.text.style.LeadingMarginSpan::class.java)
+                .count { it !is android.text.ParcelableSpan })
+        }
     }
 
     @Test

@@ -169,7 +169,8 @@ class TmhRedemptionBottomSheet : TmhBottomSheet() {
         content.tvDescription.text = getString(R.string.tmh_description, getString(fair.nameRes))
         content.tvTerms.setOnClickListener {
             if (childFragmentManager.findFragmentByTag(TmhTermsBottomSheet.TAG) == null) {
-                TmhTermsBottomSheet().show(childFragmentManager, TmhTermsBottomSheet.TAG)
+                TmhTermsBottomSheet.newInstance(getString(fair.nameRes))
+                    .show(childFragmentManager, TmhTermsBottomSheet.TAG)
             }
         }
         content.alertBox.isVisible = !fair.state.isEligible
