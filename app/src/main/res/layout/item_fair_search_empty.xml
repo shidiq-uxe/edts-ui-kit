@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:focusable="false">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/messagePanel"
+        android:layout_width="@dimen/dimen_0"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/s"
+        android:paddingBottom="@dimen/m2"
+        android:paddingHorizontal="@dimen/s"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+        <ImageView
+            android:id="@+id/illustration"
+            android:layout_width="@dimen/fair_search_illustration_size"
+            android:layout_height="@dimen/fair_search_illustration_size"
+            android:src="@drawable/fair_search_empty"
+            android:scaleType="fitCenter"
+            android:importantForAccessibility="no"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/heading"
+            style="@style/FairDemo.Strong"
+            android:layout_width="@dimen/dimen_0"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/xs"
+            android:text="@string/fair_search_empty_title"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/description"
+            app:layout_goneMarginStart="@dimen/dimen_0"
+            app:layout_constraintStart_toEndOf="@id/illustration"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+        <TextView
+            android:id="@+id/description"
+            style="@style/FairDemo.Caption"
+            android:layout_width="@dimen/dimen_0"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/xxs"
+            android:text="@string/fair_search_empty_description"
+            app:layout_constraintTop_toBottomOf="@id/heading"
+            app:layout_constraintStart_toStartOf="@id/heading"
+            app:layout_constraintEnd_toEndOf="@id/heading"
+            app:layout_constraintBottom_toBottomOf="@id/illustration" />
+
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/contentBottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:barrierDirection="bottom"
+            app:constraint_referenced_ids="illustration,description" />
+
+        <TextView
+            android:id="@+id/action"
+            style="@style/FairDemo.CaptionStrong"
+            android:layout_width="@dimen/dimen_0"
+            android:layout_height="@dimen/m3"
+            android:layout_marginTop="@dimen/xs"
+            android:background="@drawable/fair_button_blue"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:text="@string/fair_search_edit"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackground"
+            app:layout_constraintTop_toBottomOf="@id/contentBottom"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="@dimen/dimen_0"
+        android:layout_height="@dimen/dimen_1"
+        android:background="@color/black_30"
+        app:layout_constraintTop_toBottomOf="@id/messagePanel"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <ImageView
+        android:id="@+id/websiteBanner"
+        android:layout_width="@dimen/dimen_0"
+        android:layout_height="@dimen/dimen_0"
+        android:layout_marginHorizontal="@dimen/s"
+        android:layout_marginTop="@dimen/s"
+        android:src="@drawable/fair_search_website"
+        android:scaleType="fitCenter"
+        android:clickable="true"
+        android:focusable="true"
+        android:contentDescription="@string/fair_search_website"
+        app:layout_constraintTop_toBottomOf="@id/divider"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="328:118" />
+</androidx.constraintlayout.widget.ConstraintLayout>

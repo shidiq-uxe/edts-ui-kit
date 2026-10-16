@@ -10,6 +10,7 @@ appcompat = "1.7.1"
 material = "1.12.0"
 activity = "1.11.0"
 constraintlayout = "2.2.1"
+recyclerview = "1.4.0"
 swipeRefresh = "1.2.0"
 glide = "4.16.0"
 spotlight = "2.0.5"
@@ -26,6 +27,7 @@ androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 androidx-activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
+androidx-recyclerview = { group = "androidx.recyclerview", name = "recyclerview", version.ref = "recyclerview" }
 androidx-swipeRefresh = { group = "androidx.swiperefreshlayout", name = "swiperefreshlayout", version.ref = "swipeRefresh"  }
 
 glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "glide" }
@@ -42,4 +44,3 @@ jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = 
 android-library = { id = "com.android.library", version.ref = "agp" }
 kotlin-parcelize = { id="org.jetbrains.kotlin.plugin.parcelize",  version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
-

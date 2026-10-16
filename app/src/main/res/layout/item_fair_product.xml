@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clipChildren="false"
+    android:clipToPadding="false">
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/card"
+        android:layout_width="@dimen/dimen_0"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="@dimen/xxs"
+        app:cardElevation="@dimen/dimen_3"
+        app:strokeWidth="@dimen/dimen_0"
+        android:outlineSpotShadowColor="@color/fair_product_spot_shadow"
+        android:outlineAmbientShadowColor="@color/black_50"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintVertical_bias="0">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/image"
+                android:layout_width="@dimen/dimen_0"
+                android:layout_height="@dimen/dimen_0"
+                android:scaleType="centerCrop"
+                android:importantForAccessibility="no"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintDimensionRatio="1:1" />
+
+            <id.co.edtslib.uikit.stepper.StepperButton
+                android:id="@+id/quantity"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/l"
+                android:layout_marginTop="@dimen/xxs"
+                android:layout_marginEnd="@dimen/xxs"
+                app:layout_constraintTop_toTopOf="@id/image"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <id.co.edtslib.uikit.recipes.textbadge.klik.KlikTextBadge
+                android:id="@+id/highlight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/image"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/name"
+                style="@style/FairDemo.Body"
+                android:layout_width="@dimen/dimen_0"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/xxs"
+                android:layout_marginTop="@dimen/xxs"
+                android:minLines="2"
+                android:maxLines="2"
+                android:ellipsize="end"
+                app:layout_constraintTop_toBottomOf="@id/highlight"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <TextView
+                android:id="@+id/price"
+                style="@style/FairDemo.Strong"
+                android:layout_width="@dimen/dimen_0"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/xxs"
+                android:layout_marginTop="@dimen/xxxs"
+                app:layout_constraintTop_toBottomOf="@id/name"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <TextView
+                android:id="@+id/discount"
+                style="@style/TextAppearance.Inter.SemiBold.B4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/xxs"
+                android:layout_marginTop="@dimen/xxxs"
+                android:paddingHorizontal="@dimen/xxxs"
+                android:paddingVertical="@dimen/dimen_1"
+                android:text="@string/fair_discount_label"
+                android:textColor="@color/klik_color_red_30"
+                android:background="@drawable/fair_discount_background"
+                app:layout_constraintTop_toBottomOf="@id/price"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/originalPrice"
+                style="@style/FairDemo.Small"
+                android:layout_width="@dimen/dimen_0"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/xxxs"
+                android:layout_marginEnd="@dimen/xxs"
+                android:text="@string/fair_initial_price"
+                android:textColor="@color/black_40"
+                app:layout_constraintTop_toTopOf="@id/discount"
+                app:layout_constraintStart_toEndOf="@id/discount"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="@id/discount" />
+
+            <androidx.constraintlayout.widget.Barrier
+                android:id="@+id/discountBottom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:barrierDirection="bottom"
+                app:constraint_referenced_ids="discount,originalPrice" />
+
+            <TextView
+                android:id="@+id/promotion"
+                style="@style/TextAppearance.Inter.SemiBold.B4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/xxs"
+                android:layout_marginEnd="@dimen/xxs"
+                android:layout_marginTop="@dimen/xxxs"
+                android:paddingHorizontal="@dimen/xxxs"
+                android:paddingVertical="@dimen/dimen_1"
+                android:textColor="@color/warning_primary"
+                android:background="@drawable/fair_extra_background"
+                app:layout_constraintTop_toBottomOf="@id/discountBottom"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constrainedWidth="true" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/benefitStrip"
+                android:layout_width="@dimen/dimen_0"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/m2"
+                android:layout_marginTop="@dimen/xxs"
+                android:background="@color/klik_color_blue_10"
+                app:layout_constraintTop_toBottomOf="@id/promotion"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent">
+                <ImageView
+                    android:id="@+id/benefitIcon"
+                    android:layout_width="@dimen/xs"
+                    android:layout_height="@dimen/xs"
+                    android:importantForAccessibility="no"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/benefit"
+                    app:layout_constraintHorizontal_chainStyle="packed"
+                    app:layout_constraintBottom_toBottomOf="parent" />
+
+                <TextView
+                    android:id="@+id/benefit"
+                    style="@style/FairDemo.Small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/xxxs"
+                    android:paddingVertical="@dimen/xxxs"
+                    android:textColor="@color/primary_30"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/benefitIcon"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

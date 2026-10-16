@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <TextView
+        android:id="@+id/message"
+        style="@style/TextAppearance.Inter.Regular.P1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/s"
+        android:text="@string/fair_discard_description" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/xxxs"
+        android:background="@drawable/fair_shadow_top"
+        android:importantForAccessibility="no" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/stay"
+        style="@style/Widget.EDTS.UIKit.Button.Filled.Primary.Large"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/s"
+        android:layout_marginTop="@dimen/s"
+        android:text="@string/fair_discard_stay" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/discard"
+        style="@style/Widget.EDTS.UIKit.Button.Outlined.Secondary.Large"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/s"
+        android:layout_marginTop="@dimen/xxs"
+        android:layout_marginBottom="@dimen/s"
+        android:text="@string/fair_discard_continue" />
+</LinearLayout>

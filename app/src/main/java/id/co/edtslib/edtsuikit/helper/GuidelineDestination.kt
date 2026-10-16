@@ -38,6 +38,7 @@ import id.co.edtslib.edtsuikit.GuidelinesTypographyActivity
 import id.co.edtslib.edtsuikit.HtmlListDemoActivity
 import id.co.edtslib.edtsuikit.PoinkuResearchActivity
 import id.co.edtslib.edtsuikit.R
+import id.co.edtslib.edtsuikit.demo.promo.ParagonFairDemoActivity
 
 sealed class GuidelineItem(
     @StringRes val titleRes: Int,
@@ -100,6 +101,11 @@ sealed class GuidelineItem(
     // Research & Demo
     object Research : GuidelineItem(R.string.guidelines_research, PoinkuResearchActivity::class.java)
 
+    object ParagonFairDemo : GuidelineItem(
+        R.string.guidelines_paragon_fair_demo,
+        ParagonFairDemoActivity::class.java
+    )
+
     object HtmlListDemo : GuidelineItem(R.string.guidelines_html_list_demo, HtmlListDemoActivity::class.java)
 
     object SearchProduct : GuidelineItem(R.string.guidelines_search_product_demo, GuidelinesSearchProductActivity::class.java)
@@ -124,6 +130,7 @@ sealed class GuidelineItem(
             Snackbar,
             BottomTray,
             Research,
+            ParagonFairDemo,
             ProgressBar,
             Popup,
             SegmentedTab,
@@ -193,6 +200,7 @@ sealed class GuidelineItem(
             ),
             "Research & Demo" to listOf(
                 Research,
+                ParagonFairDemo,
                 HtmlListDemo,
                 PDP,
             )

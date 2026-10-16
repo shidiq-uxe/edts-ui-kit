@@ -19,6 +19,11 @@
             android:exported="false"
             android:theme="@style/Theme.EDTS.UIKit" />
         <activity
+            android:name=".demo.promo.ParagonFairDemoActivity"
+            android:windowSoftInputMode="adjustResize"
+            android:exported="false"
+            android:theme="@style/Theme.EDTS.UIKit" />
+        <activity
             android:name=".GuidelinesTextBadgeActivity"
             android:exported="false" />
         <activity

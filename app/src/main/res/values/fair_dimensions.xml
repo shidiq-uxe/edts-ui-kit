@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen
+        name="fair_pill_corner_radius">100dp</dimen>
+
+    <dimen
+        name="fair_back_icon_padding">5dp</dimen>
+
+    <dimen
+        name="fair_search_icon_padding">7dp</dimen>
+
+    <dimen
+        name="fair_filter_pill_width">196dp</dimen>
+
+    <dimen
+        name="fair_sort_action_width">79dp</dimen>
+
+    <dimen
+        name="fair_action_width">76dp</dimen>
+
+    <dimen
+        name="fair_gift_image_size">60dp</dimen>
+
+    <dimen
+        name="fair_gift_preview_overlap">-12dp</dimen>
+
+    <dimen
+        name="fair_search_illustration_size">94dp</dimen>
+
+    <dimen
+        name="fair_options_max_height">440dp</dimen>
+
+    <dimen
+        name="fair_skeleton_banner_height">128dp</dimen>
+
+    <dimen
+        name="fair_skeleton_heading_width">160dp</dimen>
+
+    <dimen
+        name="fair_skeleton_value_width">120dp</dimen>
+
+    <dimen
+        name="fair_skeleton_product_height">162dp</dimen>
+</resources>

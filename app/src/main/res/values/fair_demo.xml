@@ -1,0 +1,423 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string
+        name="guidelines_paragon_fair_demo">Paragon Fair · Promo Detail Demo</string>
+
+    <string
+        name="fair_title">Detail Promo</string>
+
+    <string
+        name="fair_back">Kembali</string>
+
+    <string
+        name="fair_search">Cari produk promo</string>
+
+    <string
+        name="fair_share">Bagikan promo</string>
+
+    <string
+        name="fair_view_gifts">Lihat hadiah Paragon Fair</string>
+
+    <string
+        name="fair_sort">Urutkan</string>
+
+    <string
+        name="fair_filter">Filter</string>
+
+    <string
+        name="fair_terms">Selengkapnya</string>
+
+    <string
+        name="fair_products">Daftar Produk Promo</string>
+
+    <string
+        name="fair_add">Tambah %1$s, jumlah saat ini %2$d</string>
+
+    <string
+        name="fair_remove">Kurangi %1$s, jumlah saat ini %2$d</string>
+
+    <string
+        name="fair_cart_description">Keranjang, %1$d barang, total %2$s</string>
+
+    <string
+        name="fair_product_count">%1$d produk</string>
+
+    <string
+        name="fair_cart_count">(%1$d Barang)</string>
+
+    <color
+        name="fair_quota_background">#DAFFA8</color>
+
+    <color
+        name="fair_quota_foreground">#49760C</color>
+
+    <style
+        name="FairDemo.Body"
+        parent="Base.TextAppearance.AppCompat">
+        <item
+            name="fontFamily">@font/inter_fallback</item>
+        <item
+            name="android:fontFamily">@font/inter_fallback</item>
+        <item
+            name="lineHeight">@dimen/h1_text_size</item>
+        <item
+            name="android:includeFontPadding">false</item>
+        <item
+            name="android:textColor">@color/black_70</item>
+        <item
+            name="android:textSize">@dimen/h2_text_size</item>
+    </style>
+
+    <style
+        name="FairDemo.Strong"
+        parent="FairDemo.Body">
+        <item
+            name="fontFamily">@font/inter_semibold_fallback</item>
+        <item
+            name="android:fontFamily">@font/inter_semibold_fallback</item>
+    </style>
+
+    <style
+        name="FairDemo.Caption"
+        parent="FairDemo.Body">
+        <item
+            name="android:textSize">@dimen/h3_text_size</item>
+        <item
+            name="android:textColor">@color/black_50</item>
+    </style>
+
+    <style
+        name="FairDemo.BodyCaption"
+        parent="FairDemo.Body">
+        <item
+            name="android:textSize">@dimen/h2_text_size</item>
+        <item
+            name="lineHeight">@dimen/s</item>
+    </style>
+
+    <style
+        name="FairDemo.CaptionStrong"
+        parent="FairDemo.Strong">
+        <item
+            name="android:textSize">@dimen/h3_text_size</item>
+        <item
+            name="android:textColor">@color/black_60</item>
+    </style>
+
+    <style
+        name="FairDemo.CaptionBold"
+        parent="Base.TextAppearance.AppCompat">
+        <item
+            name="fontFamily">@font/inter_bold_fallback</item>
+        <item
+            name="android:fontFamily">@font/inter_bold_fallback</item>
+        <item
+            name="android:textSize">@dimen/h3_text_size</item>
+        <item
+            name="lineHeight">@dimen/s</item>
+        <item
+            name="android:textColor">@color/black_60</item>
+    </style>
+
+    <style
+        name="FairDemo.Small"
+        parent="FairDemo.Caption">
+        <item
+            name="lineHeight">@dimen/h3_text_size</item>
+        <item
+            name="android:textSize">@dimen/b4_text_size</item>
+    </style>
+
+    <style
+        name="FairDemo.Icon"
+        parent="">
+        <item
+            name="android:background">?attr/selectableItemBackgroundBorderless</item>
+        <item
+            name="android:padding">@dimen/xxxs</item>
+        <item
+            name="android:scaleType">fitCenter</item>
+    </style>
+
+    <style
+        name="FairDemo.Milestone"
+        parent="FairDemo.CaptionStrong">
+        <item
+            name="android:textSize">@dimen/dimen_10</item>
+    </style>
+
+    <string
+        name="fair_sort_description">Urutkan produk</string>
+
+    <string
+        name="fair_filter_description">Filter produk</string>
+
+    <string
+        name="fair_cart_title">Keranjang</string>
+
+    <string
+        name="fair_name">Paragon Fair</string>
+
+    <string
+        name="fair_new_customer_label">Pengguna Baru</string>
+
+    <string
+        name="fair_info_description">Informasi promo</string>
+
+    <string
+        name="fair_see">Lihat</string>
+
+    <string
+        name="fair_period_label">Periode</string>
+
+    <string
+        name="fair_period_value">03 Jan 2025 - 31 Des 2025</string>
+
+    <string
+        name="fair_minimum_label">Minimum Transaksi</string>
+
+    <string
+        name="fair_initial_price">Rp100.000</string>
+
+    <string
+        name="fair_terms_label">Syarat dan Ketentuan</string>
+
+    <string
+        name="fair_read_terms_description">Baca syarat dan ketentuan</string>
+
+    <string
+        name="fair_discount_label"
+        formatted="false">50%</string>
+
+    <string
+        name="fair_restocking_label">SEDANG DIRESTOCK</string>
+
+    <string
+        name="fair_display_label">Tampilan</string>
+
+    <string
+        name="fair_two_columns">Tampilan dua kolom</string>
+
+    <string
+        name="fair_three_columns">Tampilan tiga kolom</string>
+
+    <string
+        name="fair_edit">Ubah</string>
+
+    <string
+        name="fair_discard_description">Tetap di halaman dan simpan pilihanmu terlebih dahulu</string>
+
+    <string
+        name="fair_discard_stay">Tetap Di Halaman</string>
+
+    <string
+        name="fair_discard_continue">Lanjut Tanpa Simpan</string>
+
+    <string
+        name="fair_redemption_heading">Pilih Tebus Murah</string>
+
+    <string
+        name="fair_initial_redemption_counter">0/2</string>
+
+    <string
+        name="fair_cart_update">Perbarui Keranjang</string>
+
+    <string
+        name="fair_message_start">Tambah produk dulu, yuk!</string>
+
+    <string
+        name="fair_loading_description">Memuat</string>
+
+    <color
+        name="fair_shadow_start">#1F70727D</color>
+
+    <color
+        name="fair_shadow_center">#0770727D</color>
+
+    <color
+        name="fair_shadow_end">#0070727D</color>
+
+    <color
+        name="fair_product_spot_shadow">#575961</color>
+    <string
+        name="fair_scenario_action">Pilih skenario demo</string>
+
+    <string
+        name="fair_quota_empty"
+        formatted="false">Kuota Promo 0%</string>
+
+    <string
+        name="fair_quota_full"
+        formatted="false">Kuota Promo 100%</string>
+
+    <string
+        name="fair_view_redemption">Lihat penawaran tebus murah</string>
+
+    <string
+        name="fair_unavailable_description">Promo tidak tersedia</string>
+
+    <string
+        name="fair_message_quota_exhausted">Kuota promo sudah habis. Cek promo fair lainnya yang tersedia yuk!</string>
+
+    <string
+        name="fair_message_limit_reached">Limit fair sudah habis. Cek promo fair lainnya yang tersedia yuk!</string>
+
+    <string
+        name="fair_message_first_transaction">Promo hanya berlaku untuk transaksi pertamamu di Klik Indomaret</string>
+
+    <string
+        name="fair_terms_title">Syarat dan ketentuan</string>
+
+    <string
+        name="fair_general_search_title">Pencarian Klik Indomaret</string>
+
+    <string
+        name="fair_open_website">Buka situs Klik Indomaret</string>
+
+    <string
+        name="fair_website_title">Klik Indomaret</string>
+
+    <string
+        name="fair_scenarios_title">Skenario demo</string>
+
+    <string
+        name="fair_scenarios_description">Pilih kondisi promo untuk menguji tampilan dan interaksi.</string>
+
+    <string
+        name="fair_repeatable_title">Belanja Paragon Fair Senilai Rp100.000 Dapat Hadiah. Berlaku Kelipatan.</string>
+
+    <string
+        name="fair_progress_description">%1$s dari %2$s; %3$d benefit dipilih</string>
+
+    <string
+        name="fair_search_scope_description">%1$s, %2$s</string>
+
+    <string
+        name="fair_quantity_description">Jumlah %1$d</string>
+
+    <string
+        name="fair_quantity_edit_description">%1$s, jumlah %2$d. Ketuk untuk mengubah jumlah</string>
+
+    <string
+        name="fair_message_redemption_partial">Kamu sudah ambil %1$d dari %2$d tebus murah. Yuk pilih produk lagi</string>
+
+    <string
+        name="fair_message_redemption_available">Kamu bisa ambil %1$d tebus murah</string>
+
+    <string
+        name="fair_message_redemption_claimed">Kamu sudah ambil %1$d tebus murah</string>
+
+    <string
+        name="fair_message_remaining_spend">Tambah %1$s lagi untuk dapatkan benefit</string>
+
+    <string
+        name="fair_message_partial_claim">Kamu sudah ambil %1$d dari %2$d hadiah. Yuk pilih produk lagi</string>
+
+    <string
+        name="fair_message_gifts_available">Kamu bisa ambil %1$d hadiah</string>
+
+    <string
+        name="fair_message_repeat_claim">Kamu sudah ambil 1 hadiah.</string>
+
+    <string
+        name="fair_message_claimed">Kamu sudah ambil %1$d hadiah</string>
+
+    <string
+        name="fair_gift_pieces">%1$d pcs</string>
+
+    <string
+        name="fair_gift_pack">Isi %1$d pcs</string>
+
+    <string
+        name="fair_gift_discount">%1$d%%</string>
+
+    <string
+        name="fair_gift_free">GRATIS</string>
+
+    <string
+        name="fair_gift_add">Tambah %1$s</string>
+
+    <string
+        name="fair_gift_remove">Kurangi %1$s</string>
+
+    <string
+        name="fair_redemption_counter">%1$d/%2$d</string>
+
+    <string
+        name="fair_cart_delete">Hapus</string>
+
+    <string
+        name="fair_cart_removed">%1$d produk telah dihapus</string>
+
+    <string
+        name="fair_cart_updated">Keranjang berhasil diperbarui</string>
+
+    <string
+        name="fair_general_search_description">Kata kunci: %1$s\nHandoff demo. Halaman pencarian umum tidak disediakan dalam frame Figma ini.</string>
+
+    <string
+        name="fair_website_unavailable">www.klikindomaret.com\nTidak ada browser yang tersedia di perangkat ini.</string>
+
+    <string
+        name="fair_discard_title">Perubahan Belum Disimpan</string>
+
+    <string
+        name="fair_terms_description">Belanja produk Paragon Fair senilai %1$s untuk mendapat hadiah. %2$s Hadiah dipilih melalui Lihat dan mengikuti kuota serta kelayakan promo. Periode sesuai referensi: 03 Jan–31 Des 2025.</string>
+
+    <string
+        name="fair_rule_repeatable">Berlaku kelipatan.</string>
+
+    <string
+        name="fair_rule_one_time">Tidak berlaku kelipatan.</string>
+
+    <string
+        name="fair_gift_description">%1$s, isi %2$d pcs, jumlah %3$d%4$s</string>
+
+    <string
+        name="fair_selected_suffix">, terpilih</string>
+
+    <string
+        name="fair_gift_total">Total dapat: %1$s</string>
+
+    <string
+        name="fair_scenario_search_gift">Search · Hadiah Gratis · Rp50.000 di keranjang</string>
+
+    <string
+        name="fair_scenario_search_redemption">Search · Tebus Murah · Rp50.000 di keranjang</string>
+
+    <string
+        name="fair_scenario_search_error">Search · simulasi gagal sekali lalu coba lagi</string>
+
+    <string
+        name="fair_scenario_start">Tidak berlaku kelipatan · belum ada produk</string>
+
+    <string
+        name="fair_scenario_halfway">Tambah Rp50.000 lagi</string>
+
+    <string
+        name="fair_scenario_eligible">Bisa ambil 1 hadiah</string>
+
+    <string
+        name="fair_scenario_claimed">Sudah ambil 1 hadiah</string>
+
+    <string
+        name="fair_scenario_repeatable">Berlaku kelipatan · mulai belanja</string>
+
+    <string
+        name="fair_scenario_repeatable_partial">Berlaku kelipatan · 1 dari 2 hadiah</string>
+
+    <string
+        name="fair_scenario_repeatable_three">Berlaku kelipatan · 3 hadiah</string>
+
+    <string
+        name="fair_scenario_quota">Kuota promo habis</string>
+
+    <string
+        name="fair_scenario_limit">Limit fair habis</string>
+
+    <string
+        name="fair_scenario_new_user">Hanya transaksi pertama</string>
+
+    <string
+        name="fair_scenario_zero_products">Semua produk unpublished</string>
+</resources>

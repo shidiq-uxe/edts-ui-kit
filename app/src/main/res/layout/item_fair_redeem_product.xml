@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/xs"
+    app:cardElevation="@dimen/dimen_0"
+    app:cardCornerRadius="@dimen/xxs"
+    app:cardBackgroundColor="@color/white"
+    android:clickable="false"
+    android:focusable="false"
+    app:strokeColor="@color/black_30"
+    app:strokeWidth="@dimen/dimen_1">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <id.co.edtslib.uikit.viewgroup.GreyScaleConstraintLayout
+            android:id="@+id/info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/xs"
+            app:enableAnimation="false">
+            <ImageView
+                android:id="@+id/image"
+                android:layout_width="@dimen/fair_gift_image_size"
+                android:layout_height="@dimen/fair_gift_image_size"
+                android:scaleType="fitCenter"
+                android:importantForAccessibility="no"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/name"
+                style="@style/TextAppearance.Inter.Regular.B2"
+                android:layout_width="@dimen/dimen_0"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/xs"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toEndOf="@id/image"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <TextView
+                android:id="@+id/pack"
+                style="@style/TextAppearance.Inter.Medium.B3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black_40"
+                app:layout_constraintTop_toBottomOf="@id/name"
+                app:layout_constraintStart_toStartOf="@id/name" />
+
+            <TextView
+                android:id="@+id/discount"
+                style="@style/TextAppearance.Inter.Bold.B4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/xxxs"
+                android:paddingHorizontal="@dimen/xxxs"
+                android:paddingVertical="@dimen/dimen_2"
+                android:text="@string/fair_discount_label"
+                android:textColor="@color/klik_color_red_30"
+                android:background="@drawable/fair_discount_background"
+                app:layout_constraintTop_toBottomOf="@id/pack"
+                app:layout_constraintStart_toStartOf="@id/name" />
+
+            <TextView
+                android:id="@+id/originalPrice"
+                style="@style/FairDemo.Caption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_6"
+                android:textColor="@color/black_40"
+                app:layout_constraintStart_toEndOf="@id/discount"
+                app:layout_constraintBaseline_toBaselineOf="@id/discount" />
+
+            <TextView
+                android:id="@+id/price"
+                style="@style/FairDemo.BodyCaption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_6"
+                android:textColor="@color/klik_color_red_30"
+                app:layout_constraintTop_toTopOf="@id/originalPrice"
+                app:layout_constraintStart_toEndOf="@id/originalPrice"
+                app:layout_constraintBottom_toBottomOf="@id/originalPrice"
+                app:layout_constraintBaseline_toBaselineOf="@id/discount" />
+        </id.co.edtslib.uikit.viewgroup.GreyScaleConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/footer"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_48"
+            android:paddingHorizontal="@dimen/xs"
+            android:background="@color/info_background">
+            <TextView
+                android:id="@+id/total"
+                style="@style/FairDemo.Caption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black_40"
+                android:visibility="gone"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
+
+            <TextView
+                android:id="@+id/restockLabel"
+                style="@style/FairDemo.Small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="@dimen/dimen_6"
+                android:paddingVertical="@dimen/dimen_3"
+                android:text="@string/fair_restocking_label"
+                android:textColor="@color/white"
+                android:background="@drawable/fair_tag_disabled"
+                android:visibility="gone"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
+
+            <id.co.edtslib.uikit.stepper.StepperButton
+                android:id="@+id/stepper"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/l"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/selectedMark"
+        android:layout_width="@dimen/l"
+        android:layout_height="@dimen/l"
+        android:layout_gravity="top|start"
+        android:src="@drawable/fair_selected_corner"
+        android:importantForAccessibility="no"
+        android:visibility="gone" />
+</com.google.android.material.card.MaterialCardView>
