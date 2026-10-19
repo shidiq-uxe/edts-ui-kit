@@ -72,7 +72,7 @@ class GuidelinesTmhActivity : GuidelinesBaseActivity() {
         }
     }
     private var selectedTab = 0
-    private var scrollTarget: Int? = null
+    private var tappedFairId: String? = null
     private var pendingLoad: Runnable? = null
     private var errorSnackbar: Snackbar? = null
     private var restoredListState: Parcelable? = null
@@ -152,13 +152,14 @@ class GuidelinesTmhActivity : GuidelinesBaseActivity() {
         binding.rvFairs.itemAnimator = null
         binding.rvFairs.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                if (scrollTarget == null) selectVisibleFair()
+                selectVisibleFair()
             }
 
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-                if (newState == RecyclerView.SCROLL_STATE_DRAGGING) scrollTarget = null
-                if (newState == RecyclerView.SCROLL_STATE_IDLE && scrollTarget != null) {
-                    scrollTarget = null
+                if (newState == RecyclerView.SCROLL_STATE_DRAGGING) {
+                    tappedFairId = null
+                    selectVisibleFair()
+                } else if (newState == RecyclerView.SCROLL_STATE_IDLE) {
                     selectVisibleFair()
                 }
             }
@@ -266,8 +267,8 @@ class GuidelinesTmhActivity : GuidelinesBaseActivity() {
 
     private fun scrollToFair(position: Int) {
         if (position !in fairs.indices || binding.rvFairs.adapter !== fairAdapter) return
+        tappedFairId = fairs[position].id
         binding.rvFairs.stopScroll()
-        scrollTarget = position
         selectTab(position)
         val scroller = object : LinearSmoothScroller(this) {
             override fun getVerticalSnapPreference(): Int = SNAP_TO_START
@@ -278,6 +279,12 @@ class GuidelinesTmhActivity : GuidelinesBaseActivity() {
 
     private fun selectVisibleFair() {
         if (isLoading || isRestoringPosition || binding.rvFairs.adapter !== fairAdapter || fairs.isEmpty()) return
+        val tappedIndex = fairs.indexOfFirst { it.id == tappedFairId }
+        if (tappedIndex >= 0) {
+            selectTab(tappedIndex)
+            return
+        }
+        tappedFairId = null
         val first = fairsLayoutManager.findFirstVisibleItemPosition()
         if (first == RecyclerView.NO_POSITION) return
         val atBottom = !binding.rvFairs.canScrollVertically(1) && binding.rvFairs.canScrollVertically(-1)
@@ -354,7 +361,6 @@ class GuidelinesTmhActivity : GuidelinesBaseActivity() {
         binding.tabsDivider.isVisible = true
         binding.loadingFairTabs.isVisible = true
         binding.loadingFairTabs.startShimmer()
-        scrollTarget = null
         binding.rvFairs.stopScroll()
         binding.rvFairs.adapter = BaseAdapter.shimmerAdapter<SkeletonTmhFairBinding>(
             register = BaseAdapter.Register(onBindHolder = { position, _, row, _ ->
@@ -378,7 +384,7 @@ class GuidelinesTmhActivity : GuidelinesBaseActivity() {
         errorSnackbar?.dismiss()
         errorSnackbar = null
         binding.rvFairs.stopScroll()
-        scrollTarget = null
+        tappedFairId = null
         restoredListState = null
         loadingAnchor = null
         pendingSuccessMessage = null
@@ -426,6 +432,7 @@ class GuidelinesTmhActivity : GuidelinesBaseActivity() {
             ?: TmhFlowState.create(this, scenario)
         fairs = flow.fairs
         selectedTab = savedInstanceState?.getInt(STATE_TAB) ?: 0
+        tappedFairId = savedInstanceState?.getString(STATE_TAPPED_FAIR)
         @Suppress("DEPRECATION")
         restoredListState = savedInstanceState?.getParcelable(STATE_SCROLL)
         loadingAnchor = savedInstanceState?.getString(STATE_ANCHOR_ID)?.let {
@@ -465,6 +472,7 @@ class GuidelinesTmhActivity : GuidelinesBaseActivity() {
         outState.putBundle(TmhFlowState.EXTRA_FLOW, flow.toBundle())
         outState.putString(STATE_SCENARIO, scenario.name)
         outState.putInt(STATE_TAB, selectedTab)
+        outState.putString(STATE_TAPPED_FAIR, tappedFairId)
         outState.putParcelable(STATE_SCROLL, if (isLoading) restoredListState else fairsLayoutManager.onSaveInstanceState())
         outState.putBoolean(STATE_LOADING, isLoading)
         loadingAnchor?.let {
@@ -487,6 +495,7 @@ class GuidelinesTmhActivity : GuidelinesBaseActivity() {
     companion object {
         private const val STATE_SCENARIO = "tmh_scenario"
         private const val STATE_TAB = "tmh_selected_tab"
+        private const val STATE_TAPPED_FAIR = "tmh_tapped_fair"
         private const val STATE_SCROLL = "tmh_scroll_state"
         private const val STATE_LOADING = "tmh_loading"
         private const val STATE_ANCHOR_ID = "tmh_anchor_id"

@@ -123,6 +123,24 @@ class TmhPrototypeTest {
         settleUi()
     }
 
+    private fun dragCampaignListDown() {
+        onView(withId(R.id.rvFairs)).perform(GeneralSwipeAction(
+            Swipe.SLOW,
+            { view ->
+                val location = IntArray(2)
+                view.getLocationOnScreen(location)
+                floatArrayOf(location[0] + view.width / 2f, location[1] + view.height * 0.45f)
+            },
+            { view ->
+                val location = IntArray(2)
+                view.getLocationOnScreen(location)
+                floatArrayOf(location[0] + view.width / 2f, location[1] + view.height * 0.45f + 64.dp)
+            },
+            Press.FINGER,
+        ))
+        settleUi()
+    }
+
     private fun assertUnsavedAndStay() {
         onView(withText(R.string.tmh_unsaved_title)).check(matches(isDisplayed()))
         onView(withId(R.id.btnStay)).perform(click())
@@ -310,9 +328,8 @@ class TmhPrototypeTest {
                 ?.getInsets(WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.displayCutout())?.bottom ?: 0
             assertTrue(kotlin.math.abs(screen.window.decorView.height - location[1] - last.height -
                 bottomInset - 12.dp.toInt()) <= 1)
-            list.scrollBy(0, -24.dp.toInt())
         }
-        settleUi()
+        dragCampaignListDown()
         activity.onActivity { screen ->
             val list = screen.findViewById<RecyclerView>(R.id.rvFairs)
             assertTrue(list.canScrollVertically(1))
@@ -737,10 +754,13 @@ class TmhPrototypeTest {
         activity.onActivity { screen ->
             val list = screen.findViewById<RecyclerView>(R.id.rvFairs)
             val manager = list.layoutManager as LinearLayoutManager
-            assertEquals(1, manager.findFirstVisibleItemPosition())
-            assertEquals(list.paddingTop, manager.getDecoratedTop(requireNotNull(manager.findViewByPosition(1))))
-            list.smoothScrollBy(0, list.height)
+            assertEquals(1, screen.findViewById<TabLayout>(R.id.fairTabs).selectedTabPosition)
+            if (list.canScrollVertically(1)) {
+                assertEquals(1, manager.findFirstVisibleItemPosition())
+                assertEquals(list.paddingTop, manager.getDecoratedTop(requireNotNull(manager.findViewByPosition(1))))
+            }
         }
+        onView(withId(R.id.rvFairs)).perform(swipeUp())
         settleUi(1000)
         activity.onActivity { screen ->
             val list = screen.findViewById<RecyclerView>(R.id.rvFairs)
@@ -758,6 +778,64 @@ class TmhPrototypeTest {
                 else -> left + active.width / 2 - tabs.width / 2
             }
             assertTrue(kotlin.math.abs(alignmentError) <= 2)
+        }
+    }
+
+    @Test
+    fun nearEndTabTapSurvivesClampingLayoutAndRecreation() {
+        chooseScenario(R.string.tmh_scenario_default)
+        activity.onActivity { screen ->
+            val tabs = screen.findViewById<TabLayout>(R.id.fairTabs)
+            for (position in listOf(6, 7, 6)) requireNotNull(tabs.getTabAt(position)).view.performClick()
+        }
+        settleUi(1800)
+        activity.onActivity { screen ->
+            val list = screen.findViewById<RecyclerView>(R.id.rvFairs)
+            val tabs = screen.findViewById<TabLayout>(R.id.fairTabs)
+            assertEquals("The tapped 5 Days tab must survive scroll completion", 6, tabs.selectedTabPosition)
+            assertEquals(12.dp.toInt(), list.paddingBottom)
+            if (androidx.test.platform.app.InstrumentationRegistry.getArguments()
+                    .getString("requireNearEndClamped") == "true") {
+                assertTrue("The tall viewport must reproduce a clamped 5 Days scroll", !list.canScrollVertically(1))
+            }
+            list.requestLayout()
+        }
+        settleUi()
+        activity.onActivity { screen ->
+            val tabs = screen.findViewById<TabLayout>(R.id.fairTabs)
+            assertEquals(6, tabs.selectedTabPosition)
+            requireNotNull(tabs.getTabAt(6)).view.performClick()
+        }
+        settleUi(1200)
+        activity.onActivity { assertEquals(6, it.findViewById<TabLayout>(R.id.fairTabs).selectedTabPosition) }
+        activity.recreate()
+        settleUi(1000)
+        activity.onActivity { assertEquals(6, it.findViewById<TabLayout>(R.id.fairTabs).selectedTabPosition) }
+        captureReview("five-days-explicit-selection")
+    }
+
+    @Test
+    fun manualDragAfterTabTapRestoresBottomAndVisibleCardSelection() {
+        chooseScenario(R.string.tmh_scenario_default)
+        activity.onActivity { screen ->
+            requireNotNull(screen.findViewById<TabLayout>(R.id.fairTabs).getTabAt(6)).view.performClick()
+        }
+        settleUi(1800)
+        activity.onActivity { assertEquals(6, it.findViewById<TabLayout>(R.id.fairTabs).selectedTabPosition) }
+        onView(withId(R.id.rvFairs)).perform(swipeUp())
+        settleUi(1200)
+        activity.onActivity { screen ->
+            val list = screen.findViewById<RecyclerView>(R.id.rvFairs)
+            assertTrue(!list.canScrollVertically(1))
+            assertEquals(7, screen.findViewById<TabLayout>(R.id.fairTabs).selectedTabPosition)
+        }
+        captureReview("chupa-manual-bottom")
+        dragCampaignListDown()
+        activity.onActivity { screen ->
+            val list = screen.findViewById<RecyclerView>(R.id.rvFairs)
+            assertTrue(list.canScrollVertically(1))
+            assertEquals((list.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition(),
+                screen.findViewById<TabLayout>(R.id.fairTabs).selectedTabPosition)
         }
     }
 

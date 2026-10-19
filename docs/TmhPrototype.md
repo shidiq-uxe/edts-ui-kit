@@ -71,10 +71,11 @@ The first fair tab aligns to the start, the final tab aligns to the end, and int
 tabs center where the scroll range permits. Tapping scrolls the associated card to the
 content top where space permits, and the final card stops at the natural list bottom.
 The final card has 12dp clearance plus the system safe area once, without extra space to force
-top alignment. Manual scrolling selects the first visible campaign; at the bottom, the final
-tab takes priority even when an earlier card remains first visible. This also applies when a
-near-end tab's scroll is clamped at the bottom. A new tap supersedes the
-previous scroll; manual dragging takes over vertical navigation.
+top alignment. A tapped tab stays selected even if its scroll is clamped at the natural
+bottom. Scroll completion, layout updates, and screen recreation preserve that explicit
+choice. A new tab tap supersedes the previous choice; manually dragging the campaign list
+resumes automatic tracking. During manual scrolling, the first visible campaign is selected,
+and the final tab takes priority at the bottom even when an earlier card remains first visible.
 
 A selected product has a blue outline and a 32dp triangular blue corner with a white check.
 Product images keep a 56dp column, with height constrained to the discount row and capped
