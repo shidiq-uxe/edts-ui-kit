@@ -28,6 +28,36 @@ Import `StepperButton` and `StepperDragRepeatConfig` from `id.co.edtslib.uikit.s
 not itself pin the control open. `isAlwaysExpanded` keeps both controls and the count visible
 at zero and cancels any pending legacy expand/collapse transition.
 
+## Count motion and white appearance
+
+Accepted taps and drag-repeat changes roll the complete count upward for increments and
+downward for decrements over 160 ms, with a light crossfade inside the count slot. Animated
+`setCount(value)` updates use the same transition. The model and callbacks update immediately;
+rapid changes replace the current roll instead of queuing animations. Same-value model
+rebinding leaves an active roll intact.
+
+```kotlin
+stepper.isCountAnimationEnabled = true // Default; false makes count changes instant.
+stepper.setCount(quantity, animate = false) // Snap count and expanded/collapsed state.
+```
+
+The roll is skipped during expansion/collapse, when the editor has focus, while hidden, and
+when system animations are disabled. Switching editing mode, disabling, or detaching clears
+the visual overlay. Editing retains the existing debounce and validation behavior.
+
+The white appearance uses a 32 dp collapsed circle or 90 × 32 dp expanded pill, 24 dp end
+controls with 16 dp icons, and Inter Semibold 14 sp / 16 dp line height. The collapsed plus icon
+is 24 dp. Minimum and maximum limits automatically disable the relevant control; explicit
+`setPlusButtonEnabled(false)` / `setMinusButtonEnabled(false)` restrictions remain in force
+across parent disable/enable changes. Default state colors follow the Klik reference;
+caller-applied binding tints and text styling remain supported.
+
+Each stepper saves its own count and isolates repeated internal child IDs during view-state
+restoration. Recreated counts are clamped to the configured bounds and restored without motion.
+
+The **Bottom Sheet** sample screen compares rolling and instant counts and includes editable,
+disabled, and collapsed examples. Blue and number-only variants are not added by this change.
+
 ## Touch-target modes
 
 `buttonTouchTargetMode` defaults to `StepperButtonTouchTargetMode.COMPACT`. It enlarges

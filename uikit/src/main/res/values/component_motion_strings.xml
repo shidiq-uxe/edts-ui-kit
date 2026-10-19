@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="stepper_add_item">Add item</string>
+    <string name="stepper_remove_item">Remove item</string>
+    <string name="stepper_item_count">Item count</string>
+</resources>

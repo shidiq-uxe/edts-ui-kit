@@ -4,12 +4,15 @@ import android.animation.AnimatorSet
 import android.animation.ValueAnimator
 import android.content.Context
 import android.graphics.Rect
+import android.os.Bundle
+import android.os.Parcelable
 import android.os.Build
 import android.os.Looper
 import android.os.SystemClock
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.AttributeSet
+import android.util.SparseArray
 import android.view.MotionEvent
 import android.view.Gravity
 import android.view.HapticFeedbackConstants
@@ -23,6 +26,7 @@ import com.google.android.material.button.MaterialButton
 import com.google.android.material.card.MaterialCardView
 import id.co.edtslib.uikit.R
 import id.co.edtslib.uikit.databinding.ViewStepperBinding
+import id.co.edtslib.uikit.utils.areSystemAnimationsEnabled
 import id.co.edtslib.uikit.utils.dimenPixelSize
 import id.co.edtslib.uikit.utils.dp
 import id.co.edtslib.uikit.utils.hideKeyboard
@@ -84,10 +88,12 @@ open class StepperButton @JvmOverloads constructor(
             field = value
             removeCallbacks(showExpandedRunnable)
             removeCallbacks(showCollapsedRunnable)
+            countAnimator.cancel()
             currentAnimator?.cancel()
             currentAnimator = null
             isAnimating = false
             isExpanded = value || count > 0
+            container.isSelected = isExpanded
             container.layoutParams = container.layoutParams.apply {
                 width = if (isExpanded) expandedWidth else collapsedWidth
             }
@@ -98,6 +104,13 @@ open class StepperButton @JvmOverloads constructor(
             countText.alpha = 1f
             countEditText.alpha = 1f
             requestLayout()
+        }
+
+    /** Enables the directional numeral roll for accepted taps, drag repetition, and animated updates. */
+    var isCountAnimationEnabled = true
+        set(value) {
+            field = value
+            if (!value) countAnimator.cancel()
         }
 
     var incremental = 1
@@ -116,6 +129,10 @@ open class StepperButton @JvmOverloads constructor(
     private var debounceDelay = 500L
 
     // State
+    private val countAnimator = StepperCountAnimator()
+    private var isPlusAllowed = true
+    private var isMinusAllowed = true
+    private var displayedCount = 0
     private var count = 0
     private var isExpanded = false
     private var allowTextEditing = true
@@ -198,6 +215,7 @@ open class StepperButton @JvmOverloads constructor(
         setupInitialState()
         setupClickListeners()
         setupEditText()
+        refreshButtonStates()
     }
 
     private fun setupInitialState() {
@@ -297,6 +315,7 @@ open class StepperButton @JvmOverloads constructor(
         })
 
         countEditText.setOnFocusChangeListener { _, hasFocus ->
+            countAnimator.cancel()
             if (!hasFocus) {
                 hideKeyboard()
 
@@ -309,7 +328,13 @@ open class StepperButton @JvmOverloads constructor(
 
     private fun expand() {
         if (isExpanded || isAnimating) return
+        countAnimator.cancel()
+        if (!context.areSystemAnimationsEnabled()) {
+            snapExpandedState(true)
+            return
+        }
         isExpanded = true
+        container.isSelected = true
         isAnimating = true
 
         currentAnimator?.cancel()
@@ -361,7 +386,13 @@ open class StepperButton @JvmOverloads constructor(
 
     private fun collapse() {
         if (isAlwaysExpanded || !isExpanded || isAnimating) return
+        countAnimator.cancel()
+        if (!context.areSystemAnimationsEnabled()) {
+            snapExpandedState(false)
+            return
+        }
         isExpanded = false
+        container.isSelected = false
         isAnimating = true
 
         countEditText.clearFocus()
@@ -417,7 +448,7 @@ open class StepperButton @JvmOverloads constructor(
     private fun incrementCount() {
         if (incremental > 0 && count < maxValue) {
             count = (count.toLong() + incremental).coerceAtMost(maxValue.toLong()).toInt()
-            updateCountDisplay()
+            updateCountDisplay(animate = true)
             performStepperHaptic()
             onCountChangeListener?.invoke(count)
         }
@@ -426,7 +457,7 @@ open class StepperButton @JvmOverloads constructor(
     private fun decrementCount() {
         if (incremental > 0 && count > minValue) {
             count = (count.toLong() - incremental).coerceAtLeast(minValue.toLong()).toInt()
-            updateCountDisplay()
+            updateCountDisplay(animate = true)
             performStepperHaptic()
             onCountChangeListener?.invoke(count)
 
@@ -436,13 +467,50 @@ open class StepperButton @JvmOverloads constructor(
         }
     }
 
-    private fun updateCountDisplay() {
+    private fun updateCountDisplay(animate: Boolean = false) {
+        val previous = displayedCount
+        if (previous != count) countAnimator.cancel()
+        displayedCount = count
         isUpdatingProgrammatically = true
         countText.text = count.toString()
-        if (allowTextEditing && countEditText.text.toString() != count.toString()) {
+        if (countEditText.text.toString() != count.toString()) {
             countEditText.setText(count.toString())
         }
         isUpdatingProgrammatically = false
+        refreshButtonStates()
+
+        val view = if (allowTextEditing) countEditText else countText
+        if (animate && previous != count && isCountAnimationEnabled && isEnabled && isExpanded && !isAnimating &&
+            (count != 0 || isAlwaysExpanded) && !countEditText.hasFocus() && isShown &&
+            context.areSystemAnimationsEnabled()) {
+            countAnimator.start(view, previous, count)
+        }
+    }
+
+    private fun refreshButtonStates() {
+        singlePlusButton.isEnabled = isEnabled && isPlusAllowed && count < maxValue
+        plusButton.isEnabled = singlePlusButton.isEnabled
+        minusButton.isEnabled = isEnabled && isMinusAllowed && count > minValue
+        countText.isEnabled = isEnabled
+        countEditText.isEnabled = isEnabled
+        container.isEnabled = isEnabled
+        container.isSelected = isExpanded
+    }
+
+    private fun snapExpandedState(expanded: Boolean) {
+        countAnimator.cancel()
+        removeCallbacks(showExpandedRunnable)
+        removeCallbacks(showCollapsedRunnable)
+        currentAnimator?.cancel()
+        currentAnimator = null
+        isAnimating = false
+        isExpanded = expanded
+        container.isSelected = expanded
+        container.layoutParams = container.layoutParams.apply {
+            width = if (expanded) expandedWidth else collapsedWidth
+        }
+        if (expanded) showExpandedViews() else showCollapsedViews()
+        listOf(singlePlusButton, minusButton, plusButton, countText, countEditText).forEach { it.alpha = 1f }
     }
 
     private fun showExpandedViews() {
@@ -553,8 +621,9 @@ open class StepperButton @JvmOverloads constructor(
             return
         }
 
+        val previous = count
         count = value.coerceIn(minValue, maxValue)
-        updateCountDisplay()
+        updateCountDisplay(animate)
 
         if (animate) {
             if (count > 0 && !isExpanded) {
@@ -562,6 +631,8 @@ open class StepperButton @JvmOverloads constructor(
             } else if (count == 0 && isExpanded) {
                 collapse()
             }
+        } else if (previous != count || isExpanded != (isAlwaysExpanded || count > 0)) {
+            snapExpandedState(isAlwaysExpanded || count > 0)
         }
     }
 
@@ -576,18 +647,21 @@ open class StepperButton @JvmOverloads constructor(
     }
 
     fun setPlusButtonEnabled(enabled: Boolean) {
-        singlePlusButton.isEnabled = enabled
-        plusButton.isEnabled = enabled
+        isPlusAllowed = enabled
+        refreshButtonStates()
         if (dragRepeatTouchDelegate.isInitialized()) dragRepeatTouch.refreshBounds()
     }
 
     fun setMinusButtonEnabled(enabled: Boolean) {
-        minusButton.isEnabled = enabled
+        isMinusAllowed = enabled
+        refreshButtonStates()
         if (dragRepeatTouchDelegate.isInitialized()) dragRepeatTouch.refreshBounds()
     }
 
     fun setAllowTextEditing(allow: Boolean) {
-        if (allowTextEditing != allow) cancelDragRepeat()
+        if (allowTextEditing == allow) return
+        cancelDragRepeat()
+        countAnimator.cancel()
         allowTextEditing = allow
         requestLayout()
         if (isExpanded) {
@@ -606,6 +680,7 @@ open class StepperButton @JvmOverloads constructor(
         if (count < minValue) {
             setCount(minValue)
         }
+        refreshButtonStates()
         if (dragRepeatTouchDelegate.isInitialized()) dragRepeatTouch.refreshBounds()
     }
 
@@ -614,6 +689,7 @@ open class StepperButton @JvmOverloads constructor(
         if (count > maxValue) {
             setCount(maxValue)
         }
+        refreshButtonStates()
         if (dragRepeatTouchDelegate.isInitialized()) dragRepeatTouch.refreshBounds()
     }
 
@@ -626,12 +702,11 @@ open class StepperButton @JvmOverloads constructor(
     }
 
     override fun setEnabled(enabled: Boolean) {
+        val hasEnabledChanged = isEnabled != enabled
         super.setEnabled(enabled)
         if (!enabled) cancelDragRepeat()
-        singlePlusButton.isEnabled = enabled
-        minusButton.isEnabled = enabled
-        plusButton.isEnabled = enabled
-        countEditText.isEnabled = enabled
+        if (hasEnabledChanged) countAnimator.cancel()
+        refreshButtonStates()
     }
 
     override fun dispatchTouchEvent(event: MotionEvent): Boolean {
@@ -668,9 +743,34 @@ open class StepperButton @JvmOverloads constructor(
         )
     }
 
+    override fun dispatchSaveInstanceState(container: SparseArray<Parcelable>) {
+        // Child IDs repeat in every stepper; save only the owning view's state.
+        dispatchFreezeSelfOnly(container)
+    }
+
+    override fun dispatchRestoreInstanceState(container: SparseArray<Parcelable>) {
+        dispatchThawSelfOnly(container)
+    }
+
+    override fun onSaveInstanceState(): Parcelable = Bundle().apply {
+        putParcelable(STATE_SUPER, super.onSaveInstanceState())
+        putInt(STATE_COUNT, count)
+    }
+
+    @Suppress("DEPRECATION")
+    override fun onRestoreInstanceState(state: Parcelable?) {
+        if (state is Bundle) {
+            super.onRestoreInstanceState(state.getParcelable(STATE_SUPER))
+            setCount(state.getInt(STATE_COUNT), animate = false)
+        } else {
+            super.onRestoreInstanceState(state)
+        }
+    }
+
     override fun onWindowVisibilityChanged(visibility: Int) {
         super.onWindowVisibilityChanged(visibility)
         if (visibility != VISIBLE) {
+            countAnimator.cancel()
             cancelDragRepeat()
             if (dragFeedbackDelegate.isInitialized()) dragFeedback.hide(immediately = true)
         }
@@ -680,6 +780,7 @@ open class StepperButton @JvmOverloads constructor(
         super.onDetachedFromWindow()
         // Cancel all pending jobs and animations
         textChangeJob?.cancel()
+        countAnimator.cancel()
         currentAnimator?.cancel()
         removeCallbacks(showExpandedRunnable)
         removeCallbacks(showCollapsedRunnable)
@@ -692,5 +793,10 @@ open class StepperButton @JvmOverloads constructor(
 
     enum class Type {
         Filled, Outlined,
+    }
+
+    companion object {
+        private const val STATE_SUPER = "stepper_super_state"
+        private const val STATE_COUNT = "stepper_count"
     }
 }
