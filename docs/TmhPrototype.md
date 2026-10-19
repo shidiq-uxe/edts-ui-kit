@@ -40,8 +40,8 @@ not a claim about production campaign assortments.
 | Entire unmet, out-of-stock, quota, personal-limit, or first-transaction-only card | That fair’s PPP |
 | Unmet card’s Tambah | That fair’s PPP |
 | TMH redemption tray’s Lihat Fair | That fair’s PPP, after the unsaved-change guard |
-| PPP page’s Lihat | The same redemption tray with Lihat Syarat |
-| PPP page’s Selengkapnya or its tray’s Lihat Syarat | Campaign HTML terms |
+| PPP page’s Lihat | Redemption tray focused on product selection |
+| PPP page’s Selengkapnya | Campaign HTML terms |
 
 There is no independent banner/title shortcut to PPP for an eligible TMH card.
 
@@ -49,8 +49,9 @@ There is no independent banner/title shortcut to PPP for an eligible TMH card.
 TMH, and Bundle restoration preserves quantities, selected benefits, and campaign identity.
 TMH retains its tab and list anchor. Search, Share, Keranjang, Urutkan, Filter, and grid
 selection remain visible but noninteractive, matching the coworker’s latest commit. Product
-steppers, Lihat, and terms navigation retain their actions. The PPP redemption tray hides
-Deskripsi Promo and its description while keeping Lihat Syarat. Partial PPP selection reads
+steppers, Lihat, and page-level terms navigation retain their actions. The PPP redemption
+tray hides Deskripsi Promo, its description, and Lihat Syarat. Terms are accessed through
+Selengkapnya on the PPP page. Partial PPP selection reads
 “Kamu sudah ambil 1 dari 2 tebus murah. Yuk pilih produk lagi”; full selection reads
 “Kamu sudah ambil 2 tebus murah”. TMH keeps its shorter selected-state copy. The separate pre-existing staged Promo Detail prototype
 is outside this integration and remains untouched in its original checkout.

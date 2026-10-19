@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
+import androidx.core.view.updateLayoutParams
 import androidx.core.widget.TextViewCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.button.MaterialButton
@@ -115,9 +116,7 @@ class TmhRedemptionBottomSheet : TmhBottomSheet() {
             setPlusButtonEnabled(selection.canIncrement(product.id))
             this.binding.plusButton.backgroundTintList = requireContext().colorStateList(UIKitR.color.slr_button_filled_bg)
             setMinusButtonEnabled(selection.canDecrement(product.id))
-            this.binding.minusButton.iconTint = ColorStateList.valueOf(requireContext().color(
-                if (selection.canDecrement(product.id)) UIKitR.color.primary_30 else UIKitR.color.black_30
-            ))
+            this.binding.minusButton.iconTint = requireContext().colorStateList(UIKitR.color.slr_stepper_icon)
             this.binding.countText.setTextColor(requireContext().color(
                 if (isUnavailable) UIKitR.color.black_40 else UIKitR.color.black_60
             ))
@@ -182,18 +181,11 @@ class TmhRedemptionBottomSheet : TmhBottomSheet() {
         val isPromoDetail = requireArguments().getBoolean(ARG_PROMO_DETAIL)
         content.tvDescriptionTitle.isVisible = !isPromoDetail
         content.tvDescription.isVisible = !isPromoDetail
-        content.tvTerms.setText(if (isPromoDetail) R.string.tmh_view_terms else R.string.tmh_view_fair)
-        content.tvTerms.setOnClickListener {
-            if (isPromoDetail) {
-                if (childFragmentManager.findFragmentByTag(TmhTermsBottomSheet.TAG) == null) {
-                    TmhTermsBottomSheet.newInstance(
-                        fairName = getString(fair.nameRes),
-                        isIntegrated = true,
-                        offerDescriptions = fair.products.map { "${getString(it.nameRes)} (${getString(it.priceRes)})" },
-                    )
-                        .show(childFragmentManager, TmhTermsBottomSheet.TAG)
-                }
-            } else {
+        content.tvTerms.isVisible = !isPromoDetail
+        if (isPromoDetail) {
+            content.selectionHeader.updateLayoutParams<ViewGroup.MarginLayoutParams> { topMargin = 0 }
+        } else {
+            content.tvTerms.setOnClickListener {
                 isNavigatingToFair = true
                 requestCloseOrNavigate()
             }

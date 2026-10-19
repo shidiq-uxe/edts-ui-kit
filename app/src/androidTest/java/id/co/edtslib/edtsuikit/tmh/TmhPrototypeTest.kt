@@ -53,16 +53,7 @@ class TmhPrototypeTest {
 
     private lateinit var activity: ActivityScenario<GuidelinesTmhActivity>
 
-    private fun openFreshTray(isPromoDetail: Boolean = false) {
-        if (isPromoDetail) {
-            activity.onActivity { screen ->
-                val fair = TmhFlowState.create(screen, TmhScenario.ELIGIBLE).fairs.first()
-                TmhRedemptionBottomSheet.newInstance(fair, TmhScenario.ELIGIBLE, isPromoDetail = true)
-                    .show(screen.supportFragmentManager, TmhRedemptionBottomSheet.TAG)
-            }
-            settleUi()
-            return
-        }
+    private fun openFreshTray() {
         activity.onActivity { screen ->
             val list = screen.findViewById<RecyclerView>(R.id.rvFairs)
             (list.layoutManager as LinearLayoutManager).scrollToPositionWithOffset(0, 0)
@@ -340,20 +331,11 @@ class TmhPrototypeTest {
 
     @Test
     fun eachStackedSheetDimsItsOwnWindowBySeventyFivePercent() {
-        openFreshTray(isPromoDetail = true)
+        openFreshTray()
         activity.onActivity { screen ->
             val sheet = screen.supportFragmentManager.findFragmentByTag(TmhRedemptionBottomSheet.TAG) as TmhRedemptionBottomSheet
             assertEquals(0.75f, requireNotNull(sheet.dialog?.window).attributes.dimAmount, 0.001f)
         }
-        onView(withId(R.id.tvTerms)).perform(click())
-        settleUi()
-        activity.onActivity { screen ->
-            val sheet = screen.supportFragmentManager.findFragmentByTag(TmhRedemptionBottomSheet.TAG) as TmhRedemptionBottomSheet
-            val terms = sheet.childFragmentManager.findFragmentByTag(TmhTermsBottomSheet.TAG) as TmhTermsBottomSheet
-            assertEquals(0.75f, requireNotNull(terms.dialog?.window).attributes.dimAmount, 0.001f)
-        }
-        pressBack()
-        settleUi()
         incrementEmina()
         pressBack()
         settleUi()
@@ -367,13 +349,18 @@ class TmhPrototypeTest {
 
     @Test
     fun termsHtmlScrollsWithNumberingEmphasisAndRestoredFairTitle() {
-        openFreshTray(isPromoDetail = true)
-        onView(withId(R.id.tvTerms)).perform(click())
+        activity.onActivity { screen ->
+            val fair = TmhFlowState.create(screen, TmhScenario.ELIGIBLE).fairs.first()
+            TmhTermsBottomSheet.newInstance(
+                fairName = screen.getString(fair.nameRes),
+                isIntegrated = true,
+                offerDescriptions = fair.products.map { "${screen.getString(it.nameRes)} (${screen.getString(it.priceRes)})" },
+            ).show(screen.supportFragmentManager, TmhTermsBottomSheet.TAG)
+        }
         settleUi()
         activity.onActivity { screen ->
-            val redemption = screen.supportFragmentManager.findFragmentByTag(TmhRedemptionBottomSheet.TAG)
-                as TmhRedemptionBottomSheet
-            val terms = redemption.childFragmentManager.findFragmentByTag(TmhTermsBottomSheet.TAG) as TmhTermsBottomSheet
+            val terms = screen.supportFragmentManager.findFragmentByTag(TmhTermsBottomSheet.TAG) as TmhTermsBottomSheet
+            assertEquals(0.75f, requireNotNull(terms.dialog?.window).attributes.dimAmount, 0.001f)
             val content = terms.requireView().findViewById<android.widget.TextView>(R.id.tvTermsContent)
             val text = content.text as android.text.Spanned
             assertEquals(screen.getString(R.string.tmh_terms_fair_title, screen.getString(R.string.tmh_paragon)),
@@ -412,9 +399,7 @@ class TmhPrototypeTest {
         onView(withId(R.id.termsScroll)).perform(swipeUp())
         settleUi()
         activity.onActivity { screen ->
-            val redemption = screen.supportFragmentManager.findFragmentByTag(TmhRedemptionBottomSheet.TAG)
-                as TmhRedemptionBottomSheet
-            val terms = redemption.childFragmentManager.findFragmentByTag(TmhTermsBottomSheet.TAG) as TmhTermsBottomSheet
+            val terms = screen.supportFragmentManager.findFragmentByTag(TmhTermsBottomSheet.TAG) as TmhTermsBottomSheet
             terms.requireView().findViewById<androidx.core.widget.NestedScrollView>(R.id.termsScroll).fullScroll(View.FOCUS_DOWN)
         }
         settleUi()
@@ -423,9 +408,7 @@ class TmhPrototypeTest {
         activity.recreate()
         settleUi()
         activity.onActivity { screen ->
-            val redemption = screen.supportFragmentManager.findFragmentByTag(TmhRedemptionBottomSheet.TAG)
-                as TmhRedemptionBottomSheet
-            val terms = redemption.childFragmentManager.findFragmentByTag(TmhTermsBottomSheet.TAG) as TmhTermsBottomSheet
+            val terms = screen.supportFragmentManager.findFragmentByTag(TmhTermsBottomSheet.TAG) as TmhTermsBottomSheet
             assertEquals(screen.getString(R.string.tmh_terms_fair_title, screen.getString(R.string.tmh_paragon)),
                 terms.title)
             val text = terms.requireView().findViewById<android.widget.TextView>(R.id.tvTermsContent).text as android.text.Spanned

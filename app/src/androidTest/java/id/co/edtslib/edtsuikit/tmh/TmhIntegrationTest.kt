@@ -112,7 +112,7 @@ class TmhIntegrationTest {
     }
 
     @Test
-    fun eligibleCardAndBothTrayLinksUseTheirCorrectDestinations() {
+    fun tmhTrayOpensFairAndPppTermsStayOnThePage() {
         ActivityScenario.launch(GuidelinesTmhActivity::class.java).use {
             settle(1700)
             scenario(R.string.tmh_scenario_eligible)
@@ -128,19 +128,21 @@ class TmhIntegrationTest {
             capture("paragon-ppp")
             onView(withId(R.id.giftsAction)).perform(click())
             settle()
-            onView(withId(R.id.tvTerms)).check(matches(withText(R.string.tmh_view_terms)))
+            onView(withId(R.id.tvTerms)).check(matches(androidx.test.espresso.matcher.ViewMatchers.withEffectiveVisibility(
+                androidx.test.espresso.matcher.ViewMatchers.Visibility.GONE)))
             onView(withId(R.id.tvDescriptionTitle)).check(matches(androidx.test.espresso.matcher.ViewMatchers.withEffectiveVisibility(
                 androidx.test.espresso.matcher.ViewMatchers.Visibility.GONE)))
             onView(withId(R.id.tvDescription)).check(matches(androidx.test.espresso.matcher.ViewMatchers.withEffectiveVisibility(
                 androidx.test.espresso.matcher.ViewMatchers.Visibility.GONE)))
             capture("ppp-redemption")
-            clickTrayLink()
+            pressBack()
+            settle()
+            assertScreen(ParagonFairDemoActivity::class.java)
+            onView(withId(R.id.terms)).check(matches(withText(R.string.fair_terms))).perform(click())
             settle()
             onView(withText(context.getString(R.string.tmh_terms_fair_title,
                 context.getString(R.string.tmh_paragon)))).check(matches(isDisplayed()))
             capture("ppp-terms")
-            pressBack()
-            settle()
             pressBack()
             settle()
             pressBack()

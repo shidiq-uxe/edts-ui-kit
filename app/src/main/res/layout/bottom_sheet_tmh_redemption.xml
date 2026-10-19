@@ -49,11 +49,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/xxs"
-                android:text="@string/tmh_view_terms"
+                android:text="@string/tmh_view_fair"
                 android:textAppearance="@style/TextAppearance.Tmh.SemiBold.Button.Text.Medium"
                 android:textColor="@color/primary_30" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/selectionHeader"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/m2">
