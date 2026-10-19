@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="motion_stepper_title">Stepper motion</string>
+    <string name="motion_stepper_hint">Tap + and − to compare. Counts range from 0 to 12. Long-press a control, then drag vertically to repeat.</string>
+    <string name="motion_stepper_animated">Directional roll · 160 ms</string>
+    <string name="motion_stepper_instant">Instant count · comparison</string>
+    <string name="motion_stepper_editable">Editable count</string>
+    <string name="motion_stepper_disabled">Disabled</string>
+    <string name="motion_stepper_collapsed">Expand from zero</string>
+    <string name="motion_tray_title">Tray dismissal</string>
+    <string name="motion_tray_hint">Compare a full slide to the bottom with the original Material window exit.</string>
+    <string name="motion_tray_custom">UIKit exit · slide to bottom</string>
+    <string name="motion_tray_material">Material 3 exit · 350 ms</string>
+    <string name="motion_tray_content">Dismiss using the button, close icon, Back, outside tap, or a downward swipe. Swipe motion follows your finger.</string>
+    <string name="motion_tray_dismiss">Dismiss tray</string>
+    <string name="motion_tray_shown">Tray shown</string>
+    <string name="motion_tray_dismissed">Tray dismissed</string>
+    <string name="motion_tray_state">Tray state: %1$d</string>
+</resources>

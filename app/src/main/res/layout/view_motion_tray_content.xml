@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/s"
+    android:orientation="vertical">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/motion_tray_content"
+        android:textAppearance="@style/TextAppearance.Inter.Regular.B2" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnDismissTray"
+        style="@style/Widget.EDTS.UIKit.Button.Filled.Primary.Medium"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/s"
+        android:text="@string/motion_tray_dismiss" />
+
+</LinearLayout>
