@@ -10,4 +10,13 @@
     <style name="ThemeOverlay.EDTS.UIKit.BottomSheetDialog" parent="ThemeOverlay.Material3.BottomSheetDialog">
         <item name="bottomSheetStyle">@style/Widget.EDTS.UIKit.BottomSheet.Modal</item>
     </style>
+    <!-- Keep Material entry. The sheet behavior owns the complete exit movement. -->
+    <style name="Animation.EDTS.UIKit.BottomSheetDialog" parent="Animation.Material3.BottomSheetDialog">
+        <item name="android:windowExitAnimation">@anim/anim_tray_no_exit</item>
+    </style>
+
+    <!-- A completed swipe already moved the sheet off screen. -->
+    <style name="Animation.EDTS.UIKit.BottomSheetDialog.Hidden" parent="Animation.EDTS.UIKit.BottomSheetDialog">
+        <item name="android:windowExitAnimation">@anim/anim_tray_no_exit</item>
+    </style>
 </resources>

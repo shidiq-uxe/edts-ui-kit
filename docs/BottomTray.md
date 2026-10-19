@@ -23,9 +23,9 @@
 -   **`contentView`**: `View` representing the main content of the bottom sheet.
 -   **`dismissOnOutsideTouch`**: Boolean to allow the sheet to dismiss when touching outside.
 -   **`isCancelableOnTouchOutside`**: Boolean indicating whether the sheet is cancelable with outside touch.
--   **`customBackgroundColor`**: Optional color resource for the tray background.
+-   **`customBackgroundColor`**: Optional resolved color integer for the tray background.
 -   **`snapPoints`**: Array of integers defining snap positions for flexible scrolling behavior.
--   **`customAnimationsEnabled`**: Boolean to toggle custom animations on or off.
+-   **`customAnimationsEnabled`**: Defaults to `true` for a full slide to the bottom; `false` retains Material 3 window motion.
 -   **`dragHandleVisibility`**: Boolean to control visibility of the drag handle.
 -   **`titleDividerVisibility`**: Boolean to toggle the title divider's visibility.
 -   **`shouldShowNavigation`**: Boolean to control the display of the navigation button.
@@ -60,7 +60,6 @@
 ### Private Methods:
 
 -   **`setupBottomSheetBehavior()`**: Configures `BottomSheetBehavior` properties and snapping behavior.
--   **`setCustomAnimations()`**: Placeholder method for enabling custom animations.
 -   **`bindTitleView()`**: Applies styles and properties to the title view, including text appearance and icon configuration.
 
 ### Callbacks:
@@ -89,4 +88,44 @@ bottomSheet.show(supportFragmentManager, "BottomSheetTrayTag")
 ## Remarks
 
 -   The `BottomSheetTray` class supports customization to fit various use cases, such as creating complex modal dialogues or simple information sheets.
--   `setCustomAnimations()` is a placeholder, and developers should define custom animations in `styles.xml` for full functionality.
+- Header navigation and close views retain their MaterialCheckBox binding type for compatibility,
+  but behave and announce as buttons: tapping does not toggle them. Their touch regions expand
+  to 48 dp within the tray host without changing the visible header layout. Navigation click
+  behavior remains caller-owned; close dismisses by default.
+
+## Default dismissal motion
+
+`customAnimationsEnabled = true` preserves the Material 3 entrance and dismisses through
+`BottomSheetBehavior.STATE_HIDDEN`, using the same settling motion as a downward drag.
+The whole sheet and its content remain opaque until the sheet's top reaches the bottom edge
+of its parent. Only then does the dialog close, without a second window exit animation.
+
+Close, `dismiss()`, `dismissAllowingStateLoss()`, ordinary Back, and outside cancellation
+use this full-distance exit. Gesture release continues using Material's native drag behavior.
+The settling duration follows Material's distance/velocity calculation; it is not fixed at
+220 ms. System-disabled animations keep explicit dismissal immediate.
+
+Shared fragment configuration also supports subclasses that create their own
+`BottomSheetDialog`, preserving their existing cancellation interception. Explicit fragment
+dismissal still works when user dragging or outside cancellation is disabled.
+
+| Motion | UIKit default | Material 3 window fallback (dependency 1.12.0) |
+| --- | --- | --- |
+| Entry | Inherited Material 3 | 400 ms slide-up and fade-in |
+| Exit travel | Full remaining distance to the bottom edge | 20% parent height over 350 ms |
+| Sheet/content opacity | Remains at 100% | Fades to 0% over 300 ms |
+| Exit completion | Dialog removed after the sheet reaches hidden | Window animation completes |
+| Completed swipe | No second window exit | Inherited Material handling |
+
+```kotlin
+val tray = BottomSheetTray.newInstance(title = "Details", contentLayout = content)
+tray.customAnimationsEnabled = true // Default full slide to the bottom.
+tray.show(supportFragmentManager, "details")
+
+// Retain the inherited Material animation instead:
+tray.customAnimationsEnabled = false
+```
+
+`false` selects Material motion; it does not disable all motion. Use the Android system
+animation setting to remove motion globally. The **Bottom Sheet** sample provides buttons
+for both animations with identical content and header design.

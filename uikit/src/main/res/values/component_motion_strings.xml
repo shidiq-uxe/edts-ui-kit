@@ -3,4 +3,6 @@
     <string name="stepper_add_item">Add item</string>
     <string name="stepper_remove_item">Remove item</string>
     <string name="stepper_item_count">Item count</string>
+    <string name="tray_navigate_back">Navigate back</string>
+    <string name="tray_close">Close</string>
 </resources>

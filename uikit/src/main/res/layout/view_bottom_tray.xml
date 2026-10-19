@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/flRoot"
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/flRoot"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
     <!--Could Use BottomSheetDragHandleView Component from Material Design-->
     <View
@@ -16,8 +17,7 @@
         android:background="@color/black_30"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
-
+        app:layout_constraintEnd_toEndOf="parent" />
     <FrameLayout
         android:id="@+id/flTitle"
         android:layout_width="match_parent"
@@ -29,17 +29,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <com.google.android.material.checkbox.MaterialCheckBox
+            <id.co.edtslib.uikit.tray.TrayActionButton
                 android:id="@+id/btnNavigation"
                 android:layout_width="@dimen/l"
                 android:layout_height="@dimen/l"
                 android:layout_marginStart="@dimen/xs"
+                android:contentDescription="@string/tray_navigate_back"
                 android:button="@drawable/ic_arrow_left"
                 app:buttonTint="@color/black_50"
                 app:layout_constraintTop_toTopOf="@id/tvTitle"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintBottom_toBottomOf="@id/tvTitle"/>
-
+                app:layout_constraintBottom_toBottomOf="@id/tvTitle"
+                tools:viewBindingType="com.google.android.material.checkbox.MaterialCheckBox" />
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tvTitle"
                 android:layout_width="@dimen/dimen_0"
@@ -53,35 +54,34 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_goneMarginStart="@dimen/s"
                 app:layout_goneMarginEnd="@dimen/s"
-                tools:text="This Would Be A Title"/>
-
-            <com.google.android.material.checkbox.MaterialCheckBox
+                tools:text="This Would Be A Title" />
+            <id.co.edtslib.uikit.tray.TrayActionButton
                 android:id="@+id/btnClose"
                 android:layout_width="@dimen/l"
                 android:layout_height="@dimen/l"
                 android:layout_marginEnd="@dimen/xs"
+                android:contentDescription="@string/tray_close"
                 android:button="@drawable/ic_cancel_24"
                 app:buttonTint="@color/black_50"
                 app:layout_constraintTop_toTopOf="@id/tvTitle"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toBottomOf="@id/tvTitle"/>
+                app:layout_constraintBottom_toBottomOf="@id/tvTitle"
+                tools:viewBindingType="com.google.android.material.checkbox.MaterialCheckBox" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </FrameLayout>
-
     <com.google.android.material.divider.MaterialDivider
         android:id="@+id/ctaDivider"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dimen_1"
         android:layout_marginTop="@dimen/s"
         app:dividerColor="@color/black_30"
-        app:layout_constraintTop_toBottomOf="@id/flTitle"/>
-
+        app:layout_constraintTop_toBottomOf="@id/flTitle" />
     <FrameLayout
         android:id="@+id/flContent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/ctaDivider"/>
+        app:layout_constraintTop_toBottomOf="@id/ctaDivider" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
