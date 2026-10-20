@@ -33,6 +33,7 @@ import id.co.edtslib.edtsuikit.tmh.TmhRedemptionBottomSheet
 import id.co.edtslib.edtsuikit.tmh.TmhScenario
 import id.co.edtslib.edtsuikit.tmh.TmhScenarioBottomSheet
 import id.co.edtslib.edtsuikit.tmh.bindFair
+import id.co.edtslib.edtsuikit.tmh.discountPercent
 import id.co.edtslib.edtsuikit.tmh.originalPriceFlags
 import id.co.edtslib.edtsuikit.tmh.quantities
 import id.co.edtslib.edtsuikit.tmh.setUnavailable
@@ -208,6 +209,7 @@ class GuidelinesTmhActivity : GuidelinesBaseActivity() {
         row.tvName.setText(product.nameRes)
         row.tvPrice.setText(product.priceRes)
         row.tvOriginalPrice.setText(product.originalPriceRes)
+        row.tvDiscount.text = getString(R.string.tmh_discount_percentage, product.discountPercent(this))
         row.tvOriginalPrice.paintFlags = originalPriceFlags()
         row.tvName.setTextColor(color(if (isUnavailable) UIKitR.color.black_40 else UIKitR.color.black_70))
         row.tvPrice.setTextColor(color(if (isUnavailable) UIKitR.color.black_40 else UIKitR.color.red_30))

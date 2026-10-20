@@ -39,6 +39,10 @@ class TmhTermsBottomSheet : TmhBottomSheet() {
                 getString(R.string.tmh_terms_offer, offers),
             )
                 .replace("[Tipe Kelipatan]", "berlaku kelipatan, maksimal 2 tebus murah")
+                .replace(
+                    "minimal Rp100.000",
+                    "minimal ${requireArguments().getLong(ARG_MINIMUM_SPEND, TmhFlowState.THRESHOLD).rupiahText()}",
+                )
         }
         val renderer = HtmlRenderer(
             config = HtmlRendererConfig(orderedStyle = ListStyles.numbered.withIndent(8).withGap(4)),
@@ -58,16 +62,19 @@ class TmhTermsBottomSheet : TmhBottomSheet() {
         private const val ARG_OFFERS = "offers"
         private const val ARG_INTEGRATED = "integrated"
         private const val ARG_FAIR_NAME = "fair_name"
+        private const val ARG_MINIMUM_SPEND = "minimum_spend"
 
         fun newInstance(
             fairName: String,
             isIntegrated: Boolean = false,
             offerDescriptions: List<String> = emptyList(),
+            minimumSpend: Long = TmhFlowState.THRESHOLD,
         ): TmhTermsBottomSheet = TmhTermsBottomSheet().apply {
             arguments = Bundle().apply {
                 putString(ARG_FAIR_NAME, fairName)
                 putBoolean(ARG_INTEGRATED, isIntegrated)
                 putStringArrayList(ARG_OFFERS, ArrayList(offerDescriptions))
+                putLong(ARG_MINIMUM_SPEND, minimumSpend)
             }
         }
     }

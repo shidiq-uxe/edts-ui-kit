@@ -71,6 +71,7 @@ class TmhRedemptionBottomSheet : TmhBottomSheet() {
         binding.tvName.setText(product.nameRes)
         binding.tvPrice.setText(product.priceRes)
         binding.tvOriginalPrice.setText(product.originalPriceRes)
+        binding.tvDiscount.text = getString(R.string.tmh_discount_percentage, product.discountPercent(requireContext()))
         binding.tvOriginalPrice.paintFlags = originalPriceFlags()
         binding.tvName.setTextColor(requireContext().color(
             if (isUnavailable) UIKitR.color.black_40 else UIKitR.color.black_70
@@ -154,7 +155,7 @@ class TmhRedemptionBottomSheet : TmhBottomSheet() {
         val actualState = TmhFairState.valueOf(requireNotNull(requireArguments().getString(ARG_FAIR_STATE)))
         fair = fair.copy(
             redemptionMaximum = requireArguments().getInt(ARG_MAXIMUM, 2),
-            remainingSpend = requireArguments().getLong(ARG_REMAINING_SPEND, TmhFlowState.THRESHOLD),
+            remainingSpend = requireArguments().getLong(ARG_REMAINING_SPEND, fair.spendThreshold),
             state = actualState,
             savedQuantities = original,
             products = fair.products.map {
@@ -177,7 +178,12 @@ class TmhRedemptionBottomSheet : TmhBottomSheet() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         val content = BottomSheetTmhRedemptionBinding.inflate(inflater, container, false)
         sheetBinding = content
-        content.tvDescription.text = getString(R.string.tmh_description, getString(fair.nameRes))
+        content.tvDescription.text = getString(
+            R.string.tmh_description,
+            getString(fair.nameRes),
+            fair.spendThreshold.rupiahText(),
+            TmhFlowState.MAXIMUM_REDEMPTIONS,
+        )
         val isPromoDetail = requireArguments().getBoolean(ARG_PROMO_DETAIL)
         content.tvDescriptionTitle.isVisible = !isPromoDetail
         content.tvDescription.isVisible = !isPromoDetail

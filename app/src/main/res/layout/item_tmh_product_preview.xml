@@ -60,7 +60,6 @@
             android:layout_marginTop="@dimen/xxxs"
             android:paddingHorizontal="@dimen/xxxs"
             android:background="@drawable/bg_tmh_badge"
-            android:text="@string/tmh_discount"
             android:textAppearance="@style/TextAppearance.Tmh.Bold.B4"
             android:textColor="@color/red_30"
             app:layout_constraintTop_toBottomOf="@id/tvPrice"

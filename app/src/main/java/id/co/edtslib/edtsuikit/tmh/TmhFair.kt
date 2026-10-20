@@ -41,8 +41,8 @@ data class TmhProduct(
     val id: String,
     @StringRes val nameRes: Int,
     @DrawableRes val imageRes: Int,
-    @StringRes val priceRes: Int = R.string.tmh_price_5000,
-    @StringRes val originalPriceRes: Int = R.string.tmh_price_10000,
+    @StringRes val priceRes: Int = R.string.tmh_price_45000,
+    @StringRes val originalPriceRes: Int = R.string.tmh_price_67000,
     val isInStock: Boolean = true,
 )
 
@@ -55,6 +55,7 @@ data class TmhFair(
     val savedQuantities: Map<String, Int> = emptyMap(),
     val redemptionMaximum: Int = 2,
     val remainingSpend: Long = 100_000L,
+    val spendThreshold: Long = 100_000L,
 ) {
 
     val savedTotal: Int
@@ -107,15 +108,15 @@ object TmhFixtures {
                 id = "softex-gravity",
                 nameRes = R.string.tmh_softex_gravity,
                 imageRes = R.drawable.tmh_product_softex_gravity,
-                priceRes = R.string.tmh_price_15000,
-                originalPriceRes = R.string.tmh_price_30000,
+                priceRes = R.string.tmh_price_9900,
+                originalPriceRes = R.string.tmh_price_19800,
             ),
             TmhProduct(
                 id = "softex-beary",
                 nameRes = R.string.tmh_softex_beary,
                 imageRes = R.drawable.tmh_product_softex_beary,
-                priceRes = R.string.tmh_price_15000,
-                originalPriceRes = R.string.tmh_price_30000,
+                priceRes = R.string.tmh_price_9900,
+                originalPriceRes = R.string.tmh_price_19800,
             ),
         )),
         fair(4, 4, TmhFairState.OUT_OF_STOCK, listOf(
@@ -123,7 +124,7 @@ object TmhFixtures {
                 id = "tissue",
                 nameRes = R.string.tmh_tissue_product,
                 imageRes = R.drawable.tmh_product_tissue,
-                priceRes = R.string.tmh_price_11000,
+                priceRes = R.string.tmh_price_16000,
                 originalPriceRes = R.string.tmh_price_22000,
                 isInStock = false,
             ),
@@ -133,8 +134,8 @@ object TmhFixtures {
                 id = "vanish",
                 nameRes = R.string.tmh_vanish_product,
                 imageRes = R.drawable.tmh_product_vanish,
-                priceRes = R.string.tmh_price_15000,
-                originalPriceRes = R.string.tmh_price_30000,
+                priceRes = R.string.tmh_price_21900,
+                originalPriceRes = R.string.tmh_price_29900,
             ),
         )),
         fair(6, 6, TmhFairState.LIMIT_EXHAUSTED, listOf(
@@ -142,15 +143,15 @@ object TmhFixtures {
                 id = "five-days-banana",
                 nameRes = R.string.tmh_banana_product,
                 imageRes = R.drawable.tmh_product_five_days_banana,
-                priceRes = R.string.tmh_price_3500,
-                originalPriceRes = R.string.tmh_price_7000,
+                priceRes = R.string.tmh_price_4900,
+                originalPriceRes = R.string.tmh_price_9800,
             ),
             TmhProduct(
                 id = "five-days-cheese",
                 nameRes = R.string.tmh_cheese_product,
                 imageRes = R.drawable.tmh_product_five_days_cheese,
-                priceRes = R.string.tmh_price_3500,
-                originalPriceRes = R.string.tmh_price_7000,
+                priceRes = R.string.tmh_price_4900,
+                originalPriceRes = R.string.tmh_price_9800,
             ),
         )),
         fair(7, 7, TmhFairState.FIRST_TRANSACTION_ONLY, listOf(
@@ -158,15 +159,15 @@ object TmhFixtures {
                 id = "chupa-mix",
                 nameRes = R.string.tmh_mix_product,
                 imageRes = R.drawable.tmh_product_chupa_mix,
-                priceRes = R.string.tmh_price_7500,
-                originalPriceRes = R.string.tmh_price_15000,
+                priceRes = R.string.tmh_price_10000,
+                originalPriceRes = R.string.tmh_price_20000,
             ),
             TmhProduct(
                 id = "chupa-ocean",
                 nameRes = R.string.tmh_ocean_product,
                 imageRes = R.drawable.tmh_product_chupa_ocean,
-                priceRes = R.string.tmh_price_7500,
-                originalPriceRes = R.string.tmh_price_15000,
+                priceRes = R.string.tmh_price_10000,
+                originalPriceRes = R.string.tmh_price_20000,
             ),
         )),
     )
@@ -204,6 +205,14 @@ object TmhFixtures {
             products = products,
             state = state,
             savedQuantities = if (quantity == 0) emptyMap() else mapOf(products.first().id to quantity),
+            spendThreshold = when (campaign) {
+                0 -> 115_000L
+                3, 4 -> 30_000L
+                5 -> 40_000L
+                6, 7 -> 50_000L
+                // Toples and Luminarc retain the approved prototype minimum; their banners specify no minimum.
+                else -> 100_000L
+            },
         )
     }
 
@@ -230,8 +239,20 @@ object TmhFixtures {
             ),
         )
         else -> listOf(
-            TmhProduct("soup", R.string.tmh_soup, R.drawable.tmh_product_soup_bowl),
-            TmhProduct("noodle", R.string.tmh_noodle, R.drawable.tmh_product_noodle_bowl),
+            TmhProduct(
+                id = "soup",
+                nameRes = R.string.tmh_soup,
+                imageRes = R.drawable.tmh_product_soup_bowl,
+                priceRes = R.string.tmh_price_35000,
+                originalPriceRes = R.string.tmh_price_45000,
+            ),
+            TmhProduct(
+                id = "noodle",
+                nameRes = R.string.tmh_noodle,
+                imageRes = R.drawable.tmh_product_noodle_bowl,
+                priceRes = R.string.tmh_price_35000,
+                originalPriceRes = R.string.tmh_price_45000,
+            ),
         )
     }
 }

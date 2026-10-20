@@ -26,6 +26,7 @@ internal data class TmhFlowState(
                 savedQuantities = quantities,
                 redemptionMaximum = maximum,
                 remainingSpend = model.remainingSpend,
+                spendThreshold = model.threshold,
                 state = when {
                     template.state.isUnavailable -> template.state
                     maximum == 0 -> TmhFairState.REQUIREMENT_UNMET
@@ -93,7 +94,7 @@ internal data class TmhFlowState(
                 val first = products.firstOrNull { it.stock > 0 }
                 // Qualifying items are explicit fixtures; benefit items never earn their own allowance.
                 val seedQuantity = if (fair.state.isEligible && first != null) {
-                    ceil(THRESHOLD * MAXIMUM_REDEMPTIONS.toDouble() / first.price).toInt()
+                    ceil(fair.spendThreshold * MAXIMUM_REDEMPTIONS.toDouble() / first.price).toInt()
                 } else 0
                 fair.id to PromoDemoState(
                     products = products.map { if (it.id == first?.id) it.copy(quantity = seedQuantity) else it },
@@ -105,7 +106,7 @@ internal data class TmhFlowState(
                         else -> PromoAvailability.ACTIVE
                     },
                     claimedGifts = fair.savedQuantities.flatMap { (id, quantity) -> List(quantity) { id } },
-                    threshold = THRESHOLD,
+                    threshold = fair.spendThreshold,
                     giftOffers = fair.products.map { product ->
                         GiftOffer(
                             id = product.id,
@@ -192,6 +193,3 @@ internal object TmhCatalogFixtures {
         ),
     )
 }
-
-/** Only parses the app's literal rupiah fixtures, never a backend monetary value. */
-private fun String.rupiahAmount(): Long = filter(Char::isDigit).toLong()

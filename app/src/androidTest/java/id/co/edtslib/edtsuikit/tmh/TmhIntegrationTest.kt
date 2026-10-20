@@ -264,6 +264,9 @@ class TmhIntegrationTest {
     fun reducingShoppingSpendTrimsBenefitsAndRestoresTheNewAllowance() {
         val initial = TmhFlowState.create(context, TmhScenario.ELIGIBLE)
             .withSelection("fair-0", mapOf("emina" to 2))
+        val model = initial.modelFor("fair-0")
+        val initialQuantity = model.products.first().quantity
+        val remaining = (model.threshold - model.products.first().price).rupiahText()
         val intent = Intent(context, ParagonFairDemoActivity::class.java)
             .putExtra(TmhFlowState.EXTRA_FLOW, initial.toBundle())
             .putExtra(TmhFlowState.EXTRA_FAIR_ID, "fair-0")
@@ -271,11 +274,11 @@ class TmhIntegrationTest {
             settle(1800)
             val wash = context.getString(R.string.tmh_catalog_emina_wash)
             onView(allOf(withId(UIKitR.id.single_plus_button), isDisplayed(),
-                withContentDescription(context.getString(R.string.fair_quantity_edit_description, wash, 4))))
+                withContentDescription(context.getString(R.string.fair_quantity_edit_description, wash, initialQuantity))))
                 .perform(click())
             settle()
             onView(allOf(withId(UIKitR.id.minus_button), isDisplayed(),
-                withContentDescription(context.getString(R.string.fair_remove, wash, 4)))).perform(click())
+                withContentDescription(context.getString(R.string.fair_remove, wash, initialQuantity)))).perform(click())
             settle()
             onView(allOf(withId(R.id.message), isDisplayed())).check(matches(withText("Kamu sudah ambil 1 tebus murah")))
             capture("ppp-one-earned-selected")
@@ -292,21 +295,21 @@ class TmhIntegrationTest {
             // The existing PPP control collapses after its five-second focus timeout.
             settle(5500)
             onView(allOf(withId(UIKitR.id.single_plus_button), isDisplayed(),
-                withContentDescription(context.getString(R.string.fair_quantity_edit_description, wash, 3))))
+                withContentDescription(context.getString(R.string.fair_quantity_edit_description, wash, initialQuantity - 1))))
                 .perform(click())
             settle()
-            for (quantity in listOf(3, 2)) {
+            for (quantity in initialQuantity - 1 downTo 2) {
                 onView(allOf(withId(UIKitR.id.minus_button), isDisplayed(),
                     withContentDescription(context.getString(R.string.fair_remove, wash, quantity)))).perform(click())
                 settle()
             }
             screen.recreate()
             settle()
-            onView(allOf(withId(R.id.message), isDisplayed())).check(matches(withSubstring("Rp50.000")))
+            onView(allOf(withId(R.id.message), isDisplayed())).check(matches(withSubstring(remaining)))
             onView(withId(R.id.giftsAction)).perform(click())
             settle()
             onView(withId(R.id.tvCounter)).check(matches(withText("0/0")))
-            onView(withId(UIKitR.id.tvAlertMessage)).check(matches(withSubstring("Rp50.000")))
+            onView(withId(UIKitR.id.tvAlertMessage)).check(matches(withSubstring(remaining)))
             onView(withId(R.id.btnSave)).check(matches(isNotEnabled()))
             capture("eligibility-reduced")
         }

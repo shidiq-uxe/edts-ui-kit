@@ -145,7 +145,7 @@ class ParagonFairDemoActivity : GuidelinesBaseActivity() {
 
     private val promotionTitle
         get() = if (flow != null) {
-            getString(R.string.tmh_promo_rule, state.fairName)
+            getString(R.string.tmh_promo_rule, state.fairName, money(state.threshold), TmhFlowState.MAXIMUM_REDEMPTIONS)
         } else {
             getString(
                 if (promotion == DemoPromotion.FREE_GIFT) R.string.fair_search_gift_title
@@ -978,6 +978,7 @@ class ParagonFairDemoActivity : GuidelinesBaseActivity() {
                     fairName = state.fairName,
                     isIntegrated = true,
                     offerDescriptions = state.giftOffers.map { "${it.name} (${money(it.price)})" },
+                    minimumSpend = state.threshold,
                 )
                     .show(supportFragmentManager, TmhTermsBottomSheet.TAG)
             }
