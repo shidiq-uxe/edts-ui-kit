@@ -44,6 +44,13 @@ class TmhRedemptionBottomSheet : TmhBottomSheet() {
         content.tvCounter.minimumWidth = ceil(Layout.getDesiredWidth(widestCounter, content.tvCounter.paint)).toInt() +
             content.tvCounter.compoundPaddingLeft + content.tvCounter.compoundPaddingRight
         content.tvCounter.text = getString(R.string.tmh_counter, selection.total, selection.maximum)
+        val hasAllowance = selection.maximum > 0
+        content.tvCounter.setTextColor(requireContext().color(
+            if (hasAllowance) UIKitR.color.primary_30 else UIKitR.color.black_40
+        ))
+        content.tvCounter.backgroundTintList = ColorStateList.valueOf(requireContext().color(
+            if (hasAllowance) UIKitR.color.support_selected else UIKitR.color.black_20
+        ))
 
         content.btnSave.apply {
             setText(when (selection.action) {
@@ -200,7 +207,7 @@ class TmhRedemptionBottomSheet : TmhBottomSheet() {
                 requestCloseOrNavigate()
             }
         }
-        content.alertBox.isVisible = !fair.state.isEligible
+        content.alertBox.isVisible = !isPromoDetail && !fair.state.isEligible
         content.alertBox.bindFair(fair)
         content.alertBox.isActionVisible = false
         content.alertBox.alertBackgroundColor = requireContext().color(fair.alertBackgroundRes())
@@ -224,7 +231,7 @@ class TmhRedemptionBottomSheet : TmhBottomSheet() {
                 areItemsTheSame = { old, new -> old.product.id == new.product.id },
                 areContentsTheSame = { old, new -> old == new },
             ),
-        )
+        ).apply { isItemClickEnabled = false }
         productAdapter?.registerAdapterDataObserver(object : RecyclerView.AdapterDataObserver() {
             override fun onItemRangeInserted(positionStart: Int, itemCount: Int) { refreshSheetSize() }
             override fun onItemRangeRemoved(positionStart: Int, itemCount: Int) { refreshSheetSize() }

@@ -14,6 +14,9 @@ class BaseAdapter<T : Any, B : ViewBinding>(
     bindingClass: Class<B>,
 ) : RecyclerView.Adapter<BaseAdapter<T, B>.BaseViewHolder>() {
 
+    /** Configure before binding to suppress root clicks while retaining interactive child views. */
+    var isItemClickEnabled: Boolean = true
+
     private val bindingMethod = bindingClass.getMethod(
         INFLATE_METHOD,
         LayoutInflater::class.java,
@@ -75,8 +78,13 @@ class BaseAdapter<T : Any, B : ViewBinding>(
         fun bind(item: T) {
             register.onBindHolder(adapterPosition, item, viewBinding, diffUtil)
 
-            viewBinding.root.setOnClickListener {
-                onItemClickCallback.invoke(viewBinding, item, adapterPosition)
+            if (isItemClickEnabled) {
+                viewBinding.root.setOnClickListener {
+                    onItemClickCallback.invoke(viewBinding, item, adapterPosition)
+                }
+            } else {
+                viewBinding.root.setOnClickListener(null)
+                viewBinding.root.isClickable = false
             }
         }
     }

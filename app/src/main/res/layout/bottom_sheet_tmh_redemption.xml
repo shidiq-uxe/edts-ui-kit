@@ -4,6 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:clipChildren="false"
     android:orientation="vertical">
 
     <androidx.core.widget.NestedScrollView
@@ -98,20 +99,35 @@
 
     </androidx.core.widget.NestedScrollView>
 
-    <LinearLayout
-        android:id="@+id/footer"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/s"
-        android:background="@color/white"
-        android:orientation="vertical">
+        android:clipChildren="false">
 
-        <id.co.edtslib.uikit.button.Button
-            android:id="@+id/btnSave"
+        <LinearLayout
+            android:id="@+id/footer"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/xl"
-            android:text="@string/tmh_update_cart" />
+            android:layout_height="wrap_content"
+            android:padding="@dimen/s"
+            android:background="@color/white"
+            android:orientation="vertical">
 
-    </LinearLayout>
+            <id.co.edtslib.uikit.button.Button
+                android:id="@+id/btnSave"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/xl"
+                android:text="@string/tmh_update_cart" />
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/footerShadow"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/xxxs"
+            android:background="@drawable/fair_shadow_top"
+            android:importantForAccessibility="no"
+            android:translationY="@dimen/tmh_footer_shadow_offset" />
+
+    </FrameLayout>
 
 </LinearLayout>

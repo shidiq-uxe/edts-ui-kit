@@ -85,6 +85,22 @@ class TmhIntegrationTest {
         settle()
     }
 
+    private fun clickPppRedemption() {
+        onView(withId(R.id.giftsAction)).perform(object : ViewAction {
+            override fun getConstraints(): Matcher<View> = isDisplayed()
+            override fun getDescription(): String = "Wait until the PPP loading overlay is gone before opening redemption"
+            override fun perform(uiController: UiController, view: View) {
+                val deadline = SystemClock.uptimeMillis() + 4000
+                while (SystemClock.uptimeMillis() < deadline) {
+                    val skeleton = view.rootView.findViewById<View>(R.id.skeleton)
+                    if (skeleton.visibility == View.GONE && view.hasWindowFocus() && !view.isLayoutRequested) return
+                    uiController.loopMainThreadForAtLeast(50)
+                }
+                throw AssertionError("PPP did not finish loading before opening redemption")
+            }
+        }, click())
+    }
+
     private fun firstCard() {
         InstrumentationRegistry.getInstrumentation().runOnMainSync {
             val screen = ActivityLifecycleMonitorRegistry.getInstance().getActivitiesInStage(Stage.RESUMED).single()
@@ -206,7 +222,7 @@ class TmhIntegrationTest {
             firstCard()
             clickTrayLink()
             settle(1800)
-            onView(withId(R.id.giftsAction)).perform(click())
+            clickPppRedemption()
             settle()
             onView(allOf(withId(UIKitR.id.plus_button), isDisplayed(),
                 isDescendantOfA(allOf(isAssignableFrom(com.google.android.material.card.MaterialCardView::class.java), hasDescendant(withText(R.string.tmh_emina)))))).perform(click())
@@ -224,7 +240,7 @@ class TmhIntegrationTest {
             onView(withId(R.id.tvCounter)).check(matches(withText("1/2")))
             clickTrayLink()
             settle(1800)
-            onView(withId(R.id.giftsAction)).perform(click())
+            clickPppRedemption()
             settle()
             onView(withId(R.id.tvCounter)).check(matches(withText("1/2")))
             pressBack()
@@ -309,7 +325,8 @@ class TmhIntegrationTest {
             onView(withId(R.id.giftsAction)).perform(click())
             settle()
             onView(withId(R.id.tvCounter)).check(matches(withText("0/0")))
-            onView(withId(UIKitR.id.tvAlertMessage)).check(matches(withSubstring(remaining)))
+            onView(withId(R.id.alertBox)).check(matches(androidx.test.espresso.matcher.ViewMatchers.withEffectiveVisibility(
+                androidx.test.espresso.matcher.ViewMatchers.Visibility.GONE)))
             onView(withId(R.id.btnSave)).check(matches(isNotEnabled()))
             capture("eligibility-reduced")
         }

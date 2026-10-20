@@ -2,4 +2,5 @@
 <resources>
     <dimen name="tmh_empty_image_size">200dp</dimen>
     <dimen name="tmh_product_preview_width">216dp</dimen>
+    <dimen name="tmh_footer_shadow_offset">-4dp</dimen>
 </resources>

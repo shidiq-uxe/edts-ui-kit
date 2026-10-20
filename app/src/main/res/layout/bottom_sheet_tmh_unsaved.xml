@@ -3,28 +3,55 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="@dimen/s"
+    android:clipChildren="false"
     android:orientation="vertical">
 
     <com.google.android.material.textview.MaterialTextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingHorizontal="@dimen/s"
+        android:paddingTop="@dimen/s"
+        android:paddingBottom="@dimen/s"
         android:text="@string/tmh_unsaved_message"
         android:textAppearance="@style/TextAppearance.Tmh.Regular.P1"
         android:textColor="@color/black_60" />
 
-    <id.co.edtslib.uikit.button.Button
-        android:id="@+id/btnStay"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/xl"
-        android:layout_marginTop="@dimen/m2"
-        android:text="@string/tmh_stay" />
+        android:layout_height="wrap_content"
+        android:clipChildren="false">
 
-    <id.co.edtslib.uikit.button.Button
-        android:id="@+id/btnLeave"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/xl"
-        android:layout_marginTop="@dimen/xxs"
-        android:text="@string/tmh_leave" />
+        <LinearLayout
+            android:id="@+id/footer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/s"
+            android:background="@color/white"
+            android:orientation="vertical">
+
+            <id.co.edtslib.uikit.button.Button
+                android:id="@+id/btnStay"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/xl"
+                android:text="@string/tmh_stay" />
+
+            <id.co.edtslib.uikit.button.Button
+                android:id="@+id/btnLeave"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/xl"
+                android:layout_marginTop="@dimen/xxs"
+                android:text="@string/tmh_leave" />
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/footerShadow"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/xxxs"
+            android:background="@drawable/fair_shadow_top"
+            android:importantForAccessibility="no"
+            android:translationY="@dimen/tmh_footer_shadow_offset" />
+
+    </FrameLayout>
 
 </LinearLayout>
