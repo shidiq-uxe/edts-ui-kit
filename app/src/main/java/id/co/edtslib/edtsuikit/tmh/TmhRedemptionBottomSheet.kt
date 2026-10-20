@@ -119,7 +119,11 @@ class TmhRedemptionBottomSheet : TmhBottomSheet() {
             setMinusButtonEnabled(selection.canDecrement(product.id))
             this.binding.minusButton.iconTint = requireContext().colorStateList(UIKitR.color.slr_stepper_icon)
             this.binding.countText.setTextColor(requireContext().color(
-                if (isUnavailable) UIKitR.color.black_40 else UIKitR.color.black_60
+                when {
+                    isUnavailable -> UIKitR.color.black_40
+                    quantity == 0 && !selection.canIncrement(product.id) -> UIKitR.color.black_30
+                    else -> UIKitR.color.black_60
+                }
             ))
             setOnCountChangeListener { quantity ->
                 if (!selection.update(product.id, quantity)) {

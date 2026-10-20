@@ -426,7 +426,10 @@ class ParagonFairDemoActivity : GuidelinesBaseActivity() {
 
             ConstraintSet().apply {
                 clone(view.progressPanel)
+                connect(R.id.fairBadge, ConstraintSet.END, R.id.info, ConstraintSet.START, 8.dp.toInt())
                 connect(R.id.quotaBadge, ConstraintSet.START, ConstraintSet.PARENT_ID, ConstraintSet.START)
+                connect(R.id.quotaBadge, ConstraintSet.END, ConstraintSet.PARENT_ID, ConstraintSet.END)
+                setHorizontalBias(R.id.quotaBadge, 0f)
                 connect(R.id.quotaBadge, ConstraintSet.TOP, R.id.fairBadge, ConstraintSet.BOTTOM, 8.dp.toInt())
                 connect(R.id.meter, ConstraintSet.TOP, R.id.quotaBadge, ConstraintSet.BOTTOM, 8.dp.toInt())
                 constrainHeight(R.id.fairBadge, ConstraintSet.WRAP_CONTENT)
@@ -449,7 +452,7 @@ class ParagonFairDemoActivity : GuidelinesBaseActivity() {
             view.minimumValue.gravity = android.view.Gravity.START
             view.terms.gravity = android.view.Gravity.START
         }
-        val isActive = model.availability == PromoAvailability.ACTIVE && integratedFair?.state?.isUnavailable != true
+        val isActive = isCampaignAvailable(model)
         val monochrome = if (isActive) null else ColorMatrixColorFilter(ColorMatrix().apply { setSaturation(0f) })
         listOf(view.banner, view.giftOne, view.giftTwo, view.giftThree).forEach { it.colorFilter = monochrome }
         view.newUser.isVisible = model.availability == PromoAvailability.NEW_CUSTOMER_ONLY
@@ -507,6 +510,9 @@ class ParagonFairDemoActivity : GuidelinesBaseActivity() {
         view.root.doOnLayout { updateCompactHeader() }
     }
 
+    private fun isCampaignAvailable(model: PromoDemoState): Boolean =
+        model.availability == PromoAvailability.ACTIVE && integratedFair?.state?.isUnavailable != true
+
     private fun bindMeter(view: ViewFairProgressBinding, model: PromoDemoState) {
         view.seeGifts.contentDescription =
             if (promotion == DemoPromotion.FREE_GIFT) {
@@ -530,7 +536,7 @@ class ParagonFairDemoActivity : GuidelinesBaseActivity() {
                 progressLimit = limit
             }
 
-            isEnabled = model.availability == PromoAvailability.ACTIVE
+            isEnabled = isCampaignAvailable(model)
         }
 
         val next = message(model)

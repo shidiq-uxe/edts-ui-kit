@@ -54,16 +54,22 @@
             android:id="@+id/fairBadge"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/m2"
+            app:layout_constrainedWidth="true"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/quotaBadge"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintHorizontal_bias="0" />
 
         <id.co.edtslib.uikit.recipes.textbadge.klik.KlikTextBadge
             android:id="@+id/quotaBadge"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/m2"
             android:layout_marginStart="@dimen/xxxs"
+            android:layout_marginEnd="@dimen/xxs"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toEndOf="@id/fairBadge" />
+            app:layout_constraintStart_toEndOf="@id/fairBadge"
+            app:layout_constraintEnd_toStartOf="@id/info" />
 
         <ImageButton
             android:id="@+id/info"
