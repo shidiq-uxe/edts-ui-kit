@@ -1,113 +1,107 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fillViewport="true"
     tools:context=".GuidelinesListItemActivity">
 
-    <id.co.edtslib.uikit.list.ListItem
-        android:id="@+id/liSingleLine"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/main"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/s"
-        app:titleText="This is Title"
-        app:startIconVisible="false"
-        app:endIconVisible="false"
-        app:subtitleVisible="false"
-        app:strokeColor="@color/black_30"
-        app:strokeWidth="@dimen/dimen_1"
-        app:layout_constraintTop_toTopOf="parent"/>
+        android:layout_height="wrap_content">
 
-    <id.co.edtslib.uikit.list.ListItem
-        android:id="@+id/liMultiline"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/s"
-        app:titleText="This is Title"
-        app:subTitleText="This is subtitle"
-        app:startIconVisible="false"
-        app:endIconVisible="false"
-        app:strokeColor="@color/black_30"
-        app:strokeWidth="@dimen/dimen_1"
-        app:layout_constraintTop_toBottomOf="@id/liSingleLine"/>
+        <TextView
+            android:id="@+id/tvProductsTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/s"
+            android:layout_marginTop="@dimen/s"
+            android:text="Product Grid"
+            android:textAppearance="@style/TextAppearance.Inter.Bold.B2"
+            android:textSize="20sp"
+            android:textColor="@color/black_70"
+            app:layout_constraintTop_toTopOf="parent"/>
 
-    <id.co.edtslib.uikit.list.ListItem
-        android:id="@+id/liSingleLineWithStartIcon"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/s"
-        app:titleText="This is Title with Start Icon"
-        app:subtitleVisible="false"
-        app:startIcon="@drawable/ic_placeholder_medium_24"
-        app:strokeColor="@color/black_30"
-        app:strokeWidth="@dimen/dimen_1"
-        app:layout_constraintTop_toBottomOf="@id/liMultiline"/>
+        <TextView
+            android:id="@+id/tvProductsSubtitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/s"
+            android:layout_marginTop="@dimen/xxxs"
+            android:text="Demo of click and long click on product grid"
+            android:textAppearance="@style/TextAppearance.Inter.Regular.B2"
+            android:textColor="@color/black_40"
+            app:layout_constraintTop_toBottomOf="@id/tvProductsTitle"/>
 
-    <id.co.edtslib.uikit.list.ListItem
-        android:id="@+id/liSingleLineWithEndIcon"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/s"
-        app:startIconVisible="false"
-        app:titleText="This is Title with End Icon"
-        app:subtitleVisible="false"
-        app:endIcon="@drawable/ic_placeholder_medium_24"
-        app:strokeColor="@color/black_30"
-        app:strokeWidth="@dimen/dimen_1"
-        app:layout_constraintTop_toBottomOf="@id/liSingleLineWithStartIcon"/>
+        <View
+            android:id="@+id/dividerProductsHeader"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_1"
+            android:layout_marginTop="@dimen/s"
+            android:background="@color/black_30"
+            app:layout_constraintTop_toBottomOf="@id/tvProductsSubtitle"/>
 
-    <id.co.edtslib.uikit.list.ListItem
-        android:id="@+id/liSingleLineWithStartAndEndIcon"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/s"
-        app:titleText="This is Title with Start and End Icon"
-        app:subtitleVisible="false"
-        app:startIcon="@drawable/ic_placeholder_medium_24"
-        app:endIcon="@drawable/ic_placeholder_medium_24"
-        app:strokeColor="@color/black_30"
-        app:strokeWidth="@dimen/dimen_1"
-        app:layout_constraintTop_toBottomOf="@id/liSingleLineWithEndIcon"/>
+        <!-- Product grid: item_grid_product cards, driven by ProductAdapter -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvProducts"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="@dimen/xs"
+            android:paddingVertical="@dimen/s"
+            android:clipToPadding="false"
+            android:nestedScrollingEnabled="false"
+            app:layout_constraintTop_toBottomOf="@id/dividerProductsHeader"/>
 
-    <id.co.edtslib.uikit.list.ListItem
-        android:id="@+id/liMultilineWithStartIcon"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/s"
-        app:titleText="This is Title with Start Icon"
-        app:subTitleText="This is subtitle with Start Icon"
-        app:startIcon="@drawable/ic_placeholder_medium_24"
-        app:strokeColor="@color/black_30"
-        app:strokeWidth="@dimen/dimen_1"
-        app:layout_constraintTop_toBottomOf="@+id/liSingleLineWithStartAndEndIcon"/>
+        <!-- Thick band that separates the two sections -->
+        <View
+            android:id="@+id/sectionGap"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/xs"
+            android:alpha="0.4"
+            android:background="@color/black_30"
+            app:layout_constraintTop_toBottomOf="@id/rvProducts"/>
 
-    <id.co.edtslib.uikit.list.ListItem
-        android:id="@+id/liMultilineWithEndIcon"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/s"
-        app:titleText="This is Title with Start Icon"
-        app:subTitleText="This is subtitle with Start Icon"
-        app:endIcon="@drawable/ic_placeholder_medium_24"
-        app:startIconVisible="false"
-        app:strokeColor="@color/black_30"
-        app:strokeWidth="@dimen/dimen_1"
-        app:layout_constraintTop_toBottomOf="@+id/liMultilineWithStartIcon"/>
+        <TextView
+            android:id="@+id/tvCartTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/s"
+            android:layout_marginTop="@dimen/s"
+            android:text="Cart List"
+            android:textAppearance="@style/TextAppearance.Inter.Bold.B2"
+            android:textSize="20sp"
+            android:textColor="@color/black_70"
+            app:layout_constraintTop_toBottomOf="@id/sectionGap"/>
 
-    <id.co.edtslib.uikit.list.ListItem
-        android:id="@+id/liMultilineWithStartAndEndIcon"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/s"
-        app:titleText="This is Title with Start Icon"
-        app:subTitleText="This is subtitle with Start Icon"
-        app:startIcon="@drawable/ic_placeholder_medium_24"
-        app:endIcon="@drawable/ic_placeholder_medium_24"
-        app:strokeColor="@color/black_30"
-        app:strokeWidth="@dimen/dimen_1"
-        android:clickable="true"
-        app:layout_constraintTop_toBottomOf="@+id/liMultilineWithEndIcon"/>
+        <TextView
+            android:id="@+id/tvCartSubtitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/s"
+            android:layout_marginTop="@dimen/xxxs"
+            android:text="Demo of gestures on cart list with logic"
+            android:textAppearance="@style/TextAppearance.Inter.Regular.B2"
+            android:textColor="@color/black_40"
+            app:layout_constraintTop_toBottomOf="@id/tvCartTitle"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <View
+            android:id="@+id/dividerCartHeader"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_1"
+            android:layout_marginTop="@dimen/s"
+            android:background="@color/black_30"
+            app:layout_constraintTop_toBottomOf="@id/tvCartSubtitle"/>
+
+        <!-- Cart section: select all / delete, item_cart_product rows (same data as the grid), subtotal -->
+        <include
+            android:id="@+id/cartSection"
+            layout="@layout/item_cart_product_content_section"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/dividerCartHeader"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>
