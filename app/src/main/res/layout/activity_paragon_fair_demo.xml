@@ -10,17 +10,43 @@
     android:clipToPadding="false"
     android:background="@color/white"
     tools:context=".demo.promo.ParagonFairDemoActivity">
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/products"
+    <id.co.edtslib.uikit.pulltorefresh.LiteRefreshLayout
+        android:id="@+id/refreshLayout"
         android:layout_width="@dimen/dimen_0"
         android:layout_height="@dimen/dimen_0"
-        android:paddingBottom="@dimen/dimen_72"
-        android:clipToPadding="false"
-        android:overScrollMode="ifContentScrolls"
         app:layout_constraintTop_toBottomOf="@id/toolbar"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <id.co.edtslib.uikit.header.CircleRefreshHeader
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipChildren="false">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/products"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingBottom="@dimen/dimen_72"
+                android:clipChildren="false"
+                android:clipToPadding="false"
+                android:overScrollMode="ifContentScrolls" />
+
+            <include
+                android:id="@+id/skeleton"
+                layout="@layout/view_fair_skeleton"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone" />
+
+        </FrameLayout>
+
+    </id.co.edtslib.uikit.pulltorefresh.LiteRefreshLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/toolbar"
@@ -300,14 +326,5 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <include
-        android:id="@+id/skeleton"
-        layout="@layout/view_fair_skeleton"
-        android:layout_width="@dimen/dimen_0"
-        android:layout_height="@dimen/dimen_0"
-        android:visibility="gone"
-        app:layout_constraintTop_toBottomOf="@id/toolbar"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

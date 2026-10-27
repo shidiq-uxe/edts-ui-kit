@@ -44,6 +44,7 @@ import id.co.edtslib.uikit.alert.AlertBoxDelegate
 import id.co.edtslib.uikit.button.Button
 import id.co.edtslib.uikit.tablayout.QuadRoundTabLayout
 import id.co.edtslib.uikit.tablayout.QuadRoundTabLayoutDelegate
+import id.co.edtslib.uikit.pulltorefresh.LiteRefreshDelegate
 import id.co.edtslib.uikit.utils.color
 import id.co.edtslib.uikit.utils.dp
 import id.co.edtslib.uikit.utils.snack
@@ -165,11 +166,16 @@ class GuidelinesTmhActivity : GuidelinesBaseActivity() {
                 }
             }
         })
-        binding.refreshLayout.setColorSchemeResources(UIKitR.color.primary_30)
-        binding.refreshLayout.setOnRefreshListener {
-            errorSnackbar?.dismiss()
-            errorSnackbar = null
-            showLoading { renderFairs() }
+        binding.refreshLayout.refreshDelegate = object : LiteRefreshDelegate {
+            override fun onPull(percent: Float, offset: Float) = Unit
+
+            override fun onRefreshing() {
+                errorSnackbar?.dismiss()
+                errorSnackbar = null
+                showLoading { renderFairs() }
+            }
+
+            override fun onFinish() = Unit
         }
     }
 
@@ -338,6 +344,7 @@ class GuidelinesTmhActivity : GuidelinesBaseActivity() {
         binding.loadingFairTabs.isVisible = false
         binding.tabsDivider.isVisible = true
         binding.refreshLayout.isRefreshing = false
+        binding.refreshLayout.isEnabled = true
         binding.refreshLayout.isVisible = true
         binding.emptyState.isVisible = false
         binding.promotionTabs.isVisible = true
@@ -355,7 +362,7 @@ class GuidelinesTmhActivity : GuidelinesBaseActivity() {
         if (!isLoading) loadingAnchor = captureFairAnchor() ?: loadingAnchor
         isLoading = true
         isRestoringPosition = false
-        binding.refreshLayout.isRefreshing = false
+        binding.refreshLayout.isEnabled = false
         binding.emptyState.isVisible = false
         binding.refreshLayout.isVisible = true
         binding.promotionTabs.isVisible = true

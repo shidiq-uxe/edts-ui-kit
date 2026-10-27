@@ -72,6 +72,7 @@ import id.co.edtslib.edtsuikit.tmh.TmhRedemptionBottomSheet
 import id.co.edtslib.edtsuikit.tmh.TmhTermsBottomSheet
 import id.co.edtslib.edtsuikit.tmh.alertText
 import id.co.edtslib.edtsuikit.tmh.quantities
+import id.co.edtslib.uikit.pulltorefresh.LiteRefreshDelegate
 import id.co.edtslib.edtsuikit.viewBinding
 import id.co.edtslib.uikit.adapter.BaseAdapter
 import id.co.edtslib.uikit.databinding.SearchBarBinding
@@ -348,7 +349,7 @@ class ParagonFairDemoActivity : GuidelinesBaseActivity() {
         }
         val layout = binding.products.layoutManager as StaggeredGridLayoutManager
         layout.spanCount = if (isEditingSearch) 1 else effectiveColumns
-        binding.products.updateLayoutParams<ConstraintLayout.LayoutParams> {
+        binding.refreshLayout.updateLayoutParams<ConstraintLayout.LayoutParams> {
             topToBottom = if (isSubmitted) R.id.compactProgress else R.id.toolbar
         }
         if (isInSearch) {
@@ -1003,6 +1004,8 @@ class ParagonFairDemoActivity : GuidelinesBaseActivity() {
 
     private fun showSkeleton(durationMs: Long = 1500L, onFinished: () -> Unit = {}) {
         val root = binding.skeleton.root
+        binding.refreshLayout.isEnabled = false
+        binding.refreshLayout.elevation = 8.dp
         skeletonFinish?.let { root.removeCallbacks(it) } // a newer request replaces a pending one
         root.animate().cancel()
         root.alpha = 1f
@@ -1014,11 +1017,14 @@ class ParagonFairDemoActivity : GuidelinesBaseActivity() {
             root
                 .animate()
                 .alpha(0f)
-                .setDuration(150L)
+                .setDuration(if (isMotionEnabled) 150L else 0L)
                 .withEndAction {
                     binding.skeleton.shimmer.stopShimmer()
                     root.isVisible = false
                     root.alpha = 1f
+                    binding.refreshLayout.isRefreshing = false
+                    binding.refreshLayout.isEnabled = true
+                    binding.refreshLayout.elevation = 0f
                     if (!isFinishing && !isDestroyed) onFinished()
                 }
                 .start()
@@ -1983,6 +1989,16 @@ class ParagonFairDemoActivity : GuidelinesBaseActivity() {
                 gapStrategy = StaggeredGridLayoutManager.GAP_HANDLING_MOVE_ITEMS_BETWEEN_SPANS
             }
         binding.products.layoutManager = grid
+        binding.refreshLayout.canChildScrollUp = { binding.products.canScrollVertically(-1) }
+        binding.refreshLayout.refreshDelegate = object : LiteRefreshDelegate {
+            override fun onPull(percent: Float, offset: Float) = Unit
+
+            override fun onRefreshing() {
+                showSkeleton()
+            }
+
+            override fun onFinish() = Unit
+        }
         binding.products.updatePadding(left = gridEdge - gridGap / 2, right = gridEdge - gridGap / 2)
         binding.products.adapter =
             ConcatAdapter(headerAdapter, scopeAdapter, sectionAdapter, productAdapter, emptyAdapter, loadingAdapter)

@@ -157,12 +157,16 @@
         android:background="@color/black_30"
         app:layout_constraintBottom_toBottomOf="@id/fairTabs" />
 
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+    <id.co.edtslib.uikit.pulltorefresh.LiteRefreshLayout
         android:id="@+id/refreshLayout"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dimen_0"
         app:layout_constraintTop_toBottomOf="@id/fairTabs"
         app:layout_constraintBottom_toBottomOf="parent">
+
+        <id.co.edtslib.uikit.header.CircleRefreshHeader
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvFairs"
@@ -172,7 +176,7 @@
             android:clipToPadding="false"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+    </id.co.edtslib.uikit.pulltorefresh.LiteRefreshLayout>
 
     <LinearLayout
         android:id="@+id/emptyState"
