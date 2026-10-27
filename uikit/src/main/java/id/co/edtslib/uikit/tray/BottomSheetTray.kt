@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
@@ -29,6 +30,17 @@ open class BottomSheetTray : BottomSheetDialogFragment() {
     val binding by viewBinding<ViewBottomTrayBinding>()
 
     var delegate: BottomTrayDelegate? = null
+
+    /**
+     * Receives Close, Back, outside-tap and swipe dismissal requests. When set, the host
+     * decides whether to call [dismiss]. Programmatic dismissal bypasses this callback.
+     * Null preserves the default dismissal behavior.
+     */
+    var onCloseRequested: (() -> Unit)? = null
+        set(value) {
+            field = value
+            closeBackCallback?.isEnabled = value != null
+        }
 
     var title: String? = null
     var customTitleView: View? = null
@@ -69,6 +81,7 @@ open class BottomSheetTray : BottomSheetDialogFragment() {
     var navigationIconTint: Int? = R.color.black_50
 
     private var bottomSheetBehavior: BottomSheetBehavior<View>? = null
+    private var closeBackCallback: OnBackPressedCallback? = null
 
     private val bottomSheetTrayBehavior = object : BottomSheetBehavior.BottomSheetCallback() {
         override fun onStateChanged(bottomSheet: View, newState: Int) {
@@ -82,6 +95,12 @@ open class BottomSheetTray : BottomSheetDialogFragment() {
                 bottomSheetBehavior?.setPeekHeight(it, true)
             }
         }
+    }
+
+    private fun interceptCloseRequest(): Boolean {
+        val callback = onCloseRequested ?: return false
+        callback()
+        return true
     }
 
     fun getBottomSheetBehavior(): BottomSheetBehavior<View>? {
@@ -132,7 +151,8 @@ open class BottomSheetTray : BottomSheetDialogFragment() {
             isCustomMotionEnabled = { customAnimationsEnabled },
             shouldAnimateDismiss = {
                 viewLifecycleOwnerLiveData.value?.lifecycle?.currentState?.isAtLeast(Lifecycle.State.STARTED) == true
-            }
+            },
+            interceptCloseRequest = ::interceptCloseRequest,
         )
         dialog.setOnShowListener { dialogInterface ->
             val bottomSheet = dialog.findViewById<View>(com.google.android.material.R.id.design_bottom_sheet)
@@ -180,7 +200,7 @@ open class BottomSheetTray : BottomSheetDialogFragment() {
         }
 
         binding.btnClose.setOnClickListener {
-            dismiss()
+            if (!interceptCloseRequest()) dismiss()
         }
 
         binding.dragHandleView.isVisible = dragHandleVisibility
@@ -215,6 +235,22 @@ open class BottomSheetTray : BottomSheetDialogFragment() {
     override fun onStart() {
         super.onStart()
         (dialog as? BottomSheetDialog)?.configureTrayMotion(customAnimationsEnabled)
+        closeBackCallback?.remove()
+        closeBackCallback = object : OnBackPressedCallback(onCloseRequested != null) {
+            override fun handleOnBackPressed() {
+                if (isCancelable && !interceptCloseRequest()) dismiss()
+            }
+        }.also { callback ->
+            // Consume Back in the dialog window, including when the host vetoes dismissal.
+            (dialog as? BottomSheetDialog)?.onBackPressedDispatcher?.addCallback(this, callback)
+        }
+    }
+
+    override fun onDestroyView() {
+        closeBackCallback?.remove()
+        closeBackCallback = null
+        bottomSheetBehavior = null
+        super.onDestroyView()
     }
 
     override fun dismiss() {

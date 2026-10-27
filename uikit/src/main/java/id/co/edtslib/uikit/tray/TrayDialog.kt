@@ -12,7 +12,8 @@ internal class TrayDialog(
     context: Context,
     theme: Int,
     private val isCustomMotionEnabled: () -> Boolean,
-    private val shouldAnimateDismiss: () -> Boolean
+    private val shouldAnimateDismiss: () -> Boolean,
+    private val interceptCloseRequest: () -> Boolean,
 ) : BottomSheetDialog(context, theme) {
 
     private var isDirectDismissPending = false
@@ -34,6 +35,7 @@ internal class TrayDialog(
             super.dismiss()
             return
         }
+        if (interceptCloseRequest()) return
         if (dismissWithAnimation) behavior.isHideable = true
         super.cancel()
     }

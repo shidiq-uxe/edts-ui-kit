@@ -18,6 +18,7 @@
 
 -   **`binding`**: Provides access to `ViewBottomTrayBinding` for binding views.
 -   **`delegate`**: A `BottomTrayDelegate` instance to handle callback events.
+-   **`onCloseRequested`**: Optional user-dismissal callback; null keeps default dismissal.
 -   **`title`**: String for the title text shown at the top of the tray.
 -   **`customTitleView`**: Optional `View` to override the default title layout.
 -   **`contentView`**: `View` representing the main content of the bottom sheet.
@@ -94,6 +95,31 @@ bottomSheet.show(supportFragmentManager, "BottomSheetTrayTag")
   behavior remains caller-owned; close dismisses by default.
 
 ## Default dismissal motion
+
+### Handling unsaved changes
+
+`onCloseRequested` receives a single request for Close, Back, an outside tap, or a swipe to
+hidden. With a callback installed, the host decides whether to dismiss. `dismiss()` and
+`dismissAllowingStateLoss()` are explicit commands and bypass the request callback.
+Back/outside/swipe still respect the tray's cancellation settings.
+
+```kotlin
+tray.onCloseRequested = {
+    if (hasUnsavedChanges()) {
+        // A completed swipe can leave the behavior hidden. Restore it before showing a prompt.
+        tray.getBottomSheetBehavior()?.state = BottomSheetBehavior.STATE_EXPANDED
+        showDiscardPrompt(onDiscard = { tray.dismiss() })
+    } else {
+        tray.dismiss()
+    }
+}
+```
+
+Install the callback again in a subclass's `onCreate` after recreation, as with other lambda
+configuration. Outside/swipe interception uses the built-in dialog; subclasses replacing
+`onCreateDialog` retain responsibility for their custom dialog's cancellation behavior.
+
+### Motion behavior
 
 `customAnimationsEnabled = true` preserves the Material 3 entrance and dismisses through
 `BottomSheetBehavior.STATE_HIDDEN`, using the same settling motion as a downward drag.

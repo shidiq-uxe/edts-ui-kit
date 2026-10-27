@@ -115,6 +115,34 @@ class TrayDismissMotionTest {
         assertEquals(1, tray.dismissCount)
     }
 
+    @Test
+    fun closeRequestsCanBeVetoedForEveryUserRouteWhileExplicitDismissBypassesThem() = exercise { ui ->
+        val tray = showTray(ui, 240.dp.toInt())
+        val dialog = tray.dialog as BottomSheetDialog
+        var requests = 0
+        tray.onCloseRequested = {
+            requests++
+            dialog.behavior.state = BottomSheetBehavior.STATE_EXPANDED
+        }
+        tray.binding.btnClose.performClick()
+        dialog.onBackPressedDispatcher.onBackPressed()
+        dialog.findViewById<View>(com.google.android.material.R.id.touch_outside)?.performClick()
+        ui.loopMainThreadForAtLeast(300)
+        assertEquals(3, requests)
+        assertTrue(tray.isAdded)
+        dialog.behavior.state = BottomSheetBehavior.STATE_HIDDEN
+        ui.loopMainThreadForAtLeast(900)
+        assertEquals(4, requests)
+        assertTrue(tray.isAdded)
+        assertEquals(BottomSheetBehavior.STATE_EXPANDED, dialog.behavior.state)
+        tray.dismiss()
+        ui.loopMainThreadForAtLeast(900)
+        assertEquals(4, requests)
+        assertFalse(tray.isAdded)
+        assertEquals(0, tray.cancelCount)
+        assertEquals(1, tray.dismissCount)
+    }
+
     private fun showTray(
         ui: UiController,
         contentHeight: Int,
