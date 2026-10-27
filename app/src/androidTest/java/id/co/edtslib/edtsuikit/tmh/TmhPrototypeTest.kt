@@ -166,6 +166,25 @@ class TmhPrototypeTest {
         }
     }
 
+    private fun awaitTrayDismissal() {
+        lateinit var screen: GuidelinesTmhActivity
+        activity.onActivity { screen = it }
+        onView(isRoot()).perform(object : ViewAction {
+            override fun getConstraints(): Matcher<View> = isRoot()
+            override fun getDescription(): String = "Wait for native sheet dismissal before checking the page"
+            override fun perform(uiController: UiController, view: View) {
+                val deadline = android.os.SystemClock.uptimeMillis() + 4000
+                while (screen.supportFragmentManager.findFragmentByTag(TmhRedemptionBottomSheet.TAG) != null &&
+                    android.os.SystemClock.uptimeMillis() < deadline) {
+                    uiController.loopMainThreadForAtLeast(50)
+                }
+                assertTrue("Redemption tray must be removed before the page is checked",
+                    screen.supportFragmentManager.findFragmentByTag(TmhRedemptionBottomSheet.TAG) == null)
+                uiController.loopMainThreadForAtLeast(50)
+            }
+        })
+    }
+
     private fun assertLoadingStructure() {
         onView(withId(R.id.loadingFairTabs)).check { view, error ->
             if (error != null) throw error
@@ -225,7 +244,7 @@ class TmhPrototypeTest {
         assertFooter(R.string.tmh_add_cart, true, false, true)
         captureReview("add-footer")
         onView(withId(R.id.btnSave)).perform(click())
-        settleUi(120)
+        awaitTrayDismissal()
         assertLoadingStructure()
         activity.onActivity { screen ->
             assertTrue(screen.supportFragmentManager.findFragmentByTag(TmhRedemptionBottomSheet.TAG) == null)
@@ -238,7 +257,7 @@ class TmhPrototypeTest {
         assertFooter(R.string.tmh_remove_cart, true, true, false)
         captureReview("remove-footer")
         onView(withId(R.id.btnSave)).perform(click())
-        settleUi(120)
+        awaitTrayDismissal()
         assertLoadingStructure()
         captureReview("after-remove-loading", 0)
         settleUi(1600)
@@ -287,7 +306,7 @@ class TmhPrototypeTest {
         assertFooter(R.string.tmh_update_cart, true, false, false)
         captureReview("update-footer")
         onView(withId(R.id.btnSave)).perform(click())
-        settleUi(120)
+        awaitTrayDismissal()
         assertLoadingStructure()
         captureReview("after-update-loading", 0)
         settleUi(1700)
@@ -666,6 +685,7 @@ class TmhPrototypeTest {
         assertUnsavedAndStay()
         decrementEmina()
         onView(withId(UIKitR.id.btnClose)).perform(click())
+        awaitTrayDismissal()
         onView(withId(R.id.tvTitle)).check(matches(isDisplayed()))
     }
 

@@ -6,6 +6,7 @@ class RedemptionSelection(
     private val availableProductIds: Set<String>,
     val maximum: Int,
     val isEligible: Boolean,
+    private val shouldRemoveIndividualProducts: Boolean = false,
 ) {
 
     val quantities: Map<String, Int>
@@ -23,7 +24,9 @@ class RedemptionSelection(
     val action: Action
         get() = when {
             original.isEmpty() -> Action.ADD
-            total == 0 -> Action.REMOVE
+            total == 0 || (shouldRemoveIndividualProducts &&
+                original.any { (id, _) -> quantity(id) == 0 } &&
+                pending.none { (id, quantity) -> quantity > (original[id] ?: 0) }) -> Action.REMOVE
             else -> Action.UPDATE
         }
 

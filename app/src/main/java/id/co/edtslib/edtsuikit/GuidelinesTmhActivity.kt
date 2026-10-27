@@ -2,7 +2,6 @@ package id.co.edtslib.edtsuikit
 
 import android.app.Activity
 import android.content.Intent
-import android.content.res.ColorStateList
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -25,16 +24,15 @@ import id.co.edtslib.edtsuikit.databinding.ItemTmhProductPreviewBinding
 import id.co.edtslib.edtsuikit.databinding.SkeletonTmhFairBinding
 import id.co.edtslib.edtsuikit.demo.promo.ParagonFairDemoActivity
 import id.co.edtslib.edtsuikit.tmh.TmhFair
-import id.co.edtslib.edtsuikit.tmh.TmhFairState
 import id.co.edtslib.edtsuikit.tmh.TmhFixtures
 import id.co.edtslib.edtsuikit.tmh.TmhFlowState
 import id.co.edtslib.edtsuikit.tmh.TmhProduct
 import id.co.edtslib.edtsuikit.tmh.TmhRedemptionBottomSheet
 import id.co.edtslib.edtsuikit.tmh.TmhScenario
 import id.co.edtslib.edtsuikit.tmh.TmhScenarioBottomSheet
+import id.co.edtslib.edtsuikit.tmh.bindContent
+import id.co.edtslib.edtsuikit.tmh.presentation
 import id.co.edtslib.edtsuikit.tmh.bindFair
-import id.co.edtslib.edtsuikit.tmh.discountPercent
-import id.co.edtslib.edtsuikit.tmh.originalPriceFlags
 import id.co.edtslib.edtsuikit.tmh.quantities
 import id.co.edtslib.edtsuikit.tmh.setUnavailable
 import id.co.edtslib.edtsuikit.tmh.tmhTextAppearance
@@ -48,6 +46,7 @@ import id.co.edtslib.uikit.pulltorefresh.LiteRefreshDelegate
 import id.co.edtslib.uikit.utils.color
 import id.co.edtslib.uikit.utils.dp
 import id.co.edtslib.uikit.utils.snack
+import java.util.WeakHashMap
 import id.co.edtslib.uikit.R as UIKitR
 
 class GuidelinesTmhActivity : GuidelinesBaseActivity() {
@@ -84,6 +83,7 @@ class GuidelinesTmhActivity : GuidelinesBaseActivity() {
     private var isRestoringPosition = false
     private var loadingAnchor: FairAnchor? = null
     private var pendingSuccessMessage: String? = null
+    private val productRows = WeakHashMap<RecyclerView, FairProducts>()
     private val fairsLayoutManager by lazy { LinearLayoutManager(this) }
 
     private val fairAdapter by lazy {
@@ -194,33 +194,27 @@ class GuidelinesTmhActivity : GuidelinesBaseActivity() {
             override fun onButtonClickListener(view: View) = Unit
             override fun onActionClickListener(view: View) { openFair(fair) }
         }
-        row.rvProducts.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
-        row.rvProducts.adapter = BaseAdapter.adapterOf<TmhProduct, ItemTmhProductPreviewBinding>(
-            register = BaseAdapter.Register(onBindHolder = { _, product, productRow, _ ->
-                bindProductPreview(product, fair, productRow)
-            }),
-            diff = BaseAdapter.Diff(
-                areItemsTheSame = { old, new -> old.id == new.id },
-                areContentsTheSame = { old, new -> old == new },
-            ),
-            itemList = fair.products,
-        ).also { adapter -> adapter.setOnItemClickListener { _, _, _ -> openFair(fair) } }
+        val products = productRows.getOrPut(row.rvProducts) {
+            FairProducts().also {
+                row.rvProducts.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
+                row.rvProducts.adapter = it.adapter
+            }
+        }
+        products.bind(fair, row.rvProducts)
     }
 
     private fun bindProductPreview(product: TmhProduct, fair: TmhFair, row: ItemTmhProductPreviewBinding) {
-        val isUnavailable = fair.state.isUnavailable || fair.state == TmhFairState.REQUIREMENT_UNMET || !product.isInStock
+        val isUnavailable = !fair.state.isEligible || !product.isInStock
         row.root.tmhTypography()
-        row.ivProduct.setImageResource(product.imageRes)
-        row.ivProduct.setUnavailable(isUnavailable)
-        row.tvName.setText(product.nameRes)
-        row.tvPrice.setText(product.priceRes)
-        row.tvOriginalPrice.setText(product.originalPriceRes)
-        row.tvDiscount.text = getString(R.string.tmh_discount_percentage, product.discountPercent(this))
-        row.tvOriginalPrice.paintFlags = originalPriceFlags()
-        row.tvName.setTextColor(color(if (isUnavailable) UIKitR.color.black_40 else UIKitR.color.black_70))
-        row.tvPrice.setTextColor(color(if (isUnavailable) UIKitR.color.black_40 else UIKitR.color.red_30))
-        row.tvDiscount.setTextColor(color(if (isUnavailable) UIKitR.color.black_40 else UIKitR.color.red_30))
-        row.tvDiscount.backgroundTintList = ColorStateList.valueOf(color(if (isUnavailable) UIKitR.color.black_30 else UIKitR.color.red_10))
+        product.presentation(this).bindContent(
+            image = row.ivProduct,
+            name = row.tvName,
+            price = row.tvPrice,
+            originalPrice = row.tvOriginalPrice,
+            discount = row.tvDiscount,
+            isUnavailable = isUnavailable,
+            disabledDiscountBackground = UIKitR.color.black_30,
+        )
         row.ivSelected.isVisible = (fair.savedQuantities[product.id] ?: 0) > 0
         row.root.strokeColor = color(if (row.ivSelected.isVisible) UIKitR.color.primary_30 else UIKitR.color.black_30)
     }
@@ -496,10 +490,36 @@ class GuidelinesTmhActivity : GuidelinesBaseActivity() {
         pendingLoad?.let(handler::removeCallbacks)
         errorSnackbar?.dismiss()
         binding.loadingFairTabs.stopShimmer()
+        productRows.clear()
         super.onDestroy()
     }
 
     private data class FairAnchor(val id: String, val offset: Int)
+
+    private inner class FairProducts {
+        val adapter = BaseAdapter.adapterOf<PreviewRow, ItemTmhProductPreviewBinding>(
+            register = BaseAdapter.Register(onBindHolder = { _, item, binding, _ ->
+                bindProductPreview(item.product, item.fair, binding)
+            }),
+            diff = BaseAdapter.Diff(
+                areItemsTheSame = { old, new -> old.product.id == new.product.id },
+                areContentsTheSame = { old, new -> old == new },
+            ),
+        ).also { adapter ->
+            adapter.setOnItemClickListener { _, item, _ -> openFair(item.fair) }
+        }
+
+        private var fairId: String? = null
+
+        fun bind(fair: TmhFair, recyclerView: RecyclerView) {
+            // Recycled holders reset between campaigns; updates to the same fair retain their offset.
+            if (fairId != fair.id) recyclerView.scrollToPosition(0)
+            fairId = fair.id
+            adapter.items = fair.products.map { PreviewRow(it, fair) }
+        }
+    }
+
+    private data class PreviewRow(val product: TmhProduct, val fair: TmhFair)
 
     companion object {
         private const val STATE_SCENARIO = "tmh_scenario"

@@ -12,6 +12,7 @@ class TmhUnsavedBottomSheet : TmhBottomSheet() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        dragHandleVisibility = !(arguments?.getBoolean(ARG_STANDALONE) ?: false)
         title = getString(R.string.tmh_unsaved_title)
     }
 
@@ -31,6 +32,12 @@ class TmhUnsavedBottomSheet : TmhBottomSheet() {
     }
 
     companion object {
+        private const val ARG_STANDALONE = "standalone"
+
+        fun newInstance(isStandalone: Boolean = false): TmhUnsavedBottomSheet = TmhUnsavedBottomSheet().apply {
+            arguments = Bundle().apply { putBoolean(ARG_STANDALONE, isStandalone) }
+        }
+
         const val TAG = "TMH_UNSAVED"
         const val RESULT_DISCARD = "tmh_discard_result"
     }

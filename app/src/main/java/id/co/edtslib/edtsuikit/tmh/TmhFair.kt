@@ -71,14 +71,7 @@ data class TmhFair(
         isEligible = state.isEligible,
     )
 
-    fun withSelection(quantities: Map<String, Int>): TmhFair = copy(
-        savedQuantities = quantities.toMap(),
-        state = when (quantities.values.sum()) {
-            0 -> TmhFairState.ELIGIBLE
-            in 1 until maximum -> TmhFairState.PARTIALLY_SELECTED
-            else -> TmhFairState.FULLY_SELECTED
-        },
-    )
+
 }
 
 object TmhFixtures {

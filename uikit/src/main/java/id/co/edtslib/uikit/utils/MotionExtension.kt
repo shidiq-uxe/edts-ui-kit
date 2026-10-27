@@ -5,7 +5,7 @@ import android.content.Context
 import android.os.Build
 import android.provider.Settings
 
-internal fun Context.areSystemAnimationsEnabled(): Boolean =
+fun Context.areSystemAnimationsEnabled(): Boolean =
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
         ValueAnimator.areAnimatorsEnabled()
     } else {

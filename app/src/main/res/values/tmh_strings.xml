@@ -121,7 +121,7 @@ Dengan melakukan transaksi di dalam program ini, maka konsumen dianggap mengerti
     <string name="tmh_catalog_kahf_cooling">Kahf Anti Perspirant Deodorant Cooling Power 45ml</string>
     <string name="tmh_catalog_kahf_dry">Kahf Anti Perspirant Deodorant Extra Dry Power 45ml</string>
     <string name="tmh_eligibility_reduced">Pilihan tebus murah disesuaikan karena syarat belanja berubah</string>
-    <string name="tmh_promo_rule">Belanja produk %1$s senilai %2$s untuk setiap 1 tebus murah. Berlaku kelipatan, maksimal %3$d tebus murah.</string>
+    <string name="tmh_promo_rule">@string/tmh_description</string>
     <string name="tmh_remaining_spend">Tambah &lt;b&gt;%1$s&lt;/b&gt; untuk ambil produk tebus murah ini</string>
     <string name="tmh_remaining_allowance">Kamu bisa ambil &lt;b&gt;%1$d tebus murah&lt;/b&gt;</string>
     <string name="tmh_ppp_selected_partial">Kamu sudah ambil &lt;b&gt;%1$d dari %2$d tebus murah&lt;/b&gt;. Yuk pilih produk lagi</string>

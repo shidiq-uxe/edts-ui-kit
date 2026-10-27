@@ -21,7 +21,6 @@ import id.co.edtslib.uikit.utils.TextStyleKey
 import id.co.edtslib.uikit.utils.TextStyleProvider.get
 import id.co.edtslib.uikit.utils.buildHighlightedMessage
 import id.co.edtslib.uikit.utils.color
-import id.co.edtslib.uikit.utils.colorStateList
 import id.co.edtslib.uikit.utils.dp
 import id.co.edtslib.uikit.utils.drawable
 import kotlin.math.ceil
@@ -30,6 +29,9 @@ import id.co.edtslib.uikit.R as UIKitR
 class TmhRedemptionBottomSheet : TmhBottomSheet() {
 
     private lateinit var fair: TmhFair
+    private lateinit var products: List<RedemptionProduct>
+    private val isStandalone: Boolean
+        get() = requireArguments().getBoolean(ARG_STANDALONE)
     private lateinit var selection: RedemptionSelection
     private var sheetBinding: BottomSheetTmhRedemptionBinding? = null
     private var productAdapter: BaseAdapter<ProductRow, ItemTmhRedemptionProductBinding>? = null
@@ -64,7 +66,7 @@ class TmhRedemptionBottomSheet : TmhBottomSheet() {
             iconPadding = 2.dp.toInt()
             isEnabled = selection.canSave && pendingSaveResult == null
         }
-        productAdapter?.items = fair.products.map { product ->
+        productAdapter?.items = products.map { product ->
             ProductRow(product, selection.quantity(product.id), selection.total)
         }
     }
@@ -72,35 +74,33 @@ class TmhRedemptionBottomSheet : TmhBottomSheet() {
     private fun bindProduct(row: ProductRow, binding: ItemTmhRedemptionProductBinding) {
         val product = row.product
         val quantity = selection.quantity(product.id)
-        val isUnavailable = !product.isInStock || !fair.state.isEligible
-        binding.ivProduct.setImageResource(product.imageRes)
-        binding.ivProduct.setUnavailable(isUnavailable)
-        binding.tvName.setText(product.nameRes)
-        binding.tvPrice.setText(product.priceRes)
-        binding.tvOriginalPrice.setText(product.originalPriceRes)
-        binding.tvDiscount.text = getString(R.string.tmh_discount_percentage, product.discountPercent(requireContext()))
-        binding.tvOriginalPrice.paintFlags = originalPriceFlags()
-        binding.tvName.setTextColor(requireContext().color(
-            if (isUnavailable) UIKitR.color.black_40 else UIKitR.color.black_70
-        ))
-        binding.tvPrice.setTextColor(requireContext().color(
-            if (isUnavailable) UIKitR.color.black_40 else UIKitR.color.red_30
-        ))
-        binding.tvDiscount.setTextColor(requireContext().color(
-            if (isUnavailable) UIKitR.color.black_40 else UIKitR.color.red_30
-        ))
-        binding.tvDiscount.backgroundTintList = ColorStateList.valueOf(requireContext().color(
-            if (isUnavailable) UIKitR.color.black_20 else UIKitR.color.red_10
-        ))
+        val isUnavailable = !product.isInStock || !selection.isEligible
+        product.bindContent(
+            image = binding.ivProduct,
+            name = binding.tvName,
+            price = binding.tvPrice,
+            originalPrice = binding.tvOriginalPrice,
+            discount = binding.tvDiscount,
+            isUnavailable = isUnavailable,
+        )
+        binding.tvPack.text = getString(R.string.fair_gift_pack, product.packSize)
+        if (isStandalone) binding.root.contentDescription = getString(
+            R.string.fair_gift_description,
+            product.name,
+            product.packSize,
+            quantity,
+            if (quantity > 0 && product.isInStock) getString(R.string.fair_selected_suffix) else "",
+        )
+        val isSelected = quantity > 0 && (!isStandalone || product.isInStock)
         productAnimations.getOrPut(binding.root) { TmhProductSelectionAnimator(binding) }
-            .bind(product.id, quantity > 0)
-        binding.tvTotal.isVisible = quantity > 0
+            .bind(product.id, isSelected)
+        binding.tvTotal.isVisible = isSelected
         binding.tvTotal.text = buildHighlightedMessage(
             context = requireContext(),
-            htmlMessage = getString(R.string.tmh_total_product, quantity),
+            htmlMessage = getString(R.string.tmh_total_product, quantity * product.packSize),
             highlightedTextAppearance = TextStyleKey.B3_SEMIBOLD.get(requireContext(), UIKitR.color.black_70),
         )
-        val isRestocking = !product.isInStock && fair.state.isEligible
+        val isRestocking = !product.isInStock && (isStandalone || selection.isEligible)
         binding.tvRestock.isVisible = isRestocking
         binding.stepper.isVisible = !isRestocking
         binding.quantityContainer.setBackgroundColor(requireContext().color(
@@ -111,6 +111,8 @@ class TmhRedemptionBottomSheet : TmhBottomSheet() {
         binding.stepper.apply {
             this.binding.countText.setTextAppearance(R.style.TextAppearance_Tmh_SemiBold_B2)
             TextViewCompat.setLineHeight(this.binding.countText, 16.dp.toInt())
+            this.binding.plusButton.contentDescription = getString(R.string.fair_gift_add, product.name)
+            this.binding.minusButton.contentDescription = getString(R.string.fair_gift_remove, product.name)
             clearListener()
             setAllowTextEditing(false)
             isAlwaysExpanded = true
@@ -122,9 +124,7 @@ class TmhRedemptionBottomSheet : TmhBottomSheet() {
             setCount(quantity, animate = false)
             isEnabled = !isUnavailable
             setPlusButtonEnabled(selection.canIncrement(product.id))
-            this.binding.plusButton.backgroundTintList = requireContext().colorStateList(UIKitR.color.slr_button_filled_bg)
             setMinusButtonEnabled(selection.canDecrement(product.id))
-            this.binding.minusButton.iconTint = requireContext().colorStateList(UIKitR.color.slr_stepper_icon)
             this.binding.countText.setTextColor(requireContext().color(
                 when {
                     isUnavailable -> UIKitR.color.black_40
@@ -149,7 +149,7 @@ class TmhRedemptionBottomSheet : TmhBottomSheet() {
         }
         restoreExpandedState()
         if (childFragmentManager.findFragmentByTag(TmhUnsavedBottomSheet.TAG) == null) {
-            TmhUnsavedBottomSheet().show(childFragmentManager, TmhUnsavedBottomSheet.TAG)
+            TmhUnsavedBottomSheet.newInstance(isStandalone).show(childFragmentManager, TmhUnsavedBottomSheet.TAG)
         }
     }
 
@@ -160,26 +160,42 @@ class TmhRedemptionBottomSheet : TmhBottomSheet() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val scenario = TmhScenario.valueOf(requireArguments().getString(ARG_SCENARIO) ?: TmhScenario.DEFAULT.name)
-        fair = TmhFixtures.fairs(scenario).first { it.id == requireArguments().getString(ARG_FAIR_ID) }
         val original = requireArguments().getBundle(ARG_QUANTITIES)?.quantities().orEmpty()
-        val actualState = TmhFairState.valueOf(requireNotNull(requireArguments().getString(ARG_FAIR_STATE)))
-        fair = fair.copy(
-            redemptionMaximum = requireArguments().getInt(ARG_MAXIMUM, 2),
-            remainingSpend = requireArguments().getLong(ARG_REMAINING_SPEND, fair.spendThreshold),
-            state = actualState,
-            savedQuantities = original,
-            products = fair.products.map {
-                if (actualState == TmhFairState.OUT_OF_STOCK) it.copy(isInStock = false) else it
-            },
-        )
+        if (isStandalone) {
+            @Suppress("DEPRECATION")
+            products = requireArguments().getParcelableArrayList<Bundle>(ARG_PRODUCTS).orEmpty()
+                .map(RedemptionProduct::fromBundle)
+            val maximum = requireArguments().getInt(ARG_MAXIMUM)
+            selection = RedemptionSelection(
+                originalQuantities = original,
+                availableProductIds = products.filter { it.isInStock }.map { it.id }.toSet(),
+                maximum = maximum,
+                isEligible = maximum > 0,
+                shouldRemoveIndividualProducts = true,
+            )
+            title = requireArguments().getString(ARG_TITLE)
+        } else {
+            val scenario = TmhScenario.valueOf(requireArguments().getString(ARG_SCENARIO) ?: TmhScenario.DEFAULT.name)
+            fair = TmhFixtures.fairs(scenario).first { it.id == requireArguments().getString(ARG_FAIR_ID) }
+            val actualState = TmhFairState.valueOf(requireNotNull(requireArguments().getString(ARG_FAIR_STATE)))
+            fair = fair.copy(
+                redemptionMaximum = requireArguments().getInt(ARG_MAXIMUM, 2),
+                remainingSpend = requireArguments().getLong(ARG_REMAINING_SPEND, fair.spendThreshold),
+                state = actualState,
+                savedQuantities = original,
+                products = fair.products.map {
+                    if (actualState == TmhFairState.OUT_OF_STOCK) it.copy(isInStock = false) else it
+                },
+            )
+            products = fair.products.map { it.presentation(requireContext()) }
+            selection = fair.selection()
+            title = getString(fair.nameRes).takeIf { it.isNotBlank() } ?: getString(R.string.tmh_detail_fallback)
+        }
         isNavigatingToFair = savedInstanceState?.getBoolean(STATE_NAVIGATING) ?: false
-        selection = fair.selection()
         savedInstanceState?.getBundle(STATE_PENDING)?.let { pending ->
-            fair.products.forEach { selection.update(it.id, 0) }
+            products.forEach { selection.update(it.id, 0) }
             pending.quantities().forEach { (id, quantity) -> selection.update(id, quantity) }
         }
-        title = getString(fair.nameRes).takeIf { it.isNotBlank() } ?: getString(R.string.tmh_detail_fallback)
         childFragmentManager.setFragmentResultListener(TmhUnsavedBottomSheet.RESULT_DISCARD, this) { _, _ ->
             shouldOpenFair = isNavigatingToFair
             closeSheet()
@@ -189,28 +205,26 @@ class TmhRedemptionBottomSheet : TmhBottomSheet() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         val content = BottomSheetTmhRedemptionBinding.inflate(inflater, container, false)
         sheetBinding = content
-        content.tvDescription.text = getString(
+        if (!isStandalone) content.tvDescription.text = getString(
             R.string.tmh_description,
             getString(fair.nameRes),
             fair.spendThreshold.rupiahText(),
             TmhFlowState.MAXIMUM_REDEMPTIONS,
         )
-        val isPromoDetail = requireArguments().getBoolean(ARG_PROMO_DETAIL)
+        val isPromoDetail = isStandalone || requireArguments().getBoolean(ARG_PROMO_DETAIL)
         content.tvDescriptionTitle.isVisible = !isPromoDetail
         content.tvDescription.isVisible = !isPromoDetail
         content.tvTerms.isVisible = !isPromoDetail
         if (isPromoDetail) {
-            content.selectionHeader.updateLayoutParams<ViewGroup.MarginLayoutParams> { topMargin = 0 }
+            content.selectionHeader.updateLayoutParams<ViewGroup.MarginLayoutParams> { topMargin = if (isStandalone) 16.dp.toInt() else 0 }
         } else {
             content.tvTerms.setOnClickListener {
                 isNavigatingToFair = true
                 requestCloseOrNavigate()
             }
         }
-        content.alertBox.isVisible = !isPromoDetail && !fair.state.isEligible
-        content.alertBox.bindFair(fair)
-        content.alertBox.isActionVisible = false
-        content.alertBox.alertBackgroundColor = requireContext().color(fair.alertBackgroundRes())
+        content.alertBox.isVisible = !isPromoDetail && !selection.isEligible
+        if (content.alertBox.isVisible) content.alertBox.bindFair(fair, shouldShowAction = false)
         content.btnSave.buttonType = Button.ButtonType.FILLED_LARGE
         content.btnSave.tmhTextAppearance(R.style.TextAppearance_Tmh_SemiBold_Button_Text_Large, 24)
         content.btnSave.setOnClickListener {
@@ -218,8 +232,9 @@ class TmhRedemptionBottomSheet : TmhBottomSheet() {
                 // TODO: Cross-device cart changes and save failures are outside this happy-flow prototype.
                 // A future failure must retain pending quantities and offer Retry/Dismiss in an indefinite snackbar.
                 pendingSaveResult = Bundle().apply {
-                    putString(KEY_FAIR_ID, fair.id)
+                    putString(KEY_FAIR_ID, if (isStandalone) STANDALONE_ID else fair.id)
                     putBundle(KEY_QUANTITIES, selection.quantities.toQuantityBundle())
+                    putString(KEY_ACTION, selection.action.name)
                 }
                 content.btnSave.isEnabled = false
                 closeSheet()
@@ -237,7 +252,6 @@ class TmhRedemptionBottomSheet : TmhBottomSheet() {
             override fun onItemRangeRemoved(positionStart: Int, itemCount: Int) { refreshSheetSize() }
             override fun onItemRangeChanged(positionStart: Int, itemCount: Int) { refreshSheetSize() }
         })
-        content.root.tmhTypography()
         // Keep the touched holder stable. Selection feedback is owned by the card animator.
         content.rvProducts.itemAnimator = null
         content.rvProducts.adapter = productAdapter
@@ -262,7 +276,7 @@ class TmhRedemptionBottomSheet : TmhBottomSheet() {
         // Deliver the committed selection or requested navigation after dismissal.
         result?.let { manager.setFragmentResult(RESULT_SAVE, it) }
         if (navigation) manager.setFragmentResult(RESULT_VIEW_FAIR, Bundle().apply {
-            putString(KEY_FAIR_ID, fair.id)
+            putString(KEY_FAIR_ID, if (isStandalone) STANDALONE_ID else fair.id)
         })
     }
 
@@ -275,7 +289,7 @@ class TmhRedemptionBottomSheet : TmhBottomSheet() {
         super.onDestroyView()
     }
 
-    private data class ProductRow(val product: TmhProduct, val quantity: Int, val total: Int)
+    private data class ProductRow(val product: RedemptionProduct, val quantity: Int, val total: Int)
 
     companion object {
         const val TAG = "TMH_REDEMPTION"
@@ -283,6 +297,11 @@ class TmhRedemptionBottomSheet : TmhBottomSheet() {
         const val RESULT_VIEW_FAIR = "tmh_view_fair_result"
         const val KEY_FAIR_ID = "fair_id"
         const val KEY_QUANTITIES = "quantities"
+        const val KEY_ACTION = "action"
+        private const val ARG_STANDALONE = "standalone"
+        private const val ARG_PRODUCTS = "products"
+        private const val ARG_TITLE = "title"
+        private const val STANDALONE_ID = "standalone"
         private const val ARG_FAIR_ID = "fair_id"
         private const val ARG_SCENARIO = "scenario"
         private const val ARG_FAIR_STATE = "fair_state"
@@ -292,6 +311,21 @@ class TmhRedemptionBottomSheet : TmhBottomSheet() {
         private const val ARG_QUANTITIES = "original_quantities"
         private const val STATE_NAVIGATING = "navigating_to_fair"
         private const val STATE_PENDING = "pending_quantities"
+
+        internal fun newStandaloneInstance(
+            title: String,
+            products: List<RedemptionProduct>,
+            quantities: Map<String, Int>,
+            maximum: Int,
+        ): TmhRedemptionBottomSheet = TmhRedemptionBottomSheet().apply {
+            arguments = Bundle().apply {
+                putBoolean(ARG_STANDALONE, true)
+                putString(ARG_TITLE, title)
+                putParcelableArrayList(ARG_PRODUCTS, ArrayList(products.map { it.toBundle() }))
+                putBundle(ARG_QUANTITIES, quantities.toQuantityBundle())
+                putInt(ARG_MAXIMUM, maximum)
+            }
+        }
 
         fun newInstance(
             fair: TmhFair,

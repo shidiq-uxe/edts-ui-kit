@@ -119,6 +119,26 @@ class RedemptionSelectionTest {
         assertTrue(selection.canSave)
     }
 
+    @Test
+    fun standaloneRemovalPolicyPreservesLineDeletionAndProductSwap() {
+        val selection = RedemptionSelection(
+            originalQuantities = mapOf("emina" to 1, "kahf" to 1),
+            availableProductIds = setOf("emina", "kahf"),
+            maximum = 2,
+            isEligible = true,
+            shouldRemoveIndividualProducts = true,
+        )
+        assertFalse(selection.hasChanges)
+        selection.update("emina", 0)
+        assertEquals(RedemptionSelection.Action.REMOVE, selection.action)
+        assertTrue(selection.canSave)
+        selection.update("kahf", 2)
+        assertEquals(RedemptionSelection.Action.UPDATE, selection.action)
+        selection.update("kahf", 1)
+        selection.update("emina", 1)
+        assertFalse(selection.canSave)
+    }
+
     private fun selection(original: Map<String, Int> = emptyMap()): RedemptionSelection =
         RedemptionSelection(original, setOf("emina", "kahf"), maximum = 2, isEligible = true)
 }

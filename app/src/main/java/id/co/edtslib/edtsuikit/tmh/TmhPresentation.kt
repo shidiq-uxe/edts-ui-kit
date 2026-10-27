@@ -39,7 +39,7 @@ fun TmhFair.alertBackgroundRes(): Int = when {
 fun TmhFair.actionColorRes(): Int =
     if (state == TmhFairState.FULLY_SELECTED) UIKitR.color.green_50 else UIKitR.color.primary_30
 
-fun AlertBox.bindFair(fair: TmhFair) {
+fun AlertBox.bindFair(fair: TmhFair, shouldShowAction: Boolean = true) {
     alertType = AlertBox.AlertType.LIGHT
     text = fair.alertText(context)
     strokeWidth = 0f
@@ -49,18 +49,19 @@ fun AlertBox.bindFair(fair: TmhFair) {
     startIconVerticalAlignment = AlertBox.StartIconVerticalAlignment.CENTER
     isCloseIconVisible = false
     isButtonVisible = false
-    actionText = context.getString(when {
-        fair.state == TmhFairState.REQUIREMENT_UNMET -> R.string.tmh_add
-        fair.state.isUnavailable -> R.string.tmh_terms
-        fair.savedTotal > 0 -> R.string.tmh_edit
-        else -> R.string.tmh_choose
-    })
-    actionTextAppearance = R.style.TextAppearance_Tmh_SemiBold_Button_Text_Small
-    actionTextColor = context.color(fair.actionColorRes())
-    actionEndIcon = context.drawable(UIKitR.drawable.ic_chevron_right_16)
-    actionEndIconTint = actionTextColor
-    isActionVisible = true
-    tmhTypography()
+    isActionVisible = shouldShowAction
+    if (shouldShowAction) {
+        actionText = context.getString(when {
+            fair.state == TmhFairState.REQUIREMENT_UNMET -> R.string.tmh_add
+            fair.state.isUnavailable -> R.string.tmh_terms
+            fair.savedTotal > 0 -> R.string.tmh_edit
+            else -> R.string.tmh_choose
+        })
+        actionTextAppearance = R.style.TextAppearance_Tmh_SemiBold_Button_Text_Small
+        actionTextColor = context.color(fair.actionColorRes())
+        actionEndIcon = context.drawable(UIKitR.drawable.ic_chevron_right_16)
+        actionEndIconTint = actionTextColor
+    }
     startIcon = context.drawable(
         if (fair.state == TmhFairState.FULLY_SELECTED) UIKitR.drawable.ic_success_16
         else if (fair.state.isEligible) R.drawable.tmh_discount_icon

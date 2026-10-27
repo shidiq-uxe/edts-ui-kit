@@ -6,7 +6,6 @@ import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
 import android.app.Activity
-import android.app.Dialog
 import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.content.res.ColorStateList
@@ -19,13 +18,10 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.os.Parcelable
-import android.provider.Settings
 import android.view.KeyEvent
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AccelerateDecelerateInterpolator
-import android.view.animation.AccelerateInterpolator
-import android.view.animation.DecelerateInterpolator
 import android.view.animation.OvershootInterpolator
 import android.view.animation.PathInterpolator
 import android.view.inputmethod.EditorInfo
@@ -46,8 +42,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SimpleItemAnimator
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.snackbar.Snackbar
 import id.co.edtslib.edtsuikit.GuidelinesBaseActivity
 import id.co.edtslib.edtsuikit.R
@@ -55,19 +49,20 @@ import id.co.edtslib.edtsuikit.databinding.ActivityParagonFairDemoBinding
 import id.co.edtslib.edtsuikit.databinding.ItemFairHeaderBinding
 import id.co.edtslib.edtsuikit.databinding.ItemFairOptionBinding
 import id.co.edtslib.edtsuikit.databinding.ItemFairProductBinding
-import id.co.edtslib.edtsuikit.databinding.ItemFairRedeemProductBinding
 import id.co.edtslib.edtsuikit.databinding.ItemFairSearchEmptyBinding
 import id.co.edtslib.edtsuikit.databinding.ItemFairSearchLoadingBinding
 import id.co.edtslib.edtsuikit.databinding.ItemFairSearchScopeBinding
 import id.co.edtslib.edtsuikit.databinding.ItemFairSectionBinding
-import id.co.edtslib.edtsuikit.databinding.SheetFairDiscardBinding
 import id.co.edtslib.edtsuikit.databinding.SheetFairOptionsBinding
-import id.co.edtslib.edtsuikit.databinding.SheetFairRedemptionBinding
 import id.co.edtslib.edtsuikit.databinding.ViewFairProgressBinding
 import id.co.edtslib.edtsuikit.tmh.TmhBottomSheet
 import id.co.edtslib.edtsuikit.tmh.TmhFair
 import id.co.edtslib.edtsuikit.tmh.TmhCatalogFixtures
 import id.co.edtslib.edtsuikit.tmh.TmhFlowState
+import id.co.edtslib.edtsuikit.tmh.RedemptionProduct
+import id.co.edtslib.edtsuikit.tmh.RedemptionSelection
+import id.co.edtslib.edtsuikit.tmh.rupiahText
+import id.co.edtslib.uikit.utils.areSystemAnimationsEnabled
 import id.co.edtslib.edtsuikit.tmh.TmhRedemptionBottomSheet
 import id.co.edtslib.edtsuikit.tmh.TmhTermsBottomSheet
 import id.co.edtslib.edtsuikit.tmh.alertText
@@ -78,7 +73,6 @@ import id.co.edtslib.uikit.adapter.BaseAdapter
 import id.co.edtslib.uikit.databinding.SearchBarBinding
 import id.co.edtslib.uikit.recipes.textbadge.klik.KlikVariant
 import id.co.edtslib.uikit.searchbar.SearchBarDelegate
-import id.co.edtslib.uikit.stepper.StepperButton
 import id.co.edtslib.uikit.tray.BottomSheetTray
 import id.co.edtslib.uikit.utils.TextStyleKey
 import id.co.edtslib.uikit.utils.TextStyleProvider.get
@@ -89,8 +83,6 @@ import id.co.edtslib.uikit.utils.dimenPixelSize
 import id.co.edtslib.uikit.utils.dp
 import id.co.edtslib.uikit.utils.inflater
 import id.co.edtslib.uikit.utils.window.WindowInsetsConfig
-import java.text.NumberFormat
-import java.util.Locale
 import id.co.edtslib.uikit.R as UIKitR
 
 class ParagonFairDemoActivity : GuidelinesBaseActivity() {
@@ -205,10 +197,9 @@ class ParagonFairDemoActivity : GuidelinesBaseActivity() {
 
     private var cartMove: ObjectAnimator? = null
 
-    private val rupiah = NumberFormat.getIntegerInstance(Locale.forLanguageTag("id-ID"))
 
     private val isMotionEnabled: Boolean
-        get() = Settings.Global.getFloat(contentResolver, Settings.Global.ANIMATOR_DURATION_SCALE, 1f) > 0f
+        get() = areSystemAnimationsEnabled()
 
     private val effectiveColumns: Int
         get() = if (resources.configuration.fontScale > 1.4f) 1 else columns
@@ -1039,228 +1030,31 @@ class ParagonFairDemoActivity : GuidelinesBaseActivity() {
     }
 
     private fun showRedemptionTray() {
+        if (supportFragmentManager.findFragmentByTag(TmhRedemptionBottomSheet.TAG) != null) return
         val currentFlow = flow
         val fair = integratedFair
-        if (currentFlow != null && fair != null) {
-            if (supportFragmentManager.findFragmentByTag(TmhRedemptionBottomSheet.TAG) == null) {
-                TmhRedemptionBottomSheet.newInstance(fair, currentFlow.scenario, isPromoDetail = true)
-                    .show(supportFragmentManager, TmhRedemptionBottomSheet.TAG)
-            }
-            return
+        val tray = if (currentFlow != null && fair != null) {
+            TmhRedemptionBottomSheet.newInstance(fair, currentFlow.scenario, isPromoDetail = true)
+        } else {
+            TmhRedemptionBottomSheet.newStandaloneInstance(
+                title = state.fairName,
+                products = state.giftOffers.map {
+                    RedemptionProduct(
+                        id = it.id,
+                        name = it.name,
+                        imageRes = it.image,
+                        price = it.price,
+                        originalPrice = it.originalPrice,
+                        isInStock = !it.isRestocking,
+                        packSize = it.packSize,
+                        shouldLabelFree = true,
+                    )
+                },
+                quantities = state.claimedGifts.groupingBy { it }.eachCount(),
+                maximum = state.earnedGifts,
+            )
         }
-        val limit = state.earnedGifts
-        val isLocked = limit == 0
-        var committed = redemptionOffers().map { o -> o.copy(quantity = state.claimedGifts.count { it == o.id }) }
-        var draft = committed
-        var tray: BottomSheetTray? = null
-        var sheetBehavior: BottomSheetBehavior<*>? = null
-        val sheet = SheetFairRedemptionBinding.inflate(inflater)
-        val defaultTint = sheet.update.backgroundTintList
-        val destructiveTint = colorStateList(UIKitR.color.klik_color_red_30)
-        lateinit var refresh: () -> Unit
-
-        fun setQuantity(id: String, quantity: Int) {
-            val current = draft.firstOrNull { it.id == id } ?: return
-            val room = (limit - draft.sumOf { it.quantity }).coerceAtLeast(0)
-            val capped = quantity.coerceIn(0, current.quantity + room)
-            if (capped == current.quantity) return
-            draft = draft.map { if (it.id == id) it.copy(quantity = capped) else it }
-            refresh()
-        }
-
-        val adapter =
-            BaseAdapter.adapterOf<RedeemRow, ItemFairRedeemProductBinding>(
-                register =
-                    BaseAdapter.Register(
-                        onBindHolder = { _, row, v, _ ->
-                            val item = row.item
-                            val isSelected = item.quantity > 0 && !item.isRestocking
-                            val isGreyedOut = row.isLocked || item.isRestocking
-                            v.root.post {
-                                android.util.Log.d(
-                                    "RedeemCard",
-                                    "late state: root clickable=${v.root.isClickable} listener=${v.root.hasOnClickListeners()} info clickable=${v.info.isClickable}")
-                                v.root.makeStatic()
-                                v.info.makeStatic()
-                            }
-
-                            applySelection(v, item.id, isSelected)
-                            v.total.isVisible = isSelected
-                            if (isSelected) {
-                                val pcs = getString(R.string.fair_gift_pieces, item.quantity * item.packSize)
-                                v.total.text =
-                                    buildHighlightedMessage(
-                                        message = getString(R.string.fair_gift_total, pcs),
-                                        highlightedMessages = listOf(pcs),
-                                        highlightColor = color(UIKitR.color.black_70))
-                            }
-                            v.image.setImageResource(item.image)
-                            v.name.text = item.name
-                            v.pack.text = getString(R.string.fair_gift_pack, item.packSize)
-                            v.discount.text =
-                                getString(R.string.fair_gift_discount, 100 - item.price * 100 / item.originalPrice)
-                            v.originalPrice.text = money(item.originalPrice)
-                            v.originalPrice.paintFlags = v.originalPrice.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
-                            v.price.text =
-                                if (item.price == 0L) getString(R.string.fair_gift_free) else money(item.price)
-                            v.restockLabel.isVisible = item.isRestocking
-                            v.stepper.isVisible = !item.isRestocking
-
-                            v.root.alpha = 1f
-                            v.info.animationDuration = 0L
-                            v.info.setDisabledWithAnimation(isGreyedOut, animate = true)
-                            v.footer.setBackgroundColor(
-                                color(if (isGreyedOut) UIKitR.color.black_20 else UIKitR.color.info_background))
-                            v.info.alpha = if (isGreyedOut) 0.5f else 1f
-                            v.stepper.apply {
-                                clearListener()
-                                setAllowTextEditing(false)
-                                showExpanded()
-
-                                setMinValue(0)
-                                setMaxValue(Int.MAX_VALUE)
-                                setCount(item.quantity, animate = false)
-                                setMaxValue(item.quantity + row.remaining)
-                                isEnabled = !row.isLocked
-                                setPlusButtonEnabled(row.shouldAllowAdd && !item.isRestocking)
-                                setMinusButtonEnabled(item.quantity > 0)
-
-                                applyRedeemStyle(
-                                    shouldDimCount = row.isLocked || (item.quantity == 0 && !row.shouldAllowAdd))
-                                binding.singlePlusButton.contentDescription =
-                                    getString(R.string.fair_gift_add, item.name)
-                                binding.plusButton.contentDescription = getString(R.string.fair_gift_add, item.name)
-                                binding.minusButton.contentDescription = getString(R.string.fair_gift_remove, item.name)
-                                setOnCountChangeListener { newCount -> setQuantity(item.id, newCount) }
-                            }
-                            v.root.contentDescription =
-                                getString(
-                                    R.string.fair_gift_description,
-                                    item.name,
-                                    item.packSize,
-                                    item.quantity,
-                                    if (isSelected) getString(R.string.fair_selected_suffix) else "")
-                        }),
-                diff =
-                    BaseAdapter.Diff(
-                        areItemsTheSame = { oldItem, newItem -> oldItem.id == newItem.id },
-                        areContentsTheSame = { oldItem, newItem -> oldItem == newItem }))
-
-        fun quantities(list: List<RedeemItem>) = list.associate { it.id to it.quantity }
-        fun hasChanges() = quantities(draft) != quantities(committed)
-
-        fun isRemoval(): Boolean {
-            val before = quantities(committed)
-            val isAdded = draft.any { it.quantity > (before[it.id] ?: 0) }
-            val isRemoved = draft.any { it.quantity == 0 && (before[it.id] ?: 0) > 0 }
-            return hasChanges() && isRemoved && !isAdded
-        }
-
-        refresh = {
-            val used = draft.sumOf { it.quantity }
-            val isCartEmpty = committed.sumOf { it.quantity } == 0
-            val shouldRemove = isRemoval()
-            val isEnabled = hasChanges()
-
-            android.util.Log.d(
-                "FairDemo",
-                "draft=${quantities(draft)} committed=${quantities(committed)} changed=$isEnabled removal=$shouldRemove cartEmpty=$isCartEmpty")
-
-            sheet.counter.text = getString(R.string.fair_redemption_counter, used, limit)
-            sheet.counter.setTextColor(color(if (isLocked) UIKitR.color.black_40 else UIKitR.color.primary_30))
-            sheet.counter.backgroundTintList = if (isLocked) colorStateList(UIKitR.color.black_20) else null
-            sheet.update.text =
-                when {
-                    shouldRemove -> getString(R.string.fair_cart_delete)
-                    isCartEmpty -> getString(R.string.fair_cart_title)
-                    else -> getString(R.string.fair_cart_update)
-                }
-            if (isCartEmpty) sheet.update.setIconResource(UIKitR.drawable.ic_plus_stepper) else sheet.update.icon = null
-            sheet.update.backgroundTintList = if (shouldRemove) destructiveTint else defaultTint
-            sheet.update.isEnabled = isEnabled
-            sheet.update.refreshDrawableState()
-            adapter.items = draft.map {
-                RedeemRow(
-                    item = it,
-                    shouldAllowAdd = used < limit,
-                    isLocked = isLocked,
-                    remaining = (limit - used).coerceAtLeast(0))
-            }
-            sheetBehavior?.isHideable = !isEnabled
-        }
-
-        fun commit() {
-            val shouldRemove = isRemoval()
-            val removedQty = committed.sumOf { it.quantity } - draft.sumOf { it.quantity }
-
-            state = state.withClaimedGifts(draft.flatMap { d -> List(d.quantity) { d.id } })
-            committed = draft
-            render(shouldAnnounce = true)
-
-            tray?.dismiss()
-            showSkeleton {
-                Snackbar.make(
-                        binding.main,
-                        if (shouldRemove) getString(R.string.fair_cart_removed, removedQty)
-                        else getString(R.string.fair_cart_updated),
-                        Snackbar.LENGTH_SHORT)
-                    .apply {
-                        view.updateLayoutParams<ViewGroup.MarginLayoutParams> {
-                            leftMargin = 16.dp.toInt()
-                            rightMargin = 16.dp.toInt()
-                            bottomMargin = 8.dp.toInt()
-                        }
-                    }
-                    .show()
-            }
-        }
-
-        fun requestClose() {
-            if (hasChanges()) showDiscardConfirmation { tray?.dismiss() } else tray?.dismiss()
-        }
-
-        sheet.update.setOnClickListener { commit() }
-        sheet.list.layoutManager = LinearLayoutManager(this)
-        sheet.list.adapter = adapter
-        sheet.list.itemAnimator = null
-        refresh()
-        sheet.update.setOnClickListener { commit() }
-
-        tray =
-            BottomSheetTray.newInstance(title = state.fairName, contentLayout = sheet.root).apply {
-                dragHandleVisibility = true
-                titleDividerVisibility = true
-                shouldShowClose = true
-                customAnimationsEnabled = isMotionEnabled
-            }
-        tray.show(supportFragmentManager, "fair-redemption")
-        supportFragmentManager.executePendingTransactions()
-
-        (tray.dialog as? BottomSheetDialog)?.let { dialog ->
-            dialog.onBackPressedDispatcher.addCallback(
-                object : OnBackPressedCallback(true) {
-                    override fun handleOnBackPressed() = requestClose()
-                })
-
-            dialog.findViewById<View>(com.google.android.material.R.id.touch_outside)?.setOnClickListener {
-                requestClose()
-            }
-
-            sheetBehavior = dialog.behavior
-            dialog.behavior.addBottomSheetCallback(
-                object : BottomSheetBehavior.BottomSheetCallback() {
-                    override fun onStateChanged(bottomSheet: View, newState: Int) {
-                        if (newState == BottomSheetBehavior.STATE_COLLAPSED && hasChanges()) {
-                            dialog.behavior.state = BottomSheetBehavior.STATE_EXPANDED
-                            requestClose()
-                        }
-                    }
-
-                    override fun onSlide(bottomSheet: View, slideOffset: Float) {}
-                })
-            hookTrayClose(dialog, sheet.root) { requestClose() }
-            refresh()
-        }
+        tray.show(supportFragmentManager, TmhRedemptionBottomSheet.TAG)
     }
 
     private fun setCartVisible(shouldShow: Boolean) {
@@ -1571,72 +1365,6 @@ class ParagonFairDemoActivity : GuidelinesBaseActivity() {
             })
     }
 
-    private fun applySelection(v: ItemFairRedeemProductBinding, itemId: String, isSelected: Boolean) {
-        val card = v.root
-        val mark = v.selectedMark
-        val previous = card.tag as? SelectionTag
-
-        val isSameItem = previous != null && previous.itemId == itemId
-        val shouldAnimate = isMotionEnabled && isSameItem && previous!!.isSelected != isSelected
-
-        previous?.strokeAnimator?.cancel()
-        mark.animate().cancel()
-
-        val tag = if (isSameItem) previous!! else SelectionTag(itemId = itemId, isSelected = isSelected)
-        tag.isSelected = isSelected
-        tag.strokeAnimator = null
-        card.tag = tag
-
-        val newBorder = color(if (isSelected) UIKitR.color.primary_30 else UIKitR.color.black_30)
-        if (shouldAnimate) {
-            tag.strokeAnimator =
-                ValueAnimator.ofArgb(card.strokeColor, newBorder).apply {
-                    duration = 250L
-                    addUpdateListener { card.setStrokeColor(it.animatedValue as Int) }
-                    start()
-                }
-        } else {
-            card.setStrokeColor(newBorder)
-        }
-
-        val offscreen = -(if (mark.width > 0) mark.width else 32.dp.toInt()).toFloat()
-        if (isSelected) {
-            mark.isVisible = true
-            if (shouldAnimate) {
-                mark.alpha = 0f
-                mark.translationX = offscreen
-                mark.translationY = offscreen
-                mark
-                    .animate()
-                    .alpha(1f)
-                    .translationX(0f)
-                    .translationY(0f)
-                    .setDuration(250L)
-                    .setInterpolator(DecelerateInterpolator())
-                    .start()
-            } else {
-                mark.alpha = 1f
-                mark.translationX = 0f
-                mark.translationY = 0f
-            }
-        } else if (shouldAnimate) {
-            mark
-                .animate()
-                .alpha(0f)
-                .translationX(offscreen)
-                .translationY(offscreen)
-                .setDuration(200L)
-                .setInterpolator(AccelerateInterpolator())
-                .withEndAction { if (!tag.isSelected) mark.isVisible = false }
-                .start()
-        } else {
-            mark.isVisible = false
-            mark.alpha = 1f
-            mark.translationX = 0f
-            mark.translationY = 0f
-        }
-    }
-
     private fun showGeneralSearchHandoff() {
         ViewCompat.getWindowInsetsController(binding.queryField)?.hide(WindowInsetsCompat.Type.ime())
         showOptions(
@@ -1657,54 +1385,6 @@ class ParagonFairDemoActivity : GuidelinesBaseActivity() {
                 title = getString(R.string.fair_website_title),
                 description = getString(R.string.fair_website_unavailable),
                 options = emptyList()) {}
-        }
-    }
-
-    private fun showDiscardConfirmation(onDiscard: () -> Unit) {
-        if (supportFragmentManager.findFragmentByTag("fair-discard") != null) return
-        val view = SheetFairDiscardBinding.inflate(inflater)
-        var confirm: BottomSheetTray? = null
-        view.stay.setOnClickListener { confirm?.dismiss() }
-        view.discard.setOnClickListener {
-            confirm?.dismiss()
-            onDiscard()
-        }
-        confirm =
-            BottomSheetTray.newInstance(title = getString(R.string.fair_discard_title), contentLayout = view.root)
-                .apply {
-                    dragHandleVisibility = false
-                    titleDividerVisibility = true
-                    shouldShowClose = false
-                    customAnimationsEnabled = isMotionEnabled
-                }
-        confirm.show(supportFragmentManager, "fair-discard")
-    }
-
-    private fun hookTrayClose(dialog: Dialog, ownContent: View, onClose: () -> Unit) {
-        val decor = dialog.window?.decorView ?: return
-        val scrim = dialog.findViewById<View>(com.google.android.material.R.id.touch_outside)
-        val min = 24.dp.toInt()
-        val max = 64.dp.toInt()
-
-        decor.post {
-            val candidates = mutableListOf<View>()
-
-            fun idName(v: View) =
-                if (v.id == View.NO_ID) "-" else runCatching { resources.getResourceEntryName(v.id) }.getOrDefault("?")
-
-            fun walk(v: View, depth: Int) {
-                if (v === ownContent || v === scrim) return
-                android.util.Log.d(
-                    "FairDemo",
-                    "tray view: ${"  ".repeat(depth)}${v.javaClass.simpleName} id=${idName(v)} clickable=${v.isClickable} ${v.width}x${v.height}")
-                if (v.isShown && v.isClickable && v.width in min..max && v.height in min..max) candidates += v
-                if (v is ViewGroup) for (i in 0 until v.childCount) walk(v.getChildAt(i), depth + 1)
-            }
-            walk(decor, 0)
-
-            val close = candidates.maxByOrNull { v -> IntArray(2).also { v.getLocationOnScreen(it) }[0] }
-            if (close != null) close.setOnClickListener { onClose() }
-            else android.util.Log.w("FairDemo", "tray close button not found; ✕ is not guarded")
         }
     }
 
@@ -1862,25 +1542,25 @@ class ParagonFairDemoActivity : GuidelinesBaseActivity() {
                 benefit = "Beli 3, +10 Stamp",
                 highlight = "Banyak Lebih Hemat"))
 
-    private fun redemptionOffers(): List<RedeemItem> {
+    private fun giftOffers(): List<GiftOffer> {
         val original = if (promotion == DemoPromotion.FREE_GIFT) 50_000L else 10_000L
         val discountPercent = 50
         val price = original * (100 - discountPercent) / 100
         return listOf(
-            RedeemItem(
+            GiftOffer(
                 id = "gel",
                 name = "Emina Water Barrier Balancing Gel 30g",
                 image = R.drawable.fair_emina_gel,
                 packSize = 2,
                 originalPrice = original,
                 price = price),
-            RedeemItem(
+            GiftOffer(
                 id = "scrub",
                 name = "Kahf Face Wash Scrub Acne & Pore",
                 image = R.drawable.fair_gift_cotton,
                 originalPrice = original,
                 price = price),
-            RedeemItem(
+            GiftOffer(
                 id = "sunscreen",
                 name = "Wardah UV Shield Airy Sunscreen",
                 image = R.drawable.fair_gift_cleanser,
@@ -1888,18 +1568,6 @@ class ParagonFairDemoActivity : GuidelinesBaseActivity() {
                 price = price,
                 isRestocking = true))
     }
-
-    private fun giftOffers() =
-        redemptionOffers().map {
-            GiftOffer(
-                id = it.id,
-                name = it.name,
-                image = it.image,
-                packSize = it.packSize,
-                originalPrice = it.originalPrice,
-                price = it.price,
-                isRestocking = it.isRestocking)
-        }
 
     private fun scenarioLabel(scenario: DemoScenario): String =
         getString(
@@ -1920,7 +1588,7 @@ class ParagonFairDemoActivity : GuidelinesBaseActivity() {
                 DemoScenario.ZERO_PRODUCTS -> R.string.fair_scenario_zero_products
             })
 
-    private fun money(value: Long): String = "Rp${rupiah.format(value)}"
+    private fun money(value: Long): String = value.rupiahText()
 
     private fun restoreState(saved: Bundle?): PromoDemoState? {
         if (saved == null) return null
@@ -1957,14 +1625,32 @@ class ParagonFairDemoActivity : GuidelinesBaseActivity() {
                     ?: DemoScenario.START)
         }
         supportFragmentManager.setFragmentResultListener(TmhRedemptionBottomSheet.RESULT_SAVE, this) { _, result ->
-            val id = fairId ?: return@setFragmentResultListener
             val quantities = result.getBundle(TmhRedemptionBottomSheet.KEY_QUANTITIES)?.quantities().orEmpty()
-            flow = flow?.withSelection(id, quantities)
-            state = requireNotNull(flow).modelFor(id)
+            val previous = state.claimedGifts.groupingBy { it }.eachCount()
+            val removedCount = previous.values.sum() - quantities.values.sum()
+            val isRemoval = result.getString(TmhRedemptionBottomSheet.KEY_ACTION) == RedemptionSelection.Action.REMOVE.name
+            val id = fairId
+            if (flow != null && id != null) {
+                flow = requireNotNull(flow).withSelection(id, quantities)
+                state = requireNotNull(flow).modelFor(id)
+            } else {
+                state = state.withClaimedGifts(quantities.flatMap { (id, quantity) -> List(quantity) { id } })
+            }
             render(shouldAnnounce = true)
             animateProgress(state.barProgress)
             showSkeleton {
-                Snackbar.make(binding.root, R.string.tmh_cart_updated, Snackbar.LENGTH_SHORT).show()
+                val message = when {
+                    flow != null -> getString(R.string.tmh_cart_updated)
+                    isRemoval -> getString(R.string.fair_cart_removed, removedCount)
+                    else -> getString(R.string.fair_cart_updated)
+                }
+                Snackbar.make(binding.root, message, Snackbar.LENGTH_SHORT).apply {
+                    if (flow == null) view.updateLayoutParams<ViewGroup.MarginLayoutParams> {
+                        leftMargin = 16.dp.toInt()
+                        rightMargin = 16.dp.toInt()
+                        bottomMargin = 8.dp.toInt()
+                    }
+                }.show()
             }
         }
         savedInstanceState?.let {
@@ -2024,10 +1710,6 @@ class ParagonFairDemoActivity : GuidelinesBaseActivity() {
             })
         binding.bottomActions.addOnLayoutChangeListener { _, _, _, _, _, _, _, _, _ ->
             if (flow != null) binding.products.updatePadding(bottom = binding.bottomActions.height + 12.dp.toInt())
-            binding.products.clipToPadding = false
-            binding.products.clipChildren = false
-            (binding.products.parent as? ViewGroup)?.clipChildren = false
-            binding.products.clipToPadding = false
         }
         binding.back.setOnClickListener { if (isInSearch) closeSearch() else onBackPressedDispatcher.onBackPressed() }
         if (flow == null) binding.title.setOnLongClickListener {
@@ -2107,47 +1789,6 @@ class ParagonFairDemoActivity : GuidelinesBaseActivity() {
         isFocusable = false
     }
 
-    private fun StepperButton.showExpanded() {
-        val width = requireNotNull(dimenPixelSize(UIKitR.dimen.dimen_90))
-        val params = binding.stepperContainer.layoutParams
-        if (params.width != width) {
-            params.width = width
-            binding.stepperContainer.layoutParams = params
-        }
-        binding.singlePlusButton.visibility = View.GONE
-        binding.minusButton.visibility = View.VISIBLE
-        binding.plusButton.visibility = View.VISIBLE
-        binding.countText.visibility = View.VISIBLE
-        binding.countEditText.visibility = View.GONE
-        binding.minusButton.alpha = 1f
-        binding.plusButton.alpha = 1f
-        binding.countText.alpha = 1f
-    }
-
-    private fun StepperButton.applyRedeemStyle(shouldDimCount: Boolean) {
-        val grey = color(UIKitR.color.black_30)
-        val darkGrey = color(UIKitR.color.black_60)
-        val blue = color(UIKitR.color.primary_30)
-        val white = color(UIKitR.color.white)
-
-        fun states(enabled: Int, disabled: Int) =
-            ColorStateList(
-                arrayOf(intArrayOf(-android.R.attr.state_enabled), intArrayOf()), intArrayOf(disabled, enabled))
-
-        binding.stepperContainer.apply {
-            setCardBackgroundColor(white)
-            setStrokeColor(grey)
-            strokeWidth = 1.dp.toInt()
-        }
-        binding.minusButton.iconTint = states(darkGrey, grey)
-        binding.plusButton.backgroundTintList = states(blue, grey)
-        binding.plusButton.iconTint = ColorStateList.valueOf(white)
-        binding.countText.setTextColor(if (shouldDimCount) grey else color(UIKitR.color.black_70))
-        binding.countText.alpha = 1f
-    }
-
-    private class SelectionTag(val itemId: String, var isSelected: Boolean, var strokeAnimator: ValueAnimator? = null)
-
     private inner class ProductSpacingDecoration : RecyclerView.ItemDecoration() {
         override fun getItemOffsets(
             outRect: android.graphics.Rect,
@@ -2208,27 +1849,6 @@ class ParagonFairDemoActivity : GuidelinesBaseActivity() {
         val isFiltered: Boolean = false,
         val id: String = "empty"
     )
-
-    private data class RedeemItem(
-        val id: String,
-        val name: String,
-        val image: Int,
-        val packSize: Int = 1,
-        val originalPrice: Long = 10_000,
-        val price: Long = 5_000,
-        val isRestocking: Boolean = false,
-        val quantity: Int = 0
-    )
-
-    private data class RedeemRow(
-        val item: RedeemItem,
-        val shouldAllowAdd: Boolean,
-        val isLocked: Boolean,
-        val remaining: Int
-    ) {
-        val id
-            get() = item.id
-    }
 
     private enum class StepperFace {
         ADD,

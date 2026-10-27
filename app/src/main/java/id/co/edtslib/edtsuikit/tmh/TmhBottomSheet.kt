@@ -1,6 +1,5 @@
 package id.co.edtslib.edtsuikit.tmh
 
-import android.app.Dialog
 import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
@@ -8,7 +7,6 @@ import android.util.AttributeSet
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
-import androidx.activity.OnBackPressedCallback
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
@@ -20,11 +18,9 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import id.co.edtslib.edtsuikit.R
 import id.co.edtslib.uikit.tray.BottomSheetTray
 
-/** App-local dismissal interception; shared tray behavior remains unchanged. */
+/** TMH sizing and safe-area policy using the shared tray's dismissal-request contract. */
 open class TmhBottomSheet : BottomSheetTray() {
 
-    private var shouldAllowDismiss = false
-    private var dismissBackCallback: OnBackPressedCallback? = null
     private var measuredContent: ContentLayout? = null
 
     protected open fun requestDismiss() {
@@ -32,7 +28,6 @@ open class TmhBottomSheet : BottomSheetTray() {
     }
 
     protected fun closeSheet() {
-        shouldAllowDismiss = true
         dismiss()
     }
 
@@ -59,17 +54,9 @@ open class TmhBottomSheet : BottomSheetTray() {
 
     override fun getTheme(): Int = R.style.ThemeOverlay_Tmh_BottomSheetDialog
 
-    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog =
-        object : BottomSheetDialog(requireContext(), theme) {
-            override fun cancel() {
-                if (shouldAllowDismiss) super.cancel() else requestDismiss()
-            }
-        }.apply {
-            setCanceledOnTouchOutside(true)
-        }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        onCloseRequested = { requestDismiss() }
         dragHandleVisibility = true
         titleDividerVisibility = true
         shouldShowClose = true
@@ -83,8 +70,6 @@ open class TmhBottomSheet : BottomSheetTray() {
         }
         contentView = measuredContent
         super.onViewCreated(view, savedInstanceState)
-        binding.btnClose.contentDescription = getString(R.string.tmh_close)
-        binding.btnClose.setOnClickListener { requestDismiss() }
         binding.root.tmhTypography()
         val insetTarget = content.findViewById<View>(R.id.footer) ?: content
         val initialBottomPadding = insetTarget.paddingBottom
@@ -104,13 +89,6 @@ open class TmhBottomSheet : BottomSheetTray() {
 
     override fun onStart() {
         super.onStart()
-        dismissBackCallback?.remove()
-        dismissBackCallback = object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() = requestDismiss()
-        }.also { callback ->
-            // Consume Back in this window so it cannot also pop the underlying PPP Activity.
-            (dialog as? BottomSheetDialog)?.onBackPressedDispatcher?.addCallback(this, callback)
-        }
         dialog?.window?.let { window ->
             WindowCompat.setDecorFitsSystemWindows(window, false)
             @Suppress("DEPRECATION")
@@ -122,8 +100,6 @@ open class TmhBottomSheet : BottomSheetTray() {
     }
 
     override fun onDestroyView() {
-        dismissBackCallback?.remove()
-        dismissBackCallback = null
         measuredContent = null
         contentView = null
         super.onDestroyView()

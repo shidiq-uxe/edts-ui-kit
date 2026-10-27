@@ -1,8 +1,6 @@
 package id.co.edtslib.uikit.stepper
 
 import android.animation.ValueAnimator
-import android.os.Build
-import android.provider.Settings
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.DecelerateInterpolator
@@ -11,6 +9,7 @@ import androidx.core.animation.doOnEnd
 import com.google.android.material.card.MaterialCardView
 import id.co.edtslib.uikit.R
 import id.co.edtslib.uikit.databinding.ViewStepperDragFeedbackBinding
+import id.co.edtslib.uikit.utils.areSystemAnimationsEnabled
 import id.co.edtslib.uikit.utils.color
 import id.co.edtslib.uikit.utils.dp
 import id.co.edtslib.uikit.utils.inflater
@@ -114,9 +113,7 @@ internal class StepperDragFeedback(
         }
     }
 
-    private fun areAnimationsEnabled(): Boolean =
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) ValueAnimator.areAnimatorsEnabled()
-        else Settings.Global.getFloat(owner.context.contentResolver, Settings.Global.ANIMATOR_DURATION_SCALE, 1f) > 0f
+    private fun areAnimationsEnabled(): Boolean = owner.context.areSystemAnimationsEnabled()
 
     companion object {
         private const val FADE_DURATION_MS = 150L

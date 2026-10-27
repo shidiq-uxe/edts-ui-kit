@@ -1,14 +1,13 @@
 package id.co.edtslib.edtsuikit.tmh
 
 import android.animation.ValueAnimator
-import android.os.Build
-import android.provider.Settings
 import android.view.View
 import android.view.animation.AccelerateInterpolator
 import android.view.animation.DecelerateInterpolator
 import androidx.core.animation.doOnEnd
 import androidx.core.view.isVisible
 import id.co.edtslib.edtsuikit.databinding.ItemTmhRedemptionProductBinding
+import id.co.edtslib.uikit.utils.areSystemAnimationsEnabled
 import id.co.edtslib.uikit.utils.color
 import id.co.edtslib.uikit.R as UIKitR
 
@@ -113,9 +112,7 @@ internal class TmhProductSelectionAnimator(private val binding: ItemTmhRedemptio
         cornerAnimator = null
     }
 
-    private fun areAnimationsEnabled(): Boolean =
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) ValueAnimator.areAnimatorsEnabled()
-        else Settings.Global.getFloat(binding.root.context.contentResolver, Settings.Global.ANIMATOR_DURATION_SCALE, 1f) > 0f
+    private fun areAnimationsEnabled(): Boolean = binding.root.context.areSystemAnimationsEnabled()
 
     companion object {
         private const val BORDER_DURATION_MS = 250L
