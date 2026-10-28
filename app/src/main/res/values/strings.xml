@@ -91,4 +91,11 @@
     <string name="configure_text_badge">Configure Text Badge</string>
     <string name="border_width_value">%1$ddp</string>
 
+    <!-- Linear Progress bar configuration -->
+    <string name="configure_progress_bar">Configure Progress Bar</string>
+    <string name="progress_percent_value">%1$d%%</string>
+    <string name="track_thickness_value">%1$ddp</string>
+    <string name="thumb_size_value">%1$ddp</string>
+    <string name="shadow_value">%1$.1fdp</string>
+
 </resources>
