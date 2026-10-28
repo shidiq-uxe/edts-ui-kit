@@ -126,6 +126,31 @@
     <attr name="foregroundColor" format="color"/>
     <attr name="circleRadius" format="dimension"/>
 
+    <attr name="indicatorProgress" format="float" />
+    <attr name="maxIndicatorProgress" format="float" />
+    <attr name="indicatorStartColor" format="color" />
+    <attr name="indicatorEndColor" format="color" />
+    <attr name="trackColor" format="color" />
+    <attr name="trackThickness" format="dimension" />
+    <attr name="trackCornerRadius" format="dimension" />
+    <attr name="trackPadding" format="dimension"/>
+    <attr name="indicatorColor" format="color" />
+    <attr name="indicatorPadding" format="dimension" />
+    <attr name="progressLimit" format="float" />
+    <attr name="completedIndicatorColor" format="color" />
+    <attr name="showCompletedIndicator" format="boolean" />
+    <attr name="thumbSize" format="dimension" />
+    <attr name="thumbCornerRadius" format="dimension" />
+    <attr name="thumbColor" format="color" />
+    <attr name="showThumb" format="boolean" />
+    <attr name="innerShadowColor" format="color" />
+    <attr name="innerShadowOffsetX" format="float" />
+    <attr name="innerShadowOffsetY" format="float" />
+    <attr name="innerShadowBlur" format="float" />
+    <attr name="innerShadowSpread" format="float" />
+    <attr name="showBadge" format="boolean" />
+    <attr name="linearProgressBarStyle" format="reference" />
+
     <attr name="fieldInputType" format="enum">
         <enum name="text" value="0" />
         <enum name="password" value="1" />
@@ -359,37 +384,29 @@
         <attr name="progressColor" format="color"/>
     </declare-styleable>
 
-    <attr name="indicatorProgress" format="float" />
-    <attr name="maxIndicatorProgress" format="float" />
-    <attr name="indicatorStartColor" format="color" />
-    <attr name="indicatorEndColor" format="color" />
-    <attr name="trackColor" format="color" />
-    <attr name="trackThickness" format="dimension" />
-    <attr name="trackCornerRadius" format="dimension" />
-    <attr name="trackPadding" format="dimension"/>
-
     <declare-styleable name="LinearProgressBar">
         <attr name="indicatorProgress" />
         <attr name="maxIndicatorProgress" />
-        <attr name="progressLimit" format="float" />
+        <attr name="shouldAnimate" />
         <attr name="trackColor" />
         <attr name="trackThickness" />
         <attr name="trackCornerRadius" />
         <attr name="trackPadding" />
-        <attr name="shouldAnimate" />
-        <attr name="indicatorColor" format="color" />
-        <attr name="indicatorPadding" format="dimension" />
-        <attr name="completedIndicatorColor" format="color" />
-        <attr name="showCompletedIndicator" format="boolean" />
-        <attr name="thumbSize" format="dimension" />
-        <attr name="thumbCornerRadius" format="dimension" />
-        <attr name="thumbColor" format="color" />
-        <attr name="showThumb" format="boolean" />
-        <attr name="innerShadowColor" format="color" />
-        <attr name="innerShadowOffsetX" format="float" />
-        <attr name="innerShadowOffsetY" format="float" />
-        <attr name="innerShadowBlur" format="float" />
-        <attr name="showBadge" format="boolean" />
+        <attr name="indicatorColor" />
+        <attr name="indicatorPadding" />
+        <attr name="progressLimit" />
+        <attr name="completedIndicatorColor" />
+        <attr name="showCompletedIndicator" />
+        <attr name="thumbSize" />
+        <attr name="thumbCornerRadius" />
+        <attr name="thumbColor" />
+        <attr name="showThumb" />
+        <attr name="innerShadowColor" />
+        <attr name="innerShadowOffsetX" />
+        <attr name="innerShadowOffsetY" />
+        <attr name="innerShadowBlur" />
+        <attr name="innerShadowSpread" />
+        <attr name="showBadge" />
     </declare-styleable>
 
     <declare-styleable name="GradientCircularProgressBar">
