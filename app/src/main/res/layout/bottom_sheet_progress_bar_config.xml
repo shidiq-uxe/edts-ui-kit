@@ -1,0 +1,522 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clipToPadding="false"
+    android:overScrollMode="ifContentScrolls"
+    android:scrollbars="none">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:paddingHorizontal="16dp"
+        android:paddingTop="16dp"
+        android:paddingBottom="80dp">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvProductLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Product"
+            android:textAppearance="@style/TextAppearance.Inter.Regular.B2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/cgProduct"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:singleSelection="true"
+            app:selectionRequired="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvProductLabel" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvModeLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Mode"
+            android:textAppearance="@style/TextAppearance.Inter.Regular.B2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cgProduct" />
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/cgMode"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:singleSelection="true"
+            app:selectionRequired="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvModeLabel" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvProgressLabel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="Progress"
+            android:textAppearance="@style/TextAppearance.Inter.Regular.B2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cgMode" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvProgressValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:textAppearance="@style/TextAppearance.Inter.SemiBold.B3"
+            app:layout_constraintBottom_toBottomOf="@id/tvProgressLabel"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tvProgressLabel" />
+
+        <com.google.android.material.slider.Slider
+            android:id="@+id/slProgress"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:stepSize="1"
+            android:value="50"
+            android:valueFrom="0"
+            android:valueTo="100"
+            android:minWidth="0dp"
+            app:minTouchTargetSize="0dp"
+            app:trackColorInactive="@color/black_20"
+            app:thumbHeight="24dp"
+            app:tickVisible="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvProgressLabel" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvThicknessLabel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Track Thickness"
+            android:textAppearance="@style/TextAppearance.Inter.Regular.B2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/slProgress" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvThicknessValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:textAppearance="@style/TextAppearance.Inter.SemiBold.B3"
+            app:layout_constraintBottom_toBottomOf="@id/tvThicknessLabel"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tvThicknessLabel" />
+
+        <com.google.android.material.slider.Slider
+            android:id="@+id/slThickness"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:stepSize="1"
+            android:value="6"
+            android:valueFrom="1"
+            android:valueTo="16"
+            android:minWidth="0dp"
+            app:minTouchTargetSize="0dp"
+            app:trackColorInactive="@color/black_20"
+            app:thumbHeight="24dp"
+            app:tickVisible="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvThicknessLabel" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvBadgeLabel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="Show Badge"
+            android:textAppearance="@style/TextAppearance.Inter.Regular.B2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/slThickness" />
+
+        <com.google.android.material.materialswitch.MaterialSwitch
+            android:id="@+id/swBadge"
+            style="@style/Widget.EDTS.UIKit.Switch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minHeight="@dimen/xs"
+            app:layout_constraintBottom_toBottomOf="@id/tvBadgeLabel"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tvBadgeLabel" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvDisabledLabel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="Disabled"
+            android:textAppearance="@style/TextAppearance.Inter.Regular.B2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvBadgeLabel" />
+
+        <com.google.android.material.materialswitch.MaterialSwitch
+            android:id="@+id/swDisabled"
+            style="@style/Widget.EDTS.UIKit.Switch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minHeight="@dimen/xs"
+            app:layout_constraintBottom_toBottomOf="@id/tvDisabledLabel"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tvDisabledLabel" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvThumbLabel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="Show Thumb"
+            android:textAppearance="@style/TextAppearance.Inter.Regular.B2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvDisabledLabel" />
+
+        <com.google.android.material.materialswitch.MaterialSwitch
+            android:id="@+id/swThumb"
+            style="@style/Widget.EDTS.UIKit.Switch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minHeight="@dimen/xs"
+            app:layout_constraintBottom_toBottomOf="@id/tvThumbLabel"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tvThumbLabel" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/groupThumb"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvThumbLabel">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvThumbSizeLabel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Thumb Size"
+                android:textAppearance="@style/TextAppearance.Inter.Regular.B2"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvThumbSizeValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:textAppearance="@style/TextAppearance.Inter.SemiBold.B3"
+                app:layout_constraintBottom_toBottomOf="@id/tvThumbSizeLabel"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/tvThumbSizeLabel" />
+
+            <com.google.android.material.slider.Slider
+                android:id="@+id/slThumbSize"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:stepSize="1"
+                android:value="8"
+                android:valueFrom="2"
+                android:valueTo="32"
+                android:minWidth="0dp"
+                app:minTouchTargetSize="0dp"
+                app:trackColorInactive="@color/black_20"
+                app:thumbHeight="24dp"
+                app:tickVisible="false"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvThumbSizeLabel" />
+
+            <TextView
+                android:id="@+id/tvThumbColorLabel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Thumb Color"
+                android:textAppearance="@style/TextAppearance.Inter.Regular.B2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/slThumbSize" />
+
+            <HorizontalScrollView
+                android:id="@+id/hsvThumbColor"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:scrollbars="none"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvThumbColorLabel">
+
+                <id.co.edtslib.edtsuikit.color.ColorPaletteView
+                    android:id="@+id/paletteThumb"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </HorizontalScrollView>
+
+            <com.google.android.material.divider.MaterialDivider
+                android:id="@+id/divider2"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="16dp"
+                app:dividerColor="@color/black_30"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/hsvThumbColor" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvShadowLabel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="Inner Shadow"
+            android:textAppearance="@style/TextAppearance.Inter.Regular.B2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/groupThumb" />
+
+        <com.google.android.material.materialswitch.MaterialSwitch
+            android:id="@+id/swShadow"
+            style="@style/Widget.EDTS.UIKit.Switch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minHeight="@dimen/xs"
+            app:layout_constraintBottom_toBottomOf="@id/tvShadowLabel"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tvShadowLabel" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/groupShadow"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvShadowLabel">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvShadowXLabel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Offset X"
+                android:textAppearance="@style/TextAppearance.Inter.Regular.B2"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvShadowXValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:textAppearance="@style/TextAppearance.Inter.SemiBold.B3"
+                app:layout_constraintBottom_toBottomOf="@id/tvShadowXLabel"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/tvShadowXLabel" />
+
+            <com.google.android.material.slider.Slider
+                android:id="@+id/slShadowX"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:stepSize="0.5"
+                android:value="0"
+                android:valueFrom="-8"
+                android:valueTo="8"
+                android:minWidth="0dp"
+                app:minTouchTargetSize="0dp"
+                app:trackColorInactive="@color/black_20"
+                app:thumbHeight="24dp"
+                app:tickVisible="false"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvShadowXLabel" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvShadowYLabel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Offset Y"
+                android:textAppearance="@style/TextAppearance.Inter.Regular.B2"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/slShadowX" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvShadowYValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:textAppearance="@style/TextAppearance.Inter.SemiBold.B3"
+                app:layout_constraintBottom_toBottomOf="@id/tvShadowYLabel"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/tvShadowYLabel" />
+
+            <com.google.android.material.slider.Slider
+                android:id="@+id/slShadowY"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:stepSize="0.5"
+                android:value="0"
+                android:valueFrom="-8"
+                android:valueTo="8"
+                android:minWidth="0dp"
+                app:minTouchTargetSize="0dp"
+                app:trackColorInactive="@color/black_20"
+                app:thumbHeight="24dp"
+                app:tickVisible="false"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvShadowYLabel" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvShadowSpreadLabel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Spread"
+                android:textAppearance="@style/TextAppearance.Inter.Regular.B2"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/slShadowY" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvShadowSpreadValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:textAppearance="@style/TextAppearance.Inter.SemiBold.B3"
+                app:layout_constraintBottom_toBottomOf="@id/tvShadowSpreadLabel"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/tvShadowSpreadLabel" />
+
+            <com.google.android.material.slider.Slider
+                android:id="@+id/slShadowSpread"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:stepSize="0.5"
+                android:value="0"
+                android:valueFrom="0"
+                android:valueTo="8"
+                android:minWidth="0dp"
+                app:minTouchTargetSize="0dp"
+                app:trackColorInactive="@color/black_20"
+                app:thumbHeight="24dp"
+                app:tickVisible="false"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvShadowSpreadLabel" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.google.android.material.divider.MaterialDivider
+            android:id="@+id/divider"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="16dp"
+            app:dividerColor="@color/black_30"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/groupShadow" />
+
+        <TextView
+            android:id="@+id/tvIndicatorColorLabel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Indicator Color"
+            android:textAppearance="@style/TextAppearance.Inter.Regular.B2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/divider" />
+
+        <HorizontalScrollView
+            android:id="@+id/hsvIndicatorColor"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:scrollbars="none"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvIndicatorColorLabel">
+
+            <id.co.edtslib.edtsuikit.color.ColorPaletteView
+                android:id="@+id/paletteIndicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </HorizontalScrollView>
+
+        <TextView
+            android:id="@+id/tvTrackColorLabel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Track Color"
+            android:textAppearance="@style/TextAppearance.Inter.Regular.B2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/hsvIndicatorColor" />
+
+        <HorizontalScrollView
+            android:id="@+id/hsvTrackColor"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:scrollbars="none"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvTrackColorLabel">
+
+            <id.co.edtslib.edtsuikit.color.ColorPaletteView
+                android:id="@+id/paletteTrack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </HorizontalScrollView>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/groupCompleted"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/hsvTrackColor">
+
+            <TextView
+                android:id="@+id/tvCompletedColorLabel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Completed Track Color"
+                android:textAppearance="@style/TextAppearance.Inter.Regular.B2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <HorizontalScrollView
+                android:id="@+id/hsvCompletedColor"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:scrollbars="none"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvCompletedColorLabel">
+
+                <id.co.edtslib.edtsuikit.color.ColorPaletteView
+                    android:id="@+id/paletteCompleted"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </HorizontalScrollView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>

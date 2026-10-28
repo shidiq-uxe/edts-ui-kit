@@ -58,4 +58,9 @@
     <!--Text Badge-->
     <color name="text_badge_background_blue_gradient_start">#6CB8FC</color>
     <color name="text_badge_background_blue_gradient_end">@color/poinku_color_primary_blue_30</color>
+
+    <!--Progress Bar-->
+    <color name="poinku_color_progress_bar_light_blue">#6CB8FC</color>
+    <color name="poinku_color_progress_bar_dark_blue">@color/primary_30</color>
+    <color name="poinku_color_progress_bar_black_opacity">#1A000000</color>
 </resources>

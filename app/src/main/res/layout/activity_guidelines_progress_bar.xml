@@ -1,187 +1,192 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:clipChildren="false"
     tools:context=".GuidelinesProgressBarActivity">
 
-    <id.co.edtslib.uikit.progressindicator.DoubleArcProgressIndicator
-        android:id="@+id/piSample"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/s"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
-
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/tvTitleSingleLap"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/s"
-        android:layout_marginBottom="@dimen/s"
-        android:text="Single Lap Progress Bar"
-        style="@style/TextAppearance.Inter.Semibold.H2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/piSample"/>
-
-    <id.co.edtslib.uikit.progressbar.LinearProgressBar
-        android:id="@+id/gLPBSingleLap"
+    <LinearLayout
+        android:id="@+id/main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/s"
-        app:layout_constraintTop_toBottomOf="@id/tvTitleSingleLap"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        android:orientation="vertical"
+        android:clipChildren="false"
+        android:paddingHorizontal="@dimen/dimen_16"
+        android:paddingBottom="@dimen/dimen_32">
 
-    <id.co.edtslib.uikit.button.Button
-        android:id="@+id/btnProgressSingleLap"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/s"
-        android:text="Animate Progress"
-        app:layout_constraintTop_toBottomOf="@id/gLPBSingleLap"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_16"
+            android:text="Live Preview"
+            android:layout_gravity="center"
+            style="@style/TextAppearance.Inter.SemiBold.B2" />
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/tvTitleMultiLap"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/s"
-        android:text="Multi Lap Progress Bar"
-        style="@style/TextAppearance.Inter.Semibold.H2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btnProgressSingleLap"/>
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_8dp"
+            android:minHeight="80dp"
+            app:cardBackgroundColor="@color/black_10"
+            app:strokeWidth="1dp"
+            app:strokeColor="@color/black_20"
+            app:cardCornerRadius="@dimen/xxs"
+            app:cardElevation="0dp">
 
-    <id.co.edtslib.uikit.progressbar.LinearProgressBar
-        android:id="@+id/gLPBMultiLap"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/s"
-        app:layout_constraintTop_toBottomOf="@id/tvTitleMultiLap"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+            <FrameLayout
+                android:id="@+id/previewContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="80dp"
+                android:padding="@dimen/dimen_16" />
 
-    <id.co.edtslib.uikit.button.Button
-        android:id="@+id/btnProgressMultiLap"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/s"
-        android:text="Animate Progress"
-        app:layout_constraintTop_toBottomOf="@id/gLPBMultiLap"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        </com.google.android.material.card.MaterialCardView>
+        <id.co.edtslib.uikit.button.Button
+            android:id="@+id/btnPreviewAnimate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_8dp"
+            android:text="Animate Progress" />
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/tvTitleLoading"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/s"
-        android:text="Loading State Progress Bar"
-        style="@style/TextAppearance.Inter.Semibold.H2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btnProgressMultiLap"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_32"
+            android:text="Linear Progress Bar"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:background="@color/info_background"
+            android:padding="@dimen/xxs"
+            style="@style/TextAppearance.Inter.Semibold.H2" />
 
-    <id.co.edtslib.uikit.progressbar.LinearProgressBar
-        android:id="@+id/gLPBLoading"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/s"
-        app:layout_constraintTop_toBottomOf="@id/tvTitleLoading"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_32"
+            android:text="Single Lap"
+            android:layout_gravity="center"
+            style="@style/TextAppearance.Inter.SemiBold.B3" />
 
-    <id.co.edtslib.uikit.button.Button
-        android:id="@+id/btnProgressLoading"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/s"
-        android:text="Animate Progress"
-        app:layout_constraintTop_toBottomOf="@id/gLPBLoading"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        <id.co.edtslib.uikit.core.linearprogressbar.CoreLinearProgressBar
+            android:id="@+id/gLPBSingleLap"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_8dp" />
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/tvTitleDisabled"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/s"
-        android:text="Disabled State Progress Bar"
-        style="@style/TextAppearance.Inter.Semibold.H2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btnProgressLoading"/>
+        <id.co.edtslib.uikit.button.Button
+            android:id="@+id/btnProgressSingleLap"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_8dp"
+            android:text="Animate Progress" />
 
-    <id.co.edtslib.uikit.progressbar.LinearProgressBar
-        android:id="@+id/gLPBDisabled"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/s"
-        app:layout_constraintTop_toBottomOf="@id/tvTitleDisabled"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_32"
+            android:text="Multi Lap"
+            android:layout_gravity="center"
+            style="@style/TextAppearance.Inter.SemiBold.B3" />
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/tvTitleIntermittent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/s"
-        android:text="Intermittent State Progress Bar"
-        style="@style/TextAppearance.Inter.Semibold.H2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/gLPBDisabled"/>
+        <id.co.edtslib.uikit.core.linearprogressbar.CoreLinearProgressBar
+            android:id="@+id/gLPBMultiLap"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_8dp" />
 
-    <id.co.edtslib.uikit.progressbar.LinearProgressBar
-        android:id="@+id/gLPBIntermittentFixed"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/s"
-        app:layout_constraintTop_toBottomOf="@id/tvTitleIntermittent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        <id.co.edtslib.uikit.button.Button
+            android:id="@+id/btnProgressMultiLap"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_8dp"
+            android:text="Animate Progress" />
 
-    <id.co.edtslib.uikit.progressbar.LinearProgressBar
-        android:id="@+id/gLPBIntermittentStretch"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/s"
-        app:layout_constraintTop_toBottomOf="@id/gLPBIntermittentFixed"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_32"
+            android:text="Loading State"
+            android:layout_gravity="center"
+            style="@style/TextAppearance.Inter.SemiBold.B3" />
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/tvTitleCircular"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/s"
-        android:text="Circular Progress Bar"
-        style="@style/TextAppearance.Inter.Semibold.H2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/gLPBIntermittentStretch"/>
+        <id.co.edtslib.uikit.core.linearprogressbar.CoreLinearProgressBar
+            android:id="@+id/gLPBLoading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_8dp" />
 
-    <id.co.edtslib.uikit.progressbar.GradientCircularProgressBar
-        android:id="@+id/gCPB"
-        android:layout_width="@dimen/dimen_0"
-        android:layout_height="@dimen/dimen_0"
-        android:layout_margin="@dimen/s"
-        app:indicatorProgress="20"
-        app:layout_constraintTop_toBottomOf="@id/tvTitleCircular"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintDimensionRatio="1:1"
-        app:layout_constraintWidth_percent="0.3"/>
+        <id.co.edtslib.uikit.button.Button
+            android:id="@+id/btnProgressLoading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_8dp"
+            android:text="Animate Progress" />
 
-    <id.co.edtslib.uikit.button.Button
-        android:id="@+id/btnVisibility"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/s"
-        android:text="Animate Progress"
-        app:layout_constraintTop_toBottomOf="@id/gCPB"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_32"
+            android:text="Disabled State"
+            android:layout_gravity="center"
+            style="@style/TextAppearance.Inter.SemiBold.B3" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <id.co.edtslib.uikit.core.linearprogressbar.CoreLinearProgressBar
+            android:id="@+id/gLPBDisabled"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_8dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_32"
+            android:text="Intermittent State"
+            android:layout_gravity="center"
+            style="@style/TextAppearance.Inter.SemiBold.B3" />
+
+        <id.co.edtslib.uikit.core.linearprogressbar.CoreLinearProgressBar
+            android:id="@+id/gLPBIntermittentFixed"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_8dp" />
+
+        <id.co.edtslib.uikit.core.linearprogressbar.CoreLinearProgressBar
+            android:id="@+id/gLPBIntermittentStretch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_8dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_32"
+            android:text="Circular Progress Bar"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:background="@color/info_background"
+            android:padding="@dimen/xxs"
+            style="@style/TextAppearance.Inter.Semibold.H2" />
+
+        <id.co.edtslib.uikit.progressindicator.DoubleArcProgressIndicator
+            android:id="@+id/piSample"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_8dp" />
+
+        <id.co.edtslib.uikit.progressbar.GradientCircularProgressBar
+            android:id="@+id/gCPB"
+            android:layout_width="96dp"
+            android:layout_height="96dp"
+            android:layout_marginTop="@dimen/dimen_8dp"
+            android:layout_gravity="center"
+            app:indicatorProgress="20" />
+        <id.co.edtslib.uikit.button.Button
+            android:id="@+id/btnVisibility"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_8dp"
+            android:text="Animate Progress" />
+
+    </LinearLayout>
+</ScrollView>

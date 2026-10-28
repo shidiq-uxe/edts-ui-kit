@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Widget.EDTS.UIKit.LinearProgressBar" parent="" />
+
+    <style name="Widget.EDTS.UIKit.LinearProgressBar.Poinku" parent="Widget.EDTS.UIKit.LinearProgressBar">
+        <item name="trackThickness">4dp</item>
+        <item name="trackPadding">0dp</item>
+        <item name="indicatorPadding">0dp</item>
+        <item name="trackColor">@color/poinku_color_neutral_white</item>
+        <item name="showThumb">false</item>
+        <item name="completedIndicatorColor">@color/primary_10</item>
+        <item name="innerShadowColor">@color/poinku_color_progress_bar_black_opacity</item>
+        <item name="innerShadowOffsetX">-0.5</item>
+        <item name="innerShadowOffsetY">-0.5</item>
+        <item name="innerShadowBlur">4</item>
+        <item name="innerShadowSpread">1</item>
+        <item name="showBadge">false</item>
+    </style>
+
+    <style name="Widget.EDTS.UIKit.LinearProgressBar.Klik" parent="Widget.EDTS.UIKit.LinearProgressBar">
+        <item name="trackThickness">6dp</item>
+        <item name="trackPadding">0dp</item>
+        <item name="indicatorPadding">1dp</item>
+        <item name="trackColor">@color/black_20</item>
+        <item name="showThumb">true</item>
+        <item name="thumbSize">@dimen/xxs</item>
+        <item name="completedIndicatorColor">@color/primary_10</item>
+        <item name="innerShadowColor">@color/progress_bar_black_opacity</item>
+        <item name="innerShadowOffsetX">1</item>
+        <item name="innerShadowOffsetY">2</item>
+        <item name="innerShadowBlur">5</item>
+        <item name="innerShadowSpread">0</item>
+        <item name="showBadge">false</item>
+    </style>
+
+    <style name="ThemeOverlay.EDTS.UIKit.LinearProgressBar.Poinku" parent="">
+        <item name="linearProgressBarStyle">@style/Widget.EDTS.UIKit.LinearProgressBar.Poinku</item>
+    </style>
+
+    <style name="ThemeOverlay.EDTS.UIKit.LinearProgressBar.Klik" parent="">
+        <item name="linearProgressBarStyle">@style/Widget.EDTS.UIKit.LinearProgressBar.Klik</item>
+    </style>
+
+</resources>
