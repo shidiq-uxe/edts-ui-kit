@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Widget.EDTS.UIKit.Chip.Core" parent="" />
+    <style name="Widget.EDTS.UIKit.Chip.Klik.Suggestion" parent="" />
+    <style name="Widget.EDTS.UIKit.Chip.Klik.Filters" parent="" />
+    <style name="Widget.EDTS.UIKit.Chip.Poinku" parent="" />
+
+    <style name="ThemeOverlay.EDTS.UIKit.Chip.Klik" parent="">
+        <item name="coreChipStyle">@style/Widget.EDTS.UIKit.Chip.Klik.Suggestion</item>
+    </style>
+
+    <style name="ThemeOverlay.EDTS.UIKit.Chip.Poinku" parent="">
+        <item name="coreChipStyle">@style/Widget.EDTS.UIKit.Chip.Poinku</item>
+    </style>
+</resources>
