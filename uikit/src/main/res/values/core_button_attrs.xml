@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="coreButtonStyle" format="reference" />
+
+    <declare-styleable name="CoreButton">
+        <attr name="buttonRecipe" format="reference" />
+        <attr name="startIcon" />
+        <attr name="endIcon" />
+        <attr name="shouldShowShimmer" />
+        <attr name="pressedScale" />
+        <attr name="isDestructive" />
+        <attr name="android:minWidth" />
+        <attr name="android:minHeight" />
+        <attr name="android:includeFontPadding" />
+        <attr name="android:textAllCaps" />
+        <attr name="android:stateListAnimator" />
+        <attr name="android:elevation" />
+        <attr name="cornerRadius" />
+    </declare-styleable>
+</resources>
