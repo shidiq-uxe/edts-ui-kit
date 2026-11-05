@@ -9,9 +9,10 @@ Use `LayoutTransition` on the information-section root to animate the discount b
 | Collapse space             | Discounts become `GONE`; selector moves immediately.                   | **0 ms**                                    |
 | Keep space                 | Discounts become `INVISIBLE` during spotlight; space stays reserved.   | **0 ms**; no layout movement                |
 | Animate space              | Discounts fade out/in while space collapses/expands.                   | **300 ms**, with **0 ms** start delays      |
+| Hide discounts during spotlight | Both views stay `GONE` throughout spotlight. Dismissal keeps Satuan selected without a discount; selecting Karton afterward shows its discount. | **0 ms**; no layout movement during spotlight |
 | Spotlight follows selector | Cutout, card, and default pointer follow the target's rendered bounds. | Follows layout frames, no separate duration |
 
-When the selected variant has a discount, both views are `VISIBLE` in every scenario. Hidden discounts use `GONE` once the spotlight ends.
+There are four scenarios. In scenarios 1–3, a discounted variant shows both views. Scenario 4 suppresses them throughout spotlight. Dismissal keeps Satuan selected; hidden discounts use `GONE`.
 
 ## Mirror the animation
 
@@ -38,6 +39,7 @@ Update prices first, then apply visibility using the selected variant's discount
 
 ```kotlin
 val visibility = when {
+    deferKartonDiscount && spotlightVisible -> View.GONE
     hasDiscount -> View.VISIBLE
     keepSpace && spotlightVisible -> View.INVISIBLE
     else -> View.GONE
@@ -46,7 +48,7 @@ binding.discountBadge.visibility = visibility
 binding.tvProductPriceCutOff.visibility = visibility
 ```
 
-`keepSpace` means the Keep space scenario; `spotlightVisible` comes from the active overlay. Fading and layout movement overlap; no separate selector animator is needed.
+`keepSpace` identifies scenario 2; `deferKartonDiscount` identifies scenario 4. `spotlightVisible` comes from the active overlay. In scenario 4, only Karton has a discount. Reset to Satuan with both views `GONE` before measuring the spotlight and keep Satuan selected after dismissal. Selecting Karton afterward reveals its discount. Fading and layout movement overlap in Animate space; no separate selector animator is needed.
 
 ## Keep the spotlight aligned
 
