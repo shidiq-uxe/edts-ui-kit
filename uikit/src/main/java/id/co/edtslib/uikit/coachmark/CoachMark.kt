@@ -8,28 +8,26 @@ import android.animation.ValueAnimator
 import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Canvas
-import android.graphics.Color
-import android.graphics.Outline
 import android.graphics.Paint
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffXfermode
-import android.graphics.Rect
 import android.graphics.RectF
-import android.os.Build
 import android.util.AttributeSet
-import android.util.Log
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
-import android.view.ViewOutlineProvider
+import android.view.ViewTreeObserver
 import android.widget.FrameLayout
+import androidx.activity.OnBackPressedCallback
+import androidx.activity.findViewTreeOnBackPressedDispatcherOwner
 import androidx.annotation.LayoutRes
 import androidx.annotation.StyleRes
 import androidx.appcompat.view.ContextThemeWrapper
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.constraintlayout.widget.ConstraintSet
+import androidx.core.view.OneShotPreDrawListener
+import androidx.core.view.doOnLayout
+import androidx.core.view.doOnPreDraw
 import androidx.core.view.isVisible
 import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.FragmentActivity
@@ -37,17 +35,12 @@ import com.google.android.material.shape.OffsetEdgeTreatment
 import com.google.android.material.shape.ShapeAppearanceModel
 import id.co.edtslib.uikit.R
 import id.co.edtslib.uikit.databinding.ViewCoachmarkUikitBinding
+import id.co.edtslib.uikit.utils.color
 import id.co.edtslib.uikit.utils.deviceHeight
 import id.co.edtslib.uikit.utils.deviceWidth
 import id.co.edtslib.uikit.utils.dp
-import id.co.edtslib.uikit.utils.inflater
 import id.co.edtslib.uikit.utils.interpolator.EaseInterpolator
-import id.co.edtslib.uikit.utils.isDeviceStruggling
 import kotlin.math.max
-import androidx.core.graphics.toColorInt
-import androidx.core.view.doOnPreDraw
-import androidx.core.view.updateMargins
-import id.co.edtslib.uikit.utils.color
 
 class CoachMarkOverlay @JvmOverloads constructor(
     rawContext: Context,
@@ -91,6 +84,26 @@ class CoachMarkOverlay @JvmOverloads constructor(
     private var spotlightShape = SpotlightShape.ROUNDED_RECTANGLE
     private var targetRect: RectF? = null
     private var spotlightScale: Float = 1f
+    private var trackedTargetView: View? = null
+    private var trackedTargetPadding = 8.dp.toInt()
+    private var targetTreeObserver: ViewTreeObserver? = null
+    private var pendingTargetPreDraw: OneShotPreDrawListener? = null
+    private var activeAnimation: Animator? = null
+    private var isDismissing = false
+    // LayoutTransition can reset bounds after pre-draw, so read them immediately before drawing.
+    private val targetDrawListener = ViewTreeObserver.OnDrawListener {
+        refreshTrackedTarget()
+    }
+    private val backPressedCallback = object : OnBackPressedCallback(true) {
+        override fun handleOnBackPressed() {
+            if (!isVisible) {
+                isEnabled = false
+                findViewTreeOnBackPressedDispatcherOwner()?.onBackPressedDispatcher?.onBackPressed()
+                return
+            }
+            if (isDismissible) dismiss {}
+        }
+    }
     private var coachMarkItems: List<CoachMarkData> = emptyList()
     private var currentCoachMarkIndex: Int = 0
     private var isDismissible = false
@@ -272,6 +285,7 @@ class CoachMarkOverlay @JvmOverloads constructor(
      * Sets a [View] as the spotlight target.
      * Defers coordinate calculation via [doOnPreDraw] to guarantee
      * the view is fully measured and laid out.
+     * Follows subsequent target movement until dismissal or detachment.
      *
      * @param target the view to highlight.
      * @param shape the shape of the spotlight cutout.
@@ -282,12 +296,50 @@ class CoachMarkOverlay @JvmOverloads constructor(
         shape: SpotlightShape = SpotlightShape.ROUNDED_RECTANGLE,
         padding: Int = 8.dp.toInt()
     ) {
+        stopTargetTracking()
+        activeAnimation?.cancel()
+        isDismissing = false
         this.spotlightShape = shape
-        target.doOnPreDraw {
-            targetRect = calculateTargetRect(target, padding)
-            updateCoachmarkPosition(targetRect!!)
+        trackedTargetView = target
+        trackedTargetPadding = padding
+        targetRect = null
+        pendingTargetPreDraw = doOnPreDraw {
+            pendingTargetPreDraw = null
+            refreshTrackedTarget()
+            startTargetTracking()
             startSpotlightAnimation()
         }
+    }
+
+    private fun startTargetTracking() {
+        if (!isAttachedToWindow || isDismissing || trackedTargetView == null) return
+        if (targetTreeObserver?.isAlive == true) return
+        targetTreeObserver = viewTreeObserver.also {
+            it.addOnDrawListener(targetDrawListener)
+        }
+    }
+
+    private fun stopTargetTracking() {
+        pendingTargetPreDraw?.removeListener()
+        pendingTargetPreDraw = null
+        targetTreeObserver?.takeIf { it.isAlive }?.removeOnDrawListener(targetDrawListener)
+        targetTreeObserver = null
+    }
+
+    private fun refreshTrackedTarget() {
+        val target = trackedTargetView ?: return
+        if (isDismissing || !isVisible || !target.isAttachedToWindow) return
+        val newRect = calculateTargetRect(target, trackedTargetPadding)
+        if (newRect == targetRect) return
+        targetRect = newRect
+        updateCoachmarkPosition(newRect)
+        invalidate()
+    }
+
+    private fun registerBackHandler() {
+        backPressedCallback.remove()
+        backPressedCallback.isEnabled = true
+        findViewTreeOnBackPressedDispatcherOwner()?.onBackPressedDispatcher?.addCallback(backPressedCallback)
     }
 
     /**
@@ -307,6 +359,10 @@ class CoachMarkOverlay @JvmOverloads constructor(
         rect: RectF,
         shape: SpotlightShape = SpotlightShape.ROUNDED_RECTANGLE
     ) {
+        stopTargetTracking()
+        activeAnimation?.cancel()
+        trackedTargetView = null
+        isDismissing = false
         this.spotlightShape = shape
         this.targetRect = rect
         updateCoachmarkPosition(rect)
@@ -430,24 +486,16 @@ class CoachMarkOverlay @JvmOverloads constructor(
      * @param rect the target rectangle.
      */
     private fun updateCoachmarkPosition(rect: RectF) {
-        coachmarkContainer.post {
-            if (coachmarkContainer.width <= 0 || coachmarkContainer.height <= 0) {
-                coachmarkContainer.measure(
-                    MeasureSpec.makeMeasureSpec(
-                        (context.deviceWidth * coachmarkDefaultWidthPercent).toInt(),
-                        MeasureSpec.EXACTLY
-                    ),
-                    MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED)
-                )
-            }
-
-            val (newX, newY) = computeCoachmarkPosition(rect)
-            coachmarkContainer.translationX = newX
-            coachmarkContainer.translationY = newY
-
-            val edgeIsAtTop = resolveEdgeIsAtTop(rect, newY)
-            updateCoachMarkShapeAppearanceEdge(rect.centerX(), edgeIsAtTop)
+        if (coachmarkContainer.width <= 0 || coachmarkContainer.height <= 0) {
+            coachmarkContainer.doOnLayout { updateCoachmarkPosition(targetRect ?: rect) }
+            return
         }
+        val (newX, newY) = computeCoachmarkPosition(rect)
+        coachmarkContainer.translationX = newX
+        coachmarkContainer.translationY = newY
+
+        val edgeIsAtTop = resolveEdgeIsAtTop(rect, newY)
+        updateCoachMarkShapeAppearanceEdge(rect.centerX(), edgeIsAtTop)
     }
 
     /**
@@ -478,32 +526,33 @@ class CoachMarkOverlay @JvmOverloads constructor(
         isEdgeAtTop: Boolean,
         cardLeft: Float? = null
     ) {
-        coachmarkBinding?.cardContainer?.post {
-            val actualCardLeft = cardLeft ?: coachmarkContainer.translationX
-            val cardRight = actualCardLeft + coachmarkContainer.width
-            val cardCenterX = (actualCardLeft + cardRight) / 2f
-            val offsetFromCardCenter = targetCenterX - cardCenterX
-
-            val verticalBasedOffset = if (isEdgeAtTop) -offsetFromCardCenter else offsetFromCardCenter
-
-            val cardWidth = coachmarkBinding?.cardContainer?.width?.toFloat() ?: return@post
-            if (cardWidth <= 0f) return@post
-
-            val maxOffset = (cardWidth / 2f - 16.dp).coerceAtLeast(0f)
-            val clampedOffset = verticalBasedOffset.coerceIn(-maxOffset, maxOffset)
-
-            val markerEdgeTreatment = RoundTipTriangleEdgeTreatment(12.dp, 8.dp, (1.5).toInt().dp, isEdgeAtTop)
-            val offsetEdgeTreatment = OffsetEdgeTreatment(markerEdgeTreatment, clampedOffset)
-
-            coachmarkBinding?.cardContainer?.shapeAppearanceModel =
-                ShapeAppearanceModel().toBuilder()
-                    .setAllCornerSizes(8.dp)
-                    .apply {
-                        if (isEdgeAtTop) setTopEdge(offsetEdgeTreatment)
-                        else setBottomEdge(offsetEdgeTreatment)
-                    }
-                    .build()
+        val card = coachmarkBinding?.cardContainer ?: return
+        if (card.width <= 0) {
+            card.doOnLayout { updateCoachMarkShapeAppearanceEdge(targetCenterX, isEdgeAtTop, cardLeft) }
+            return
         }
+        val actualCardLeft = cardLeft ?: coachmarkContainer.translationX
+        val cardRight = actualCardLeft + coachmarkContainer.width
+        val cardCenterX = (actualCardLeft + cardRight) / 2f
+        val offsetFromCardCenter = targetCenterX - cardCenterX
+
+        val verticalBasedOffset = if (isEdgeAtTop) -offsetFromCardCenter else offsetFromCardCenter
+        val cardWidth = card.width.toFloat()
+        if (cardWidth <= 0f) return
+
+        val maxOffset = (cardWidth / 2f - 16.dp).coerceAtLeast(0f)
+        val clampedOffset = verticalBasedOffset.coerceIn(-maxOffset, maxOffset)
+
+        val markerEdgeTreatment = RoundTipTriangleEdgeTreatment(12.dp, 8.dp, (1.5).toInt().dp, isEdgeAtTop)
+        val offsetEdgeTreatment = OffsetEdgeTreatment(markerEdgeTreatment, clampedOffset)
+
+        card.shapeAppearanceModel = ShapeAppearanceModel().toBuilder()
+            .setAllCornerSizes(8.dp)
+            .apply {
+                if (isEdgeAtTop) setTopEdge(offsetEdgeTreatment)
+                else setBottomEdge(offsetEdgeTreatment)
+            }
+            .build()
     }
 
     /**
@@ -513,8 +562,11 @@ class CoachMarkOverlay @JvmOverloads constructor(
      * @param onTransitionEnd callback when the transition ends.
      */
     private fun transitionToTarget(newTarget: View, onTransitionEnd: () -> Unit) {
-        val newRect = calculateTargetRect(newTarget)
-        val currentRect = targetRect ?: newRect
+        stopTargetTracking()
+        activeAnimation?.cancel()
+        trackedTargetView = newTarget
+        val newRect = calculateTargetRect(newTarget, trackedTargetPadding)
+        val currentRect = RectF(targetRect ?: newRect)
 
         val (currentX, currentY) = computeCoachmarkPosition(currentRect)
         val (finalX, finalY) = computeCoachmarkPosition(newRect)
@@ -527,7 +579,7 @@ class CoachMarkOverlay @JvmOverloads constructor(
         currentCoachMarkIndex++
         updateCoachMarkContent()
 
-        ValueAnimator.ofFloat(0f, 1f).apply {
+        activeAnimation = ValueAnimator.ofFloat(0f, 1f).apply {
             duration = SPOTLIGHT_ENTER_EXIT_DURATION
             interpolator = EaseInterpolator.EaseInOutQubicInterpolator
             addUpdateListener { animation ->
@@ -544,7 +596,17 @@ class CoachMarkOverlay @JvmOverloads constructor(
                 invalidate()
             }
             addListener(object : AnimatorListenerAdapter() {
+                private var isCancelled = false
+
+                override fun onAnimationCancel(animation: Animator) {
+                    isCancelled = true
+                }
+
                 override fun onAnimationEnd(animation: Animator) {
+                    if (isCancelled || isDismissing) return
+                    trackedTargetView = newTarget
+                    startTargetTracking()
+                    invalidate()
                     onTransitionEnd()
                 }
             })
@@ -569,6 +631,8 @@ class CoachMarkOverlay @JvmOverloads constructor(
      * Animates the entrance of the spotlight and fades in the coachmark card.
      */
     fun startSpotlightAnimation() {
+        activeAnimation?.cancel()
+        if (isAttachedToWindow) registerBackHandler()
         val spotlightAnimator = ValueAnimator.ofFloat(0f, 1f).apply {
             duration = SPOTLIGHT_ENTER_EXIT_DURATION
             interpolator = EaseInterpolator.EaseOutQubicInterpolator
@@ -581,7 +645,7 @@ class CoachMarkOverlay @JvmOverloads constructor(
             duration = COACHMARK_ENTER_DURATION
             interpolator = EaseInterpolator.EaseOutQubicInterpolator
         }
-        AnimatorSet().apply {
+        activeAnimation = AnimatorSet().apply {
             playTogether(spotlightAnimator, coachmarkAlphaAnimator)
             start()
         }
@@ -594,6 +658,10 @@ class CoachMarkOverlay @JvmOverloads constructor(
      * @param onAnimationEnd callback invoked after the overlay is hidden.
      */
     fun dismiss(onAnimationEnd: () -> Unit) {
+        if (isDismissing) return
+        isDismissing = true
+        stopTargetTracking()
+        activeAnimation?.cancel()
         val cardFadeOut = ObjectAnimator.ofFloat(coachmarkContainer, ALPHA, 0f).apply {
             duration = COACHMARK_EXIT_DURATION
             interpolator = EaseInterpolator.EaseInQubicInterpolator
@@ -606,10 +674,18 @@ class CoachMarkOverlay @JvmOverloads constructor(
                 invalidate()
             }
         }
-        AnimatorSet().apply {
+        activeAnimation = AnimatorSet().apply {
             playTogether(cardFadeOut, spotlightCollapse)
             addListener(object : AnimatorListenerAdapter() {
+                private var isCancelled = false
+
+                override fun onAnimationCancel(animation: Animator) {
+                    isCancelled = true
+                }
+
                 override fun onAnimationEnd(animation: Animator) {
+                    if (isCancelled) return
+                    backPressedCallback.remove()
                     this@CoachMarkOverlay.isVisible = false
                     coachMarkDelegate?.onDismissListener()
                     onAnimationEnd()
@@ -651,6 +727,8 @@ class CoachMarkOverlay @JvmOverloads constructor(
 
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
+        startTargetTracking()
+        if (!isDismissing) registerBackHandler()
         isFocusableInTouchMode = true
         requestFocus()
         setOnKeyListener { _, keyCode, event ->
@@ -660,6 +738,13 @@ class CoachMarkOverlay @JvmOverloads constructor(
             }
             false
         }
+    }
+
+    override fun onDetachedFromWindow() {
+        stopTargetTracking()
+        backPressedCallback.remove()
+        activeAnimation?.cancel()
+        super.onDetachedFromWindow()
     }
 
     private fun lerp(start: Float, end: Float, fraction: Float): Float =
