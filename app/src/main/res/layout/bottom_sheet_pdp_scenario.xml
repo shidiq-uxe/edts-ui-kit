@@ -57,6 +57,16 @@
             android:textAppearance="@style/TextAppearance.Inter.SemiBold.B2"
             android:textColor="@color/black_70" />
 
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/rbRevealKartonOnDismiss"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="@dimen/xl"
+            android:paddingStart="@dimen/xxs"
+            android:text="@string/pdp_scenario_reveal_karton"
+            android:textAppearance="@style/TextAppearance.Inter.SemiBold.B2"
+            android:textColor="@color/black_70" />
+
     </RadioGroup>
 
     <com.google.android.material.textview.MaterialTextView

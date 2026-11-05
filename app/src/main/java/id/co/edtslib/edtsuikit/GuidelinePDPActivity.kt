@@ -69,6 +69,9 @@ class GuidelinePDPActivity : GuidelinesBaseActivity() {
     private var informationSectionBinding: ItemPdpInformationSectionBinding? = null
     private var activeCoachmark: CoachMarkOverlay? = null
 
+    private val shouldDeferKartonDiscount: Boolean
+        get() = discountScenario == PdpDiscountScenario.HIDE_DISCOUNTS_DURING_SPOTLIGHT
+
     private val shouldShowWarning by lazy {
         intent.getBooleanExtra(GuidelinesPDPEntryActivity.SHOULD_SHOW_TOAST, false)
     }
@@ -266,7 +269,11 @@ class GuidelinePDPActivity : GuidelinesBaseActivity() {
         quantityType = if (position == 1) QuantityType.DOZEN else QuantityType.SINGLE
         val isSingleSelected = quantityType == QuantityType.SINGLE
         incrementalCount = quantityType.quantity
-        currentProductPrice = if (isSingleSelected) SINGLE_ITEM_PRICE else DOZEN_ITEM_PRICE
+        currentProductPrice = when {
+            isSingleSelected && shouldDeferKartonDiscount -> PRICE_BEFORE_DISCOUNT
+            isSingleSelected -> SINGLE_ITEM_PRICE
+            else -> DOZEN_ITEM_PRICE
+        }
         val discountPercentage = calculateDiscountPercent(PRICE_BEFORE_DISCOUNT, currentProductPrice)
         tvProductPrice.text = currentProductPrice.toCurrency()
         discountBadge.text = "${discountPercentage.roundToInt()}%"
@@ -299,9 +306,12 @@ class GuidelinePDPActivity : GuidelinesBaseActivity() {
             tvProductPriceCutOff.alpha = 1f
         }
 
+        val isSpotlightVisible = activeCoachmark?.isVisible == true
+        val hasDiscount = if (shouldDeferKartonDiscount) !isSingleSelected else isSingleSelected
         val visibility = when {
-            isSingleSelected -> View.VISIBLE
-            discountScenario == PdpDiscountScenario.KEEP_SPACE && activeCoachmark?.isVisible == true -> View.INVISIBLE
+            shouldDeferKartonDiscount && isSpotlightVisible -> View.GONE
+            hasDiscount -> View.VISIBLE
+            discountScenario == PdpDiscountScenario.KEEP_SPACE && isSpotlightVisible -> View.INVISIBLE
             else -> View.GONE
         }
         discountBadge.visibility = visibility

@@ -106,6 +106,8 @@
     <string name="pdp_scenario_keep_description">Saat pilih Kartonan, label diskon dan harga coret disembunyikan, tapi ruangnya tetap ada agar spotlight tetap di tempat. Setelah spotlight ditutup, ruang kosongnya dihapus kalau diskon masih tersembunyi.</string>
     <string name="pdp_scenario_animate">Animate discount space</string>
     <string name="pdp_scenario_animate_description">Saat pilih Kartonan, label diskon dan harga coret perlahan hilang dan ruangnya ikut mengecil. Pilihan Satuan/Kartonan dan spotlight ikut bergeser berbarengan dengan animasi</string>
+    <string name="pdp_scenario_reveal_karton">Remove both karton/satuan discount before spotlight dismissal</string>
+    <string name="pdp_scenario_reveal_karton_description">Satuan tidak punya diskon, sedangkan Kartonan punya. Label diskon dan harga coret tetap disembunyikan selama spotlight tampil. Setelah spotlight ditutup, pilihan tetap di Satuan. Diskon baru muncul saat pilih Kartonan.</string>
     <string name="pdp_scenario_timing">The spotlight selects Kartonan, then returns to Satuan after 1.25 seconds.</string>
     <string name="pdp_scenario_play">Play spotlight</string>
     <string name="pdp_favorite_scenarios_description">Favorite. Long press for spotlight scenarios.</string>

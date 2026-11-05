@@ -20,6 +20,7 @@ class PdpScenarioBottomSheet : BottomSheetTray() {
                 PdpDiscountScenario.COLLAPSE_SPACE -> R.string.pdp_scenario_collapse_description
                 PdpDiscountScenario.KEEP_SPACE -> R.string.pdp_scenario_keep_description
                 PdpDiscountScenario.ANIMATE_SPACE -> R.string.pdp_scenario_animate_description
+                PdpDiscountScenario.HIDE_DISCOUNTS_DURING_SPOTLIGHT -> R.string.pdp_scenario_reveal_karton_description
             }
         )
     }
@@ -57,6 +58,7 @@ class PdpScenarioBottomSheet : BottomSheetTray() {
                 PdpDiscountScenario.COLLAPSE_SPACE -> R.id.rbCollapseSpace
                 PdpDiscountScenario.KEEP_SPACE -> R.id.rbKeepSpace
                 PdpDiscountScenario.ANIMATE_SPACE -> R.id.rbAnimateSpace
+                PdpDiscountScenario.HIDE_DISCOUNTS_DURING_SPOTLIGHT -> R.id.rbRevealKartonOnDismiss
             }
         )
         updateDescription()
@@ -64,6 +66,7 @@ class PdpScenarioBottomSheet : BottomSheetTray() {
             discountScenario = when (checkedId) {
                 R.id.rbKeepSpace -> PdpDiscountScenario.KEEP_SPACE
                 R.id.rbAnimateSpace -> PdpDiscountScenario.ANIMATE_SPACE
+                R.id.rbRevealKartonOnDismiss -> PdpDiscountScenario.HIDE_DISCOUNTS_DURING_SPOTLIGHT
                 else -> PdpDiscountScenario.COLLAPSE_SPACE
             }
             updateDescription()
