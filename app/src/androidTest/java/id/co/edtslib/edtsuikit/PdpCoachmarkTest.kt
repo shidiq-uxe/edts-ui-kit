@@ -295,6 +295,136 @@ class PdpCoachmarkTest {
         }
     }
 
+    @Test
+    fun hiddenDiscountScenarioKeepsLayoutStableAndSatuanSelected() {
+        withPdp { activity, _ ->
+            dismissCoachmark(activity)
+            val overlay = playScenario(activity, PdpDiscountScenario.HIDE_DISCOUNTS_DURING_SPOTLIGHT)
+            val selection = activity.findViewById<PDPSelectionGroup>(R.id.pdpSelectionGroup)
+            val badge = activity.findViewById<View>(R.id.discountBadge)
+            val cutOff = activity.findViewById<View>(R.id.tvProductPriceCutOff)
+            val footer = activity.findViewById<PDPFooter>(R.id.pdpFooter)
+            var originalSelectorY = 0
+            var originalCardY = 0f
+            var hasExposedDiscount = false
+            var hasMoved = false
+            val listener = ViewTreeObserver.OnDrawListener {
+                hasExposedDiscount = hasExposedDiscount || badge.visibility != View.GONE || cutOff.visibility != View.GONE
+                hasMoved = hasMoved || centerInOverlay(selection, overlay).second != originalSelectorY ||
+                    overlay.getChildAt(0).translationY != originalCardY
+            }
+            instrumentation.runOnMainSync {
+                footer.binding.sbQuantity.setCount(2)
+                assertEquals(0, selection.getSelectedPosition())
+                assertEquals(View.GONE, badge.visibility)
+                assertEquals(View.GONE, cutOff.visibility)
+                assertEquals("Rp4.000", activity.findViewById<TextView>(R.id.tvProductPrice).text.toString().withoutSpaces())
+                originalSelectorY = centerInOverlay(selection, overlay).second
+                originalCardY = overlay.getChildAt(0).translationY
+                overlay.viewTreeObserver.addOnDrawListener(listener)
+            }
+            try {
+                awaitCondition("Deferred spotlight must select Karton") { selection.getSelectedPosition() == 1 }
+                val kartonSelectedAt = SystemClock.uptimeMillis()
+                instrumentation.runOnMainSync {
+                    assertEquals(View.GONE, badge.visibility)
+                    assertEquals(View.GONE, cutOff.visibility)
+                    assertEquals("Rp1.800", activity.findViewById<TextView>(R.id.tvProductPrice).text.toString().withoutSpaces())
+                    val center = centerInOverlay(selection, overlay)
+                    assertTrue(isClearAt(overlay, center.first, center.second))
+                }
+                awaitCondition("Deferred spotlight must return to Satuan while still open") {
+                    selection.getSelectedPosition() == 0 && overlay.isVisible
+                }
+                val kartonDuration = SystemClock.uptimeMillis() - kartonSelectedAt
+                assertTrue("Kartonan duration was $kartonDuration ms", kartonDuration in 1000..1600)
+                instrumentation.runOnMainSync {
+                    assertTrue("Discounts must stay GONE throughout spotlight", !hasExposedDiscount)
+                    assertTrue("Selector and coachmark must stay at their original positions", !hasMoved)
+                }
+            } finally {
+                instrumentation.runOnMainSync {
+                    overlay.viewTreeObserver.takeIf { it.isAlive }?.removeOnDrawListener(listener)
+                }
+            }
+            dismissCoachmark(activity)
+            instrumentation.runOnMainSync {
+                assertEquals(0, selection.getSelectedPosition())
+                assertEquals(View.GONE, badge.visibility)
+                assertEquals(View.GONE, cutOff.visibility)
+                assertEquals("Rp4.000", activity.findViewById<TextView>(R.id.tvProductPrice).text.toString().withoutSpaces())
+                assertEquals("Rp8.000", footer.binding.tvPrice.text.toString().withoutSpaces())
+                footer.binding.sbQuantity.findViewById<View>(UIKitR.id.plus_button).performClick()
+                assertEquals(3, footer.binding.sbQuantity.getCount())
+                assertEquals("Rp12.000", footer.binding.tvPrice.text.toString().withoutSpaces())
+                selection.getChildAt(1).performClick()
+                assertEquals(View.VISIBLE, badge.visibility)
+                assertEquals(View.VISIBLE, cutOff.visibility)
+                assertEquals("Rp1.800", activity.findViewById<TextView>(R.id.tvProductPrice).text.toString().withoutSpaces())
+                assertEquals("Rp5.400", footer.binding.tvPrice.text.toString().withoutSpaces())
+                assertEquals("55%", (badge as TextView).text.toString())
+                assertEquals("Rp4.000", (cutOff as TextView).text.toString().withoutSpaces())
+            }
+            val replay = playScenario(activity, PdpDiscountScenario.HIDE_DISCOUNTS_DURING_SPOTLIGHT)
+            instrumentation.runOnMainSync {
+                assertEquals(View.GONE, badge.visibility)
+                assertEquals(View.GONE, cutOff.visibility)
+                assertEquals(originalSelectorY, centerInOverlay(selection, replay).second)
+            }
+            dismissCoachmark(activity)
+            SystemClock.sleep(1500)
+            instrumentation.runOnMainSync {
+                assertEquals(0, selection.getSelectedPosition())
+                assertEquals(View.GONE, badge.visibility)
+                assertEquals(View.GONE, cutOff.visibility)
+            }
+        }
+    }
+
+    @Test
+    fun hiddenDiscountScenarioRestoresChoiceAndKeepsSatuanOnBack() {
+        withPdp { initialActivity, scenario ->
+            dismissCoachmark(initialActivity)
+            openScenarioSheet(initialActivity)
+            instrumentation.runOnMainSync {
+                val sheet = scenarioSheet(initialActivity)
+                assertEquals(4, sheet.requireView().findViewById<ViewGroup>(R.id.rgDiscountSpace).childCount)
+                sheet.requireView().findViewById<View>(R.id.rbRevealKartonOnDismiss).performClick()
+            }
+            scenario.recreate()
+            lateinit var activity: GuidelinePDPActivity
+            scenario.onActivity { activity = it }
+            awaitCondition("Fourth scenario sheet must restore") { scenarioSheetOrNull(activity)?.dialog?.isShowing == true }
+            instrumentation.runOnMainSync {
+                val sheet = scenarioSheet(activity)
+                assertTrue(sheet.requireView().findViewById<CompoundButton>(R.id.rbRevealKartonOnDismiss).isChecked)
+                sheet.requireView().findViewById<View>(R.id.btnPlaySpotlight).performClick()
+            }
+            awaitPdpOverlay(activity)
+            val selection = activity.findViewById<PDPSelectionGroup>(R.id.pdpSelectionGroup)
+            awaitCondition("Fourth scenario must reach Karton before Back") { selection.getSelectedPosition() == 1 }
+            instrumentation.sendKeyDownUpSync(KeyEvent.KEYCODE_BACK)
+            awaitCondition("Back must remove the deferred spotlight") { findOverlay(activity.window.decorView) == null }
+            instrumentation.runOnMainSync {
+                assertEquals(0, selection.getSelectedPosition())
+                assertEquals(View.GONE, activity.findViewById<View>(R.id.discountBadge).visibility)
+                assertEquals(View.GONE, activity.findViewById<View>(R.id.tvProductPriceCutOff).visibility)
+                selection.getChildAt(1).performClick()
+                assertEquals(View.VISIBLE, activity.findViewById<View>(R.id.discountBadge).visibility)
+                assertEquals(View.VISIBLE, activity.findViewById<View>(R.id.tvProductPriceCutOff).visibility)
+                selection.getChildAt(0).performClick()
+                assertEquals(View.GONE, activity.findViewById<View>(R.id.discountBadge).visibility)
+                assertEquals(View.GONE, activity.findViewById<View>(R.id.tvProductPriceCutOff).visibility)
+            }
+            scenario.recreate()
+            scenario.onActivity { activity = it }
+            openScenarioSheet(activity)
+            instrumentation.runOnMainSync {
+                assertTrue(scenarioSheet(activity).requireView().findViewById<CompoundButton>(R.id.rbRevealKartonOnDismiss).isChecked)
+            }
+        }
+    }
+
     private fun withPdp(test: (GuidelinePDPActivity, ActivityScenario<GuidelinePDPActivity>) -> Unit) {
         ActivityScenario.launch(GuidelinePDPActivity::class.java).use { scenario ->
             lateinit var activity: GuidelinePDPActivity
@@ -333,6 +463,7 @@ class PdpCoachmarkTest {
                 PdpDiscountScenario.COLLAPSE_SPACE -> R.id.rbCollapseSpace
                 PdpDiscountScenario.KEEP_SPACE -> R.id.rbKeepSpace
                 PdpDiscountScenario.ANIMATE_SPACE -> R.id.rbAnimateSpace
+                PdpDiscountScenario.HIDE_DISCOUNTS_DURING_SPOTLIGHT -> R.id.rbRevealKartonOnDismiss
             }
             sheet.requireView().findViewById<View>(radioId).performClick()
             sheet.requireView().findViewById<View>(R.id.btnPlaySpotlight).performClick()
