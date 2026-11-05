@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/s">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvScenarioIntro"
+        android:layout_width="@dimen/dimen_0"
+        android:layout_height="wrap_content"
+        android:text="@string/pdp_scenario_intro"
+        android:textAppearance="@style/TextAppearance.Inter.Regular.P1"
+        android:textColor="@color/black_70"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <RadioGroup
+        android:id="@+id/rgDiscountSpace"
+        android:layout_width="@dimen/dimen_0"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/xs"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@id/tvScenarioIntro"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/rbCollapseSpace"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="@dimen/xl"
+            android:paddingStart="@dimen/xxs"
+            android:text="@string/pdp_scenario_collapse"
+            android:textAppearance="@style/TextAppearance.Inter.SemiBold.B2"
+            android:textColor="@color/black_70" />
+
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/rbKeepSpace"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="@dimen/xl"
+            android:text="@string/pdp_scenario_keep"
+            android:paddingStart="@dimen/xxs"
+            android:textAppearance="@style/TextAppearance.Inter.SemiBold.B2"
+            android:textColor="@color/black_70" />
+
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/rbAnimateSpace"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="@dimen/xl"
+            android:text="@string/pdp_scenario_animate"
+            android:paddingStart="@dimen/xxs"
+            android:textAppearance="@style/TextAppearance.Inter.SemiBold.B2"
+            android:textColor="@color/black_70" />
+
+    </RadioGroup>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvScenarioDescription"
+        android:layout_width="@dimen/dimen_0"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/xxs"
+        android:text="@string/pdp_scenario_collapse_description"
+        android:textAppearance="@style/TextAppearance.Inter.Regular.P1"
+        android:textColor="@color/black_60"
+        android:accessibilityLiveRegion="polite"
+        app:layout_constraintTop_toBottomOf="@id/rgDiscountSpace"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <id.co.edtslib.uikit.button.Button
+        android:id="@+id/btnPlaySpotlight"
+        style="@style/Widget.EDTS.UIKit.Button.Filled.Primary.Large"
+        android:layout_width="@dimen/dimen_0"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/m2"
+        android:minHeight="@dimen/dimen_48"
+        android:text="@string/pdp_scenario_play"
+        app:layout_constraintTop_toBottomOf="@id/tvScenarioDescription"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

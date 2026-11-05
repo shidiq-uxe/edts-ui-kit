@@ -44,6 +44,7 @@
             android:minWidth="0dp"
             android:minHeight="0dp"
             android:button="@drawable/ic_favorite_filled_24"
+            android:contentDescription="@string/pdp_favorite_scenarios_description"
             app:buttonTint="@color/black_50"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toStartOf="@id/ivShare"

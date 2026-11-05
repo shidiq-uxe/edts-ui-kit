@@ -1,15 +1,19 @@
 package id.co.edtslib.edtsuikit
 
+import android.animation.LayoutTransition
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.view.View
+import android.view.ViewGroup
 import androidx.activity.addCallback
 import androidx.core.text.parseAsHtml
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.doOnLayout
+import androidx.core.view.doOnPreDraw
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import androidx.core.view.updatePadding
@@ -59,6 +63,11 @@ class GuidelinePDPActivity : GuidelinesBaseActivity() {
     private var incrementalCount = SINGLE_PRODUCT_COUNT
 
     private var quantityType = QuantityType.SINGLE
+    private val coachmarkHandler = Handler(Looper.getMainLooper())
+    private var hasShownCoachmark = false
+    private var discountScenario = PdpDiscountScenario.COLLAPSE_SPACE
+    private var informationSectionBinding: ItemPdpInformationSectionBinding? = null
+    private var activeCoachmark: CoachMarkOverlay? = null
 
     private val shouldShowWarning by lazy {
         intent.getBooleanExtra(GuidelinesPDPEntryActivity.SHOULD_SHOW_TOAST, false)
@@ -75,7 +84,19 @@ class GuidelinePDPActivity : GuidelinesBaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        val previousScenario = if (savedInstanceState?.getBoolean(STATE_KEEP_DISCOUNT_SPACE) == true) {
+            PdpDiscountScenario.KEEP_SPACE
+        } else {
+            PdpDiscountScenario.COLLAPSE_SPACE
+        }
+        discountScenario = PdpDiscountScenario.fromSavedValue(savedInstanceState?.getString(STATE_SCENARIO), previousScenario)
+        hasShownCoachmark = savedInstanceState?.getBoolean(STATE_HAS_SHOWN_COACHMARK) ?: false
         setContentView(R.layout.activity_guideline_pdpactivity)
+
+        supportFragmentManager.setFragmentResultListener(PdpScenarioBottomSheet.RESULT_SCENARIO, this) { _, result ->
+            discountScenario = PdpDiscountScenario.fromSavedValue(result.getString(PdpScenarioBottomSheet.SCENARIO))
+            replaySpotlight()
+        }
 
         ViewCompat.setOnApplyWindowInsetsListener(binding.toolbar) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.statusBars())
@@ -177,6 +198,11 @@ class GuidelinePDPActivity : GuidelinesBaseActivity() {
         binding.ivBack.setOnClickListener {
             onBackPressedDispatcher.onBackPressed()
         }
+
+        binding.ivLove.setOnLongClickListener {
+            showScenarioSheet()
+            true
+        }
     }
 
     private fun <T> BaseMultiTypeAdapter<T>.registerImageSection() {
@@ -203,15 +229,18 @@ class GuidelinePDPActivity : GuidelinesBaseActivity() {
                 with(itemBinding as ItemPdpInformationSectionBinding) {
                     // TODO : Add Price Binding & Formatting
 
+                    informationSectionBinding = this
                     itemBinding.pdpSelectionGroup.doOnLayout {
                         itemBinding.pdpSelectionGroup.setRightCardEnabled(!shouldDisableVariant)
 
-                        Handler(Looper.getMainLooper()).postDelayed({
-                            simulateSpotlight()
-                            Handler(Looper.getMainLooper()).postDelayed({
-                                this.pdpSelectionGroup.setSelectedPosition(1)
-                            }, 1250)
-                        }, 500)
+                        if (!hasShownCoachmark) {
+                            hasShownCoachmark = true
+                            coachmarkHandler.postDelayed({
+                                if (root.isAttachedToWindow && !isFinishing && !isDestroyed) {
+                                    simulateSpotlight()
+                                }
+                            }, COACHMARK_INITIAL_DELAY_MS)
+                        }
                     }
 
                     this.pdpSelectionGroup.setItems(
@@ -220,37 +249,88 @@ class GuidelinePDPActivity : GuidelinesBaseActivity() {
                         defaultSelectedPosition = 0
                     )
 
-                    this.pdpSelectionGroup.setOnSelectionChangedListener { item, position ->
-                        quantityType = when(position) {
-                            0 -> QuantityType.SINGLE
-                            1 -> QuantityType.DOZEN
-                            else -> QuantityType.SINGLE
-                        }
-
-                        incrementalCount = if (quantityType == QuantityType.SINGLE) {
-                            SINGLE_PRODUCT_COUNT
-                        } else {
-                            DOZEN_PRODUCT_COUNT
-                        }
-
-                        binding.pdpFooter.binding.sbQuantity.setIncrementalValue(incrementalCount)
-
-                        val price = if(quantityType == QuantityType.SINGLE) {
-                            SINGLE_ITEM_PRICE
-                        } else {
-                            DOZEN_ITEM_PRICE
-                        }
-
-                        val discountPercentage = calculateDiscountPercent(PRICE_BEFORE_DISCOUNT, price)
-
-                        this.tvProductPrice.text = price.toCurrency()
-                        this.discountBadge.text = "${discountPercentage.roundToInt()}%"
-
-                        currentProductPrice = price
+                    selectQuantity(position = 0, shouldAnimate = false)
+                    this.pdpSelectionGroup.setOnSelectionChangedListener { _, position ->
+                        selectQuantity(position)
                     }
                 }
             }
         )
+    }
+
+    private fun ItemPdpInformationSectionBinding.selectQuantity(position: Int, shouldAnimate: Boolean = true) {
+        if (pdpSelectionGroup.getSelectedPosition() != position) {
+            pdpSelectionGroup.setSelectedPosition(position)
+        }
+
+        quantityType = if (position == 1) QuantityType.DOZEN else QuantityType.SINGLE
+        val isSingleSelected = quantityType == QuantityType.SINGLE
+        incrementalCount = quantityType.quantity
+        currentProductPrice = if (isSingleSelected) SINGLE_ITEM_PRICE else DOZEN_ITEM_PRICE
+        val discountPercentage = calculateDiscountPercent(PRICE_BEFORE_DISCOUNT, currentProductPrice)
+        tvProductPrice.text = currentProductPrice.toCurrency()
+        discountBadge.text = "${discountPercentage.roundToInt()}%"
+
+        with(binding.pdpFooter.binding) {
+            sbQuantity.setIncrementalValue(incrementalCount)
+            tvPrice.text = (currentProductPrice * sbQuantity.getCount()).toCurrency()
+        }
+        updateDiscountVisibility(isSingleSelected, shouldAnimate)
+    }
+
+    private fun ItemPdpInformationSectionBinding.updateDiscountVisibility(
+        isSingleSelected: Boolean,
+        shouldAnimate: Boolean
+    ) {
+        val container = root as ViewGroup
+        if (discountScenario == PdpDiscountScenario.ANIMATE_SPACE && shouldAnimate && root.isLaidOut) {
+            if (container.layoutTransition == null) {
+                container.layoutTransition = LayoutTransition().apply {
+                    setDuration(DISCOUNT_ANIMATION_DURATION_MS)
+                    setStartDelay(LayoutTransition.APPEARING, 0L)
+                    setStartDelay(LayoutTransition.DISAPPEARING, 0L)
+                    setStartDelay(LayoutTransition.CHANGE_APPEARING, 0L)
+                    setStartDelay(LayoutTransition.CHANGE_DISAPPEARING, 0L)
+                }
+            }
+        } else {
+            container.layoutTransition = null
+            discountBadge.alpha = 1f
+            tvProductPriceCutOff.alpha = 1f
+        }
+
+        val visibility = when {
+            isSingleSelected -> View.VISIBLE
+            discountScenario == PdpDiscountScenario.KEEP_SPACE && activeCoachmark?.isVisible == true -> View.INVISIBLE
+            else -> View.GONE
+        }
+        discountBadge.visibility = visibility
+        tvProductPriceCutOff.visibility = visibility
+    }
+
+    private fun showScenarioSheet() {
+        if (supportFragmentManager.isStateSaved || activeCoachmark?.isVisible == true) return
+        if (supportFragmentManager.findFragmentByTag(PdpScenarioBottomSheet.TAG) != null) return
+        coachmarkHandler.removeCallbacksAndMessages(null)
+        hasShownCoachmark = true
+        PdpScenarioBottomSheet.newInstance(discountScenario)
+            .show(supportFragmentManager, PdpScenarioBottomSheet.TAG)
+    }
+
+    private fun replaySpotlight() {
+        coachmarkHandler.removeCallbacksAndMessages(null)
+        hasShownCoachmark = true
+        binding.rvPDP.scrollToPosition(pdpItems.indexOf(PDPItem.Information))
+        binding.rvPDP.doOnPreDraw {
+            informationSectionBinding?.takeIf { it.root.isAttachedToWindow }?.apply {
+                selectQuantity(position = 0, shouldAnimate = false)
+                pdpSelectionGroup.doOnPreDraw {
+                    if (root.isAttachedToWindow && !isFinishing && !isDestroyed) {
+                        simulateSpotlight()
+                    }
+                }
+            }
+        }
     }
 
     private fun ItemPdpInformationSectionBinding.simulateSpotlight() {
@@ -296,6 +376,7 @@ class GuidelinePDPActivity : GuidelinesBaseActivity() {
             .setCoachmarkSkipText("Mengerti")
             .setCoachmarkWidthPercent(0.95f)
             .build()
+        activeCoachmark = coachmark
 
         coachmark.coachMarkDelegate = object : CoachmarkDelegate {
             override fun onNextClickClickListener(currentIndex: Int) {
@@ -303,13 +384,27 @@ class GuidelinePDPActivity : GuidelinesBaseActivity() {
             }
 
             override fun onSkipClickListener(currentIndex: Int) {
+                coachmarkHandler.removeCallbacksAndMessages(null)
             }
 
             override fun onDismissListener() {
-
+                coachmarkHandler.removeCallbacksAndMessages(null)
+                if (activeCoachmark === coachmark) activeCoachmark = null
+                selectQuantity(position = 0, shouldAnimate = false)
+                (coachmark.parent as? ViewGroup)?.removeView(coachmark)
             }
         }
 
+        coachmarkHandler.postDelayed({
+            if (root.isAttachedToWindow && activeCoachmark === coachmark && coachmark.isVisible) {
+                selectQuantity(position = 1)
+                coachmarkHandler.postDelayed({
+                    if (root.isAttachedToWindow && activeCoachmark === coachmark && coachmark.isVisible) {
+                        selectQuantity(position = 0)
+                    }
+                }, COACHMARK_SWITCH_DELAY_MS)
+            }
+        }, COACHMARK_SWITCH_DELAY_MS)
     }
 
     private fun <T> BaseMultiTypeAdapter<T>.registerBundlingRecommendationSection() {
@@ -381,7 +476,28 @@ class GuidelinePDPActivity : GuidelinesBaseActivity() {
 
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        outState.putString(STATE_SCENARIO, discountScenario.name)
+        outState.putBoolean(STATE_HAS_SHOWN_COACHMARK, hasShownCoachmark)
+        super.onSaveInstanceState(outState)
+    }
+
+    override fun onDestroy() {
+        coachmarkHandler.removeCallbacksAndMessages(null)
+        (informationSectionBinding?.root as? ViewGroup)?.layoutTransition = null
+        informationSectionBinding = null
+        activeCoachmark = null
+        super.onDestroy()
+    }
+
     companion object {
+        private const val STATE_SCENARIO = "pdp_discount_scenario"
+        private const val DISCOUNT_ANIMATION_DURATION_MS = 300L
+        private const val STATE_KEEP_DISCOUNT_SPACE = "pdp_keep_discount_space"
+        private const val STATE_HAS_SHOWN_COACHMARK = "pdp_has_shown_coachmark"
+        private const val COACHMARK_INITIAL_DELAY_MS = 500L
+        private const val COACHMARK_SWITCH_DELAY_MS = 1250L
+
         // Dummy Purpose
         private val DOZEN_ITEM_PRICE = 1800
         private val SINGLE_ITEM_PRICE = 2000

@@ -97,4 +97,17 @@
     <string name="configure_chip_group">Configure Chip Group</string>
     <string name="spacing_value">%1$d dp</string>
 
+    <!-- PDP spotlight scenarios -->
+    <string name="pdp_scenario_title">PDP spotlight scenarios</string>
+    <string name="pdp_scenario_intro">Pilihan skenario animasi spotlight saat harga coret berganti:</string>
+    <string name="pdp_scenario_collapse">Collapse discount space</string>
+    <string name="pdp_scenario_keep">Keep discount space</string>
+    <string name="pdp_scenario_collapse_description">Saat pilih Kartonan, label diskon dan harga coret langsung hilang beserta ruangnya. Pilihan Satuan/Kartonan dan spotlight ikut naik.</string>
+    <string name="pdp_scenario_keep_description">Saat pilih Kartonan, label diskon dan harga coret disembunyikan, tapi ruangnya tetap ada agar spotlight tetap di tempat. Setelah spotlight ditutup, ruang kosongnya dihapus kalau diskon masih tersembunyi.</string>
+    <string name="pdp_scenario_animate">Animate discount space</string>
+    <string name="pdp_scenario_animate_description">Saat pilih Kartonan, label diskon dan harga coret perlahan hilang dan ruangnya ikut mengecil. Pilihan Satuan/Kartonan dan spotlight ikut bergeser berbarengan dengan animasi</string>
+    <string name="pdp_scenario_timing">The spotlight selects Kartonan, then returns to Satuan after 1.25 seconds.</string>
+    <string name="pdp_scenario_play">Play spotlight</string>
+    <string name="pdp_favorite_scenarios_description">Favorite. Long press for spotlight scenarios.</string>
+
 </resources>
