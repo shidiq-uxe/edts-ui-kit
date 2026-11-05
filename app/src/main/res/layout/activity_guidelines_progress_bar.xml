@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:clipChildren="false"
+    android:clipToPadding="false"
     tools:context=".GuidelinesProgressBarActivity">
 
     <LinearLayout
@@ -12,6 +14,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:clipChildren="false"
+        android:clipToPadding="false"
         android:paddingHorizontal="@dimen/dimen_16"
         android:paddingBottom="@dimen/dimen_32">
 
@@ -28,6 +31,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dimen_8dp"
             android:minHeight="80dp"
+            android:clipChildren="false"
             app:cardBackgroundColor="@color/black_10"
             app:strokeWidth="1dp"
             app:strokeColor="@color/black_20"
@@ -39,7 +43,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:minHeight="80dp"
-                android:padding="@dimen/dimen_16" />
+                android:padding="@dimen/dimen_16"
+                android:clipToPadding="false"
+                android:clipChildren="false"/>
 
         </com.google.android.material.card.MaterialCardView>
         <id.co.edtslib.uikit.button.Button
@@ -93,7 +99,7 @@
             android:id="@+id/gLPBMultiLap"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dimen_8dp" />
+            android:layout_marginTop="@dimen/dimen_8dp"/>
 
         <id.co.edtslib.uikit.button.Button
             android:id="@+id/btnProgressMultiLap"
