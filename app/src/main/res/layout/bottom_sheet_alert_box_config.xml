@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/s">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilMessage"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="@string/alert_demo_message"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etMessage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textMultiLine"
+                android:minLines="2"
+                android:maxLines="4" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/tvHtml"
+            style="@style/TextAppearance.Inter.Regular.B2"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/dimen_48"
+            android:gravity="center_vertical"
+            android:text="@string/alert_demo_html"
+            app:layout_constraintTop_toBottomOf="@id/tilMessage"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/swHtml" />
+
+        <com.google.android.material.materialswitch.MaterialSwitch
+            android:id="@+id/swHtml"
+            style="@style/Widget.EDTS.UIKit.Switch"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dimen_48"
+            android:contentDescription="@string/alert_demo_html"
+            app:layout_constraintTop_toTopOf="@id/tvHtml"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <TextView
+            android:id="@+id/tvStartIcon"
+            style="@style/TextAppearance.Inter.Regular.B2"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/dimen_48"
+            android:gravity="center_vertical"
+            android:text="@string/alert_demo_start_icon"
+            app:layout_constraintTop_toBottomOf="@id/tvHtml"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/swStartIcon" />
+
+        <com.google.android.material.materialswitch.MaterialSwitch
+            android:id="@+id/swStartIcon"
+            style="@style/Widget.EDTS.UIKit.Switch"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dimen_48"
+            android:contentDescription="@string/alert_demo_start_icon"
+            app:layout_constraintTop_toTopOf="@id/tvStartIcon"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <TextView
+            android:id="@+id/tvCloseIcon"
+            style="@style/TextAppearance.Inter.Regular.B2"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/dimen_48"
+            android:gravity="center_vertical"
+            android:text="@string/alert_demo_close_icon"
+            app:layout_constraintTop_toBottomOf="@id/tvStartIcon"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/swCloseIcon" />
+
+        <com.google.android.material.materialswitch.MaterialSwitch
+            android:id="@+id/swCloseIcon"
+            style="@style/Widget.EDTS.UIKit.Switch"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dimen_48"
+            android:contentDescription="@string/alert_demo_close_icon"
+            app:layout_constraintTop_toTopOf="@id/tvCloseIcon"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <TextView
+            android:id="@+id/tvFooterButton"
+            style="@style/TextAppearance.Inter.Regular.B2"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/dimen_48"
+            android:gravity="center_vertical"
+            android:text="@string/alert_demo_footer_button"
+            app:layout_constraintTop_toBottomOf="@id/tvCloseIcon"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/swFooterButton" />
+
+        <com.google.android.material.materialswitch.MaterialSwitch
+            android:id="@+id/swFooterButton"
+            style="@style/Widget.EDTS.UIKit.Switch"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dimen_48"
+            android:contentDescription="@string/alert_demo_footer_button"
+            app:layout_constraintTop_toTopOf="@id/tvFooterButton"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <TextView
+            android:id="@+id/tvInlineAction"
+            style="@style/TextAppearance.Inter.Regular.B2"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/dimen_48"
+            android:gravity="center_vertical"
+            android:text="@string/alert_demo_inline_label"
+            app:layout_constraintTop_toBottomOf="@id/tvFooterButton"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/swInlineAction" />
+
+        <com.google.android.material.materialswitch.MaterialSwitch
+            android:id="@+id/swInlineAction"
+            style="@style/Widget.EDTS.UIKit.Switch"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dimen_48"
+            android:contentDescription="@string/alert_demo_inline_label"
+            app:layout_constraintTop_toTopOf="@id/tvInlineAction"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <TextView
+            android:id="@+id/tvDisabled"
+            style="@style/TextAppearance.Inter.Regular.B2"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/dimen_48"
+            android:gravity="center_vertical"
+            android:text="@string/disabled_label"
+            app:layout_constraintTop_toBottomOf="@id/tvInlineAction"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/swDisabled" />
+
+        <com.google.android.material.materialswitch.MaterialSwitch
+            android:id="@+id/swDisabled"
+            style="@style/Widget.EDTS.UIKit.Switch"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dimen_48"
+            android:contentDescription="@string/disabled_label"
+            app:layout_constraintTop_toTopOf="@id/tvDisabled"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <TextView
+            android:id="@+id/tvAlignment"
+            style="@style/TextAppearance.Inter.Regular.B2"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dimen_48"
+            android:gravity="center_vertical"
+            android:text="@string/alert_demo_alignment"
+            app:layout_constraintTop_toBottomOf="@id/tvDisabled"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Spinner
+            android:id="@+id/spIconAlignment"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dimen_48"
+            android:entries="@array/alert_demo_alignments"
+            android:contentDescription="@string/alert_demo_alignment"
+            app:layout_constraintTop_toTopOf="@id/tvAlignment"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnResetConfig"
+            style="@style/Widget.Material3.Button.TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dimen_48"
+            android:text="@string/alert_demo_reset_config"
+            app:layout_constraintTop_toBottomOf="@id/tvAlignment"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="alert_box_close">Close message</string>
+    <style name="Widget.EDTS.UIKit.CoreAlertBox" parent="">
+        <item name="cornerRadius">@dimen/xxs</item>
+        <item name="strokeWidth">@dimen/dimen_1</item>
+        <item name="strokeColor">?attr/colorOutline</item>
+        <item name="backgroundColor">?attr/colorSurface</item>
+        <item name="textAppearance">@style/TextAppearance.Material3.BodySmall</item>
+        <item name="textColor">?attr/colorOnSurface</item>
+        <item name="startIcon">@drawable/ic_info_16</item>
+        <item name="startIconTint">?attr/colorOnSurface</item>
+        <item name="closeIcon">@drawable/ic_cancel_24</item>
+        <item name="closeIconTint">?attr/colorOnSurface</item>
+        <item name="alertPaddingHorizontal">@dimen/xs</item>
+        <item name="alertPaddingVertical">@dimen/xs</item>
+        <item name="alertContentGap">@dimen/xxs</item>
+        <item name="alertIconSize">@dimen/dimen_16</item>
+        <item name="alertButtonRecipe">@style/Widget.EDTS.UIKit.CoreButton</item>
+        <item name="actionTextAppearance">@style/TextAppearance.Material3.LabelSmall</item>
+        <item name="actionTextColor">?attr/colorPrimary</item>
+    </style>
+    <style name="TextAppearance.EDTS.UIKit.AlertBox.Klik" parent="TextAppearance.Inter.Regular.P2">
+        <item name="fontFamily">@font/inter_fallback</item>
+        <item name="android:fontFamily">@font/inter_fallback</item>
+    </style>
+    <style name="TextAppearance.EDTS.UIKit.AlertBox.Klik.Emphasis" parent="TextAppearance.EDTS.UIKit.AlertBox.Klik">
+        <item name="fontFamily">@font/inter_semibold_fallback</item>
+        <item name="android:fontFamily">@font/inter_semibold_fallback</item>
+    </style>
+    <style name="ThemeOverlay.EDTS.UIKit.AlertBox.Klik" parent="">
+        <item name="coreAlertBoxStyle">@style/Widget.EDTS.UIKit.AlertBox.Klik.Border.General</item>
+    </style>
+    <style name="TextAppearance.EDTS.UIKit.AlertBox.Poinku" parent="TextAppearance.Poinku.Body.B3.Light">
+        <item name="fontFamily">@font/rubik_fallback</item>
+        <item name="android:fontFamily">@font/rubik_fallback</item>
+    </style>
+    <style name="TextAppearance.EDTS.UIKit.AlertBox.Poinku.Emphasis" parent="TextAppearance.Poinku.Body.B3.Heavy">
+        <item name="fontFamily">@font/rubik_semibold_fallback</item>
+        <item name="android:fontFamily">@font/rubik_semibold_fallback</item>
+    </style>
+    <style name="ThemeOverlay.EDTS.UIKit.AlertBox.Poinku" parent="">
+        <item name="coreAlertBoxStyle">@style/Widget.EDTS.UIKit.AlertBox.Poinku.Info</item>
+    </style>
+</resources>

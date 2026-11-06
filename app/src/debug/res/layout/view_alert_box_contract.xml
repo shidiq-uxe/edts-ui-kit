@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <id.co.edtslib.uikit.recipes.alertbox.klik.KlikInfoBox
+        android:id="@+id/abContractKlik"
+        style="@style/Widget.EDTS.UIKit.AlertBox.Klik.Border.Success"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:actionText="Manage"
+        app:isActionVisible="true"
+        app:actionMaxLines="2"
+        app:actionEllipsize="middle"
+        app:actionEndIcon="@drawable/ic_chevron_right_16"
+        app:actionEndIconTint="@android:color/holo_purple"
+        app:actionIconPadding="@dimen/xxxs"
+        app:text="From XML"
+        app:textColor="@android:color/holo_purple" />
+
+    <id.co.edtslib.uikit.recipes.alertbox.poinku.PoinkuAlertBox
+        android:id="@+id/abContractPoinku"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:enabled="false"
+        app:alertRecipe="@style/Widget.EDTS.UIKit.AlertBox.Poinku.Warning" />
+
+    <id.co.edtslib.uikit.alert.AlertBox
+        android:id="@+id/abContractLegacy"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:actionText="Manage"
+        app:isActionVisible="true"
+        app:actionMaxLines="2"
+        app:actionEllipsize="middle"
+        app:actionEndIcon="@drawable/ic_chevron_right_16"
+        app:actionEndIconTint="@android:color/holo_purple"
+        app:actionIconPadding="@dimen/xxxs"
+        app:alertType="warning"
+        app:isButtonVisible="true" />
+
+</LinearLayout>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Widget.EDTS.UIKit.AlertBox.Klik" parent="Widget.EDTS.UIKit.CoreAlertBox">
+        <item name="textAppearance">@style/TextAppearance.EDTS.UIKit.AlertBox.Klik</item>
+        <item name="alertEmphasisAppearance">@style/TextAppearance.EDTS.UIKit.AlertBox.Klik.Emphasis</item>
+        <item name="textColor">@color/klik_color_fg_secondary</item>
+        <item name="closeIconTint">@color/klik_color_fg_tertiary</item>
+        <item name="alertButtonRecipe">@style/Widget.EDTS.UIKit.Button.Klik.Primary.Small</item>
+        <item name="actionTextAppearance">@style/TextAppearance.EDTS.UIKit.Button.Klik.Small</item>
+        <item name="actionTextColor">@color/klik_color_fg_interactive_default</item>
+    </style>
+    <style name="Widget.EDTS.UIKit.AlertBox.Klik.Border.General" parent="Widget.EDTS.UIKit.AlertBox.Klik">
+        <item name="alertRecipe">@style/Widget.EDTS.UIKit.AlertBox.Klik.Border.General</item>
+        <item name="backgroundColor">@color/klik_color_bg_info_grey_subtle</item>
+        <item name="strokeColor">@color/klik_color_stroke_primary</item>
+        <item name="startIcon">@drawable/ic_info_16</item>
+        <item name="startIconTint">@color/klik_color_bg_info_grey_intense</item>
+    </style>
+    <style name="Widget.EDTS.UIKit.AlertBox.Klik.Border.Info" parent="Widget.EDTS.UIKit.AlertBox.Klik">
+        <item name="alertRecipe">@style/Widget.EDTS.UIKit.AlertBox.Klik.Border.Info</item>
+        <item name="backgroundColor">@color/klik_color_bg_info_blue_subtle</item>
+        <item name="strokeColor">@color/klik_color_stroke_info_blue_intense</item>
+        <item name="startIcon">@drawable/ic_info_blue_16</item>
+        <item name="startIconTint">@color/klik_color_bg_info_blue_intense</item>
+    </style>
+    <style name="Widget.EDTS.UIKit.AlertBox.Klik.Border.Success" parent="Widget.EDTS.UIKit.AlertBox.Klik">
+        <item name="alertRecipe">@style/Widget.EDTS.UIKit.AlertBox.Klik.Border.Success</item>
+        <item name="backgroundColor">@color/klik_color_bg_success_subtle</item>
+        <item name="strokeColor">@color/klik_color_stroke_success_intense</item>
+        <item name="startIcon">@drawable/ic_success_16</item>
+        <item name="startIconTint">@color/klik_color_bg_success_intense</item>
+    </style>
+    <style name="Widget.EDTS.UIKit.AlertBox.Klik.Border.Error" parent="Widget.EDTS.UIKit.AlertBox.Klik">
+        <item name="alertRecipe">@style/Widget.EDTS.UIKit.AlertBox.Klik.Border.Error</item>
+        <item name="backgroundColor">@color/klik_color_bg_attention_or_error_subtle</item>
+        <item name="strokeColor">@color/klik_color_stroke_attention_or_error_intense</item>
+        <item name="startIcon">@drawable/ic_error_16</item>
+        <item name="startIconTint">@color/klik_color_bg_attention_or_error_intense</item>
+    </style>
+    <style name="Widget.EDTS.UIKit.AlertBox.Klik.Border.Warning" parent="Widget.EDTS.UIKit.AlertBox.Klik">
+        <item name="alertRecipe">@style/Widget.EDTS.UIKit.AlertBox.Klik.Border.Warning</item>
+        <item name="backgroundColor">@color/klik_color_bg_warning_subtle</item>
+        <item name="strokeColor">@color/klik_color_stroke_warning_intense</item>
+        <item name="startIcon">@drawable/ic_attention_16</item>
+        <item name="startIconTint">@color/klik_color_bg_warning_intense</item>
+    </style>
+    <style name="Widget.EDTS.UIKit.AlertBox.Klik.FullWidth.General" parent="Widget.EDTS.UIKit.AlertBox.Klik.Border.General">
+        <item name="alertRecipe">@style/Widget.EDTS.UIKit.AlertBox.Klik.FullWidth.General</item>
+        <item name="cornerRadius">@dimen/dimen_0</item>
+        <item name="strokeWidth">@dimen/dimen_0</item>
+        <item name="startIcon">@drawable/ic_info_blue_16</item>
+        <item name="startIconTint">@color/klik_color_bg_info_blue_intense</item>
+    </style>
+</resources>

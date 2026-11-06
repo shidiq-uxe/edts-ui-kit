@@ -90,6 +90,7 @@ open class CoreButton @JvmOverloads constructor(
         ButtonStyleResolver.applyAttributes(context, this, recipe, attrs)
         context.withStyledAttributes(attrs, R.styleable.CoreButton, 0, recipe) {
             minWidth = getDimensionPixelSize(R.styleable.CoreButton_android_minWidth, 0)
+            gravity = getInt(R.styleable.CoreButton_android_gravity, gravity)
             minHeight = getDimensionPixelSize(R.styleable.CoreButton_android_minHeight, 0)
             includeFontPadding = getBoolean(R.styleable.CoreButton_android_includeFontPadding, false)
             isAllCaps = getBoolean(R.styleable.CoreButton_android_textAllCaps, false)

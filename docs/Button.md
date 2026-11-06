@@ -75,6 +75,8 @@ Explicit XML attributes override recipe defaults during inflation. Assigning `bu
 
 Give buttons a minimum 48dp touch area through their host. Allow height growth for large fonts and long labels.
 
+Klik recipes use the shared Inter fallback. Its glyph widths differ slightly from the previous component font, so intrinsic button widths can change.
+
 ## Migration
 
 `id.co.edtslib.uikit.button.Button` is deprecated. Existing constructors, properties, `ButtonType` ordinals/XML values, resources, and `ButtonAttrsFactory` remain available.
@@ -93,5 +95,5 @@ Keep the size suffix. Product migration changes appearance; it is not an automat
 ## References
 
 - Designs: [Klik](https://www.figma.com/design/Tpv7igrzhayWSY0z15u2RB/?node-id=4-2), [Poinku](https://www.figma.com/design/7e2kAWACnJlfcG0VONJJFP/?node-id=5-6).
-- Bundled fonts: Inter 600 and Rubik 500. Licenses: [Inter](../uikit/src/main/assets/fonts/button_inter_license.txt), [Rubik](../uikit/src/main/assets/fonts/button_rubik_license.txt).
+- Shared font fallbacks: Inter 600 and Rubik 500. See [Typography](Typography.md#font-fallbacks). Licenses: [Inter](../uikit/src/main/assets/fonts/button_inter_license.txt), [Rubik](../uikit/src/main/assets/fonts/button_rubik_license.txt).
 - Sample: **Button**. Tap the toolbar product subtitle to select Core, Klik, or Poinku. Use Configure for states, size filters, color/corner overrides, and Reset to defaults.

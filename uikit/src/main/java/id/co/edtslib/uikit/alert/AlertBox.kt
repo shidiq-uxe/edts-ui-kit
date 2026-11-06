@@ -1,202 +1,146 @@
 package id.co.edtslib.uikit.alert
 
 import android.content.Context
-import android.content.res.ColorStateList
-import android.graphics.drawable.Drawable
-import android.os.Build
 import android.util.AttributeSet
-import android.util.Log
-import android.widget.FrameLayout
-import androidx.annotation.ColorInt
 import androidx.appcompat.view.ContextThemeWrapper
-import androidx.core.content.ContextCompat
 import androidx.core.content.withStyledAttributes
-import androidx.core.text.parseAsHtml
-import androidx.core.view.isVisible
-import androidx.core.view.updateLayoutParams
-import androidx.core.view.updateMargins
 import id.co.edtslib.uikit.R
+import id.co.edtslib.uikit.button.Button
 import id.co.edtslib.uikit.button.Button.ButtonType
-import id.co.edtslib.uikit.databinding.ViewAlertBinding
+import id.co.edtslib.uikit.core.alertbox.CoreAlertBox
 import id.co.edtslib.uikit.utils.color
 import id.co.edtslib.uikit.utils.dp
 import id.co.edtslib.uikit.utils.drawable
-import id.co.edtslib.uikit.utils.inflater
-import org.w3c.dom.Attr
 
+@Deprecated("Use KlikInfoBox or PoinkuAlertBox with an explicit XML recipe. See docs/AlertBox.md.")
 class AlertBox @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
-) : FrameLayout(ContextThemeWrapper(context, R.style.Theme_EDTS_UIKit), attrs, defStyleAttr)  {
-
-    var delegate: AlertBoxDelegate? = null
-
-    private val binding = ViewAlertBinding.inflate(this.context.inflater, this, true)
+) : CoreAlertBox(ContextThemeWrapper(context, R.style.Theme_EDTS_UIKit), attrs, defStyleAttr, R.layout.view_alert) {
 
     var alertType: AlertType = AlertType.LIGHT
         set(value) {
             field = value
-            value.bindAlertType()
-        }
-
-    var cornerRadius: Float = 8.dp
-        set(value) {
-            field = value
-            binding.root.shapeAppearanceModel = binding.root.shapeAppearanceModel.toBuilder()
-                .setAllCornerSizes(cornerRadius)
-                .build()
-        }
-
-    var strokeWidth: Float = 1.dp
-        set(value) {
-            field = value
-            binding.root.strokeWidth = value.toInt()
-        }
-
-    @ColorInt
-    var strokeColor: Int = context.color(alertType.strokeColor)
-        set(value) {
-            field = value
-            binding.root.strokeColor = value
-        }
-
-    @ColorInt
-    var alertBackgroundColor: Int = context.color(alertType.background)
-        set(value) {
-            field = value
-            binding.root.setCardBackgroundColor(value)
-        }
-
-    var textAppearance = R.style.TextAppearance_Inter_Regular_P2
-        set(value) {
-            field = value
-
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                binding.tvAlertMessage.setTextAppearance(value)
-            } else {
-                binding.tvAlertMessage.setTextAppearance(context, value)
-            }
-        }
-
-    var text: CharSequence = ""
-        set(value) {
-            field = value
-            binding.tvAlertMessage.text = if (isHtml) value.toString().parseAsHtml() else value
-        }
-
-    var isHtml: Boolean = false
-        set(value) {
-            field = value
-            binding.tvAlertMessage.text = if (value) text.toString().parseAsHtml() else text
-        }
-
-    var textColor: Int = context.color(R.color.black_60)
-        set(value) {
-            field = value
-            binding.tvAlertMessage.setTextColor(value)
-        }
-
-    var buttonText: CharSequence = ""
-        set(value) {
-            field = value
-            binding.btnAction.text = value
+            applyTypeAppearance(
+                background = this.context.color(value.background),
+                border = this.context.color(value.border),
+                icon = this.context.drawable(value.icon)
+            )
         }
 
     var buttonType: ButtonType = ButtonType.FILLED
         set(value) {
             field = value
-            binding.btnAction.buttonType = value
+            (footerButton as Button).buttonType = value
         }
 
-    var isButtonVisible: Boolean = false
+    var startIconVerticalAlignment: StartIconVerticalAlignment = StartIconVerticalAlignment.TOP
         set(value) {
             field = value
-            binding.btnAction.isVisible = value
+            iconAlignment = IconAlignment.entries[value.ordinal]
         }
 
-    var isStartIconVisible: Boolean = true
+    public override var cornerRadius: Float
+        get() = super.cornerRadius
         set(value) {
-            field = value
-            binding.ivAlertIcon.isVisible = value
+            super.cornerRadius = value
         }
 
-    var isCloseIconVisible: Boolean = true
+    public override var strokeWidth: Float
+        get() = super.strokeWidth
         set(value) {
-            field = value
-            binding.ivAlertClose.isVisible = value
+            super.strokeWidth = value
         }
 
-    var startIcon: Drawable = alertType.alertIcon
+    public override var strokeColor: Int
+        get() = super.strokeColor
         set(value) {
-            field = value
-            binding.ivAlertIcon.setImageDrawable(value)
+            super.strokeColor = value
         }
 
-    var closeIcon: Drawable = context.drawable(R.drawable.ic_close_16)
+    public override var alertBackgroundColor: Int
+        get() = super.alertBackgroundColor
         set(value) {
-            field = value
-            binding.ivAlertClose.setButtonDrawable(value)
+            super.alertBackgroundColor = value
         }
 
-    @ColorInt
-    var startIconTint: Int? = null
+    public override var textAppearance: Int
+        get() = super.textAppearance
         set(value) {
-            field = value
-            value?.let { binding.ivAlertIcon.setColorFilter(it) }
+            super.textAppearance = value
         }
 
-    @ColorInt
-    var closeIconTint: Int = context.color(R.color.black_50)
+    public override var textColor: Int
+        get() = super.textColor
         set(value) {
-            field = value
-            value.let { binding.ivAlertClose.buttonIconTintList = ColorStateList.valueOf(it) }
+            super.textColor = value
         }
 
-    private fun AlertType.bindAlertType() {
-        binding.apply {
-            root.apply {
-                setCardBackgroundColor(context.color(this@bindAlertType.background))
-                strokeColor = context.color(this@bindAlertType.strokeColor)
-            }
-            ivAlertIcon.setImageDrawable(this@bindAlertType.alertIcon)
+    public override var startIconTint: Int?
+        get() = super.startIconTint
+        set(value) {
+            super.startIconTint = value
         }
-    }
 
-    private val AlertType.background get() =  when(this) {
-        AlertType.SUCCESS -> R.color.success_background
-        AlertType.ERROR -> R.color.alert_background
-        AlertType.WARNING -> R.color.warning_background
-        AlertType.INFO -> R.color.info_background
-        AlertType.LIGHT -> R.color.light_background
-    }
+    public override var closeIconTint: Int
+        get() = super.closeIconTint
+        set(value) {
+            super.closeIconTint = value
+        }
 
-    private val AlertType.strokeColor get() = when(this) {
-        AlertType.SUCCESS -> R.color.success_border
-        AlertType.ERROR -> R.color.alert_border
-        AlertType.WARNING -> R.color.warning_border
-        AlertType.INFO -> R.color.info_border
-        AlertType.LIGHT -> R.color.light_border
-    }
+    public override var actionTextAppearance: Int
+        get() = super.actionTextAppearance
+        set(value) {
+            super.actionTextAppearance = value
+        }
 
-    private val AlertType.alertIcon get() = context.drawable(when(this) {
-        AlertType.SUCCESS -> R.drawable.ic_success_16
-        AlertType.ERROR -> R.drawable.ic_error_16
-        AlertType.WARNING -> R.drawable.ic_attention_16
-        AlertType.INFO -> R.drawable.ic_info_blue_16
-        AlertType.LIGHT -> R.drawable.ic_info_16
-    })
+    public override var actionTextColor: Int
+        get() = super.actionTextColor
+        set(value) {
+            super.actionTextColor = value
+        }
+
+    private val AlertType.background: Int
+        get() = when (this) {
+            AlertType.SUCCESS -> R.color.success_background
+            AlertType.ERROR -> R.color.alert_background
+            AlertType.WARNING -> R.color.warning_background
+            AlertType.INFO -> R.color.info_background
+            AlertType.LIGHT -> R.color.light_background
+        }
+
+    private val AlertType.border: Int
+        get() = when (this) {
+            AlertType.SUCCESS -> R.color.success_border
+            AlertType.ERROR -> R.color.alert_border
+            AlertType.WARNING -> R.color.warning_border
+            AlertType.INFO -> R.color.info_border
+            AlertType.LIGHT -> R.color.light_border
+        }
+
+    private val AlertType.icon: Int
+        get() = when (this) {
+            AlertType.SUCCESS -> R.drawable.ic_success_16
+            AlertType.ERROR -> R.drawable.ic_error_16
+            AlertType.WARNING -> R.drawable.ic_attention_16
+            AlertType.INFO -> R.drawable.ic_info_blue_16
+            AlertType.LIGHT -> R.drawable.ic_info_16
+        }
 
     init {
+        cornerRadius = 8.dp
+        strokeWidth = 1.dp
+        strokeColor = this.context.color(R.color.light_border)
+        alertBackgroundColor = this.context.color(R.color.light_background)
+        textAppearance = R.style.TextAppearance_Inter_Regular_P2
+        textColor = this.context.color(R.color.black_60)
+        startIcon = this.context.drawable(R.drawable.ic_info_16)
+        closeIcon = this.context.drawable(R.drawable.ic_close_16)
+        closeIconTint = this.context.color(R.color.black_50)
+        actionTextAppearance = R.style.TextAppearance_Inter_SemiBold_Button_Text_Small
+        actionTextColor = this.context.color(R.color.primary_30)
         initAttrs(attrs)
-
-        binding.ivAlertClose.setOnClickListener {
-            delegate?.onCloseClickListener(it)
-        }
-
-        binding.btnAction.setOnClickListener {
-            delegate?.onButtonClickListener(it)
-        }
     }
 
     private fun initAttrs(attr: AttributeSet?) {
@@ -222,10 +166,18 @@ class AlertBox @JvmOverloads constructor(
             this@AlertBox.startIcon = getDrawable(R.styleable.AlertBox_startIcon) ?: startIcon
             this@AlertBox.closeIcon = getDrawable(R.styleable.AlertBox_closeIcon) ?: closeIcon
 
-            this@AlertBox.startIconTint = startIconTint?.let { getColor(R.styleable.AlertBox_startIconTint,  it) }
+            this@AlertBox.startIconTint = startIconTint?.let { getColor(R.styleable.AlertBox_startIconTint, it) }
             this@AlertBox.closeIconTint = getColor(R.styleable.AlertBox_closeIconTint, closeIconTint)
 
             this@AlertBox.isHtml = getBoolean(R.styleable.AlertBox_isHtml, isHtml)
+
+            this@AlertBox.startIconVerticalAlignment = StartIconVerticalAlignment.entries[
+                getInt(R.styleable.AlertBox_startIconVerticalAlignment, 0)
+                    .coerceIn(0, StartIconVerticalAlignment.entries.lastIndex)
+            ]
+            this@AlertBox.actionTextAppearance = getResourceId(R.styleable.AlertBox_actionTextAppearance, actionTextAppearance)
+            this@AlertBox.actionTextColor = getColor(R.styleable.AlertBox_actionTextColor, actionTextColor)
+            readInlineActionAttributes(attr)
 
             if (hasValue(R.styleable.AlertBox_alertType)) {
                 this@AlertBox.alertType = AlertType.values()[alertType]
@@ -234,12 +186,10 @@ class AlertBox @JvmOverloads constructor(
     }
 
     fun showOpticalSpacing(enable: Boolean = true) {
-        binding.ivAlertIcon.updateLayoutParams<MarginLayoutParams> {
-            updateMargins(
-                top = if (enable) 2.dp.toInt() else 0.dp.toInt(),
-            )
-        }
+        setOpticalSpacingEnabled(enable)
     }
+
+    enum class StartIconVerticalAlignment { TOP, CENTER, BOTTOM }
 
     enum class AlertType {
         SUCCESS, ERROR, WARNING, INFO, LIGHT

@@ -1,16 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="button_recipe_title">Button</string>
-    <string name="button_recipe_product">Product</string>
-    <string name="button_recipe_select_product">%1$s, select product</string>
-    <string name="button_recipe_neutral">Neutral</string>
     <string name="button_recipe_label_only">Label</string>
     <string name="button_recipe_with_icons">Start and end icons</string>
     <string name="button_recipe_default">Default</string>
     <string name="button_recipe_default_corners">Recipe default</string>
     <string name="button_recipe_pressed">Pressed</string>
     <string name="button_recipe_reset">Reset to defaults</string>
-    <string name="button_recipe_action">Button</string>
     <string name="button_recipe_label">%1$s · %2$s</string>
     <string name="button_recipe_icon_label">%1$s icon · %2$s</string>
     <string name="button_recipe_clicked">%1$s clicked</string>
@@ -28,9 +23,4 @@
     <string name="button_recipe_large16">16px icon, large</string>
     <string name="button_recipe_small16">16px icon, small</string>
 
-    <string-array name="button_recipe_products">
-        <item>Core</item>
-        <item>Klik</item>
-        <item>Poinku</item>
-    </string-array>
 </resources>
