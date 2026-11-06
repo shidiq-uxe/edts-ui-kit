@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="alert_demo_configure">Configure alert box</string>
+    <string name="alert_demo_general">General</string>
+    <string name="alert_demo_info">Info</string>
+    <string name="alert_demo_success">Success</string>
+    <string name="alert_demo_warning">Warning</string>
+    <string name="alert_demo_error">Error</string>
+    <string name="alert_demo_full_width">General · Full width</string>
+    <string name="alert_demo_inline_action">Edit</string>
+    <string name="alert_demo_footer_clicked">Footer action clicked</string>
+    <string name="alert_demo_inline_clicked">Inline action clicked</string>
+    <string name="alert_demo_reset">Reset examples</string>
+    <string name="alert_demo_reset_config">Reset configuration</string>
+    <string name="alert_demo_message">Message (plain text or HTML)</string>
+    <string name="alert_demo_html">Render HTML</string>
+    <string name="alert_demo_start_icon">Start icon</string>
+    <string name="alert_demo_close_icon">Close icon</string>
+    <string name="alert_demo_footer_button">Footer button</string>
+    <string name="alert_demo_inline_label">Inline action</string>
+    <string name="alert_demo_alignment">Icon alignment</string>
+    <string name="alert_demo_klik_message">If the text has 2 rows, make sure the icons is always aligned to the top.</string>
+    <string name="alert_demo_poinku_message">This is an example of long text, please make sure that it’ll be shown in two lines.</string>
+    <string-array name="alert_demo_alignments">
+        <item>Top</item>
+        <item>Center</item>
+        <item>Bottom</item>
+    </string-array>
+</resources>

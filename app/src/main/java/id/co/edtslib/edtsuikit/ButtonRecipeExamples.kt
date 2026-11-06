@@ -40,7 +40,7 @@ internal object ButtonRecipeExamples {
         ),
         ButtonRecipeExample(
             UIKitR.style.Widget_EDTS_UIKit_CoreButton,
-            R.string.button_recipe_neutral,
+            R.string.guidelines_neutral,
             R.string.button_recipe_default,
             true
         )

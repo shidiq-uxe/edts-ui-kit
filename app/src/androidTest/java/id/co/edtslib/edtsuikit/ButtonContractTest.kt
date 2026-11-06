@@ -14,6 +14,12 @@ import android.view.View
 import android.widget.FrameLayout
 import androidx.appcompat.view.ContextThemeWrapper
 import androidx.test.core.app.ActivityScenario
+import androidx.test.espresso.Espresso.onData
+import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.action.ViewActions.click
+import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.matcher.ViewMatchers.withId
+import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import id.co.edtslib.uikit.button.Button
@@ -25,6 +31,7 @@ import id.co.edtslib.uikit.utils.drawable
 import id.co.edtslib.uikit.utils.color
 import id.co.edtslib.uikit.utils.font
 import org.json.JSONArray
+import org.hamcrest.Matchers.`is`
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNotNull
@@ -39,6 +46,20 @@ import id.co.edtslib.uikit.R as UIKitR
 class ButtonContractTest {
 
     private val instrumentation = InstrumentationRegistry.getInstrumentation()
+
+    @Test
+    fun sharedToolbarKeepsButtonTitleAndProductSelection() {
+        ActivityScenario.launch(GuidelinesButtonActivity::class.java).use {
+            onView(withId(R.id.tvTitle)).check(matches(withText("Button")))
+            onView(withId(R.id.tvProduct)).check(matches(withText("Core")))
+            for (product in listOf("Klik", "Poinku", "Core")) {
+                onView(withId(R.id.tvProduct)).perform(click())
+                onData(`is`(product)).perform(click())
+                onView(withId(R.id.tvProduct)).check(matches(withText(product)))
+                onView(withId(R.id.tvTitle)).check(matches(withText("Button")))
+            }
+        }
+    }
 
     private fun context(fontScale: Float = 1f): Context {
         val target = instrumentation.targetContext
