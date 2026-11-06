@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
@@ -11,27 +12,10 @@
         android:id="@+id/rvButtons"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:padding="@dimen/s"
+        android:clipChildren="false"
         android:clipToPadding="false"
-        android:paddingHorizontal="@dimen/s"
-        app:layout_constraintBottom_toTopOf="@id/stepperView"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <id.co.edtslib.uikit.stepper.StepperView
-        android:id="@+id/stepperView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/s"
-        app:layout_constraintBottom_toTopOf="@id/stepperButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <id.co.edtslib.uikit.stepper.StepperButton
-        android:id="@+id/stepperButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/s"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

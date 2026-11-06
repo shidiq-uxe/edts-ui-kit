@@ -4,40 +4,18 @@ import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.util.AttributeSet
-import android.util.Log
-import android.view.MotionEvent
 import androidx.appcompat.view.ContextThemeWrapper
-import androidx.core.content.res.use
 import androidx.core.content.withStyledAttributes
 import androidx.core.graphics.ColorUtils
-import androidx.core.view.doOnLayout
-import com.facebook.shimmer.ShimmerFrameLayout
-import com.google.android.material.button.MaterialButton
 import id.co.edtslib.uikit.R
-import id.co.edtslib.uikit.utils.attachShimmerEffect
-import id.co.edtslib.uikit.utils.detachShimmerEffect
+import id.co.edtslib.uikit.core.button.CoreButton
 
+@Deprecated("Use KlikButton or PoinkuButton with an explicit XML recipe. See docs/Button.md for migration.")
 class Button @JvmOverloads constructor(
     context: Context,
     private val attrs: AttributeSet? = null,
     private val defStyleAttr: Int = R.attr.buttonStyle,
-) : MaterialButton(ContextThemeWrapper(context, R.style.Theme_EDTS_UIKit), attrs, defStyleAttr) {
-
-    // Only call this variable only when shouldShowShimmer is true
-    var shimmerFrameLayout: ShimmerFrameLayout? = null
-
-    var shouldShowShimmer = false
-        set(value) {
-            field = value
-
-            doOnLayout {
-                if (value) {
-                    shimmerFrameLayout = this.attachShimmerEffect()
-                } else {
-                    shimmerFrameLayout?.detachShimmerEffect()
-                }
-            }
-        }
+) : CoreButton(ContextThemeWrapper(context, R.style.Theme_EDTS_UIKit), attrs, defStyleAttr) {
 
     var buttonType: ButtonType = ButtonType.FILLED
         set(value) {
@@ -46,22 +24,14 @@ class Button @JvmOverloads constructor(
             applyStyle(value)
         }
 
-    var pressedScale = DEFAULT_SCALE_VALUE
-
-    var isDestructive: Boolean = false
-        set(value) {
-            field = value
-
-            refreshDrawableState()
-        }
-
     init {
         if (attrs != null) {
             context.withStyledAttributes(
                 attrs,
                 R.styleable.Button,
                 defStyleAttr,
-                0) {
+                0
+            ) {
                 buttonType = ButtonType.values()[getInt(R.styleable.Button_buttonType, buttonType.ordinal)]
                 shouldShowShimmer = getBoolean(R.styleable.Button_shouldShowShimmer, shouldShowShimmer)
                 pressedScale = getFloat(R.styleable.Button_pressedScale, pressedScale)
@@ -93,50 +63,6 @@ class Button @JvmOverloads constructor(
         }
     }
 
-    override fun onAttachedToWindow() {
-        super.onAttachedToWindow()
-
-        applyDefaultRipple()
-    }
-
-    override fun onCreateDrawableState(extraSpace: Int): IntArray {
-        val drawableState = super.onCreateDrawableState(extraSpace + 1)
-
-        if (isDestructive) {
-            mergeDrawableStates(drawableState, STATE_DESTRUCTIVE)
-        }
-
-        return drawableState
-    }
-
-    override fun onTouchEvent(event: MotionEvent?): Boolean {
-        event?.let { motionEvent ->
-            if (isEnabled) {
-                when (motionEvent.action) {
-                    MotionEvent.ACTION_DOWN -> {
-                        this.animate().scaleX(pressedScale).scaleY(pressedScale).setDuration(100).start()
-                    }
-                    MotionEvent.ACTION_UP -> {
-                        this.animate().scaleX(RESET_SCALE_VALUE).scaleY(RESET_SCALE_VALUE).setDuration(100).start()
-                    }
-                    MotionEvent.ACTION_CANCEL -> {
-                        this.animate().scaleX(RESET_SCALE_VALUE).scaleY(RESET_SCALE_VALUE).setDuration(100).start()
-                    }
-
-                    else -> {}
-                }
-            }
-        }
-
-        return super.onTouchEvent(event)
-    }
-
-    override fun onDetachedFromWindow() {
-        shimmerFrameLayout = null
-
-        super.onDetachedFromWindow()
-    }
-
     private fun applyStyle(buttonType: ButtonType) {
         ButtonAttrsFactory.applyAttributes(
             context = context,
@@ -144,6 +70,12 @@ class Button @JvmOverloads constructor(
             styleRes = buttonType.styleRes,
             attrs = attrs
         )
+
+        applyDefaultRipple()
+    }
+
+    override fun onAttachedToWindow() {
+        super.onAttachedToWindow()
 
         applyDefaultRipple()
     }
@@ -164,9 +96,6 @@ class Button @JvmOverloads constructor(
     }
 
     companion object {
-        private const val DEFAULT_SCALE_VALUE = 0.95f
-        private const val RESET_SCALE_VALUE = 1f
         private const val RIPPLE_ALPHA = 30
-        private val STATE_DESTRUCTIVE = intArrayOf(R.attr.state_destructive)
     }
 }

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:state_enabled="false"
+        android:color="@color/poinku_color_grey_30" />
+    <item
+        android:state_enabled="true"
+        android:state_pressed="true"
+        android:color="@color/poinku_color_primary_blue_50" />
+    <item
+        android:color="@color/poinku_color_primary_blue_30" />
+</selector>

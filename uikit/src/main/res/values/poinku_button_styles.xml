@@ -1,0 +1,422 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="TextAppearance.EDTS.UIKit.Button.Poinku.Small" parent="TextAppearance.Poinku.Button.Small">
+        <item name="fontFamily">@font/button_poinku_rubik_medium</item>
+        <item name="android:fontFamily">@font/button_poinku_rubik_medium</item>
+    </style>
+
+    <style name="TextAppearance.EDTS.UIKit.Button.Poinku.Medium" parent="TextAppearance.Poinku.Button.Medium">
+        <item name="fontFamily">@font/button_poinku_rubik_medium</item>
+        <item name="android:fontFamily">@font/button_poinku_rubik_medium</item>
+    </style>
+
+    <style name="TextAppearance.EDTS.UIKit.Button.Poinku.Large" parent="TextAppearance.Poinku.Button.Large">
+        <item name="fontFamily">@font/button_poinku_rubik_medium</item>
+        <item name="android:fontFamily">@font/button_poinku_rubik_medium</item>
+    </style>
+
+    <style name="Widget.EDTS.UIKit.Button.Poinku.Primary.Large" parent="Widget.EDTS.UIKit.CoreButton">
+        <item name="buttonRecipe">@style/Widget.EDTS.UIKit.Button.Poinku.Primary.Large</item>
+        <item name="backgroundTint">@color/slr_button_poinku_primary_fill</item>
+        <item name="strokeColor">@color/slr_button_poinku_primary_stroke</item>
+        <item name="android:textColor">@color/slr_button_poinku_primary_content</item>
+        <item name="iconTint">@color/slr_button_poinku_primary_content</item>
+        <item name="android:minHeight">@dimen/dimen_40</item>
+        <item name="android:minWidth">@dimen/dimen_0</item>
+        <item name="android:paddingLeft">@dimen/xs</item>
+        <item name="android:paddingTop">@dimen/xxs</item>
+        <item name="android:paddingRight">@dimen/xs</item>
+        <item name="android:paddingBottom">@dimen/xxs</item>
+        <item name="iconPadding">@dimen/xxs</item>
+        <item name="iconSize">@dimen/dimen_24</item>
+        <item name="cornerRadius">@dimen/xxs</item>
+        <item name="strokeWidth">@dimen/dimen_0</item>
+        <item name="android:textAppearance">@style/TextAppearance.EDTS.UIKit.Button.Poinku.Large</item>
+    </style>
+
+    <style name="Widget.EDTS.UIKit.Button.Poinku.Primary.Medium" parent="Widget.EDTS.UIKit.CoreButton">
+        <item name="buttonRecipe">@style/Widget.EDTS.UIKit.Button.Poinku.Primary.Medium</item>
+        <item name="backgroundTint">@color/slr_button_poinku_primary_fill</item>
+        <item name="strokeColor">@color/slr_button_poinku_primary_stroke</item>
+        <item name="android:textColor">@color/slr_button_poinku_primary_content</item>
+        <item name="iconTint">@color/slr_button_poinku_primary_content</item>
+        <item name="android:minHeight">@dimen/dimen_32</item>
+        <item name="android:minWidth">@dimen/dimen_0</item>
+        <item name="android:paddingLeft">@dimen/xs</item>
+        <item name="android:paddingTop">@dimen/xxs</item>
+        <item name="android:paddingRight">@dimen/xs</item>
+        <item name="android:paddingBottom">@dimen/xxs</item>
+        <item name="iconPadding">@dimen/xxs</item>
+        <item name="iconSize">@dimen/dimen_16</item>
+        <item name="cornerRadius">@dimen/xxxs</item>
+        <item name="strokeWidth">@dimen/dimen_0</item>
+        <item name="android:textAppearance">@style/TextAppearance.EDTS.UIKit.Button.Poinku.Medium</item>
+    </style>
+
+    <style name="Widget.EDTS.UIKit.Button.Poinku.Primary.Small" parent="Widget.EDTS.UIKit.CoreButton">
+        <item name="buttonRecipe">@style/Widget.EDTS.UIKit.Button.Poinku.Primary.Small</item>
+        <item name="backgroundTint">@color/slr_button_poinku_primary_fill</item>
+        <item name="strokeColor">@color/slr_button_poinku_primary_stroke</item>
+        <item name="android:textColor">@color/slr_button_poinku_primary_content</item>
+        <item name="iconTint">@color/slr_button_poinku_primary_content</item>
+        <item name="android:minHeight">@dimen/dimen_24</item>
+        <item name="android:minWidth">@dimen/dimen_0</item>
+        <item name="android:paddingLeft">@dimen/xxs</item>
+        <item name="android:paddingTop">@dimen/xxxs</item>
+        <item name="android:paddingRight">@dimen/xxs</item>
+        <item name="android:paddingBottom">@dimen/xxxs</item>
+        <item name="iconPadding">@dimen/xxs</item>
+        <item name="iconSize">@dimen/dimen_16</item>
+        <item name="cornerRadius">@dimen/xxxs</item>
+        <item name="strokeWidth">@dimen/dimen_0</item>
+        <item name="android:textAppearance">@style/TextAppearance.EDTS.UIKit.Button.Poinku.Small</item>
+    </style>
+
+    <style name="Widget.EDTS.UIKit.Button.Poinku.Outline.Small" parent="Widget.EDTS.UIKit.CoreButton">
+        <item name="buttonRecipe">@style/Widget.EDTS.UIKit.Button.Poinku.Outline.Small</item>
+        <item name="backgroundTint">@color/slr_button_poinku_outline_fill</item>
+        <item name="strokeColor">@color/slr_button_poinku_outline_stroke</item>
+        <item name="android:textColor">@color/slr_button_poinku_outline_content</item>
+        <item name="iconTint">@color/slr_button_poinku_outline_content</item>
+        <item name="android:minHeight">@dimen/dimen_24</item>
+        <item name="android:minWidth">@dimen/dimen_0</item>
+        <item name="android:paddingLeft">@dimen/xxs</item>
+        <item name="android:paddingTop">@dimen/xxxs</item>
+        <item name="android:paddingRight">@dimen/xxs</item>
+        <item name="android:paddingBottom">@dimen/xxxs</item>
+        <item name="iconPadding">@dimen/xxs</item>
+        <item name="iconSize">@dimen/dimen_16</item>
+        <item name="cornerRadius">@dimen/xxxs</item>
+        <item name="strokeWidth">@dimen/dimen_1</item>
+        <item name="android:textAppearance">@style/TextAppearance.EDTS.UIKit.Button.Poinku.Small</item>
+    </style>
+
+    <style name="Widget.EDTS.UIKit.Button.Poinku.Text.Small" parent="Widget.EDTS.UIKit.CoreButton">
+        <item name="buttonRecipe">@style/Widget.EDTS.UIKit.Button.Poinku.Text.Small</item>
+        <item name="backgroundTint">@color/slr_button_poinku_text_fill</item>
+        <item name="strokeColor">@color/slr_button_poinku_primary_stroke</item>
+        <item name="android:textColor">@color/slr_button_poinku_outline_content</item>
+        <item name="iconTint">@color/slr_button_poinku_outline_content</item>
+        <item name="android:minHeight">@dimen/dimen_24</item>
+        <item name="android:minWidth">@dimen/dimen_0</item>
+        <item name="android:paddingLeft">@dimen/xxs</item>
+        <item name="android:paddingTop">@dimen/xxxs</item>
+        <item name="android:paddingRight">@dimen/xxs</item>
+        <item name="android:paddingBottom">@dimen/xxxs</item>
+        <item name="iconPadding">@dimen/xxs</item>
+        <item name="iconSize">@dimen/dimen_16</item>
+        <item name="cornerRadius">@dimen/xxs</item>
+        <item name="strokeWidth">@dimen/dimen_0</item>
+        <item name="android:textAppearance">@style/TextAppearance.EDTS.UIKit.Button.Poinku.Small</item>
+        <item name="android:stateListAnimator">@animator/anim_button_poinku_text_corners</item>
+    </style>
+
+    <style name="Widget.EDTS.UIKit.Button.Poinku.Outline.Medium" parent="Widget.EDTS.UIKit.CoreButton">
+        <item name="buttonRecipe">@style/Widget.EDTS.UIKit.Button.Poinku.Outline.Medium</item>
+        <item name="backgroundTint">@color/slr_button_poinku_outline_fill</item>
+        <item name="strokeColor">@color/slr_button_poinku_outline_stroke</item>
+        <item name="android:textColor">@color/slr_button_poinku_outline_content</item>
+        <item name="iconTint">@color/slr_button_poinku_outline_content</item>
+        <item name="android:minHeight">@dimen/dimen_32</item>
+        <item name="android:minWidth">@dimen/dimen_0</item>
+        <item name="android:paddingLeft">@dimen/xs</item>
+        <item name="android:paddingTop">@dimen/xxs</item>
+        <item name="android:paddingRight">@dimen/xs</item>
+        <item name="android:paddingBottom">@dimen/xxs</item>
+        <item name="iconPadding">@dimen/xxs</item>
+        <item name="iconSize">@dimen/dimen_16</item>
+        <item name="cornerRadius">@dimen/xxxs</item>
+        <item name="strokeWidth">@dimen/dimen_1</item>
+        <item name="android:textAppearance">@style/TextAppearance.EDTS.UIKit.Button.Poinku.Medium</item>
+    </style>
+
+    <style name="Widget.EDTS.UIKit.Button.Poinku.Text.Medium" parent="Widget.EDTS.UIKit.CoreButton">
+        <item name="buttonRecipe">@style/Widget.EDTS.UIKit.Button.Poinku.Text.Medium</item>
+        <item name="backgroundTint">@color/slr_button_poinku_text_fill</item>
+        <item name="strokeColor">@color/slr_button_poinku_primary_stroke</item>
+        <item name="android:textColor">@color/slr_button_poinku_outline_content</item>
+        <item name="iconTint">@color/slr_button_poinku_outline_content</item>
+        <item name="android:minHeight">@dimen/dimen_32</item>
+        <item name="android:minWidth">@dimen/dimen_0</item>
+        <item name="android:paddingLeft">@dimen/xs</item>
+        <item name="android:paddingTop">@dimen/xxs</item>
+        <item name="android:paddingRight">@dimen/xs</item>
+        <item name="android:paddingBottom">@dimen/xxs</item>
+        <item name="iconPadding">@dimen/xxs</item>
+        <item name="iconSize">@dimen/dimen_16</item>
+        <item name="cornerRadius">@dimen/xxs</item>
+        <item name="strokeWidth">@dimen/dimen_0</item>
+        <item name="android:textAppearance">@style/TextAppearance.EDTS.UIKit.Button.Poinku.Medium</item>
+        <item name="android:stateListAnimator">@animator/anim_button_poinku_text_corners</item>
+    </style>
+
+    <style name="Widget.EDTS.UIKit.Button.Poinku.Outline.Large" parent="Widget.EDTS.UIKit.CoreButton">
+        <item name="buttonRecipe">@style/Widget.EDTS.UIKit.Button.Poinku.Outline.Large</item>
+        <item name="backgroundTint">@color/slr_button_poinku_outline_fill</item>
+        <item name="strokeColor">@color/slr_button_poinku_outline_stroke</item>
+        <item name="android:textColor">@color/slr_button_poinku_outline_content</item>
+        <item name="iconTint">@color/slr_button_poinku_outline_content</item>
+        <item name="android:minHeight">@dimen/dimen_40</item>
+        <item name="android:minWidth">@dimen/dimen_0</item>
+        <item name="android:paddingLeft">@dimen/xs</item>
+        <item name="android:paddingTop">@dimen/xxs</item>
+        <item name="android:paddingRight">@dimen/xs</item>
+        <item name="android:paddingBottom">@dimen/xxs</item>
+        <item name="iconPadding">@dimen/xxs</item>
+        <item name="iconSize">@dimen/dimen_24</item>
+        <item name="cornerRadius">@dimen/xxs</item>
+        <item name="strokeWidth">@dimen/dimen_1</item>
+        <item name="android:textAppearance">@style/TextAppearance.EDTS.UIKit.Button.Poinku.Large</item>
+    </style>
+
+    <style name="Widget.EDTS.UIKit.Button.Poinku.Text.Large" parent="Widget.EDTS.UIKit.CoreButton">
+        <item name="buttonRecipe">@style/Widget.EDTS.UIKit.Button.Poinku.Text.Large</item>
+        <item name="backgroundTint">@color/slr_button_poinku_text_fill</item>
+        <item name="strokeColor">@color/slr_button_poinku_primary_stroke</item>
+        <item name="android:textColor">@color/slr_button_poinku_outline_content</item>
+        <item name="iconTint">@color/slr_button_poinku_outline_content</item>
+        <item name="android:minHeight">@dimen/dimen_40</item>
+        <item name="android:minWidth">@dimen/dimen_0</item>
+        <item name="android:paddingLeft">@dimen/xs</item>
+        <item name="android:paddingTop">@dimen/xxs</item>
+        <item name="android:paddingRight">@dimen/xs</item>
+        <item name="android:paddingBottom">@dimen/xxs</item>
+        <item name="iconPadding">@dimen/xxs</item>
+        <item name="iconSize">@dimen/dimen_24</item>
+        <item name="cornerRadius">@dimen/xxs</item>
+        <item name="strokeWidth">@dimen/dimen_0</item>
+        <item name="android:textAppearance">@style/TextAppearance.EDTS.UIKit.Button.Poinku.Large</item>
+    </style>
+
+    <style name="Widget.EDTS.UIKit.Button.Poinku.Icon.Primary.Large24" parent="Widget.EDTS.UIKit.CoreButton">
+        <item name="buttonRecipe">@style/Widget.EDTS.UIKit.Button.Poinku.Icon.Primary.Large24</item>
+        <item name="backgroundTint">@color/slr_button_poinku_primary_fill</item>
+        <item name="strokeColor">@color/slr_button_poinku_primary_stroke</item>
+        <item name="android:textColor">@color/slr_button_poinku_primary_content</item>
+        <item name="iconTint">@color/slr_button_poinku_primary_content</item>
+        <item name="android:minHeight">@dimen/dimen_40</item>
+        <item name="android:minWidth">@dimen/dimen_40</item>
+        <item name="android:paddingLeft">@dimen/xxs</item>
+        <item name="android:paddingTop">@dimen/xxs</item>
+        <item name="android:paddingRight">@dimen/xxs</item>
+        <item name="android:paddingBottom">@dimen/xxs</item>
+        <item name="iconPadding">@dimen/dimen_0</item>
+        <item name="iconSize">@dimen/dimen_24</item>
+        <item name="cornerRadius">@dimen/xxs</item>
+        <item name="strokeWidth">@dimen/dimen_0</item>
+        <item name="android:textAppearance">@style/TextAppearance.EDTS.UIKit.Button.Icon</item>
+    </style>
+
+    <style name="Widget.EDTS.UIKit.Button.Poinku.Icon.Outline.Large24" parent="Widget.EDTS.UIKit.CoreButton">
+        <item name="buttonRecipe">@style/Widget.EDTS.UIKit.Button.Poinku.Icon.Outline.Large24</item>
+        <item name="backgroundTint">@color/slr_button_poinku_outline_fill</item>
+        <item name="strokeColor">@color/slr_button_poinku_outline_stroke</item>
+        <item name="android:textColor">@color/slr_button_poinku_outline_content</item>
+        <item name="iconTint">@color/slr_button_poinku_outline_content</item>
+        <item name="android:minHeight">@dimen/dimen_40</item>
+        <item name="android:minWidth">@dimen/dimen_40</item>
+        <item name="android:paddingLeft">@dimen/xxs</item>
+        <item name="android:paddingTop">@dimen/xxs</item>
+        <item name="android:paddingRight">@dimen/xxs</item>
+        <item name="android:paddingBottom">@dimen/xxs</item>
+        <item name="iconPadding">@dimen/dimen_0</item>
+        <item name="iconSize">@dimen/dimen_24</item>
+        <item name="cornerRadius">@dimen/xxs</item>
+        <item name="strokeWidth">@dimen/dimen_1</item>
+        <item name="android:textAppearance">@style/TextAppearance.EDTS.UIKit.Button.Icon</item>
+    </style>
+
+    <style name="Widget.EDTS.UIKit.Button.Poinku.Icon.Shadow.Large24" parent="Widget.EDTS.UIKit.CoreButton">
+        <item name="buttonRecipe">@style/Widget.EDTS.UIKit.Button.Poinku.Icon.Shadow.Large24</item>
+        <item name="backgroundTint">@color/slr_button_poinku_outline_fill</item>
+        <item name="strokeColor">@color/slr_button_poinku_primary_stroke</item>
+        <item name="android:textColor">@color/slr_button_poinku_outline_content</item>
+        <item name="iconTint">@color/slr_button_poinku_outline_content</item>
+        <item name="android:minHeight">@dimen/dimen_40</item>
+        <item name="android:minWidth">@dimen/dimen_40</item>
+        <item name="android:paddingLeft">@dimen/xxs</item>
+        <item name="android:paddingTop">@dimen/xxs</item>
+        <item name="android:paddingRight">@dimen/xxs</item>
+        <item name="android:paddingBottom">@dimen/xxs</item>
+        <item name="iconPadding">@dimen/dimen_0</item>
+        <item name="iconSize">@dimen/dimen_24</item>
+        <item name="cornerRadius">@dimen/xxs</item>
+        <item name="strokeWidth">@dimen/dimen_0</item>
+        <item name="android:textAppearance">@style/TextAppearance.EDTS.UIKit.Button.Icon</item>
+        <item name="android:elevation">@dimen/dimen_2</item>
+    </style>
+
+    <style name="Widget.EDTS.UIKit.Button.Poinku.Icon.Primary.Large16" parent="Widget.EDTS.UIKit.CoreButton">
+        <item name="buttonRecipe">@style/Widget.EDTS.UIKit.Button.Poinku.Icon.Primary.Large16</item>
+        <item name="backgroundTint">@color/slr_button_poinku_primary_fill</item>
+        <item name="strokeColor">@color/slr_button_poinku_primary_stroke</item>
+        <item name="android:textColor">@color/slr_button_poinku_primary_content</item>
+        <item name="iconTint">@color/slr_button_poinku_primary_content</item>
+        <item name="android:minHeight">@dimen/dimen_28</item>
+        <item name="android:minWidth">@dimen/dimen_28</item>
+        <item name="android:paddingLeft">@dimen/dimen_6</item>
+        <item name="android:paddingTop">@dimen/dimen_6</item>
+        <item name="android:paddingRight">@dimen/dimen_6</item>
+        <item name="android:paddingBottom">@dimen/dimen_6</item>
+        <item name="iconPadding">@dimen/dimen_0</item>
+        <item name="iconSize">@dimen/dimen_16</item>
+        <item name="cornerRadius">@dimen/xxs</item>
+        <item name="strokeWidth">@dimen/dimen_0</item>
+        <item name="android:textAppearance">@style/TextAppearance.EDTS.UIKit.Button.Icon</item>
+    </style>
+
+    <style name="Widget.EDTS.UIKit.Button.Poinku.Icon.Outline.Large16" parent="Widget.EDTS.UIKit.CoreButton">
+        <item name="buttonRecipe">@style/Widget.EDTS.UIKit.Button.Poinku.Icon.Outline.Large16</item>
+        <item name="backgroundTint">@color/slr_button_poinku_outline_fill</item>
+        <item name="strokeColor">@color/slr_button_poinku_outline_stroke</item>
+        <item name="android:textColor">@color/slr_button_poinku_outline_content</item>
+        <item name="iconTint">@color/slr_button_poinku_outline_content</item>
+        <item name="android:minHeight">@dimen/dimen_28</item>
+        <item name="android:minWidth">@dimen/dimen_28</item>
+        <item name="android:paddingLeft">@dimen/dimen_6</item>
+        <item name="android:paddingTop">@dimen/dimen_6</item>
+        <item name="android:paddingRight">@dimen/dimen_6</item>
+        <item name="android:paddingBottom">@dimen/dimen_6</item>
+        <item name="iconPadding">@dimen/dimen_0</item>
+        <item name="iconSize">@dimen/dimen_16</item>
+        <item name="cornerRadius">@dimen/xxs</item>
+        <item name="strokeWidth">@dimen/dimen_1</item>
+        <item name="android:textAppearance">@style/TextAppearance.EDTS.UIKit.Button.Icon</item>
+    </style>
+
+    <style name="Widget.EDTS.UIKit.Button.Poinku.Icon.Shadow.Large16" parent="Widget.EDTS.UIKit.CoreButton">
+        <item name="buttonRecipe">@style/Widget.EDTS.UIKit.Button.Poinku.Icon.Shadow.Large16</item>
+        <item name="backgroundTint">@color/slr_button_poinku_outline_fill</item>
+        <item name="strokeColor">@color/slr_button_poinku_primary_stroke</item>
+        <item name="android:textColor">@color/slr_button_poinku_outline_content</item>
+        <item name="iconTint">@color/slr_button_poinku_outline_content</item>
+        <item name="android:minHeight">@dimen/dimen_28</item>
+        <item name="android:minWidth">@dimen/dimen_28</item>
+        <item name="android:paddingLeft">@dimen/dimen_6</item>
+        <item name="android:paddingTop">@dimen/dimen_6</item>
+        <item name="android:paddingRight">@dimen/dimen_6</item>
+        <item name="android:paddingBottom">@dimen/dimen_6</item>
+        <item name="iconPadding">@dimen/dimen_0</item>
+        <item name="iconSize">@dimen/dimen_16</item>
+        <item name="cornerRadius">@dimen/xxs</item>
+        <item name="strokeWidth">@dimen/dimen_0</item>
+        <item name="android:textAppearance">@style/TextAppearance.EDTS.UIKit.Button.Icon</item>
+        <item name="android:elevation">@dimen/dimen_2</item>
+    </style>
+
+    <style name="Widget.EDTS.UIKit.Button.Poinku.Icon.Primary.Small16" parent="Widget.EDTS.UIKit.CoreButton">
+        <item name="buttonRecipe">@style/Widget.EDTS.UIKit.Button.Poinku.Icon.Primary.Small16</item>
+        <item name="backgroundTint">@color/slr_button_poinku_primary_fill</item>
+        <item name="strokeColor">@color/slr_button_poinku_primary_stroke</item>
+        <item name="android:textColor">@color/slr_button_poinku_primary_content</item>
+        <item name="iconTint">@color/slr_button_poinku_primary_content</item>
+        <item name="android:minHeight">@dimen/dimen_24</item>
+        <item name="android:minWidth">@dimen/dimen_24</item>
+        <item name="android:paddingLeft">@dimen/xxxs</item>
+        <item name="android:paddingTop">@dimen/xxxs</item>
+        <item name="android:paddingRight">@dimen/xxxs</item>
+        <item name="android:paddingBottom">@dimen/xxxs</item>
+        <item name="iconPadding">@dimen/dimen_0</item>
+        <item name="iconSize">@dimen/dimen_16</item>
+        <item name="cornerRadius">@dimen/xxs</item>
+        <item name="strokeWidth">@dimen/dimen_0</item>
+        <item name="android:textAppearance">@style/TextAppearance.EDTS.UIKit.Button.Icon</item>
+    </style>
+
+    <style name="Widget.EDTS.UIKit.Button.Poinku.Icon.Outline.Small16" parent="Widget.EDTS.UIKit.CoreButton">
+        <item name="buttonRecipe">@style/Widget.EDTS.UIKit.Button.Poinku.Icon.Outline.Small16</item>
+        <item name="backgroundTint">@color/slr_button_poinku_outline_fill</item>
+        <item name="strokeColor">@color/slr_button_poinku_outline_stroke</item>
+        <item name="android:textColor">@color/slr_button_poinku_outline_content</item>
+        <item name="iconTint">@color/slr_button_poinku_outline_content</item>
+        <item name="android:minHeight">@dimen/dimen_24</item>
+        <item name="android:minWidth">@dimen/dimen_24</item>
+        <item name="android:paddingLeft">@dimen/xxxs</item>
+        <item name="android:paddingTop">@dimen/xxxs</item>
+        <item name="android:paddingRight">@dimen/xxxs</item>
+        <item name="android:paddingBottom">@dimen/xxxs</item>
+        <item name="iconPadding">@dimen/dimen_0</item>
+        <item name="iconSize">@dimen/dimen_16</item>
+        <item name="cornerRadius">@dimen/xxs</item>
+        <item name="strokeWidth">@dimen/dimen_1</item>
+        <item name="android:textAppearance">@style/TextAppearance.EDTS.UIKit.Button.Icon</item>
+    </style>
+
+    <style name="Widget.EDTS.UIKit.Button.Poinku.Icon.Shadow.Small16" parent="Widget.EDTS.UIKit.CoreButton">
+        <item name="buttonRecipe">@style/Widget.EDTS.UIKit.Button.Poinku.Icon.Shadow.Small16</item>
+        <item name="backgroundTint">@color/slr_button_poinku_outline_fill</item>
+        <item name="strokeColor">@color/slr_button_poinku_primary_stroke</item>
+        <item name="android:textColor">@color/slr_button_poinku_outline_content</item>
+        <item name="iconTint">@color/slr_button_poinku_outline_content</item>
+        <item name="android:minHeight">@dimen/dimen_24</item>
+        <item name="android:minWidth">@dimen/dimen_24</item>
+        <item name="android:paddingLeft">@dimen/xxxs</item>
+        <item name="android:paddingTop">@dimen/xxxs</item>
+        <item name="android:paddingRight">@dimen/xxxs</item>
+        <item name="android:paddingBottom">@dimen/xxxs</item>
+        <item name="iconPadding">@dimen/dimen_0</item>
+        <item name="iconSize">@dimen/dimen_16</item>
+        <item name="cornerRadius">@dimen/xxs</item>
+        <item name="strokeWidth">@dimen/dimen_0</item>
+        <item name="android:textAppearance">@style/TextAppearance.EDTS.UIKit.Button.Icon</item>
+        <item name="android:elevation">@dimen/dimen_2</item>
+    </style>
+
+    <style name="Widget.EDTS.UIKit.Button.Poinku.Icon.Primary.Small24" parent="Widget.EDTS.UIKit.CoreButton">
+        <item name="buttonRecipe">@style/Widget.EDTS.UIKit.Button.Poinku.Icon.Primary.Small24</item>
+        <item name="backgroundTint">@color/slr_button_poinku_primary_fill</item>
+        <item name="strokeColor">@color/slr_button_poinku_primary_stroke</item>
+        <item name="android:textColor">@color/slr_button_poinku_primary_content</item>
+        <item name="iconTint">@color/slr_button_poinku_primary_content</item>
+        <item name="android:minHeight">@dimen/dimen_32</item>
+        <item name="android:minWidth">@dimen/dimen_32</item>
+        <item name="android:paddingLeft">@dimen/xxxs</item>
+        <item name="android:paddingTop">@dimen/xxxs</item>
+        <item name="android:paddingRight">@dimen/xxxs</item>
+        <item name="android:paddingBottom">@dimen/xxxs</item>
+        <item name="iconPadding">@dimen/dimen_0</item>
+        <item name="iconSize">@dimen/dimen_24</item>
+        <item name="cornerRadius">@dimen/xxs</item>
+        <item name="strokeWidth">@dimen/dimen_0</item>
+        <item name="android:textAppearance">@style/TextAppearance.EDTS.UIKit.Button.Icon</item>
+    </style>
+
+    <style name="Widget.EDTS.UIKit.Button.Poinku.Icon.Outline.Small24" parent="Widget.EDTS.UIKit.CoreButton">
+        <item name="buttonRecipe">@style/Widget.EDTS.UIKit.Button.Poinku.Icon.Outline.Small24</item>
+        <item name="backgroundTint">@color/slr_button_poinku_outline_fill</item>
+        <item name="strokeColor">@color/slr_button_poinku_outline_stroke</item>
+        <item name="android:textColor">@color/slr_button_poinku_outline_content</item>
+        <item name="iconTint">@color/slr_button_poinku_outline_content</item>
+        <item name="android:minHeight">@dimen/dimen_32</item>
+        <item name="android:minWidth">@dimen/dimen_32</item>
+        <item name="android:paddingLeft">@dimen/xxxs</item>
+        <item name="android:paddingTop">@dimen/xxxs</item>
+        <item name="android:paddingRight">@dimen/xxxs</item>
+        <item name="android:paddingBottom">@dimen/xxxs</item>
+        <item name="iconPadding">@dimen/dimen_0</item>
+        <item name="iconSize">@dimen/dimen_24</item>
+        <item name="cornerRadius">@dimen/xxs</item>
+        <item name="strokeWidth">@dimen/dimen_1</item>
+        <item name="android:textAppearance">@style/TextAppearance.EDTS.UIKit.Button.Icon</item>
+    </style>
+
+    <style name="Widget.EDTS.UIKit.Button.Poinku.Icon.Shadow.Small24" parent="Widget.EDTS.UIKit.CoreButton">
+        <item name="buttonRecipe">@style/Widget.EDTS.UIKit.Button.Poinku.Icon.Shadow.Small24</item>
+        <item name="backgroundTint">@color/slr_button_poinku_outline_fill</item>
+        <item name="strokeColor">@color/slr_button_poinku_primary_stroke</item>
+        <item name="android:textColor">@color/slr_button_poinku_outline_content</item>
+        <item name="iconTint">@color/slr_button_poinku_outline_content</item>
+        <item name="android:minHeight">@dimen/dimen_32</item>
+        <item name="android:minWidth">@dimen/dimen_32</item>
+        <item name="android:paddingLeft">@dimen/xxxs</item>
+        <item name="android:paddingTop">@dimen/xxxs</item>
+        <item name="android:paddingRight">@dimen/xxxs</item>
+        <item name="android:paddingBottom">@dimen/xxxs</item>
+        <item name="iconPadding">@dimen/dimen_0</item>
+        <item name="iconSize">@dimen/dimen_24</item>
+        <item name="cornerRadius">@dimen/xxs</item>
+        <item name="strokeWidth">@dimen/dimen_0</item>
+        <item name="android:textAppearance">@style/TextAppearance.EDTS.UIKit.Button.Icon</item>
+        <item name="android:elevation">@dimen/dimen_2</item>
+    </style>
+</resources>

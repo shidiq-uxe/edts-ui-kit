@@ -1,0 +1,359 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="TextAppearance.EDTS.UIKit.Button.Klik.Small" parent="TextAppearance.Inter.SemiBold.Button.Text.Small">
+        <item name="fontFamily">@font/button_klik_inter_semibold</item>
+        <item name="android:fontFamily">@font/button_klik_inter_semibold</item>
+    </style>
+
+    <style name="TextAppearance.EDTS.UIKit.Button.Klik.Medium" parent="TextAppearance.Inter.SemiBold.Button.Text.Medium">
+        <item name="fontFamily">@font/button_klik_inter_semibold</item>
+        <item name="android:fontFamily">@font/button_klik_inter_semibold</item>
+    </style>
+
+    <style name="TextAppearance.EDTS.UIKit.Button.Klik.Large" parent="TextAppearance.Inter.SemiBold.Button.Text.Large">
+        <item name="fontFamily">@font/button_klik_inter_semibold</item>
+        <item name="android:fontFamily">@font/button_klik_inter_semibold</item>
+    </style>
+
+    <style name="Widget.EDTS.UIKit.Button.Klik.Primary.Large" parent="Widget.EDTS.UIKit.CoreButton">
+        <item name="buttonRecipe">@style/Widget.EDTS.UIKit.Button.Klik.Primary.Large</item>
+        <item name="backgroundTint">@color/slr_button_klik_primary_fill</item>
+        <item name="strokeColor">@color/slr_button_klik_primary_stroke</item>
+        <item name="android:textColor">@color/slr_button_klik_primary_content</item>
+        <item name="iconTint">@color/slr_button_klik_primary_content</item>
+        <item name="android:minHeight">@dimen/dimen_40</item>
+        <item name="android:minWidth">@dimen/dimen_0</item>
+        <item name="android:paddingLeft">@dimen/xs</item>
+        <item name="android:paddingTop">@dimen/xxs</item>
+        <item name="android:paddingRight">@dimen/xs</item>
+        <item name="android:paddingBottom">@dimen/xxs</item>
+        <item name="iconPadding">@dimen/xxs</item>
+        <item name="iconSize">@dimen/dimen_24</item>
+        <item name="cornerRadius">@dimen/dimen_6</item>
+        <item name="strokeWidth">@dimen/dimen_0</item>
+        <item name="android:textAppearance">@style/TextAppearance.EDTS.UIKit.Button.Klik.Large</item>
+    </style>
+
+    <style name="Widget.EDTS.UIKit.Button.Klik.Primary.Medium" parent="Widget.EDTS.UIKit.CoreButton">
+        <item name="buttonRecipe">@style/Widget.EDTS.UIKit.Button.Klik.Primary.Medium</item>
+        <item name="backgroundTint">@color/slr_button_klik_primary_fill</item>
+        <item name="strokeColor">@color/slr_button_klik_primary_stroke</item>
+        <item name="android:textColor">@color/slr_button_klik_primary_content</item>
+        <item name="iconTint">@color/slr_button_klik_primary_content</item>
+        <item name="android:minHeight">@dimen/dimen_32</item>
+        <item name="android:minWidth">@dimen/dimen_0</item>
+        <item name="android:paddingLeft">@dimen/xs</item>
+        <item name="android:paddingTop">@dimen/xxs</item>
+        <item name="android:paddingRight">@dimen/xs</item>
+        <item name="android:paddingBottom">@dimen/xxs</item>
+        <item name="iconPadding">@dimen/xxs</item>
+        <item name="iconSize">@dimen/dimen_16</item>
+        <item name="cornerRadius">@dimen/dimen_6</item>
+        <item name="strokeWidth">@dimen/dimen_0</item>
+        <item name="android:textAppearance">@style/TextAppearance.EDTS.UIKit.Button.Klik.Medium</item>
+    </style>
+
+    <style name="Widget.EDTS.UIKit.Button.Klik.Primary.Small" parent="Widget.EDTS.UIKit.CoreButton">
+        <item name="buttonRecipe">@style/Widget.EDTS.UIKit.Button.Klik.Primary.Small</item>
+        <item name="backgroundTint">@color/slr_button_klik_primary_fill</item>
+        <item name="strokeColor">@color/slr_button_klik_primary_stroke</item>
+        <item name="android:textColor">@color/slr_button_klik_primary_content</item>
+        <item name="iconTint">@color/slr_button_klik_primary_content</item>
+        <item name="android:minHeight">@dimen/dimen_28</item>
+        <item name="android:minWidth">@dimen/dimen_0</item>
+        <item name="android:paddingLeft">@dimen/xs</item>
+        <item name="android:paddingTop">@dimen/dimen_6</item>
+        <item name="android:paddingRight">@dimen/xs</item>
+        <item name="android:paddingBottom">@dimen/dimen_6</item>
+        <item name="iconPadding">@dimen/xxs</item>
+        <item name="iconSize">@dimen/dimen_16</item>
+        <item name="cornerRadius">@dimen/dimen_6</item>
+        <item name="strokeWidth">@dimen/dimen_0</item>
+        <item name="android:textAppearance">@style/TextAppearance.EDTS.UIKit.Button.Klik.Small</item>
+    </style>
+
+    <style name="Widget.EDTS.UIKit.Button.Klik.Icon.Primary.Large" parent="Widget.EDTS.UIKit.CoreButton">
+        <item name="buttonRecipe">@style/Widget.EDTS.UIKit.Button.Klik.Icon.Primary.Large</item>
+        <item name="backgroundTint">@color/slr_button_klik_primary_fill</item>
+        <item name="strokeColor">@color/slr_button_klik_primary_stroke</item>
+        <item name="android:textColor">@color/slr_button_klik_primary_content</item>
+        <item name="iconTint">@color/slr_button_klik_primary_content</item>
+        <item name="android:minHeight">@dimen/dimen_40</item>
+        <item name="android:minWidth">@dimen/dimen_40</item>
+        <item name="android:paddingLeft">@dimen/xxs</item>
+        <item name="android:paddingTop">@dimen/xxs</item>
+        <item name="android:paddingRight">@dimen/xxs</item>
+        <item name="android:paddingBottom">@dimen/xxs</item>
+        <item name="iconPadding">@dimen/dimen_0</item>
+        <item name="iconSize">@dimen/dimen_24</item>
+        <item name="cornerRadius">@dimen/dimen_6</item>
+        <item name="strokeWidth">@dimen/dimen_0</item>
+        <item name="android:textAppearance">@style/TextAppearance.EDTS.UIKit.Button.Icon</item>
+    </style>
+
+    <style name="Widget.EDTS.UIKit.Button.Klik.Icon.Primary.Medium" parent="Widget.EDTS.UIKit.CoreButton">
+        <item name="buttonRecipe">@style/Widget.EDTS.UIKit.Button.Klik.Icon.Primary.Medium</item>
+        <item name="backgroundTint">@color/slr_button_klik_primary_fill</item>
+        <item name="strokeColor">@color/slr_button_klik_primary_stroke</item>
+        <item name="android:textColor">@color/slr_button_klik_primary_content</item>
+        <item name="iconTint">@color/slr_button_klik_primary_content</item>
+        <item name="android:minHeight">@dimen/dimen_32</item>
+        <item name="android:minWidth">@dimen/dimen_32</item>
+        <item name="android:paddingLeft">@dimen/xxs</item>
+        <item name="android:paddingTop">@dimen/xxs</item>
+        <item name="android:paddingRight">@dimen/xxs</item>
+        <item name="android:paddingBottom">@dimen/xxs</item>
+        <item name="iconPadding">@dimen/dimen_0</item>
+        <item name="iconSize">@dimen/dimen_16</item>
+        <item name="cornerRadius">@dimen/dimen_6</item>
+        <item name="strokeWidth">@dimen/dimen_0</item>
+        <item name="android:textAppearance">@style/TextAppearance.EDTS.UIKit.Button.Icon</item>
+    </style>
+
+    <style name="Widget.EDTS.UIKit.Button.Klik.Icon.Primary.Small" parent="Widget.EDTS.UIKit.CoreButton">
+        <item name="buttonRecipe">@style/Widget.EDTS.UIKit.Button.Klik.Icon.Primary.Small</item>
+        <item name="backgroundTint">@color/slr_button_klik_primary_fill</item>
+        <item name="strokeColor">@color/slr_button_klik_primary_stroke</item>
+        <item name="android:textColor">@color/slr_button_klik_primary_content</item>
+        <item name="iconTint">@color/slr_button_klik_primary_content</item>
+        <item name="android:minHeight">@dimen/dimen_28</item>
+        <item name="android:minWidth">@dimen/dimen_28</item>
+        <item name="android:paddingLeft">@dimen/dimen_6</item>
+        <item name="android:paddingTop">@dimen/dimen_6</item>
+        <item name="android:paddingRight">@dimen/dimen_6</item>
+        <item name="android:paddingBottom">@dimen/dimen_6</item>
+        <item name="iconPadding">@dimen/dimen_0</item>
+        <item name="iconSize">@dimen/dimen_16</item>
+        <item name="cornerRadius">@dimen/dimen_6</item>
+        <item name="strokeWidth">@dimen/dimen_0</item>
+        <item name="android:textAppearance">@style/TextAppearance.EDTS.UIKit.Button.Icon</item>
+    </style>
+
+    <style name="Widget.EDTS.UIKit.Button.Klik.Secondary.Large" parent="Widget.EDTS.UIKit.CoreButton">
+        <item name="buttonRecipe">@style/Widget.EDTS.UIKit.Button.Klik.Secondary.Large</item>
+        <item name="backgroundTint">@color/slr_button_klik_secondary_fill</item>
+        <item name="strokeColor">@color/slr_button_klik_secondary_stroke</item>
+        <item name="android:textColor">@color/slr_button_klik_secondary_content</item>
+        <item name="iconTint">@color/slr_button_klik_secondary_content</item>
+        <item name="android:minHeight">@dimen/dimen_40</item>
+        <item name="android:minWidth">@dimen/dimen_0</item>
+        <item name="android:paddingLeft">@dimen/xs</item>
+        <item name="android:paddingTop">@dimen/xxs</item>
+        <item name="android:paddingRight">@dimen/xs</item>
+        <item name="android:paddingBottom">@dimen/xxs</item>
+        <item name="iconPadding">@dimen/xxs</item>
+        <item name="iconSize">@dimen/dimen_24</item>
+        <item name="cornerRadius">@dimen/dimen_6</item>
+        <item name="strokeWidth">@dimen/dimen_1</item>
+        <item name="android:textAppearance">@style/TextAppearance.EDTS.UIKit.Button.Klik.Large</item>
+    </style>
+
+    <style name="Widget.EDTS.UIKit.Button.Klik.Secondary.Medium" parent="Widget.EDTS.UIKit.CoreButton">
+        <item name="buttonRecipe">@style/Widget.EDTS.UIKit.Button.Klik.Secondary.Medium</item>
+        <item name="backgroundTint">@color/slr_button_klik_secondary_fill</item>
+        <item name="strokeColor">@color/slr_button_klik_secondary_stroke</item>
+        <item name="android:textColor">@color/slr_button_klik_secondary_content</item>
+        <item name="iconTint">@color/slr_button_klik_secondary_content</item>
+        <item name="android:minHeight">@dimen/dimen_32</item>
+        <item name="android:minWidth">@dimen/dimen_0</item>
+        <item name="android:paddingLeft">@dimen/xs</item>
+        <item name="android:paddingTop">@dimen/xxs</item>
+        <item name="android:paddingRight">@dimen/xs</item>
+        <item name="android:paddingBottom">@dimen/xxs</item>
+        <item name="iconPadding">@dimen/xxs</item>
+        <item name="iconSize">@dimen/dimen_16</item>
+        <item name="cornerRadius">@dimen/dimen_6</item>
+        <item name="strokeWidth">@dimen/dimen_1</item>
+        <item name="android:textAppearance">@style/TextAppearance.EDTS.UIKit.Button.Klik.Medium</item>
+    </style>
+
+    <style name="Widget.EDTS.UIKit.Button.Klik.Secondary.Small" parent="Widget.EDTS.UIKit.CoreButton">
+        <item name="buttonRecipe">@style/Widget.EDTS.UIKit.Button.Klik.Secondary.Small</item>
+        <item name="backgroundTint">@color/slr_button_klik_secondary_fill</item>
+        <item name="strokeColor">@color/slr_button_klik_secondary_stroke</item>
+        <item name="android:textColor">@color/slr_button_klik_secondary_content</item>
+        <item name="iconTint">@color/slr_button_klik_secondary_content</item>
+        <item name="android:minHeight">@dimen/dimen_28</item>
+        <item name="android:minWidth">@dimen/dimen_0</item>
+        <item name="android:paddingLeft">@dimen/xs</item>
+        <item name="android:paddingTop">@dimen/dimen_6</item>
+        <item name="android:paddingRight">@dimen/xs</item>
+        <item name="android:paddingBottom">@dimen/dimen_6</item>
+        <item name="iconPadding">@dimen/xxs</item>
+        <item name="iconSize">@dimen/dimen_16</item>
+        <item name="cornerRadius">@dimen/dimen_6</item>
+        <item name="strokeWidth">@dimen/dimen_1</item>
+        <item name="android:textAppearance">@style/TextAppearance.EDTS.UIKit.Button.Klik.Small</item>
+    </style>
+
+    <style name="Widget.EDTS.UIKit.Button.Klik.Icon.Secondary.Large" parent="Widget.EDTS.UIKit.CoreButton">
+        <item name="buttonRecipe">@style/Widget.EDTS.UIKit.Button.Klik.Icon.Secondary.Large</item>
+        <item name="backgroundTint">@color/slr_button_klik_secondary_fill</item>
+        <item name="strokeColor">@color/slr_button_klik_secondary_stroke</item>
+        <item name="android:textColor">@color/slr_button_klik_secondary_content</item>
+        <item name="iconTint">@color/slr_button_klik_secondary_content</item>
+        <item name="android:minHeight">@dimen/dimen_40</item>
+        <item name="android:minWidth">@dimen/dimen_40</item>
+        <item name="android:paddingLeft">@dimen/xxs</item>
+        <item name="android:paddingTop">@dimen/xxs</item>
+        <item name="android:paddingRight">@dimen/xxs</item>
+        <item name="android:paddingBottom">@dimen/xxs</item>
+        <item name="iconPadding">@dimen/dimen_0</item>
+        <item name="iconSize">@dimen/dimen_24</item>
+        <item name="cornerRadius">@dimen/dimen_6</item>
+        <item name="strokeWidth">@dimen/dimen_1</item>
+        <item name="android:textAppearance">@style/TextAppearance.EDTS.UIKit.Button.Icon</item>
+    </style>
+
+    <style name="Widget.EDTS.UIKit.Button.Klik.Icon.Secondary.Medium" parent="Widget.EDTS.UIKit.CoreButton">
+        <item name="buttonRecipe">@style/Widget.EDTS.UIKit.Button.Klik.Icon.Secondary.Medium</item>
+        <item name="backgroundTint">@color/slr_button_klik_secondary_fill</item>
+        <item name="strokeColor">@color/slr_button_klik_secondary_stroke</item>
+        <item name="android:textColor">@color/slr_button_klik_secondary_content</item>
+        <item name="iconTint">@color/slr_button_klik_secondary_content</item>
+        <item name="android:minHeight">@dimen/dimen_32</item>
+        <item name="android:minWidth">@dimen/dimen_32</item>
+        <item name="android:paddingLeft">@dimen/xxs</item>
+        <item name="android:paddingTop">@dimen/xxs</item>
+        <item name="android:paddingRight">@dimen/xxs</item>
+        <item name="android:paddingBottom">@dimen/xxs</item>
+        <item name="iconPadding">@dimen/dimen_0</item>
+        <item name="iconSize">@dimen/dimen_16</item>
+        <item name="cornerRadius">@dimen/dimen_6</item>
+        <item name="strokeWidth">@dimen/dimen_1</item>
+        <item name="android:textAppearance">@style/TextAppearance.EDTS.UIKit.Button.Icon</item>
+    </style>
+
+    <style name="Widget.EDTS.UIKit.Button.Klik.Icon.Secondary.Small" parent="Widget.EDTS.UIKit.CoreButton">
+        <item name="buttonRecipe">@style/Widget.EDTS.UIKit.Button.Klik.Icon.Secondary.Small</item>
+        <item name="backgroundTint">@color/slr_button_klik_secondary_fill</item>
+        <item name="strokeColor">@color/slr_button_klik_secondary_stroke</item>
+        <item name="android:textColor">@color/slr_button_klik_secondary_content</item>
+        <item name="iconTint">@color/slr_button_klik_secondary_content</item>
+        <item name="android:minHeight">@dimen/dimen_28</item>
+        <item name="android:minWidth">@dimen/dimen_28</item>
+        <item name="android:paddingLeft">@dimen/dimen_6</item>
+        <item name="android:paddingTop">@dimen/dimen_6</item>
+        <item name="android:paddingRight">@dimen/dimen_6</item>
+        <item name="android:paddingBottom">@dimen/dimen_6</item>
+        <item name="iconPadding">@dimen/dimen_0</item>
+        <item name="iconSize">@dimen/dimen_16</item>
+        <item name="cornerRadius">@dimen/dimen_6</item>
+        <item name="strokeWidth">@dimen/dimen_1</item>
+        <item name="android:textAppearance">@style/TextAppearance.EDTS.UIKit.Button.Icon</item>
+    </style>
+
+    <style name="Widget.EDTS.UIKit.Button.Klik.Tertiary.Large" parent="Widget.EDTS.UIKit.CoreButton">
+        <item name="buttonRecipe">@style/Widget.EDTS.UIKit.Button.Klik.Tertiary.Large</item>
+        <item name="backgroundTint">@color/slr_button_klik_secondary_fill</item>
+        <item name="strokeColor">@color/slr_button_klik_tertiary_stroke</item>
+        <item name="android:textColor">@color/slr_button_klik_tertiary_content</item>
+        <item name="iconTint">@color/slr_button_klik_tertiary_content</item>
+        <item name="android:minHeight">@dimen/dimen_40</item>
+        <item name="android:minWidth">@dimen/dimen_0</item>
+        <item name="android:paddingLeft">@dimen/xs</item>
+        <item name="android:paddingTop">@dimen/xxs</item>
+        <item name="android:paddingRight">@dimen/xs</item>
+        <item name="android:paddingBottom">@dimen/xxs</item>
+        <item name="iconPadding">@dimen/xxs</item>
+        <item name="iconSize">@dimen/dimen_24</item>
+        <item name="cornerRadius">@dimen/dimen_6</item>
+        <item name="strokeWidth">@dimen/dimen_1</item>
+        <item name="android:textAppearance">@style/TextAppearance.EDTS.UIKit.Button.Klik.Large</item>
+    </style>
+
+    <style name="Widget.EDTS.UIKit.Button.Klik.Tertiary.Medium" parent="Widget.EDTS.UIKit.CoreButton">
+        <item name="buttonRecipe">@style/Widget.EDTS.UIKit.Button.Klik.Tertiary.Medium</item>
+        <item name="backgroundTint">@color/slr_button_klik_secondary_fill</item>
+        <item name="strokeColor">@color/slr_button_klik_tertiary_stroke</item>
+        <item name="android:textColor">@color/slr_button_klik_tertiary_content</item>
+        <item name="iconTint">@color/slr_button_klik_tertiary_content</item>
+        <item name="android:minHeight">@dimen/dimen_32</item>
+        <item name="android:minWidth">@dimen/dimen_0</item>
+        <item name="android:paddingLeft">@dimen/xs</item>
+        <item name="android:paddingTop">@dimen/xxs</item>
+        <item name="android:paddingRight">@dimen/xs</item>
+        <item name="android:paddingBottom">@dimen/xxs</item>
+        <item name="iconPadding">@dimen/xxs</item>
+        <item name="iconSize">@dimen/dimen_16</item>
+        <item name="cornerRadius">@dimen/dimen_6</item>
+        <item name="strokeWidth">@dimen/dimen_1</item>
+        <item name="android:textAppearance">@style/TextAppearance.EDTS.UIKit.Button.Klik.Medium</item>
+    </style>
+
+    <style name="Widget.EDTS.UIKit.Button.Klik.Tertiary.Small" parent="Widget.EDTS.UIKit.CoreButton">
+        <item name="buttonRecipe">@style/Widget.EDTS.UIKit.Button.Klik.Tertiary.Small</item>
+        <item name="backgroundTint">@color/slr_button_klik_secondary_fill</item>
+        <item name="strokeColor">@color/slr_button_klik_tertiary_stroke</item>
+        <item name="android:textColor">@color/slr_button_klik_tertiary_content</item>
+        <item name="iconTint">@color/slr_button_klik_tertiary_content</item>
+        <item name="android:minHeight">@dimen/dimen_28</item>
+        <item name="android:minWidth">@dimen/dimen_0</item>
+        <item name="android:paddingLeft">@dimen/xs</item>
+        <item name="android:paddingTop">@dimen/dimen_6</item>
+        <item name="android:paddingRight">@dimen/xs</item>
+        <item name="android:paddingBottom">@dimen/dimen_6</item>
+        <item name="iconPadding">@dimen/xxs</item>
+        <item name="iconSize">@dimen/dimen_16</item>
+        <item name="cornerRadius">@dimen/dimen_6</item>
+        <item name="strokeWidth">@dimen/dimen_1</item>
+        <item name="android:textAppearance">@style/TextAppearance.EDTS.UIKit.Button.Klik.Small</item>
+    </style>
+
+    <style name="Widget.EDTS.UIKit.Button.Klik.Icon.Tertiary.Large" parent="Widget.EDTS.UIKit.CoreButton">
+        <item name="buttonRecipe">@style/Widget.EDTS.UIKit.Button.Klik.Icon.Tertiary.Large</item>
+        <item name="backgroundTint">@color/slr_button_klik_tertiary_icon_fill</item>
+        <item name="strokeColor">@color/slr_button_klik_tertiary_stroke</item>
+        <item name="android:textColor">@color/slr_button_klik_tertiary_content</item>
+        <item name="iconTint">@color/slr_button_klik_tertiary_content</item>
+        <item name="android:minHeight">@dimen/dimen_40</item>
+        <item name="android:minWidth">@dimen/dimen_40</item>
+        <item name="android:paddingLeft">@dimen/xxs</item>
+        <item name="android:paddingTop">@dimen/xxs</item>
+        <item name="android:paddingRight">@dimen/xxs</item>
+        <item name="android:paddingBottom">@dimen/xxs</item>
+        <item name="iconPadding">@dimen/dimen_0</item>
+        <item name="iconSize">@dimen/dimen_24</item>
+        <item name="cornerRadius">@dimen/dimen_6</item>
+        <item name="strokeWidth">@dimen/dimen_1</item>
+        <item name="android:textAppearance">@style/TextAppearance.EDTS.UIKit.Button.Icon</item>
+    </style>
+
+    <style name="Widget.EDTS.UIKit.Button.Klik.Icon.Tertiary.Medium" parent="Widget.EDTS.UIKit.CoreButton">
+        <item name="buttonRecipe">@style/Widget.EDTS.UIKit.Button.Klik.Icon.Tertiary.Medium</item>
+        <item name="backgroundTint">@color/slr_button_klik_tertiary_icon_fill</item>
+        <item name="strokeColor">@color/slr_button_klik_tertiary_stroke</item>
+        <item name="android:textColor">@color/slr_button_klik_tertiary_content</item>
+        <item name="iconTint">@color/slr_button_klik_tertiary_content</item>
+        <item name="android:minHeight">@dimen/dimen_32</item>
+        <item name="android:minWidth">@dimen/dimen_32</item>
+        <item name="android:paddingLeft">@dimen/xxs</item>
+        <item name="android:paddingTop">@dimen/xxs</item>
+        <item name="android:paddingRight">@dimen/xxs</item>
+        <item name="android:paddingBottom">@dimen/xxs</item>
+        <item name="iconPadding">@dimen/dimen_0</item>
+        <item name="iconSize">@dimen/dimen_16</item>
+        <item name="cornerRadius">@dimen/dimen_6</item>
+        <item name="strokeWidth">@dimen/dimen_1</item>
+        <item name="android:textAppearance">@style/TextAppearance.EDTS.UIKit.Button.Icon</item>
+    </style>
+
+    <style name="Widget.EDTS.UIKit.Button.Klik.Icon.Tertiary.Small" parent="Widget.EDTS.UIKit.CoreButton">
+        <item name="buttonRecipe">@style/Widget.EDTS.UIKit.Button.Klik.Icon.Tertiary.Small</item>
+        <item name="backgroundTint">@color/slr_button_klik_tertiary_icon_fill</item>
+        <item name="strokeColor">@color/slr_button_klik_tertiary_stroke</item>
+        <item name="android:textColor">@color/slr_button_klik_tertiary_content</item>
+        <item name="iconTint">@color/slr_button_klik_tertiary_content</item>
+        <item name="android:minHeight">@dimen/dimen_28</item>
+        <item name="android:minWidth">@dimen/dimen_28</item>
+        <item name="android:paddingLeft">@dimen/dimen_6</item>
+        <item name="android:paddingTop">@dimen/dimen_6</item>
+        <item name="android:paddingRight">@dimen/dimen_6</item>
+        <item name="android:paddingBottom">@dimen/dimen_6</item>
+        <item name="iconPadding">@dimen/dimen_0</item>
+        <item name="iconSize">@dimen/dimen_16</item>
+        <item name="cornerRadius">@dimen/dimen_6</item>
+        <item name="strokeWidth">@dimen/dimen_1</item>
+        <item name="android:textAppearance">@style/TextAppearance.EDTS.UIKit.Button.Icon</item>
+    </style>
+</resources>

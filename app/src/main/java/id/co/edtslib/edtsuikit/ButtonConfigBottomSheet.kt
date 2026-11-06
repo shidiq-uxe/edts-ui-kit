@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import com.google.android.material.chip.Chip
 import id.co.edtslib.edtsuikit.color.ColorPickerDialog
 import id.co.edtslib.edtsuikit.color.ColorPaletteView
@@ -17,6 +18,7 @@ import id.co.edtslib.uikit.utils.dimenPixelSize
 class ButtonConfigBottomSheet : BottomSheetTray() {
 
     private var config = ButtonConfig()
+    private var product = ButtonProduct.CORE
     private var sheetBinding: BottomSheetButtonConfigBinding? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,6 +27,8 @@ class ButtonConfigBottomSheet : BottomSheetTray() {
         config = savedInstanceState?.getBundle(STATE_CONFIG)?.toButtonConfig()
             ?: arguments?.getBundle(ARG_CONFIG)?.toButtonConfig()
             ?: ButtonConfig()
+        product = arguments?.getString(ARG_PRODUCT)
+            ?.let { name -> ButtonProduct.entries.find { it.name == name } } ?: ButtonProduct.CORE
 
         title = getString(R.string.configure_button)
         dismissOnOutsideTouch = true
@@ -75,21 +79,35 @@ class ButtonConfigBottomSheet : BottomSheetTray() {
         }
 
         localBinding.swDestructive.isChecked = config.destructive
+        localBinding.tvDestructiveLabel.isVisible = product == ButtonProduct.KLIK
+        localBinding.swDestructive.isVisible = product == ButtonProduct.KLIK
         localBinding.swDisabled.isChecked = config.disabled
         localBinding.swShimmer.isChecked = config.shimmer
-        localBinding.slCornerRadius.value = config.cornerRadius
-        localBinding.tvCornerRadiusValue.text = getString(
-            R.string.corner_radius_value,
-            config.cornerRadius.toInt(),
-        )
+        localBinding.swPressed.isChecked = config.pressed
+        localBinding.slCornerRadius.value = config.cornerRadius ?: when (product) {
+            ButtonProduct.CORE -> 16f
+            ButtonProduct.KLIK -> 6f
+            ButtonProduct.POINKU -> 4f
+        }
+        localBinding.tvCornerRadiusValue.text = config.cornerRadius?.let {
+            getString(R.string.corner_radius_value, it.toInt())
+        } ?: getString(R.string.button_recipe_default_corners)
 
         setupSizeFilters(localBinding)
+        localBinding.tvSizeFilterLabel.isVisible = product != ButtonProduct.CORE
+        localBinding.cgSizeFilter.isVisible = product != ButtonProduct.CORE
         setupMutualExclusiveToggles(localBinding)
 
-        localBinding.slCornerRadius.addOnChangeListener { _, value, _ ->
+        localBinding.slCornerRadius.addOnChangeListener { _, value, fromUser ->
+            if (!fromUser) return@addOnChangeListener
             config = config.copy(cornerRadius = value)
             localBinding.tvCornerRadiusValue.text = getString(R.string.corner_radius_value, value.toInt())
             publishConfig()
+        }
+        localBinding.btnReset.setOnClickListener {
+            config = ButtonConfig(customColors = config.customColors)
+            publishConfig()
+            dismiss()
         }
     }
 
@@ -172,7 +190,8 @@ class ButtonConfigBottomSheet : BottomSheetTray() {
             if (isChecked) {
                 binding.swDestructive.isChecked = false
                 binding.swShimmer.isChecked = false
-                config = config.copy(destructive = false, shimmer = false)
+                binding.swPressed.isChecked = false
+                config = config.copy(destructive = false, shimmer = false, pressed = false)
             }
             publishConfig()
         }
@@ -182,7 +201,17 @@ class ButtonConfigBottomSheet : BottomSheetTray() {
             if (isChecked) {
                 binding.swDestructive.isChecked = false
                 binding.swDisabled.isChecked = false
-                config = config.copy(destructive = false, disabled = false)
+                binding.swPressed.isChecked = false
+                config = config.copy(destructive = false, disabled = false, pressed = false)
+            }
+            publishConfig()
+        }
+        binding.swPressed.setOnCheckedChangeListener { _, isChecked ->
+            config = config.copy(pressed = isChecked)
+            if (isChecked) {
+                binding.swDisabled.isChecked = false
+                binding.swShimmer.isChecked = false
+                config = config.copy(disabled = false, shimmer = false)
             }
             publishConfig()
         }
@@ -197,12 +226,14 @@ class ButtonConfigBottomSheet : BottomSheetTray() {
         const val RESULT_CONFIG = "BUTTON_CONFIG_RESULT"
 
         private const val ARG_CONFIG = "button_config"
+        private const val ARG_PRODUCT = "button_product"
         private const val STATE_CONFIG = "button_config_state"
 
-        fun newInstance(config: ButtonConfig): ButtonConfigBottomSheet =
+        fun newInstance(config: ButtonConfig, product: ButtonProduct = ButtonProduct.CORE): ButtonConfigBottomSheet =
             ButtonConfigBottomSheet().apply {
                 arguments = Bundle().apply {
                     putBundle(ARG_CONFIG, config.toBundle())
+                    putString(ARG_PRODUCT, product.name)
                 }
             }
     }
