@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="coreAlertBoxStyle" format="reference" />
+    <declare-styleable name="CoreAlertBox">
+        <attr name="android:enabled" />
+        <attr name="alertRecipe" format="reference" />
+        <attr name="alertPaddingHorizontal" format="dimension" />
+        <attr name="alertPaddingVertical" format="dimension" />
+        <attr name="alertContentGap" format="dimension" />
+        <attr name="alertIconSize" format="dimension" />
+        <attr name="alertButtonRecipe" format="reference" />
+        <attr name="alertEmphasisAppearance" format="reference" />
+        <attr name="actionText" format="string" />
+        <attr name="actionTextAppearance" format="reference" />
+        <attr name="actionTextColor" format="color" />
+        <attr name="actionMaxLines" format="integer" />
+        <attr name="actionEndIcon" format="reference" />
+        <attr name="actionEndIconTint" format="color" />
+        <attr name="actionIconPadding" format="dimension" />
+        <attr name="isActionVisible" format="boolean" />
+        <attr name="text" />
+        <attr name="isHtml" />
+        <attr name="textAppearance" />
+        <attr name="textColor" />
+        <attr name="buttonText" />
+        <attr name="isButtonVisible" />
+        <attr name="isStartIconVisible" />
+        <attr name="isCloseIconVisible" />
+        <attr name="startIcon" />
+        <attr name="closeIcon" />
+        <attr name="startIconTint" />
+        <attr name="closeIconTint" />
+        <attr name="cornerRadius" />
+        <attr name="strokeWidth" />
+        <attr name="strokeColor" />
+        <attr name="backgroundColor" />
+        <attr name="startIconVerticalAlignment" format="enum">
+            <enum name="top" value="0" />
+            <enum name="center" value="1" />
+            <enum name="bottom" value="2" />
+        </attr>
+        <attr name="actionEllipsize" format="enum">
+            <enum name="none" value="0" />
+            <enum name="start" value="1" />
+            <enum name="middle" value="2" />
+            <enum name="end" value="3" />
+        </attr>
+    </declare-styleable>
+</resources>

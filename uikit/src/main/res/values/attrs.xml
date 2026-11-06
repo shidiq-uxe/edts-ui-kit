@@ -317,6 +317,17 @@
 
     <!--Todo : Add Several Customization -->
     <declare-styleable name="AlertBox">
+        <attr name="startIconVerticalAlignment" />
+        <attr name="actionText" />
+        <attr name="actionTextAppearance" />
+        <attr name="actionTextColor" />
+        <attr name="actionMaxLines" />
+        <attr name="actionEllipsize" />
+        <attr name="actionEndIcon" />
+        <attr name="actionEndIconTint" />
+        <attr name="actionIconPadding" />
+        <attr name="isActionVisible" />
+
         <attr name="alertType" format="enum">
             <enum name="success" value="0" />
             <enum name="error" value="1" />

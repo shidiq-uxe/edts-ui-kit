@@ -1,6 +1,13 @@
 package id.co.edtslib.uikit.utils
 
 import android.content.Context
+import android.graphics.Typeface
+import android.text.Spanned
+import android.text.TextUtils
+import android.text.style.LeadingMarginSpan
+import android.text.style.StyleSpan
+import androidx.core.text.HtmlCompat
+import id.co.edtslib.uikit.utils.span.OrderedSpan
 import android.text.SpannableStringBuilder
 import android.text.SpannedString
 import android.view.View
@@ -110,4 +117,78 @@ fun buildHighlightedMessage(
             applyTextAppearanceSpan(context, textStyle) { append(remainingMessage) }
         } ?: append(remainingMessage)
     }
+}
+
+/**
+ * Builds a highlighted message from backend HTML. `<b>` and `<strong>` ranges use the
+ * supplied appearance; entities, line breaks, links, and other HTML spans are preserved.
+ * Emphasis alone does not create a clickable span. HTML links keep their existing spans.
+ */
+fun buildHighlightedMessage(
+    context: Context,
+    htmlMessage: String,
+    highlightedTextAppearance: TextStyle,
+    defaultTextAppearance: TextStyle? = null,
+): SpannedString {
+    return buildHighlightedMessage(
+        context = context,
+        parsedMessage = HtmlCompat.fromHtml(htmlMessage, HtmlCompat.FROM_HTML_MODE_COMPACT),
+        highlightedTextAppearance = highlightedTextAppearance,
+        defaultTextAppearance = defaultTextAppearance,
+    )
+}
+
+/** Preserves shared-renderer list/link spans while applying the same HTML emphasis rules. */
+fun buildHighlightedMessage(
+    context: Context,
+    parsedMessage: Spanned,
+    highlightedTextAppearance: TextStyle,
+    defaultTextAppearance: TextStyle? = null,
+): SpannedString {
+    val parsed = SpannableStringBuilder(parsedMessage)
+    parsed.getSpans(0, parsed.length, OrderedSpan::class.java).forEach { span ->
+        val start = parsed.getSpanStart(span)
+        val end = parsed.getSpanEnd(span)
+        val flags = parsed.getSpanFlags(span)
+        parsed.removeSpan(span)
+        // Framework ParcelableSpan IDs are reserved for Android's own span classes.
+        // Keep custom list drawing without exposing its unsupported ID to accessibility parcels.
+        parsed.setSpan(object : LeadingMarginSpan by span {}, start, end, flags)
+    }
+    val boldSpans = parsed.getSpans(0, parsed.length, StyleSpan::class.java)
+        .filter { it.style and Typeface.BOLD != 0 }
+    val ranges = boldSpans.map { parsed.getSpanStart(it) until parsed.getSpanEnd(it) }
+    boldSpans.forEach { span ->
+        val start = parsed.getSpanStart(span)
+        val end = parsed.getSpanEnd(span)
+        val flags = parsed.getSpanFlags(span)
+        parsed.removeSpan(span)
+        if (span.style and Typeface.ITALIC != 0) {
+            parsed.setSpan(StyleSpan(Typeface.ITALIC), start, end, flags)
+        }
+    }
+    val styled = SpannableStringBuilder(buildSpannedString {
+        defaultTextAppearance?.let { appearance ->
+            applyTextAppearanceSpan(context, appearance) { append(parsed) }
+        } ?: append(parsed)
+    })
+    ranges.filter { !it.isEmpty() }.forEach { range ->
+        val highlighted = buildSpannedString {
+            applyTextAppearanceSpan(context, highlightedTextAppearance) {
+                append(parsed.subSequence(range.first, range.last + 1).toString())
+            }
+        }
+        TextUtils.copySpansFrom(highlighted, 0, highlighted.length, Any::class.java, styled, range.first)
+    }
+    // Apply italic after the replacement typeface, including nested bold/italic markup.
+    styled.getSpans(0, styled.length, StyleSpan::class.java)
+        .filter { it.style and Typeface.ITALIC != 0 }
+        .forEach { span ->
+            val start = styled.getSpanStart(span)
+            val end = styled.getSpanEnd(span)
+            val flags = styled.getSpanFlags(span)
+            styled.removeSpan(span)
+            styled.setSpan(StyleSpan(Typeface.ITALIC), start, end, flags)
+        }
+    return SpannedString(styled)
 }

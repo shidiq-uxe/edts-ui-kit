@@ -1,17 +1,14 @@
 package id.co.edtslib.uikit.utils
 
 import android.content.Context
-import android.graphics.Typeface
 import android.text.Spannable
 import android.text.SpannableStringBuilder
 import android.text.style.AbsoluteSizeSpan
 import android.text.style.ForegroundColorSpan
 import android.text.style.LineHeightSpan
-import android.text.style.StyleSpan
 import androidx.annotation.ColorRes
 import androidx.annotation.DimenRes
 import androidx.annotation.FontRes
-import androidx.core.content.res.ResourcesCompat
 import androidx.core.text.inSpans
 import id.co.edtslib.uikit.R
 import kotlin.math.roundToInt
@@ -25,16 +22,9 @@ fun SpannableStringBuilder.applyTextAppearanceSpan(
     val textSizeSpan = AbsoluteSizeSpan(textStyle.textSize.roundToInt())
 
     // Todo : Fallback Style if not found
-    val style = try {
-        val tf = ResourcesCompat.getFont(context, textStyle.font)
-        tf?.style ?: Typeface.NORMAL
-    } catch (e: Exception) {
-        Typeface.NORMAL
-    }
+    val typefaceSpan = id.co.edtslib.uikit.utils.html.TypefaceSpan(context.font(textStyle.font))
 
-    val styleSpan = StyleSpan(style)
-
-    inSpans(colorSpan, textSizeSpan, styleSpan) {
+    inSpans(colorSpan, textSizeSpan, typefaceSpan) {
         action()
     }
 
