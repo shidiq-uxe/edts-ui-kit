@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Preserve published Button font names without keeping duplicate binaries. -->
+    <item name="button_klik_inter_semibold" type="font">@font/inter_semibold_fallback</item>
+    <item name="button_poinku_rubik_medium" type="font">@font/rubik_medium_fallback</item>
+</resources>

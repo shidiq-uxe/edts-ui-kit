@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import id.co.edtslib.edtsuikit.databinding.ActivityButtonBinding
 import id.co.edtslib.edtsuikit.databinding.ItemButtonRecipeBinding
-import id.co.edtslib.edtsuikit.databinding.ViewButtonToolbarBinding
+import id.co.edtslib.edtsuikit.databinding.ViewGuidelinesProductToolbarBinding
 import id.co.edtslib.uikit.adapter.BaseAdapter
 import id.co.edtslib.uikit.core.button.CoreButton
 import id.co.edtslib.uikit.recipes.button.klik.KlikButton
@@ -30,7 +30,7 @@ class GuidelinesButtonActivity : GuidelinesBaseActivity() {
     override val enableEdgeToEdge = false
 
     private val binding by viewBinding<ActivityButtonBinding>()
-    private val toolbarBinding by lazy { ViewButtonToolbarBinding.inflate(layoutInflater) }
+    private val toolbarBinding by lazy { ViewGuidelinesProductToolbarBinding.inflate(layoutInflater) }
     private val configurations = mutableMapOf<ButtonProduct, ButtonConfig>()
     private var selectedProduct = ButtonProduct.CORE
     private var buttonAdapter: BaseAdapter<ButtonPreview, ItemButtonRecipeBinding>? = null
@@ -39,6 +39,7 @@ class GuidelinesButtonActivity : GuidelinesBaseActivity() {
         get() = configurations[selectedProduct] ?: ButtonConfig()
 
     private fun setupToolbar() {
+        toolbarBinding.tvTitle.setText(R.string.guidelines_button)
         supportActionBar?.apply {
             setDisplayShowTitleEnabled(false)
             setDisplayShowCustomEnabled(true)
@@ -57,8 +58,8 @@ class GuidelinesButtonActivity : GuidelinesBaseActivity() {
     private fun showProducts() {
         if (productDialog?.isShowing == true) return
         productDialog = MaterialAlertDialogBuilder(this)
-            .setTitle(R.string.button_recipe_product)
-            .setSingleChoiceItems(R.array.button_recipe_products, selectedProduct.ordinal) { dialog, position ->
+            .setTitle(R.string.guidelines_product)
+            .setSingleChoiceItems(R.array.guidelines_products, selectedProduct.ordinal) { dialog, position ->
                 selectedProduct = ButtonProduct.entries[position]
                 updateProductLabel()
                 updateButtons()
@@ -69,9 +70,9 @@ class GuidelinesButtonActivity : GuidelinesBaseActivity() {
     }
 
     private fun updateProductLabel() {
-        val product = resources.getStringArray(R.array.button_recipe_products)[selectedProduct.ordinal]
+        val product = resources.getStringArray(R.array.guidelines_products)[selectedProduct.ordinal]
         toolbarBinding.tvProduct.text = product
-        toolbarBinding.tvProduct.contentDescription = getString(R.string.button_recipe_select_product, product)
+        toolbarBinding.tvProduct.contentDescription = getString(R.string.guidelines_select_product, product)
     }
 
     private fun setupButtonList() {
@@ -108,7 +109,7 @@ class GuidelinesButtonActivity : GuidelinesBaseActivity() {
             ButtonProduct.POINKU -> PoinkuButton(this)
         }.apply {
             buttonRecipe = example.recipe
-            text = if (example.isIconOnly) "" else getString(R.string.button_recipe_action)
+            text = if (example.isIconOnly) "" else getString(R.string.guidelines_button)
             if (example.hasIcons) {
                 startIcon = context.drawable(UIKitR.drawable.ic_placeholder_medium_24)
                 endIcon = if (example.isIconOnly) null else context.drawable(UIKitR.drawable.ic_placeholder_medium_24)
@@ -148,7 +149,7 @@ class GuidelinesButtonActivity : GuidelinesBaseActivity() {
         preview.config.tintColor?.let { color ->
             val tint = ColorStateList.valueOf(color)
             when (preview.example.variantLabel) {
-                R.string.button_recipe_primary, R.string.button_recipe_neutral,
+                R.string.button_recipe_primary, R.string.guidelines_neutral,
                 R.string.button_recipe_label_only, R.string.button_recipe_with_icons -> button.backgroundTintList = tint
                 else -> {
                     button.setTextColor(tint)

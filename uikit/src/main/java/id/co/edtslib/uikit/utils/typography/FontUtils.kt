@@ -3,8 +3,6 @@ package id.co.edtslib.uikit.utils.typography
 import android.content.Context
 import android.content.res.Resources
 import android.graphics.Typeface
-import android.os.Build
-import android.util.Log
 import androidx.annotation.FontRes
 import androidx.core.content.res.ResourcesCompat
 
@@ -40,6 +38,10 @@ object FontUtils {
                 "inter_medium" -> getLocalFontRes(context, "inter_medium_fallback")
                 "inter_bold" -> getLocalFontRes(context, "inter_bold_fallback")
                 "inter" -> getLocalFontRes(context, "inter_fallback")
+                "rubik" -> getLocalFontRes(context, "rubik_fallback")
+                "rubik_medium" -> getLocalFontRes(context, "rubik_medium_fallback")
+                "rubik_semibold" -> getLocalFontRes(context, "rubik_semibold_fallback")
+                "rubik_bold" -> getLocalFontRes(context, "rubik_bold_fallback")
                 else -> 0
             }
 
@@ -66,6 +68,8 @@ object FontUtils {
             "inter_semibold" -> Typeface.DEFAULT_BOLD
             "inter_bold" -> Typeface.DEFAULT_BOLD
             "inter_medium" -> Typeface.DEFAULT_BOLD
+            "rubik_semibold" -> Typeface.DEFAULT_BOLD
+            "rubik_bold" -> Typeface.DEFAULT_BOLD
             "inter" -> Typeface.DEFAULT
             else -> Typeface.DEFAULT
         }

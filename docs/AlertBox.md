@@ -1,152 +1,76 @@
-# AlertBox
+# AlertBox / InfoBox
 
-## Overview
+Use `KlikInfoBox` or `PoinkuAlertBox` for product recipes. `CoreAlertBox` supplies shared message, action, and accessibility behavior in a Material-compatible theme.
 
-The `AlertBox` class is an easy-to-use, customizable UI component designed to display alert messages within Android applications. This component enhances user experience by providing context-specific alerts with icons, colors, and optional interaction through a close button.
-
-## Key Features
-
--   **Predefined Alert Types**: Includes `SUCCESS`, `ERROR`, `WARNING`, `INFO`, and `LIGHT` for standardized feedback.
--   **Customizable Attributes**: Allows for setting different styles.
--   **Delegate Pattern Support**: Enables close button interaction with a customizable callback through `AlertBoxDelegate`.
-
-## AlertBox Overview
-
-| AlertBox Style  | Description                                               |
-|-----------------|-----------------------------------------------------------|
-| **Light**       | <img src="./assets/AlertBox/Light.webp" width="400">      |
-| **Info**        | <img src="./assets/AlertBox/Info.webp" width="400">       |
-| **Success**     | <img src="./assets/AlertBox/Success.webp" width="400">    |
-| **Warning**     | <img src="./assets/AlertBox/Warning.webp" width="400">    |
-| **Error**       | <img src="./assets/AlertBox/Error.webp" width="400">      |
-| **With Button** | <img src="./assets/AlertBox/WithButton.webp" width="400"> |
-
-
-| Close Animation                                                                                           |
-|-----------------------------------------------------------------------------------------------------------|
-| ![Close](https://res.cloudinary.com/dmduc9apd/image/upload/v1731035526/Alertbox/deo9aizehttlr52a4fyi.gif) |
-
->In order to use animation shown above, use `animateLayoutChanges="true"` in Parent ViewGroup of the AlertBox.
-
-## AlertType Enum
-
-The `AlertType` enum determines the appearance of the `AlertBox`. Available types:
-
--   `SUCCESS`
--   `ERROR`
--   `WARNING`
--   `INFO`
--   `LIGHT`
-
-Each type comes with specific:
-
--   **Background color**
--   **Text color**
--   **Stroke color**
--   **Icon**
-
-## Usage Example
-
-### XML Layout
+## XML
 
 ```xml
-<id.co.edtslib.uikit.alert.AlertBox
-    android:id="@+id/alertBox"
+<id.co.edtslib.uikit.recipes.alertbox.klik.KlikInfoBox
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/Widget.EDTS.UIKit.AlertBox.Klik.Border.Info"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:alertType="error"
-    app:text="This is an error alert." />
+    app:text="@string/promotion_notice"
+    app:isButtonVisible="true"
+    app:buttonText="@string/continue_label" />
 ```
 
-### Kotlin Code
+Choose a recipe through XML `style`, `app:alertRecipe`, or Kotlin `alertRecipe`. Explicit XML attributes override recipe values during inflation; assigning a recipe later replaces appearance overrides.
+
+## Recipes
+
+| Product | Style prefix | Variants |
+|---|---|---|
+| Klik bordered | `Widget.EDTS.UIKit.AlertBox.Klik.Border` | `General`, `Info`, `Success`, `Error`, `Warning` |
+| Klik full width | `Widget.EDTS.UIKit.AlertBox.Klik.FullWidth` | `General` |
+| Poinku | `Widget.EDTS.UIKit.AlertBox.Poinku` | `Info`, `Success`, `Error`, `Warning` |
+
+Klik defaults to bordered General; Poinku defaults to Info. Both support optional close and footer actions.
+
+| Klik | Poinku |
+|---|---|
+| ![Klik InfoBox with footer action](assets/AlertBox/recipes/klik.png) | ![Poinku success AlertBox](assets/AlertBox/recipes/poinku.png) |
+
+## Content and actions
 
 ```kotlin
-alertBox.apply {
-    alertType = AlertBox.AlertType.SUCCESS
-    text = "Your operation was successful!"
+import android.view.View
+import id.co.edtslib.uikit.alert.AlertBoxDelegate
+import id.co.edtslib.uikit.R as UIKitR
+
+binding.infoBox.apply {
+    alertRecipe = UIKitR.style.Widget_EDTS_UIKit_AlertBox_Klik_Border_Success
+    text = message
+    actionText = "Edit"
+    isActionVisible = true
     delegate = object : AlertBoxDelegate {
         override fun onCloseClickListener(view: View) {
-            // Handle close button click
+            visibility = View.GONE
         }
-        override fun onButtonClickListener(view: View) {
-            // Handle action button click
-        }
+
+        override fun onButtonClickListener(view: View) = onContinue()
+        override fun onActionClickListener(view: View) = onEdit()
     }
 }
 ```
 
-## Adding Span Content
-You could adjust span of the message using:
-```kotlin
-buildHighlightedMessage(
-    context = this@GuidelinesCartActivity,
-    message = "This is regular text while this is Bold and H4",
-    highlightedMessages = listOf("Bold", "H4"),
-    highlightedTextAppearance = listOf(
-        TextStyleKey.B4_SEMIBOLD.get(context, UIKitR.color.black_70),
-        TextStyleKey.H4_SEMIBOLD.get(context, UIKitR.color.black_70),
-    )
-)
-```
->See more about this function inside [StringBuilderExtension](https://github.com/shidiq-uxe/edts-ui-kit/blob/main/uikit/src/main/java/id/co/edtslib/uikit/utils/StringBuilderExtension.kt)
 
+| API | Purpose |
+|---|---|
+| `text: CharSequence`, `isHtml` | Plain/spanned text, or backend HTML with shared parsing and emphasis handling. |
+| `isStartIconVisible`, `isCloseIconVisible` | Show/hide icon slots. Product recipes choose the severity glyph and tint. |
+| `buttonText`, `isButtonVisible` | Footer action, delivered through `onButtonClickListener`. |
+| `actionText`, `isActionVisible` | Inline action, delivered through `onActionClickListener`. |
+| `actionEndIcon`, `actionEndIconTint`, `actionIconPadding` | Optional trailing inline-action icon; padding is in pixels. |
+| `actionMaxLines`, `actionEllipsize` | Inline-label wrapping/truncation; defaults to one line with end ellipsis. |
+| `iconAlignment` | `CoreAlertBox.IconAlignment.TOP`, `CENTER`, or `BOTTOM`; default is Top. |
+| `isEnabled` | New entry points disable their message links and action controls together. |
 
-## Customization Options
+For backend HTML, set `isHtml = true`. The shared renderer preserves entities, links, lists, and repeated `<b>`/`<strong>` ranges. Product emphasis uses the recipe's font; existing `buildHighlightedMessage` overloads remain available for screen-owned inline emphasis/actions.
 
-| Property               | Description                                                                 |
-|------------------------|-----------------------------------------------------------------------------|
-| `alertType`            | Enum to define alert style (`SUCCESS`, `ERROR`, `WARNING`, `INFO`, `LIGHT`) |
-| `text`                 | Message to display                                                          |
-| `textColor`            | Message color                                                               |
-| `textAppearance`       | Style for the text appearance                                               |
-| `cornerRadius`         | Radius for card corners                                                     |
-| `strokeWidth`          | Width of the border stroke                                                  |
-| `strokeColor`          | Color of the border stroke                                                  |
-| `alertBackgroundColor` | Background color of the alert                                               |
-| `startIcon`            | Drawable shown on the left                                                  |
-| `startIconTint`        | Tint for the start icon                                                     |
-| `isStartIconVisible`   | Whether to show start icon                                                  |
-| `closeIcon`            | Drawable for the close icon                                                 |
-| `closeIconTint`        | Tint for the close icon                                                     |
-| `isCloseIconVisible`   | Whether to show the close icon                                              |
-| `buttonText`           | Text for the optional action button                                         |
-| `buttonType`           | Enum for button style (e.g., `FILLED`, custom)                              |
-| `isButtonVisible`      | Whether to show the button                                                  |
-| `isHtml`               | Parse text to html                                                          |
+## Legacy migration
 
-## Attributes Reference
+`id.co.edtslib.uikit.alert.AlertBox` remains a deprecated compatibility entry point. Its constructors, properties, delegate callbacks, enum/XML numeric values, resource names, default appearance, and `showOpticalSpacing()` API remain available. Existing XML resources and layout are retained.
 
-| XML Attribute            | Type      | Description              |
-|--------------------------|-----------|--------------------------|
-| `app:alertType`          | enum      | Alert style              |
-| `app:text`               | string    | Alert message            |
-| `app:textColor`          | color     | Message text color       |
-| `app:textAppearance`     | style     | Text appearance          |
-| `app:strokeWidth`        | dimension | Border thickness         |
-| `app:strokeColor`        | color     | Border color             |
-| `app:cornerRadius`       | dimension | Corner radius            |
-| `app:backgroundColor`    | color     | Background color         |
-| `app:startIcon`          | drawable  | Icon on the left         |
-| `app:startIconTint`      | color     | Tint for start icon      |
-| `app:isStartIconVisible` | boolean   | Toggle start icon        |
-| `app:closeIcon`          | drawable  | Close icon drawable      |
-| `app:closeIconTint`      | color     | Tint for close icon      |
-| `app:isCloseIconVisible` | boolean   | Toggle close icon        |
-| `app:buttonText`         | string    | Action button text       |
-| `app:isButtonVisible`    | boolean   | Toggle button visibility |
-| `app:isHtml`             | boolean   | Parse text to html       |
-
-## Delegate Interface
-
-Implement `AlertBoxDelegate` to handle interaction:
-
-```kotlin
-interface AlertBoxDelegate { 
-    fun onCloseClickListener(view: View)
-    fun onButtonClickListener(view: View)
-}
-```
-
-## Customization and Styling
-
-The `AlertBox` can be styled using custom attributes or by setting properties programmatically. To match the app's visual design, ensure consistency with text appearance and color themes.
+Map legacy `SUCCESS`, `ERROR`, `WARNING`, and `INFO` to an explicit product recipe with the matching suffix. Legacy `LIGHT` maps to Klik `Border.General`; Poinku has no General counterpart.

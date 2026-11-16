@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="guidelines_product">Product</string>
+    <string name="guidelines_select_product">%1$s, select product</string>
+    <string name="guidelines_neutral">Neutral</string>
+
+    <string-array name="guidelines_products">
+        <item>Core</item>
+        <item>Klik</item>
+        <item>Poinku</item>
+    </string-array>
+</resources>

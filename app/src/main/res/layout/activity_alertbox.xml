@@ -1,69 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent">
 
-    <LinearLayout
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvAlertBoxes"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:animateLayoutChanges="true">
+        android:layout_height="0dp"
+        android:paddingTop="@dimen/s"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/btnResetAlerts" />
 
-        <id.co.edtslib.uikit.alert.AlertBox
-            android:id="@+id/abDefault"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/s"
-            android:layout_marginHorizontal="@dimen/s"
-            app:text="@string/lorem"/>
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnResetAlerts"
+        style="@style/Widget.Material3.Button.TextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/dimen_48"
+        android:text="@string/alert_demo_reset"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
-        <id.co.edtslib.uikit.alert.AlertBox
-            android:id="@+id/abSuccess"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/s"
-            android:layout_marginHorizontal="@dimen/s"
-            app:text="@string/lorem"
-            app:alertType="success"/>
-
-        <id.co.edtslib.uikit.alert.AlertBox
-            android:id="@+id/abInfo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/s"
-            android:layout_marginHorizontal="@dimen/s"
-            app:text="@string/lorem"
-            app:alertType="info" />
-
-        <id.co.edtslib.uikit.alert.AlertBox
-            android:id="@+id/abWarning"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/s"
-            android:layout_marginHorizontal="@dimen/s"
-            app:text="@string/lorem"
-            app:alertType="warning" />
-
-        <id.co.edtslib.uikit.alert.AlertBox
-            android:id="@+id/abError"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/s"
-            android:layout_marginHorizontal="@dimen/s"
-            app:text="@string/lorem"
-            app:alertType="error" />
-
-        <id.co.edtslib.uikit.alert.AlertBox
-            android:id="@+id/abDefaultButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/s"
-            android:layout_marginBottom="@dimen/s"
-            app:isButtonVisible="true"
-            app:buttonText="Action"
-            app:text="@string/lorem"/>
-
-    </LinearLayout>
-
-</ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

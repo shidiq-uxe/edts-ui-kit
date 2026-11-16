@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Widget.EDTS.UIKit.AlertBox.Poinku" parent="Widget.EDTS.UIKit.CoreAlertBox">
+        <item name="textAppearance">@style/TextAppearance.EDTS.UIKit.AlertBox.Poinku</item>
+        <item name="alertEmphasisAppearance">@style/TextAppearance.EDTS.UIKit.AlertBox.Poinku.Emphasis</item>
+        <item name="alertPaddingVertical">@dimen/xxs</item>
+        <item name="closeIconTint">@color/poinku_color_grey_50</item>
+        <item name="alertButtonRecipe">@style/Widget.EDTS.UIKit.Button.Poinku.Primary.Small</item>
+        <item name="actionTextAppearance">@style/TextAppearance.EDTS.UIKit.Button.Poinku.Small</item>
+        <item name="actionTextColor">@color/poinku_color_primary_blue_30</item>
+    </style>
+    <style name="Widget.EDTS.UIKit.AlertBox.Poinku.Success" parent="Widget.EDTS.UIKit.AlertBox.Poinku">
+        <item name="alertRecipe">@style/Widget.EDTS.UIKit.AlertBox.Poinku.Success</item>
+        <item name="backgroundColor">@color/poinku_color_support_success_weak</item>
+        <item name="strokeColor">@color/poinku_color_support_success_strong</item>
+        <item name="textColor">@color/poinku_color_support_success_strong</item>
+        <item name="startIconTint">@color/poinku_color_support_success_strong</item>
+        <item name="startIcon">@drawable/ic_success_16</item>
+    </style>
+    <style name="Widget.EDTS.UIKit.AlertBox.Poinku.Warning" parent="Widget.EDTS.UIKit.AlertBox.Poinku">
+        <item name="alertRecipe">@style/Widget.EDTS.UIKit.AlertBox.Poinku.Warning</item>
+        <item name="backgroundColor">@color/poinku_color_support_warning_weak</item>
+        <item name="strokeColor">@color/poinku_color_support_warning_strong</item>
+        <item name="textColor">@color/poinku_color_support_warning_strong</item>
+        <item name="startIconTint">@color/poinku_color_support_warning_strong</item>
+        <item name="startIcon">@drawable/ic_attention_16</item>
+    </style>
+    <style name="Widget.EDTS.UIKit.AlertBox.Poinku.Error" parent="Widget.EDTS.UIKit.AlertBox.Poinku">
+        <item name="alertRecipe">@style/Widget.EDTS.UIKit.AlertBox.Poinku.Error</item>
+        <item name="backgroundColor">@color/poinku_color_support_error_weak</item>
+        <item name="strokeColor">@color/poinku_color_support_error_strong</item>
+        <item name="textColor">@color/poinku_color_support_error_strong</item>
+        <item name="startIconTint">@color/poinku_color_support_error_strong</item>
+        <item name="startIcon">@drawable/ic_attention_16</item>
+    </style>
+    <style name="Widget.EDTS.UIKit.AlertBox.Poinku.Info" parent="Widget.EDTS.UIKit.AlertBox.Poinku">
+        <item name="alertRecipe">@style/Widget.EDTS.UIKit.AlertBox.Poinku.Info</item>
+        <item name="backgroundColor">@color/poinku_color_support_highlight_primary_weak</item>
+        <item name="strokeColor">@color/poinku_color_support_highlight_primary_strong</item>
+        <item name="textColor">@color/poinku_color_support_highlight_primary_strong</item>
+        <item name="startIconTint">@color/poinku_color_support_highlight_primary_strong</item>
+        <item name="startIcon">@drawable/ic_info_blue_16</item>
+    </style>
+</resources>

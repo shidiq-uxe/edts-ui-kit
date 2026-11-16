@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <style name="TextAppearance.EDTS.UIKit.Button.Klik.Small" parent="TextAppearance.Inter.SemiBold.Button.Text.Small">
-        <item name="fontFamily">@font/button_klik_inter_semibold</item>
-        <item name="android:fontFamily">@font/button_klik_inter_semibold</item>
+        <item name="fontFamily">@font/inter_semibold_fallback</item>
+        <item name="android:fontFamily">@font/inter_semibold_fallback</item>
     </style>
 
     <style name="TextAppearance.EDTS.UIKit.Button.Klik.Medium" parent="TextAppearance.Inter.SemiBold.Button.Text.Medium">
-        <item name="fontFamily">@font/button_klik_inter_semibold</item>
-        <item name="android:fontFamily">@font/button_klik_inter_semibold</item>
+        <item name="fontFamily">@font/inter_semibold_fallback</item>
+        <item name="android:fontFamily">@font/inter_semibold_fallback</item>
     </style>
 
     <style name="TextAppearance.EDTS.UIKit.Button.Klik.Large" parent="TextAppearance.Inter.SemiBold.Button.Text.Large">
-        <item name="fontFamily">@font/button_klik_inter_semibold</item>
-        <item name="android:fontFamily">@font/button_klik_inter_semibold</item>
+        <item name="fontFamily">@font/inter_semibold_fallback</item>
+        <item name="android:fontFamily">@font/inter_semibold_fallback</item>
     </style>
 
     <style name="Widget.EDTS.UIKit.Button.Klik.Primary.Large" parent="Widget.EDTS.UIKit.CoreButton">

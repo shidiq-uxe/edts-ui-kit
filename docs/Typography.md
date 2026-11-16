@@ -4,7 +4,20 @@
 
 The EDTS UI Kit provides a variety of typography styles that can be applied to `TextView` elements using the `textAppearance` attribute. Below is a breakdown of the different styles available, categorized by their intended use (Display, Heading, Body, Paragraph, and Other).
 
-Each style is built using the `Inter` font, with variations in font weight, size, and line height to suit different UI components.
+Klik styles use Inter; Poinku styles use Rubik. Each family provides weights, sizes, and line heights for its components.
+
+## Font fallbacks
+
+Use `context.font(R.font.rubik)` or `context.typefaceFromAppearance(style)` to resolve fonts with the shared provider-failure fallback path.
+
+| Weight | Rubik resource | Bundled fallback |
+|---|---|---|
+| Regular 400 | `rubik` | `rubik_fallback.ttf` |
+| Medium 500 | `rubik_medium` | `rubik_medium_fallback.ttf` |
+| SemiBold 600 | `rubik_semibold` | `rubik_semibold_fallback.ttf` |
+| Bold 700 | `rubik_bold` | `rubik_bold_fallback.ttf` |
+
+Static fallback fonts support the project's API 24 minimum. Button and AlertBox recipes reference shared fallback files directly for consistent offline rendering. Button's previous component-specific font resource names remain aliases.
 
 ## Typography Styles
 

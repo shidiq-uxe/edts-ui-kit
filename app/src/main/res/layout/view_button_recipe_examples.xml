@@ -10,7 +10,7 @@
         style="@style/Widget.EDTS.UIKit.Button.Klik.Secondary.Medium"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/button_recipe_action"
+        android:text="@string/guidelines_button"
         android:textSize="18sp"
         android:textColor="@android:color/holo_green_dark"
         app:startIcon="@drawable/ic_placeholder_medium_24"
@@ -22,7 +22,7 @@
         android:id="@+id/poinkuButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/button_recipe_action"
+        android:text="@string/guidelines_button"
         app:buttonRecipe="@style/Widget.EDTS.UIKit.Button.Poinku.Text.Small"
         app:layout_constraintTop_toBottomOf="@id/klikButton"
         app:layout_constraintStart_toStartOf="parent" />
@@ -32,7 +32,7 @@
         style="@style/Widget.EDTS.UIKit.Button.Poinku.Outline.Large"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/button_recipe_action"
+        android:text="@string/guidelines_button"
         app:layout_constraintTop_toBottomOf="@id/poinkuButton"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -40,7 +40,7 @@
         android:id="@+id/legacyButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/button_recipe_action"
+        android:text="@string/guidelines_button"
         app:buttonType="tertiaryLarge"
         app:isDestructive="true"
         app:pressedScale="0.8"

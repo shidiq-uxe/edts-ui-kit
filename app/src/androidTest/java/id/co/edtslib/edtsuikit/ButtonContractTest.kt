@@ -14,6 +14,12 @@ import android.view.View
 import android.widget.FrameLayout
 import androidx.appcompat.view.ContextThemeWrapper
 import androidx.test.core.app.ActivityScenario
+import androidx.test.espresso.Espresso.onData
+import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.action.ViewActions.click
+import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.matcher.ViewMatchers.withId
+import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import id.co.edtslib.uikit.button.Button
@@ -23,7 +29,9 @@ import id.co.edtslib.uikit.recipes.button.klik.KlikButton
 import id.co.edtslib.uikit.recipes.button.poinku.PoinkuButton
 import id.co.edtslib.uikit.utils.drawable
 import id.co.edtslib.uikit.utils.color
+import id.co.edtslib.uikit.utils.font
 import org.json.JSONArray
+import org.hamcrest.Matchers.`is`
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNotNull
@@ -33,11 +41,25 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import id.co.edtslib.uikit.R as UIKitR
 
-/** Expectations are snapshots of the supplied Figma components, not values read from our styles. */
+/** Figma supplies geometry/state expectations; text uses the library's shared fallback fonts. */
 @RunWith(AndroidJUnit4::class)
 class ButtonContractTest {
 
     private val instrumentation = InstrumentationRegistry.getInstrumentation()
+
+    @Test
+    fun sharedToolbarKeepsButtonTitleAndProductSelection() {
+        ActivityScenario.launch(GuidelinesButtonActivity::class.java).use {
+            onView(withId(R.id.tvTitle)).check(matches(withText("Button")))
+            onView(withId(R.id.tvProduct)).check(matches(withText("Core")))
+            for (product in listOf("Klik", "Poinku", "Core")) {
+                onView(withId(R.id.tvProduct)).perform(click())
+                onData(`is`(product)).perform(click())
+                onView(withId(R.id.tvProduct)).check(matches(withText(product)))
+                onView(withId(R.id.tvTitle)).check(matches(withText("Button")))
+            }
+        }
+    }
 
     private fun context(fontScale: Float = 1f): Context {
         val target = instrumentation.targetContext
@@ -62,7 +84,7 @@ class ButtonContractTest {
     }
 
     @Test
-    fun bothProductsMatchAllInspectedFigmaStates() {
+    fun bothProductsRetainInspectedFigmaStatesWithSharedFonts() {
         val source = instrumentation.context.assets.open("button_design_contract.json").bufferedReader().use { it.readText() }
         val expectations = JSONArray(source)
         assertEquals(153, expectations.length())
@@ -103,7 +125,12 @@ class ButtonContractTest {
                     val designTextSize = expected.getDouble("textSize").toFloat()
                     assertEquals("$label text size", designTextSize * button.resources.displayMetrics.scaledDensity, button.textSize, 1f)
                     assertEquals("$label text color", Color.parseColor(expected.getString("content")), button.currentTextColor)
-                    assertEquals("$label font metrics", expected.getDouble("textWidth").toFloat(), button.paint.measureText("Button") * designTextSize / button.textSize, 1f)
+                    if (expected.getString("product") == "Klik") {
+                        // Shared Inter replaces the older component font, which has different glyph advances.
+                        assertEquals("$label shared Inter", context.font(UIKitR.font.inter_semibold_fallback), button.typeface)
+                    } else {
+                        assertEquals("$label font metrics", expected.getDouble("textWidth").toFloat(), button.paint.measureText("Button") * designTextSize / button.textSize, 1f)
+                    }
                 }
             }
         }

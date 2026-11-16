@@ -10,7 +10,6 @@
         style="@style/TextAppearance.Inter.Semibold.H2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/button_recipe_title"
         android:textColor="?attr/colorOnSurface"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"

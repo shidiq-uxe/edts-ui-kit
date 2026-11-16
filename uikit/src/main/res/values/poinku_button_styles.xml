@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <style name="TextAppearance.EDTS.UIKit.Button.Poinku.Small" parent="TextAppearance.Poinku.Button.Small">
-        <item name="fontFamily">@font/button_poinku_rubik_medium</item>
-        <item name="android:fontFamily">@font/button_poinku_rubik_medium</item>
+        <item name="fontFamily">@font/rubik_medium_fallback</item>
+        <item name="android:fontFamily">@font/rubik_medium_fallback</item>
     </style>
 
     <style name="TextAppearance.EDTS.UIKit.Button.Poinku.Medium" parent="TextAppearance.Poinku.Button.Medium">
-        <item name="fontFamily">@font/button_poinku_rubik_medium</item>
-        <item name="android:fontFamily">@font/button_poinku_rubik_medium</item>
+        <item name="fontFamily">@font/rubik_medium_fallback</item>
+        <item name="android:fontFamily">@font/rubik_medium_fallback</item>
     </style>
 
     <style name="TextAppearance.EDTS.UIKit.Button.Poinku.Large" parent="TextAppearance.Poinku.Button.Large">
-        <item name="fontFamily">@font/button_poinku_rubik_medium</item>
-        <item name="android:fontFamily">@font/button_poinku_rubik_medium</item>
+        <item name="fontFamily">@font/rubik_medium_fallback</item>
+        <item name="android:fontFamily">@font/rubik_medium_fallback</item>
     </style>
 
     <style name="Widget.EDTS.UIKit.Button.Poinku.Primary.Large" parent="Widget.EDTS.UIKit.CoreButton">
