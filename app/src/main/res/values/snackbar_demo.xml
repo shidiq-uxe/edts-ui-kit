@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="snackbar_demo_info">Info</string>
+    <string name="snackbar_demo_include_action">Include action</string>
+    <string name="snackbar_demo_include_icon">Include leading icon</string>
+    <string name="snackbar_demo_core_message">This is a Snackbar</string>
+    <string name="snackbar_demo_klik_message">Label is the default for text.</string>
+    <string name="snackbar_demo_poinku_message">This is an example of toast</string>
+    <string name="snackbar_demo_multiline_message">This is a longer Snackbar message that wraps onto a second line when space is limited.</string>
+    <string name="snackbar_demo_action_clicked">Snackbar action clicked</string>
+</resources>
