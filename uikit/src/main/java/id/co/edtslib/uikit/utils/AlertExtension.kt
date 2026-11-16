@@ -15,6 +15,7 @@ import androidx.core.graphics.drawable.DrawableCompat
 import androidx.core.view.isVisible
 import com.google.android.material.snackbar.Snackbar
 import id.co.edtslib.uikit.R
+import id.co.edtslib.uikit.core.snackbar.showMaterialSnackbar
 import kotlin.math.roundToInt
 
 /**
@@ -40,54 +41,42 @@ fun View?.snack(
     onViewCreated: (Snackbar) -> Unit = {},
     action: ((View) -> Unit)? = null
 ): Snackbar? {
-    return this?.let {
-        Snackbar.make(it, message, displayLength).apply {
-            this.setBackgroundTint(backgroundColor)
-            this.animationMode = animationMode
+    return this?.showMaterialSnackbar(message, displayLength, actionText, action) {
+        setBackgroundTint(backgroundColor)
+        this.animationMode = animationMode
 
-            with(this.view) {
-                if (bottomMargin != null) {
-                    val params = layoutParams as? FrameLayout.LayoutParams
-                    params?.bottomMargin = bottomMargin
-                    layoutParams = params
-                }
-
-                onViewCreated(this@apply)
-
-                if (isAnchored) {
-                    anchorView = anchoredView ?: this
-                }
-
-                findViewById<TextView>(com.google.android.material.R.id.snackbar_text).apply {
-                    gravity = Gravity.CENTER
-                    maxLines = 2
-                    ellipsize = TextUtils.TruncateAt.END
-
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                        if (!messageHasStyle) {
-                            setTextAppearance(
-                                if (resTextAppearance != -1) resTextAppearance
-                                else R.style.TextAppearance_Inter_Regular_B3
-                            )
-                        }
-                    }
-
-                    this.setTextColor(
-                        if (textColor != Color.WHITE) textColor
-                        else Color.WHITE
-                    )
-                }
-
-                if (actionText != null) {
-                    findViewById<TextView>(com.google.android.material.R.id.snackbar_action)
-
-                    setAction(actionText) {
-                        action?.invoke(this)
-                    }
-                }
+        with(view) {
+            if (bottomMargin != null) {
+                val params = layoutParams as? FrameLayout.LayoutParams
+                params?.bottomMargin = bottomMargin
+                layoutParams = params
             }
-        }.also {
-            it.show()
+
+            onViewCreated(this@showMaterialSnackbar)
+
+            if (isAnchored) {
+                anchorView = anchoredView ?: this
+            }
+
+            findViewById<TextView>(com.google.android.material.R.id.snackbar_text).apply {
+                gravity = Gravity.CENTER
+                maxLines = 2
+                ellipsize = TextUtils.TruncateAt.END
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    if (!messageHasStyle) {
+                        setTextAppearance(
+                            if (resTextAppearance != -1) resTextAppearance
+                            else R.style.TextAppearance_Inter_Regular_B3
+                        )
+                    }
+                }
+
+                this.setTextColor(
+                    if (textColor != Color.WHITE) textColor
+                    else Color.WHITE
+                )
+            }
         }
     }
 }
