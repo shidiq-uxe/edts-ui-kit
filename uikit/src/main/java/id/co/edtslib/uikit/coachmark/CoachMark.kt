@@ -16,6 +16,9 @@ import android.graphics.PorterDuffXfermode
 import android.graphics.Rect
 import android.graphics.RectF
 import android.os.Build
+import android.text.Spanned
+import android.text.method.LinkMovementMethod
+import android.text.style.ClickableSpan
 import android.util.AttributeSet
 import android.util.Log
 import android.view.KeyEvent
@@ -25,11 +28,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.ViewOutlineProvider
 import android.widget.FrameLayout
+import android.widget.TextView
 import androidx.annotation.LayoutRes
 import androidx.annotation.StyleRes
 import androidx.appcompat.view.ContextThemeWrapper
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
+import androidx.core.content.withStyledAttributes
+import androidx.core.text.HtmlCompat
 import androidx.core.view.isVisible
 import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.FragmentActivity
@@ -37,12 +43,16 @@ import com.google.android.material.shape.OffsetEdgeTreatment
 import com.google.android.material.shape.ShapeAppearanceModel
 import id.co.edtslib.uikit.R
 import id.co.edtslib.uikit.databinding.ViewCoachmarkUikitBinding
+import id.co.edtslib.uikit.utils.buildHighlightedMessage
 import id.co.edtslib.uikit.utils.deviceHeight
 import id.co.edtslib.uikit.utils.deviceWidth
 import id.co.edtslib.uikit.utils.dp
+import id.co.edtslib.uikit.utils.font
+import id.co.edtslib.uikit.utils.html.toSpanned
 import id.co.edtslib.uikit.utils.inflater
 import id.co.edtslib.uikit.utils.interpolator.EaseInterpolator
 import id.co.edtslib.uikit.utils.isDeviceStruggling
+import id.co.edtslib.uikit.utils.typefaceFromAppearance
 import kotlin.math.max
 import androidx.core.graphics.toColorInt
 import androidx.core.view.doOnPreDraw
@@ -93,6 +103,8 @@ class CoachMarkOverlay @JvmOverloads constructor(
     private var spotlightScale: Float = 1f
     private var coachMarkItems: List<CoachMarkData> = emptyList()
     private var currentCoachMarkIndex: Int = 0
+    private var descriptionHtmlEnabled = false
+    @StyleRes private var descriptionEmphasisTextAppearance = 0
     private var isDismissible = false
     private var verticalPosition: CoachMarkVerticalPosition = CoachMarkVerticalPosition.Auto
     private var verticalGap: Float = 8.dp
@@ -339,13 +351,41 @@ class CoachMarkOverlay @JvmOverloads constructor(
 
         with(binding) {
             tvTiTle.text = currentItem.title
-            tvDescription.text = currentItem.description
+            tvDescription.bindDescription(currentItem.description)
             tvCoachmarkCount.text = "${currentCoachMarkIndex + 1}$stepProgressDivider${coachMarkItems.size}"
             btnNext.text = if (isOnTheLastIndex) closeDefaultText else nextDefaultText
             btnSkip.text = skipDefaultText
             btnSingleAction.text = skipDefaultText
             btnSkip.isVisible = !isOnTheLastIndex && skipButtonVisibleByDefault
         }
+    }
+
+    private fun TextView.bindDescription(description: CharSequence) {
+        val content = if (descriptionHtmlEnabled && description !is Spanned) {
+            val emphasisAppearance = descriptionEmphasisTextAppearance
+            var emphasisSizePx: Int? = null
+            val emphasisTypeface = if (emphasisAppearance == 0) {
+                context.font(R.font.inter_semibold)
+            } else {
+                context.withStyledAttributes(emphasisAppearance, intArrayOf(android.R.attr.textSize)) {
+                    if (hasValue(0)) emphasisSizePx = getDimensionPixelSize(0, 0)
+                }
+                context.typefaceFromAppearance(emphasisAppearance) ?: context.font(R.font.inter_semibold)
+            }
+
+            buildHighlightedMessage(
+                parsedMessage = description.toString().toSpanned(flags = HtmlCompat.FROM_HTML_MODE_COMPACT),
+                emphasisTypeface = emphasisTypeface,
+                emphasisSizePx = emphasisSizePx
+            )
+        } else {
+            description
+        }
+
+        val hasLinks = content is Spanned &&
+            content.getSpans(0, content.length, ClickableSpan::class.java).isNotEmpty()
+        movementMethod = if (hasLinks) LinkMovementMethod.getInstance() else null
+        text = content
     }
 
     /**
@@ -704,6 +744,8 @@ class CoachMarkOverlay @JvmOverloads constructor(
 
         @StyleRes private var titleTextAppearance: Int = R.style.TextAppearance_Inter_Semibold_H1
         @StyleRes private var descriptionTextAppearance: Int = R.style.TextAppearance_Inter_Regular_P2
+        @StyleRes private var descriptionEmphasisTextAppearance = 0
+        private var descriptionHtmlEnabled = false
 
         private var coachmarkWidthPercent: Float = 0.84f
         private var skipButtonVisibleByDefault: Boolean = true
@@ -748,6 +790,21 @@ class CoachMarkOverlay @JvmOverloads constructor(
 
         fun setCoachmarkDescriptionTextAppearance(@StyleRes resId: Int) = apply {
             this.descriptionTextAppearance = resId
+        }
+
+        /**
+         * Parses raw descriptions as HTML in the default card. Spanned descriptions keep their spans.
+         */
+        fun setCoachmarkDescriptionHtmlEnabled(enabled: Boolean) = apply {
+            this.descriptionHtmlEnabled = enabled
+        }
+
+        /**
+         * Sets the font and optional text size for emphasis in HTML descriptions.
+         * Pass 0 to use Inter SemiBold at the base description size.
+         */
+        fun setCoachmarkDescriptionEmphasisTextAppearance(@StyleRes resId: Int) = apply {
+            this.descriptionEmphasisTextAppearance = resId
         }
 
         fun setCoachmarkWidthPercent(percent: Float) = apply {
@@ -830,6 +887,8 @@ class CoachMarkOverlay @JvmOverloads constructor(
             overlay.coachMarkDelegate = delegate
             overlay.setCoachmarkTitleTextAppearance(titleTextAppearance)
             overlay.setCoachmarkDescriptionTextAppearance(descriptionTextAppearance)
+            overlay.descriptionHtmlEnabled = descriptionHtmlEnabled
+            overlay.descriptionEmphasisTextAppearance = descriptionEmphasisTextAppearance
             overlay.setCoachmarkWidthPercent(coachmarkWidthPercent)
             overlay.setStepProgressDivider(stepProgressDivider)
             overlay.setCoachMarkType(coachMarkType)

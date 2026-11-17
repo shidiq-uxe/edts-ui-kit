@@ -1,13 +1,18 @@
 package id.co.edtslib.uikit.utils
 
 import android.content.Context
+import android.graphics.Typeface
 import android.text.SpannableStringBuilder
+import android.text.Spanned
 import android.text.SpannedString
+import android.text.style.AbsoluteSizeSpan
+import android.text.style.StyleSpan
 import android.view.View
 import androidx.core.text.bold
 import androidx.core.text.buildSpannedString
 import androidx.core.text.color
 import id.co.edtslib.uikit.R
+import id.co.edtslib.uikit.utils.html.TypefaceSpan
 
 
 /**
@@ -110,4 +115,40 @@ fun buildHighlightedMessage(
             applyTextAppearanceSpan(context, textStyle) { append(remainingMessage) }
         } ?: append(remainingMessage)
     }
+}
+
+/**
+ * Applies the given typeface to HTML emphasis ranges while retaining the other parsed spans.
+ * Omit the size to inherit the TextView's paragraph size.
+ */
+internal fun buildHighlightedMessage(
+    parsedMessage: Spanned,
+    emphasisTypeface: Typeface,
+    emphasisSizePx: Int? = null
+): SpannedString {
+    val boldSpans = parsedMessage.getSpans(0, parsedMessage.length, StyleSpan::class.java)
+        .filter { it.style and Typeface.BOLD != 0 }
+    if (boldSpans.isEmpty()) return SpannedString.valueOf(parsedMessage)
+
+    val styled = SpannableStringBuilder(parsedMessage)
+    val emphasisRanges = boldSpans.map { span ->
+        val start = styled.getSpanStart(span)
+        val end = styled.getSpanEnd(span)
+        val flags = styled.getSpanFlags(span)
+        styled.removeSpan(span)
+
+        if (start < end && span.style and Typeface.ITALIC != 0) {
+            styled.setSpan(StyleSpan(Typeface.ITALIC), start, end, flags)
+        }
+        Triple(start, end, flags)
+    }
+
+    emphasisRanges.forEach { (start, end, flags) ->
+        if (start < end) {
+            styled.setSpan(TypefaceSpan(emphasisTypeface, preserveItalic = true), start, end, flags)
+            emphasisSizePx?.let { styled.setSpan(AbsoluteSizeSpan(it), start, end, flags) }
+        }
+    }
+
+    return SpannedString(styled)
 }

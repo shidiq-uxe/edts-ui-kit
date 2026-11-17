@@ -3,6 +3,7 @@ package id.co.edtslib.uikit.utils.html
 import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Typeface
+import android.os.Build
 import android.text.Editable
 import android.text.Html
 import android.text.Spannable
@@ -416,13 +417,41 @@ fun Editable.applyListColors(start: Int, end: Int, style: ListStyle) {
 }
 
 
-class TypefaceSpan(private val typeface: Typeface) : MetricAffectingSpan() {
+class TypefaceSpan internal constructor(
+    private val typeface: Typeface,
+    private val preserveItalic: Boolean
+) : MetricAffectingSpan() {
+
+    constructor(typeface: Typeface) : this(typeface, preserveItalic = false)
+
+    private val italicTypeface by lazy(LazyThreadSafetyMode.NONE) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            val weight = typeface.weight
+            if (weight > 0) Typeface.create(typeface, weight, true) else null
+        } else {
+            null
+        }
+    }
+
     override fun updateDrawState(ds: TextPaint) {
-        ds.typeface = typeface
+        applyTypeface(ds)
     }
 
     override fun updateMeasureState(paint: TextPaint) {
-        paint.typeface = typeface
+        applyTypeface(paint)
+    }
+
+    private fun applyTypeface(paint: TextPaint) {
+        if (preserveItalic && paint.typeface?.isItalic == true) {
+            // Request the exact weight so the italic variant does not fall back to regular.
+            val italic = italicTypeface
+            paint.typeface = italic ?: typeface
+            if (italic == null) {
+                paint.textSkewX = -0.25f
+            }
+        } else {
+            paint.typeface = typeface
+        }
     }
 }
 
