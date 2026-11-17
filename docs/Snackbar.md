@@ -12,10 +12,14 @@ Use Snackbar for brief in-app feedback. Klik and Poinku call their styled Snackb
 
 All three entry points use `CoreSnackbar.Variant`. The selected variant applies the corresponding XML theme overlay for Core, Klik, or Poinku.
 
-| Variant | When to use | Background |
-| --- | --- | --- |
-| `INFO` (default) | General feedback, such as confirming that changes were saved. | Neutral grey (`#434755`) |
-| `ERROR` | Report a failure, such as a save that could not complete. | Error red (`#EE2B2E`) |
+Use `INFO` for general feedback, such as confirming a save. Use `ERROR` when an operation fails.
+
+| Variant | Background | Core token | Klik token | Poinku token |
+| --- | --- | --- | --- | --- |
+| `INFO` (default) | Neutral grey (`#434755`) | `black_60` | `klik_color_grey_60` | `poinku_color_grey_70` |
+| `ERROR` | Error red (`#EE2B2E`) | `red_30` | `klik_color_bg_interactive_attention_or_error` | `poinku_color_support_error_strong` |
+
+Klik and Poinku resolve to the same background colors through their own tokens. Changing variants keeps the recipe’s typography and Android elevation.
 
 ## Show a Toast
 
@@ -41,7 +45,21 @@ PoinkuToast.show(
 }
 ```
 
-Treat icons as decorative and put the status in the message. Android elevation renders each product’s shadow.
+Treat icons as decorative and put the status in the message.
+
+### Dismiss a Snackbar
+
+Set `actionText` to `"Dismiss"` and omit `onAction`. Tapping the action closes the Snackbar.
+
+```kotlin
+val offlineSnackbar = KlikToast.show(
+    host = binding.root,
+    message = "You’re offline",
+    actionText = "Dismiss"
+)
+```
+
+If the connection returns while the message is still visible, call `offlineSnackbar.dismiss()` from your connection callback.
 
 ## Configuration
 
