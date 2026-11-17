@@ -8,9 +8,18 @@ Use Snackbar for brief in-app feedback. Klik and Poinku call their styled Snackb
 | `KlikToast` | Inter Regular | Inter SemiBold |
 | `PoinkuToast` | Rubik Regular | Rubik Medium |
 
+## Variants
+
+All three entry points use `CoreSnackbar.Variant`. The selected variant applies the corresponding XML theme overlay for Core, Klik, or Poinku.
+
+| Variant | When to use | Background |
+| --- | --- | --- |
+| `INFO` (default) | General feedback, such as confirming that changes were saved. | Neutral grey (`#434755`) |
+| `ERROR` | Report a failure, such as a save that could not complete. | Error red (`#EE2B2E`) |
+
 ## Show a Toast
 
-Pass an attached view as the host. Material Snackbar positions the bar above `anchor` when supplied. The default duration is `Snackbar.LENGTH_LONG`. The returned Snackbar supports Material callbacks and manual dismissal.
+The returned Material `Snackbar` supports callbacks and manual dismissal.
 
 ```kotlin
 import id.co.edtslib.uikit.R as UIKitR
@@ -32,7 +41,23 @@ PoinkuToast.show(
 }
 ```
 
-Omit `iconRes` or `actionText` to hide that slot. Treat icons as decorative and put the status in the message. Material dismisses the Snackbar after the action runs. Android elevation renders each product’s shadow.
+Treat icons as decorative and put the status in the message. Android elevation renders each product’s shadow.
+
+## Configuration
+
+`CoreSnackbar.show()`, `KlikToast.show()`, and `PoinkuToast.show()` accept the same parameters.
+
+| Parameter | Default | Behavior |
+| --- | --- | --- |
+| `host: View` | Required | An attached view used to find the Snackbar's parent. |
+| `message: CharSequence` | Required | Message displayed in the Snackbar. |
+| `variant: Variant` | `Variant.INFO` | Selects the Info or Error recipe. |
+| `iconRes: Int?` | `null` | Drawable resource for the leading icon. Omit it to hide the icon. |
+| `actionText: CharSequence?` | `null` | Action label. Omit it or pass an empty label to hide the action. |
+| `anchor: View?` | `null` | Positions the Snackbar above this view. With no anchor, Material uses its default bottom placement. |
+| `duration: Int` | `Snackbar.LENGTH_LONG` | A Material duration constant or a positive duration in milliseconds. |
+| `animationMode: Int` | `Snackbar.ANIMATION_MODE_FADE` | Use fade or pass `Snackbar.ANIMATION_MODE_SLIDE` for a slide transition. |
+| `onAction: ((View) -> Unit)?` | `null` | Called with the action view when tapped. Material then dismisses the Snackbar. |
 
 ## Migrate an existing caller
 
