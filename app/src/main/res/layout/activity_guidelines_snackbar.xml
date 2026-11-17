@@ -47,7 +47,7 @@
             android:id="@+id/rbDefault"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Default"
+            android:text="@string/snackbar_demo_info"
             android:checked="true"/>
 
         <com.google.android.material.radiobutton.MaterialRadioButton
@@ -99,11 +99,22 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/s"
-        android:text="Include Action &amp; Start Icon"
+        android:checked="true"
+        android:text="@string/snackbar_demo_include_action"
         app:layout_constraintTop_toBottomOf="@id/thirdDivider"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"/>
+
+    <com.google.android.material.checkbox.MaterialCheckBox
+        android:id="@+id/cbIncludeIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/s"
+        android:checked="true"
+        android:text="@string/snackbar_demo_include_icon"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cbIncludeAction" />
 
     <Button
         android:id="@+id/btnShowSnackbar"

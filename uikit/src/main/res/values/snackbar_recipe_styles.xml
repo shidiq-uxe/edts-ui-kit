@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="snackbar_line_height">16sp</dimen>
+
+    <style name="Widget.EDTS.UIKit.Snackbar.Recipe" parent="Widget.Material3.Snackbar">
+        <item name="android:minHeight">@dimen/dimen_48</item>
+        <item name="android:outlineAmbientShadowColor">@color/black_50</item>
+        <item name="android:outlineSpotShadowColor">@color/black_50</item>
+        <item name="android:padding">@dimen/dimen_0</item>
+        <item name="android:paddingStart">@dimen/s</item>
+        <item name="android:paddingEnd">@dimen/s</item>
+        <item name="android:paddingLeft">@dimen/s</item>
+        <item name="android:paddingRight">@dimen/s</item>
+        <item name="actionTextColorAlpha">1</item>
+        <item name="backgroundTint">@color/black_60</item>
+        <item name="elevation">@dimen/xxxs</item>
+        <item name="shapeAppearance">@style/ShapeAppearance.EDTS.UIKit.MediumComponent</item>
+    </style>
+
+    <style name="Widget.EDTS.UIKit.Snackbar.Recipe.Error" parent="Widget.EDTS.UIKit.Snackbar.Recipe">
+        <item name="backgroundTint">@color/red_30</item>
+    </style>
+
+    <style name="Widget.EDTS.UIKit.Snackbar.Recipe.Message" parent="Widget.Material3.Snackbar.TextView">
+        <item name="android:alpha">1</item>
+        <item name="android:drawablePadding">@dimen/xxs</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:fontFamily">@font/inter_fallback</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:layout_marginLeft">@dimen/dimen_0</item>
+        <item name="android:layout_marginRight">@dimen/dimen_0</item>
+        <item name="android:maxLines">2</item>
+        <item name="android:padding">@dimen/dimen_0</item>
+        <item name="android:textAppearance">@style/TextAppearance.Inter.Regular.B3</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="Widget.EDTS.UIKit.Snackbar.Recipe.Action" parent="Widget.AppCompat.Button.Borderless">
+        <item name="android:layout_marginStart">@dimen/xxs</item>
+        <item name="android:fontFamily">@font/inter_semibold_fallback</item>
+        <item name="android:gravity">end|center_vertical</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:minHeight">@dimen/dimen_48</item>
+        <item name="android:padding">@dimen/dimen_0</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textAppearance">@style/TextAppearance.Inter.SemiBold.Button.Text.Small</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="Widget.EDTS.UIKit.Snackbar.Recipe.Klik" parent="Widget.EDTS.UIKit.Snackbar.Recipe">
+        <item name="backgroundTint">@color/klik_color_grey_60</item>
+    </style>
+
+    <style name="Widget.EDTS.UIKit.Snackbar.Recipe.Klik.Error" parent="Widget.EDTS.UIKit.Snackbar.Recipe.Klik">
+        <item name="backgroundTint">@color/klik_color_bg_interactive_attention_or_error</item>
+    </style>
+
+    <style name="Widget.EDTS.UIKit.Snackbar.Recipe.Poinku" parent="Widget.EDTS.UIKit.Snackbar.Recipe">
+        <item name="backgroundTint">@color/poinku_color_grey_70</item>
+        <item name="elevation">@dimen/dimen_6</item>
+    </style>
+
+    <style name="Widget.EDTS.UIKit.Snackbar.Recipe.Poinku.Error" parent="Widget.EDTS.UIKit.Snackbar.Recipe.Poinku">
+        <item name="backgroundTint">@color/poinku_color_support_error_strong</item>
+    </style>
+
+    <style name="Widget.EDTS.UIKit.Snackbar.Recipe.Poinku.Message" parent="Widget.EDTS.UIKit.Snackbar.Recipe.Message">
+        <item name="android:fontFamily">@font/rubik_fallback</item>
+    </style>
+
+    <style name="Widget.EDTS.UIKit.Snackbar.Recipe.Poinku.Action" parent="Widget.EDTS.UIKit.Snackbar.Recipe.Action">
+        <item name="android:fontFamily">@font/rubik_medium_fallback</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="ThemeOverlay.EDTS.UIKit.Snackbar.Recipe" parent="">
+        <item name="snackbarStyle">@style/Widget.EDTS.UIKit.Snackbar.Recipe</item>
+        <item name="snackbarTextViewStyle">@style/Widget.EDTS.UIKit.Snackbar.Recipe.Message</item>
+        <item name="snackbarButtonStyle">@style/Widget.EDTS.UIKit.Snackbar.Recipe.Action</item>
+    </style>
+
+    <style name="ThemeOverlay.EDTS.UIKit.Snackbar.Recipe.Error" parent="ThemeOverlay.EDTS.UIKit.Snackbar.Recipe">
+        <item name="snackbarStyle">@style/Widget.EDTS.UIKit.Snackbar.Recipe.Error</item>
+    </style>
+
+    <style name="ThemeOverlay.EDTS.UIKit.Snackbar.Recipe.Klik" parent="ThemeOverlay.EDTS.UIKit.Snackbar.Recipe">
+        <item name="snackbarStyle">@style/Widget.EDTS.UIKit.Snackbar.Recipe.Klik</item>
+    </style>
+
+    <style name="ThemeOverlay.EDTS.UIKit.Snackbar.Recipe.Klik.Error" parent="ThemeOverlay.EDTS.UIKit.Snackbar.Recipe.Klik">
+        <item name="snackbarStyle">@style/Widget.EDTS.UIKit.Snackbar.Recipe.Klik.Error</item>
+    </style>
+
+    <style name="ThemeOverlay.EDTS.UIKit.Snackbar.Recipe.Poinku" parent="ThemeOverlay.EDTS.UIKit.Snackbar.Recipe">
+        <item name="snackbarStyle">@style/Widget.EDTS.UIKit.Snackbar.Recipe.Poinku</item>
+        <item name="snackbarTextViewStyle">@style/Widget.EDTS.UIKit.Snackbar.Recipe.Poinku.Message</item>
+        <item name="snackbarButtonStyle">@style/Widget.EDTS.UIKit.Snackbar.Recipe.Poinku.Action</item>
+    </style>
+
+    <style name="ThemeOverlay.EDTS.UIKit.Snackbar.Recipe.Poinku.Error" parent="ThemeOverlay.EDTS.UIKit.Snackbar.Recipe.Poinku">
+        <item name="snackbarStyle">@style/Widget.EDTS.UIKit.Snackbar.Recipe.Poinku.Error</item>
+    </style>
+
+</resources>
