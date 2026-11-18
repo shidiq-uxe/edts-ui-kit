@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_enabled="false" android:color="?attr/coreTextFieldStroke" />
+    <item android:state_activated="true" android:color="?attr/coreTextFieldErrorColor" />
+    <item android:state_selected="true" android:color="?attr/coreTextFieldFocusedStroke" />
+    <item android:color="?attr/coreTextFieldStroke" />
+</selector>

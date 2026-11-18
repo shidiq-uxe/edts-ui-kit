@@ -2,7 +2,6 @@ package id.co.edtslib.uikit.textfield
 
 import android.content.Context
 import android.os.Build
-import android.text.InputFilter
 import android.util.AttributeSet
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
@@ -11,6 +10,7 @@ import androidx.core.view.doOnNextLayout
 import androidx.core.widget.doAfterTextChanged
 import com.google.android.material.textfield.TextInputEditText
 import id.co.edtslib.uikit.R
+import id.co.edtslib.uikit.core.textfield.applyTextFieldLengthLimit
 import id.co.edtslib.uikit.textinputlayout.TextInputLayout
 import id.co.edtslib.uikit.utils.buildHighlightedMessage
 import id.co.edtslib.uikit.utils.color
@@ -143,18 +143,6 @@ open class TextField @JvmOverloads constructor(
         }
     }
 
-    private fun addFilter(inputFilter: InputFilter) {
-        val filters = editText?.filters?.toMutableList() ?: mutableListOf()
-        filters.add(inputFilter)
-        editText?.filters = filters.toTypedArray()
-    }
-
-    private fun removeMaxLengthFilter() {
-        val filters = editText?.filters?.toMutableList() ?: return
-        filters.removeAll { it is InputFilter.LengthFilter }
-        editText?.filters = filters.toTypedArray()
-    }
-
     enum class ImeOption {
         Next, Send, Search, Done
     }
@@ -251,8 +239,7 @@ open class TextField @JvmOverloads constructor(
     var maxLength = 0
         set(value) {
             field = value
-            if (value > 0) addFilter(InputFilter.LengthFilter(maxLength))
-            else removeMaxLengthFilter()
+            editText?.applyTextFieldLengthLimit(value, replaceExisting = false)
         }
 
     private fun applyStyle(textFieldStyle: TextFieldStyle) {
