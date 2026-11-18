@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="coreOtpGroupStyle" format="reference" />
+    <attr name="coreOtpSurface" format="color" />
+    <attr name="coreOtpStroke" format="color" />
+    <attr name="coreOtpFocus" format="color" />
+    <attr name="coreOtpError" format="color" />
+    <attr name="coreOtpText" format="color" />
+    <attr name="coreOtpDisabledText" format="color" />
+
+    <declare-styleable name="CoreOtpGroup">
+        <attr name="android:enabled" />
+        <attr name="otpCount" />
+        <attr name="marginBetween" />
+        <attr name="isError" />
+        <attr name="animateError" />
+        <attr name="vibrateOnError" />
+        <attr name="coreOtpDigitAppearance" format="reference" />
+    </declare-styleable>
+</resources>

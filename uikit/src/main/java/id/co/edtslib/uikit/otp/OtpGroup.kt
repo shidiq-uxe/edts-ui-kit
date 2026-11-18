@@ -1,19 +1,14 @@
 package id.co.edtslib.uikit.otp
 
 import android.content.Context
-import android.os.Build
-import android.os.VibrationEffect
-import android.os.Vibrator
-import android.os.VibratorManager
 import android.text.InputFilter
 import android.util.AttributeSet
 import android.view.Gravity
-import android.view.KeyEvent
 import androidx.appcompat.widget.LinearLayoutCompat
 import androidx.core.content.withStyledAttributes
 import androidx.core.view.doOnLayout
-import androidx.core.widget.doAfterTextChanged
 import id.co.edtslib.uikit.R
+import id.co.edtslib.uikit.core.otp.OtpInputController
 import id.co.edtslib.uikit.databinding.TextFieldOtpBinding
 import id.co.edtslib.uikit.textfield.TextField
 import id.co.edtslib.uikit.utils.hapticfeedback.HapticFeedback
@@ -33,6 +28,7 @@ class OtpGroup @JvmOverloads constructor(
     private var marginBetween: Int = 8 // default margin in dp
 
     private val otpInputLayouts = mutableListOf<TextField>()
+    private lateinit var inputController: OtpInputController
 
     var isError: Boolean
         get() = otpInputLayouts.all { it.isError }
@@ -100,62 +96,24 @@ class OtpGroup @JvmOverloads constructor(
             }
         }
 
-        otpInputLayouts.forEachIndexed { i, textInputLayout ->
-            textInputLayout.editText?.let { editText ->
-                editText.filters = arrayOf(InputFilter.LengthFilter(otpInputLayouts.size - i))
-
-                editText.doAfterTextChanged {
-                    if (i < otpInputLayouts.size - 1) {
-                        if (it?.length == 1) {
-                            otpInputLayouts[i + 1].requestFocus()
-                        } else if ((it?.length ?: 0) > 1) {
-                            otpInputLayouts[i + 1].editText?.setText(it?.substring(1))
-                        }
-                    }
-
-                    if ((it?.length ?: 0) > 1) {
-                        it?.delete(1, it.length)
-                    }
-
-                    val otpString = otpInputLayouts.mapNotNull { it.editText }
-                        .joinToString(separator = "") { editText -> editText.text ?: "" }
-
-                    if (otpString.length == otpInputLayouts.size) {
-                        delegate?.setOnOtpCompleteListener(otpString)
-                    }
-
-                    delegate?.setOnTextChangeListener(otpString)
-                }
-
-                editText.setOnKeyListener { v, keyCode, event ->
-                    if (keyCode == KeyEvent.KEYCODE_DEL && event.action == KeyEvent.ACTION_DOWN) {
-                        if (editText.text.isNullOrEmpty() && i != 0) {
-                            otpInputLayouts[i - 1].requestFocus()
-                            return@setOnKeyListener true
-                        }
-                    }
-                    return@setOnKeyListener false
-                }
-
-                editText.setOnFocusChangeListener { v, hasFocus ->
-                    if (hasFocus) {
-                        editText.post {
-                            editText.setSelection(editText.text?.length ?: 0)
-                        }
-                    }
-                }
-            }
+        val editors = otpInputLayouts.map { it.editText }
+        editors.forEachIndexed { index, editor ->
+            editor?.filters = arrayOf(InputFilter.LengthFilter(editors.size - index))
         }
+        inputController = OtpInputController(
+            editors = editors,
+            notifyForEachChange = true,
+            requestFocusAt = { otpInputLayouts[it].requestFocus() },
+            onComplete = { delegate?.setOnOtpCompleteListener(it) },
+            onChange = { delegate?.setOnTextChangeListener(it) }
+        )
     }
 
     fun clear() {
-        otpInputLayouts.mapNotNull { it.editText }.forEach { editText ->
-            editText.setText("")
-            otpInputLayouts[0].requestFocus()
-        }
+        inputController.clear()
     }
 
-    val otp: String get() = otpInputLayouts.mapNotNull { it.editText }.joinToString("") { it.text.toString() }
+    val otp: String get() = inputController.value
 
     companion object {
         private const val OTP_DELAY_MILLIS = 100L
