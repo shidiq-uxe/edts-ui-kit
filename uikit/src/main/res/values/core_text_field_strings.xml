@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="core_text_field_counter">%1$d/%2$d</string>
+    <string name="core_text_field_show_password">Show password</string>
+    <string name="core_text_field_hide_password">Hide password</string>
+</resources>

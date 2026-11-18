@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_enabled="false" android:state_selected="true">
+        <layer-list>
+            <item android:gravity="bottom" android:height="@dimen/dimen_2" android:drawable="?attr/coreOtpStroke" />
+        </layer-list>
+    </item>
+    <item android:state_enabled="false">
+        <layer-list>
+            <item android:gravity="bottom" android:height="@dimen/dimen_1" android:drawable="?attr/coreOtpStroke" />
+        </layer-list>
+    </item>
+    <item android:state_activated="true">
+        <layer-list>
+            <item android:gravity="bottom" android:height="@dimen/dimen_2" android:drawable="?attr/coreOtpError" />
+        </layer-list>
+    </item>
+    <item android:state_focused="true">
+        <layer-list>
+            <item android:gravity="bottom" android:height="@dimen/dimen_1" android:drawable="?attr/coreOtpFocus" />
+        </layer-list>
+    </item>
+    <item android:state_selected="true">
+        <layer-list>
+            <item android:gravity="bottom" android:height="@dimen/dimen_2" android:drawable="?attr/coreOtpStroke" />
+        </layer-list>
+    </item>
+    <item>
+        <layer-list>
+            <item android:gravity="bottom" android:height="@dimen/dimen_1" android:drawable="?attr/coreOtpStroke" />
+        </layer-list>
+    </item>
+</selector>

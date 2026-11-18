@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="core_otp_cell_height">46dp</dimen>
+
+    <style name="Widget.EDTS.UIKit.CoreOtpGroup" parent="">
+        <item name="coreOtpDigitAppearance">@style/TextAppearance.Inter.Semibold.D1</item>
+    </style>
+
+    <style name="Widget.EDTS.UIKit.CoreOtpGroup.Poinku" parent="Widget.EDTS.UIKit.CoreOtpGroup">
+        <item name="coreOtpDigitAppearance">@style/TextAppearance.Poinku.Display.D1.Heavy</item>
+    </style>
+
+    <style name="ThemeOverlay.EDTS.UIKit.CoreOtpGroup" parent="">
+        <item name="coreOtpGroupStyle">@style/Widget.EDTS.UIKit.CoreOtpGroup</item>
+        <item name="coreOtpSurface">@color/white</item>
+        <item name="coreOtpStroke">@color/black_30</item>
+        <item name="coreOtpFocus">@color/primary_30</item>
+        <item name="coreOtpError">@color/red_30</item>
+        <item name="coreOtpText">@color/black_70</item>
+        <item name="coreOtpDisabledText">@color/black_50</item>
+        <item name="coreInputCursorColor">?attr/coreOtpFocus</item>
+        <item name="colorControlActivated">?attr/coreOtpFocus</item>
+    </style>
+
+    <style name="ThemeOverlay.EDTS.UIKit.CoreOtpGroup.Poinku" parent="ThemeOverlay.EDTS.UIKit.CoreOtpGroup">
+        <item name="coreOtpGroupStyle">@style/Widget.EDTS.UIKit.CoreOtpGroup.Poinku</item>
+        <item name="coreOtpSurface">@color/poinku_color_neutral_white</item>
+        <item name="coreOtpStroke">@color/poinku_color_grey_30</item>
+        <item name="coreOtpFocus">@color/poinku_color_primary_blue_30</item>
+        <item name="coreOtpError">@color/poinku_color_support_error_strong</item>
+        <item name="coreOtpText">@color/poinku_color_grey_80</item>
+        <item name="coreOtpDisabledText">@color/poinku_color_grey_60</item>
+    </style>
+</resources>

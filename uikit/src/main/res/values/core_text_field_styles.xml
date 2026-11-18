@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Widget.EDTS.UIKit.CoreTextField" parent="">
+        <item name="coreTextFieldLabelAppearance">@style/TextAppearance.Inter.Semibold.H3</item>
+        <item name="coreTextFieldInputAppearance">@style/TextAppearance.Inter.Regular.B1</item>
+        <item name="coreTextFieldSupportingAppearance">@style/TextAppearance.Inter.Regular.B3</item>
+        <item name="coreTextFieldInputLineHeight">@dimen/dimen_18</item>
+        <item name="coreTextFieldSupportingLineHeight">@dimen/dimen_16</item>
+    </style>
+
+    <style name="Widget.EDTS.UIKit.CoreTextField.Poinku" parent="Widget.EDTS.UIKit.CoreTextField">
+        <item name="coreTextFieldLabelAppearance">@style/TextAppearance.Poinku.Heading.H3.Heavy</item>
+        <item name="coreTextFieldInputAppearance">@style/TextAppearance.Poinku.Body.B2.Light</item>
+        <item name="coreTextFieldSupportingAppearance">@style/TextAppearance.Poinku.Body.B4.Light</item>
+        <item name="coreTextFieldInputLineHeight">@dimen/foundation_typography_body_b2_line_height</item>
+        <item name="coreTextFieldSupportingLineHeight">@dimen/foundation_typography_body_b4_line_height</item>
+    </style>
+
+    <style name="ThemeOverlay.EDTS.UIKit.CoreTextField" parent="">
+        <item name="coreTextFieldStyle">@style/Widget.EDTS.UIKit.CoreTextField</item>
+        <item name="coreTextFieldSurface">@color/white</item>
+        <item name="coreTextFieldDisabledSurface">@color/black_20</item>
+        <item name="coreTextFieldErrorSurface">@color/red_10</item>
+        <item name="coreTextFieldStroke">@color/black_30</item>
+        <item name="coreTextFieldFocusedStroke">@color/primary_30</item>
+        <item name="coreTextFieldErrorColor">@color/red_30</item>
+        <item name="coreTextFieldText">@color/black_70</item>
+        <item name="coreTextFieldPlaceholder">@color/black_40</item>
+        <item name="coreTextFieldSupportingColor">@color/black_50</item>
+        <item name="coreTextFieldRequiredColor">@color/red_30</item>
+        <item name="coreInputCursorColor">@color/primary_30</item>
+        <item name="colorControlActivated">?attr/coreInputCursorColor</item>
+    </style>
+
+    <style name="ThemeOverlay.EDTS.UIKit.CoreTextField.Klik" parent="ThemeOverlay.EDTS.UIKit.CoreTextField">
+        <item name="coreTextFieldSurface">@color/klik_color_bg_container_primary</item>
+        <item name="coreTextFieldDisabledSurface">@color/klik_color_grey_20</item>
+        <item name="coreTextFieldErrorSurface">@color/klik_color_bg_attention_or_error_subtle</item>
+        <item name="coreTextFieldStroke">@color/klik_color_grey_30</item>
+        <item name="coreTextFieldFocusedStroke">@color/klik_color_blue_30</item>
+        <item name="coreTextFieldErrorColor">@color/klik_color_stroke_interactive_attention_or_error</item>
+        <item name="coreTextFieldText">@color/klik_color_grey_70</item>
+        <item name="coreTextFieldPlaceholder">@color/klik_color_grey_40</item>
+        <item name="coreTextFieldSupportingColor">@color/klik_color_grey_50</item>
+        <item name="coreTextFieldRequiredColor">@color/klik_color_red_30</item>
+        <item name="coreInputCursorColor">@color/klik_color_blue_50</item>
+    </style>
+
+    <style name="ThemeOverlay.EDTS.UIKit.CoreTextField.Poinku" parent="ThemeOverlay.EDTS.UIKit.CoreTextField">
+        <item name="coreTextFieldStyle">@style/Widget.EDTS.UIKit.CoreTextField.Poinku</item>
+        <item name="coreTextFieldSurface">@color/poinku_color_neutral_white</item>
+        <item name="coreTextFieldDisabledSurface">@color/poinku_color_grey_20</item>
+        <item name="coreTextFieldErrorSurface">@color/poinku_color_support_error_weak</item>
+        <item name="coreTextFieldStroke">@color/poinku_color_grey_30</item>
+        <item name="coreTextFieldFocusedStroke">@color/poinku_color_primary_blue_30</item>
+        <item name="coreTextFieldErrorColor">@color/poinku_color_support_error_strong</item>
+        <item name="coreTextFieldText">@color/poinku_color_grey_80</item>
+        <item name="coreTextFieldPlaceholder">@color/poinku_color_grey_50</item>
+        <item name="coreTextFieldSupportingColor">@color/poinku_color_grey_60</item>
+        <item name="coreTextFieldRequiredColor">@color/poinku_color_secondary_red_30</item>
+        <item name="coreInputCursorColor">@color/poinku_color_primary_blue_30</item>
+    </style>
+</resources>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<id.co.edtslib.uikit.core.otp.OtpEditText
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/dimen_36"
+    android:layout_height="wrap_content"
+    android:minHeight="@dimen/core_otp_cell_height"
+    android:padding="@dimen/dimen_0"
+    android:background="?attr/coreOtpSurface"
+    android:foreground="@drawable/slr_core_otp_underline"
+    android:gravity="center"
+    android:imeOptions="actionDone"
+    android:includeFontPadding="false"
+    android:inputType="number"
+    android:saveEnabled="false"
+    android:singleLine="true"
+    android:textCursorDrawable="@drawable/bg_core_input_cursor"
+    android:textColor="@color/slr_core_otp_text" />

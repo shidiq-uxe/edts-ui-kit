@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <id.co.edtslib.uikit.recipes.textfield.klik.KlikTextField
+        android:id="@+id/fieldKlik"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:enabled="false"
+        android:hint="Email address"
+        android:imeOptions="actionDone"
+        android:inputType="textEmailAddress"
+        android:text="name"
+        app:fieldCounterEnabled="true"
+        app:fieldLabel="Email"
+        app:fieldMaxLength="5"
+        app:fieldSupportingText="Supporting text"
+        app:isFieldRequired="true" />
+
+    <id.co.edtslib.uikit.recipes.textfield.poinku.PoinkuTextField
+        android:id="@+id/fieldPoinku"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:text="123456"
+        app:fieldLabel="Password"
+        app:fieldPasswordToggleEnabled="true" />
+
+    <id.co.edtslib.uikit.textfield.TextField
+        android:id="@+id/fieldLegacy"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Email"
+        app:fieldImeOptions="done"
+        app:fieldInputType="email"
+        app:fieldMaxLength="5" />
+
+</LinearLayout>

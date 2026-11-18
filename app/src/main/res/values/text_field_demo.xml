@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="text_field_demo_legacy">Legacy</string>
+    <string name="text_field_demo_label">Label</string>
+    <string name="text_field_demo_klik_placeholder">Placeholder Text</string>
+    <string name="text_field_demo_poinku_placeholder">This is an example of textfield</string>
+    <string name="text_field_demo_supporting">Supporting text</string>
+    <string name="text_field_demo_password">Password</string>
+    <string name="text_field_demo_password_example" translatable="false">123456</string>
+    <string name="otp_demo_poinku">Poinku OTP</string>
+    <string name="otp_demo_poinku_error">Error</string>
+    <string name="otp_demo_poinku_disabled">Disabled</string>
+</resources>
