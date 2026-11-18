@@ -8,11 +8,41 @@
     tools:ignore="HardcodedText">
 
     <LinearLayout
+        android:id="@+id/llExamples"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:clipToPadding="false"
+        android:focusableInTouchMode="true"
         android:orientation="vertical"
         android:padding="@dimen/s">
+
+        <TextView
+            android:id="@+id/tvPreview"
+            style="@style/TextAppearance.Inter.Semibold.H3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/xxs"
+            android:text="@string/text_field_config_preview" />
+
+        <FrameLayout
+            android:id="@+id/flPreview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/s" />
+
+        <TextView
+            android:id="@+id/tvExamples"
+            style="@style/TextAppearance.Inter.Semibold.H3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/xxs"
+            android:text="@string/text_field_config_examples" />
+
+        <LinearLayout
+            android:id="@+id/llRecipes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
 
         <id.co.edtslib.uikit.textfield.TextField
             android:id="@+id/tilLabelInside"

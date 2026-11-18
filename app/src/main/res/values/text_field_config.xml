@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="configure_text_field">Configure TextField</string>
+    <string name="text_field_config_preview">Editable preview</string>
+    <string name="text_field_config_examples">Reference examples</string>
+    <string name="text_field_config_label">Label</string>
+    <string name="text_field_config_value">Input value</string>
+    <string name="text_field_config_placeholder">Placeholder</string>
+    <string name="text_field_config_supporting">Supporting text</string>
+    <string name="text_field_config_error">Error message</string>
+    <string name="text_field_config_max_length">Maximum length (0 for unlimited)</string>
+    <string name="text_field_config_action_description">Trailing action description</string>
+    <string name="text_field_config_enabled">Enabled</string>
+    <string name="text_field_config_required">Required</string>
+    <string name="text_field_config_counter">Character counter</string>
+    <string name="text_field_config_password_toggle">Password visibility toggle</string>
+    <string name="text_field_config_clear_action">Clear text action</string>
+    <string name="text_field_config_start_icon">Leading icon</string>
+    <string name="text_field_config_end_icon">Trailing icon</string>
+    <string name="text_field_config_input">Input type</string>
+    <string name="text_field_config_ime">Keyboard action</string>
+    <string name="text_field_config_reset">Reset configuration</string>
+    <string name="text_field_config_none">None</string>
+    <string name="text_field_config_placeholder_icon">Placeholder</string>
+    <string name="text_field_config_info_icon">Info</string>
+    <string name="text_field_config_check_icon">Check</string>
+    <string name="text_field_config_close_icon">Close</string>
+    <string name="text_field_config_input_text">Text</string>
+    <string name="text_field_config_input_email">Email</string>
+    <string name="text_field_config_input_phone">Phone</string>
+    <string name="text_field_config_input_number">Numeric</string>
+    <string name="text_field_config_input_password">Password</string>
+    <string name="text_field_config_ime_next">Next</string>
+    <string name="text_field_config_ime_done">Done</string>
+    <string name="text_field_config_ime_search">Search</string>
+    <string name="text_field_config_ime_send">Send</string>
+    <string name="text_field_config_invalid_length">Enter a whole number from 0 to 2147483647</string>
+    <string name="text_field_config_description_required">Enter an action description</string>
+    <string name="text_field_config_password_slot">The password toggle uses the trailing icon slot.</string>
+    <string name="text_field_config_default_action">Clear text</string>
+</resources>

@@ -35,4 +35,104 @@
         app:layout_constraintStart_toEndOf="@+id/ogError"
         app:layout_constraintTop_toTopOf="@id/ogError" />
 
+    <TextView
+        android:id="@+id/tvPoinkuOtp"
+        style="@style/TextAppearance.Inter.Semibold.H3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/s"
+        android:layout_marginTop="@dimen/s"
+        android:text="@string/otp_demo_poinku"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <id.co.edtslib.uikit.recipes.otp.poinku.PoinkuOtpGroup
+        android:id="@+id/ogPoinkuDefault"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/xxxs"
+        app:layout_constraintTop_toBottomOf="@id/tvPoinkuOtp"
+        app:layout_constraintStart_toStartOf="@id/tvPoinkuOtp" />
+
+    <TextView
+        android:id="@+id/tvPoinkuOtpError"
+        style="@style/TextAppearance.Inter.Regular.B3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/xs"
+        android:text="@string/otp_demo_poinku_error"
+        app:layout_constraintTop_toBottomOf="@id/ogPoinkuDefault"
+        app:layout_constraintStart_toStartOf="@id/tvPoinkuOtp" />
+
+    <id.co.edtslib.uikit.recipes.otp.poinku.PoinkuOtpGroup
+        android:id="@+id/ogPoinkuError"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/xxxs"
+        app:isError="true"
+        app:layout_constraintTop_toBottomOf="@id/tvPoinkuOtpError"
+        app:layout_constraintStart_toStartOf="@id/tvPoinkuOtp" />
+
+    <TextView
+        android:id="@+id/tvPoinkuOtpDisabled"
+        style="@style/TextAppearance.Inter.Regular.B3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/xs"
+        android:text="@string/otp_demo_poinku_disabled"
+        app:layout_constraintTop_toBottomOf="@id/ogPoinkuError"
+        app:layout_constraintStart_toStartOf="@id/tvPoinkuOtp" />
+
+    <id.co.edtslib.uikit.recipes.otp.poinku.PoinkuOtpGroup
+        android:id="@+id/ogPoinkuDisabled"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/xxxs"
+        android:enabled="false"
+        app:layout_constraintTop_toBottomOf="@id/tvPoinkuOtpDisabled"
+        app:layout_constraintStart_toStartOf="@id/tvPoinkuOtp" />
+
+    <LinearLayout
+        android:id="@+id/llCoreExamples"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/s"
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <id.co.edtslib.uikit.core.otp.CoreOtpGroup
+            android:id="@+id/ogCoreDefault"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            style="@style/TextAppearance.Inter.Regular.B3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/xs"
+            android:text="@string/otp_demo_poinku_error" />
+
+        <id.co.edtslib.uikit.core.otp.CoreOtpGroup
+            android:id="@+id/ogCoreError"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:isError="true" />
+
+        <TextView
+            style="@style/TextAppearance.Inter.Regular.B3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/xs"
+            android:text="@string/otp_demo_poinku_disabled" />
+
+        <id.co.edtslib.uikit.core.otp.CoreOtpGroup
+            android:id="@+id/ogCoreDisabled"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:enabled="false" />
+
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

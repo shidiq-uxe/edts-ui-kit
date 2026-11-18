@@ -1,0 +1,377 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nsvSettings"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/btnResetConfig">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/s">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilLabel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/xxs"
+                android:hint="@string/text_field_config_label"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etLabel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:singleLine="true" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilValue"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/xxs"
+                android:hint="@string/text_field_config_value"
+                app:layout_constraintTop_toBottomOf="@id/tilLabel"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etValue"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:singleLine="true" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilPlaceholder"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/xxs"
+                android:hint="@string/text_field_config_placeholder"
+                app:layout_constraintTop_toBottomOf="@id/tilValue"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etPlaceholder"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:singleLine="true" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilSupporting"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/xxs"
+                android:hint="@string/text_field_config_supporting"
+                app:layout_constraintTop_toBottomOf="@id/tilPlaceholder"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etSupporting"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:singleLine="true" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilError"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/xxs"
+                android:hint="@string/text_field_config_error"
+                app:layout_constraintTop_toBottomOf="@id/tilSupporting"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etError"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:singleLine="true" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilMaxLength"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/xxs"
+                android:hint="@string/text_field_config_max_length"
+                app:layout_constraintTop_toBottomOf="@id/tilError"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etMaxLength"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:singleLine="true" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/tvStartIcon"
+                style="@style/TextAppearance.Inter.Regular.B2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/dimen_48"
+                android:gravity="center_vertical"
+                android:labelFor="@id/spStartIcon"
+                android:text="@string/text_field_config_start_icon"
+                app:layout_constraintTop_toBottomOf="@id/tilMaxLength"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/spStartIcon" />
+
+            <Spinner
+                android:id="@+id/spStartIcon"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/dimen_48"
+                android:contentDescription="@string/text_field_config_start_icon"
+                app:layout_constraintTop_toTopOf="@id/tvStartIcon"
+                app:layout_constraintWidth_percent="0.5"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <TextView
+                android:id="@+id/tvEndIcon"
+                style="@style/TextAppearance.Inter.Regular.B2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/dimen_48"
+                android:gravity="center_vertical"
+                android:labelFor="@id/spEndIcon"
+                android:text="@string/text_field_config_end_icon"
+                app:layout_constraintTop_toBottomOf="@id/tvStartIcon"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/spEndIcon" />
+
+            <Spinner
+                android:id="@+id/spEndIcon"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/dimen_48"
+                android:contentDescription="@string/text_field_config_end_icon"
+                app:layout_constraintTop_toTopOf="@id/tvEndIcon"
+                app:layout_constraintWidth_percent="0.5"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <TextView
+                android:id="@+id/tvInput"
+                style="@style/TextAppearance.Inter.Regular.B2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/dimen_48"
+                android:gravity="center_vertical"
+                android:labelFor="@id/spInput"
+                android:text="@string/text_field_config_input"
+                app:layout_constraintTop_toBottomOf="@id/tvEndIcon"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/spInput" />
+
+            <Spinner
+                android:id="@+id/spInput"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/dimen_48"
+                android:contentDescription="@string/text_field_config_input"
+                app:layout_constraintTop_toTopOf="@id/tvInput"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <TextView
+                android:id="@+id/tvIme"
+                style="@style/TextAppearance.Inter.Regular.B2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/dimen_48"
+                android:gravity="center_vertical"
+                android:labelFor="@id/spIme"
+                android:text="@string/text_field_config_ime"
+                app:layout_constraintTop_toBottomOf="@id/tvInput"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/spIme" />
+
+            <Spinner
+                android:id="@+id/spIme"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/dimen_48"
+                android:contentDescription="@string/text_field_config_ime"
+                app:layout_constraintTop_toTopOf="@id/tvIme"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <TextView
+                android:id="@+id/tvEnabled"
+                style="@style/TextAppearance.Inter.Regular.B2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/dimen_48"
+                android:gravity="center_vertical"
+                android:labelFor="@id/swEnabled"
+                android:text="@string/text_field_config_enabled"
+                app:layout_constraintTop_toBottomOf="@id/tvIme"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/swEnabled" />
+
+            <com.google.android.material.materialswitch.MaterialSwitch
+                android:id="@+id/swEnabled"
+                style="@style/Widget.EDTS.UIKit.Switch"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/dimen_48"
+                android:contentDescription="@string/text_field_config_enabled"
+                app:layout_constraintTop_toTopOf="@id/tvEnabled"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <TextView
+                android:id="@+id/tvRequired"
+                style="@style/TextAppearance.Inter.Regular.B2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/dimen_48"
+                android:gravity="center_vertical"
+                android:labelFor="@id/swRequired"
+                android:text="@string/text_field_config_required"
+                app:layout_constraintTop_toBottomOf="@id/tvEnabled"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/swRequired" />
+
+            <com.google.android.material.materialswitch.MaterialSwitch
+                android:id="@+id/swRequired"
+                style="@style/Widget.EDTS.UIKit.Switch"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/dimen_48"
+                android:contentDescription="@string/text_field_config_required"
+                app:layout_constraintTop_toTopOf="@id/tvRequired"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <TextView
+                android:id="@+id/tvCounter"
+                style="@style/TextAppearance.Inter.Regular.B2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/dimen_48"
+                android:gravity="center_vertical"
+                android:labelFor="@id/swCounter"
+                android:text="@string/text_field_config_counter"
+                app:layout_constraintTop_toBottomOf="@id/tvRequired"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/swCounter" />
+
+            <com.google.android.material.materialswitch.MaterialSwitch
+                android:id="@+id/swCounter"
+                style="@style/Widget.EDTS.UIKit.Switch"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/dimen_48"
+                android:contentDescription="@string/text_field_config_counter"
+                app:layout_constraintTop_toTopOf="@id/tvCounter"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <TextView
+                android:id="@+id/tvPasswordToggle"
+                style="@style/TextAppearance.Inter.Regular.B2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/dimen_48"
+                android:gravity="center_vertical"
+                android:labelFor="@id/swPasswordToggle"
+                android:text="@string/text_field_config_password_toggle"
+                app:layout_constraintTop_toBottomOf="@id/tvCounter"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/swPasswordToggle" />
+
+            <com.google.android.material.materialswitch.MaterialSwitch
+                android:id="@+id/swPasswordToggle"
+                style="@style/Widget.EDTS.UIKit.Switch"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/dimen_48"
+                android:contentDescription="@string/text_field_config_password_toggle"
+                app:layout_constraintTop_toTopOf="@id/tvPasswordToggle"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <TextView
+                android:id="@+id/tvClearAction"
+                style="@style/TextAppearance.Inter.Regular.B2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/dimen_48"
+                android:gravity="center_vertical"
+                android:labelFor="@id/swClearAction"
+                android:text="@string/text_field_config_clear_action"
+                app:layout_constraintTop_toBottomOf="@id/tvPasswordToggle"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/swClearAction" />
+
+            <com.google.android.material.materialswitch.MaterialSwitch
+                android:id="@+id/swClearAction"
+                style="@style/Widget.EDTS.UIKit.Switch"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/dimen_48"
+                android:contentDescription="@string/text_field_config_clear_action"
+                app:layout_constraintTop_toTopOf="@id/tvClearAction"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilActionDescription"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/xxs"
+                android:hint="@string/text_field_config_action_description"
+                app:layout_constraintTop_toBottomOf="@id/tvClearAction"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etActionDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:singleLine="true" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/tvPasswordSlot"
+                style="@style/TextAppearance.Inter.Regular.B3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/xxs"
+                android:text="@string/text_field_config_password_slot"
+                app:layout_constraintTop_toBottomOf="@id/tilActionDescription"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnResetConfig"
+        style="@style/Widget.Material3.Button.TextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/dimen_48"
+        android:layout_marginHorizontal="@dimen/s"
+        android:layout_marginVertical="@dimen/xxs"
+        android:text="@string/text_field_config_reset"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
