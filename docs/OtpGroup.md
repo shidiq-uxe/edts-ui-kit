@@ -1,5 +1,32 @@
 # OtpGroup
 
+Use `PoinkuOtpGroup` for Poinku's segmented entry. The default recipe shows four 36 × 46dp cells with 8dp gaps and Rubik Semibold digits. Cell appearance follows empty, focused, filled, error, and disabled states.
+
+The OTP guide uses the shared product toolbar. Choose **Core**, **Poinku**, or **Legacy** to view the available implementations. Poinku is selected initially. Product selection and input values survive recreation.
+
+```xml
+<id.co.edtslib.uikit.recipes.otp.poinku.PoinkuOtpGroup
+    android:id="@+id/ogVerification"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    app:otpCount="4" />
+```
+
+```kotlin
+binding.ogVerification.setOnTextChangedListener { code ->
+    // Update UI that depends on the current input.
+}
+binding.ogVerification.setOnOtpCompleteListener { code ->
+    verifyCode(code)
+}
+```
+
+Typing advances to the next cell. Pasting distributes the digits across remaining cells. Backspace from an empty cell moves to the previous one. Use `otp` to read or set the current digits and `clear()` to reset the cells and focus the first one. Use `isError` for the validation state and `isEnabled` to disable entry. `animateError` and `vibrateOnError` control error feedback.
+
+For a Poinku legacy caller, migrate the XML tag and replace `OtpDelegate.setOnOtpCompleteListener` and `OtpDelegate.setOnTextChangeListener` with the two listeners above. The recipe emits one text-change event per paste or clear. Existing Klik callers can use the legacy group below.
+
+## Legacy OtpGroup reference
+
 The `OtpGroup` class is a custom Android UI component that extends `LinearLayoutCompat` and is used to create a series of input fields for handling one-time password (OTP) entry. This component facilitates seamless user interaction for OTP input, complete with features like automatic focus transitions, error animations, and vibrational feedback.
 
 ## Features
