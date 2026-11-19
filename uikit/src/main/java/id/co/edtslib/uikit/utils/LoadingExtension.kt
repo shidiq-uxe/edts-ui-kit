@@ -65,10 +65,10 @@ fun TextView.showProgress(
                     getString(R.string.button_text_button_tag),
                     getString(R.string.button_icon_button_tag),
                     ->
-                        colorAttr(com.google.android.material.R.attr.colorPrimary)
+                        colorAttr(androidx.appcompat.R.attr.colorPrimary)
 
                     else ->
-                        colorAttr(com.google.android.material.R.attr.colorPrimary)
+                        colorAttr(androidx.appcompat.R.attr.colorPrimary)
                 }
             }
         }

@@ -476,7 +476,7 @@ class HtmlRenderer(
 
         if (spanned !is Spannable) return spanned
 
-        val color = context.colorAttr(com.google.android.material.R.attr.colorPrimary)
+        val color = context.colorAttr(androidx.appcompat.R.attr.colorPrimary)
         val linkTypeface = ResourcesCompat.getFont(context, R.font.inter_semibold)
         val spans = spanned.getSpans(0, spanned.length, URLSpan::class.java)
 
