@@ -8,7 +8,7 @@ plugins {
 }
 
 group = "id.co.edtslib.uikit"
-version = "0.17.0"
+version = "0.18.1"
 
 afterEvaluate {
 
@@ -18,7 +18,7 @@ afterEvaluate {
                 from(components["release"])
                 groupId = "id.co.edtslib.uikit"
                 artifactId = "uikit"
-                version = "0.17.0"
+                version = "0.18.1"
 
                 pom {
                     name.set("EDTS UI Kit")
