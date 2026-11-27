@@ -41,9 +41,9 @@ By default, the overlay attaches itself to the activity's decor view. No manual 
 
 ```kotlin
 data class CoachMarkData(
+    val target: View,
     val title: String,
-    val description: String,
-    val target: View
+    val description: CharSequence
 )
 ```
 
@@ -56,6 +56,32 @@ Pass items as a list or vararg:
 // List
 .setCoachMarkItems(listOf(item1, item2, item3))
 ```
+
+### HTML and pre-styled descriptions
+
+The default card accepts plain text and pre-styled Android text such as a `Spanned`.
+Enable HTML parsing for raw descriptions on the builder.
+
+```kotlin
+CoachMarkOverlay.Builder(activity)
+    .setCoachmarkDescriptionHtmlEnabled(true)
+    .setCoachMarkItems(
+        CoachMarkData(
+            target = quantitySelector,
+            title = "Tambah Produk Lebih Cepat",
+            description = "Pilih <b>Karton</b> atau <strong>Satuan</strong>."
+        )
+    )
+    .build()
+```
+
+HTML mode applies to raw descriptions throughout the overlay. Existing `Spanned` inputs
+keep their spans. With HTML disabled, raw descriptions display as plain text.
+
+HTML emphasis uses Inter SemiBold at the base description size. Use
+`setCoachmarkDescriptionEmphasisTextAppearance(...)` to select a different font or
+explicit size for emphasized ranges. The base description appearance controls paragraph
+line height. For example, pair a P1 Regular description with P1 SemiBold emphasis.
 
 ### Step Progress Divider
 
@@ -93,7 +119,7 @@ The standard case. The overlay waits for the view to be laid out before computin
 ```kotlin
 CoachMarkOverlay.Builder(this)
     .setCoachMarkItems(
-        CoachMarkData("Cart", "Review your items.", target = cartButton)
+        CoachMarkData(target = cartButton, title = "Cart", description = "Review your items.")
     )
     .build()
 ```
@@ -336,7 +362,9 @@ By default the back button does not dismiss the overlay. Opt in:
 | `setSpotlightCornerRadius(...)`              | `Float` (dp)                   | `24f`           | Corner radius of spotlight         |
 | `setCoachmarkWidthPercent(...)`              | `Float`                        | `0.84f`         | Card width as fraction of screen   |
 | `setCoachmarkTitleTextAppearance(...)`       | `@StyleRes Int`                | Rubik H3 Medium | Title text style                   |
-| `setCoachmarkDescriptionTextAppearance(...)` | `@StyleRes Int`                | Rubik P2 Light  | Description text style             |
+| `setCoachmarkDescriptionTextAppearance(...)` | `@StyleRes Int` | Inter P2 Regular | Base description appearance |
+| `setCoachmarkDescriptionHtmlEnabled(...)` | `Boolean` | `false` | Parse raw descriptions as HTML |
+| `setCoachmarkDescriptionEmphasisTextAppearance(...)` | `@StyleRes Int` | Inter SemiBold at the base size | Font and optional size for HTML emphasis |
 | `setCoachmarkNextText(...)`                  | `String`                       | `"Berikutnya"`  | Next button label                  |
 | `setCoachmarkSkipText(...)`                  | `String`                       | `"Tutup"`       | Skip button label                  |
 | `setSkipButtonVisibleByDefault(...)`         | `Boolean`                      | `true`          | Show/hide skip button              |

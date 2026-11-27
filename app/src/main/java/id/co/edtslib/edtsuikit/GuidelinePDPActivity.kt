@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import androidx.activity.addCallback
-import androidx.core.text.parseAsHtml
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.doOnLayout
@@ -14,14 +13,11 @@ import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import androidx.core.view.updatePadding
 import androidx.recyclerview.widget.DiffUtil
-import com.google.android.material.shape.OffsetEdgeTreatment
-import com.google.android.material.shape.ShapeAppearanceModel
 import id.co.edtslib.edtsuikit.databinding.ActivityGuidelinePdpactivityBinding
 import id.co.edtslib.edtsuikit.databinding.ItemPdpBundlingSectionBinding
 import id.co.edtslib.edtsuikit.databinding.ItemPdpDescriptionSectionBinding
 import id.co.edtslib.edtsuikit.databinding.ItemPdpImageSectionBinding
 import id.co.edtslib.edtsuikit.databinding.ItemPdpInformationSectionBinding
-import id.co.edtslib.edtsuikit.databinding.ItemSingleCoachmarkBinding
 import id.co.edtslib.edtsuikit.helper.SelectionItem
 import id.co.edtslib.uikit.adapter.BaseMultiTypeAdapter
 import id.co.edtslib.uikit.utils.window.WindowInsetsConfig
@@ -29,12 +25,10 @@ import id.co.edtslib.uikit.adapter.multiTypeAdapter
 import id.co.edtslib.uikit.coachmark.CoachMarkData
 import id.co.edtslib.uikit.coachmark.CoachMarkOverlay
 import id.co.edtslib.uikit.coachmark.CoachmarkDelegate
-import id.co.edtslib.uikit.coachmark.RoundTipTriangleEdgeTreatment
 import id.co.edtslib.uikit.footer.PDPFooter
 import id.co.edtslib.uikit.utils.color
 import id.co.edtslib.uikit.utils.dp
 import id.co.edtslib.uikit.utils.drawable
-import id.co.edtslib.uikit.utils.inflater
 import id.co.edtslib.uikit.utils.snack
 import java.text.NumberFormat
 import java.util.Locale
@@ -254,44 +248,20 @@ class GuidelinePDPActivity : GuidelinesBaseActivity() {
     }
 
     private fun ItemPdpInformationSectionBinding.simulateSpotlight() {
-        val customLayout = ItemSingleCoachmarkBinding.inflate(this@GuidelinePDPActivity.inflater).apply {
-            this.tvTiTle.text = "Tambah Produk Lebih Cepat"
-            this.tvDescription.text = "Pilih <b>Karton</b> untuk tambah banyak sekaligus, atau pilih <b>Satuan</b> untuk tambah satu per satu.".parseAsHtml()
-            this.btnAction.text = "Mengerti"
-
-            this.ctaClose.isVisible = false
-
-            val markerEdgeTreatment = RoundTipTriangleEdgeTreatment(12.dp, 8.dp, (1.5).toInt().dp, true)
-            val offsetEdgeTreatment = OffsetEdgeTreatment(markerEdgeTreatment, this.cardContainer.width.div(2).toFloat())
-
-            this.cardContainer.shapeAppearanceModel =
-                ShapeAppearanceModel().toBuilder()
-                    .setAllCornerSizes(8.dp)
-                    .setTopEdge(offsetEdgeTreatment)
-                    .build()
-        }
-
         val coachmark = CoachMarkOverlay.Builder(this@GuidelinePDPActivity)
             .setVerticalPosition(CoachMarkOverlay.CoachMarkVerticalPosition.Below)
+            .setCoachmarkDescriptionHtmlEnabled(true)
             .setCoachMarkItems(
                 listOf(
                     CoachMarkData(
                         target = pdpSelectionGroup,
                         title = "Tambah Produk Lebih Cepat",
-                        description = "Pilih {Karton} untuk tambah banyak sekaligus, atau pilih Satuan untuk tambah satu per satu."
+                        description = "Pilih <b>Karton</b> untuk tambah banyak sekaligus, " +
+                            "atau pilih <b>Satuan</b> untuk tambah satu per satu."
                     )
                 )
             )
             .setDismissibleOnBack(true)
-            /*.setCustomLayout(customLayout.root) {
-                customLayout.btnAction.setOnClickListener {
-                    this.dismiss { pdpSelectionGroup.setSelectedPosition(0) }
-                }
-
-                customLayout.ctaClose.setOnClickListener {
-                    this.dismiss { pdpSelectionGroup.setSelectedPosition(0)  }
-                }
-            }*/
             .setCoachMarkType(CoachMarkOverlay.CoachMarkType.SINGLE)
             .setCoachmarkSkipText("Mengerti")
             .setCoachmarkWidthPercent(0.95f)

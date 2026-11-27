@@ -5,6 +5,6 @@ import android.view.View
 data class CoachMarkData(
     val target: View,
     val title: String,
-    val description: String
+    val description: CharSequence
 )
 
